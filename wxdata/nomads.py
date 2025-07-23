@@ -9,8 +9,8 @@ import glob
 import warnings
 #warnings.filterwarnings('ignore')
 
-from scanner import scanner
-from utils import shift_longitude, lon_bounds
+from wxdata.scanner import scanner
+from wxdata.utils import shift_longitude, lon_bounds
 try:
     from datetime import datetime, timedelta, UTC
 except Exception as e:
