@@ -12,7 +12,7 @@ import sys
 from metpy.units import units
 from bs4 import BeautifulSoup
 from io import StringIO
-from utils import get_u_and_v, relative_humidity, saturation_vapor_pressure
+from wxdata.utils import get_u_and_v, relative_humidity, saturation_vapor_pressure
 try:
     from datetime import datetime, timedelta, UTC
 except Exception as e:
