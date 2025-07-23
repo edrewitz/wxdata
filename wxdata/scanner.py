@@ -22,7 +22,7 @@ except Exception as e:
 # Gets yesterday's date
 yd = now - timedelta(days=1)
 
-def scanner(data, proxies):
+def scanner(model, cat, proxies):
 
     """
     This function scans a webpage for the file with the latest forecast model run. 
@@ -32,9 +32,11 @@ def scanner(data, proxies):
 
     Required Arguments: 
 
-    1) data (String) - The data the user wants. 
+    1) model (String) - The model the user wants. 
 
-    2) proxies (dict or None) - If the user is using a proxy server, the user must change the following:
+    2) cat (String) - The category of data the user wants (i.e. ensmean vs. enscontrol). 
+
+    3) proxies (dict or None) - If the user is using a proxy server, the user must change the following:
 
     proxies=None ---> proxies={'http':'http://url',
                             'https':'https://url'
@@ -45,21 +47,10 @@ def scanner(data, proxies):
 
     The download link
     """
-    if data == 'obs':
-        
-        cat = f"https://thredds.ucar.edu/thredds/catalog/noaaport/text/metar/catalog.html"
-        files = []
-        for i in range(0, 25):
-            time = now - timedelta(hours=i)
-            file = f"metar_{time.strftime('%Y%m%d_%H00')}.txt"
-            files.append(file)
-
-        for f in range(0, len(files), 1):
-            response = requests.get(f"{cat}/{files[f]}")
-            print(response)
-
-    if data == 'GEFS0p25 Ensemble Mean':
-
+    model = model.upper()
+    cat = cat.upper()
+    
+    if model == 'GEFS0P25':
         today_00z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/00/atmos/pgrb2sp25/"
         today_06z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/06/atmos/pgrb2sp25/"
         today_12z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/12/atmos/pgrb2sp25/"
@@ -69,12 +60,23 @@ def scanner(data, proxies):
         yday_06z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/06/atmos/pgrb2sp25/"
         yday_12z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/12/atmos/pgrb2sp25/"
         yday_18z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/18/atmos/pgrb2sp25/"
-
-        f_00z = f"geavg.t00z.pgrb2s.0p25.f240"
-        f_06z = f"geavg.t06z.pgrb2s.0p25.f240"
-        f_12z = f"geavg.t12z.pgrb2s.0p25.f240"
-        f_18z = f"geavg.t18z.pgrb2s.0p25.f240"
-
+    
+        if cat == 'MEAN':
+            f_00z = f"geavg.t00z.pgrb2s.0p25.f240"
+            f_06z = f"geavg.t06z.pgrb2s.0p25.f240"
+            f_12z = f"geavg.t12z.pgrb2s.0p25.f240"
+            f_18z = f"geavg.t18z.pgrb2s.0p25.f240"
+        if cat == 'CONTROL':
+            f_00z = f"gec00.t00z.pgrb2s.0p25.f240"
+            f_06z = f"gec00.t06z.pgrb2s.0p25.f240"
+            f_12z = f"gec00.t12z.pgrb2s.0p25.f240"
+            f_18z = f"gec00.t18z.pgrb2s.0p25.f240"  
+        if cat == 'ALL MEMBERS':
+            f_00z = f"gep30.t00z.pgrb2s.0p25.f240"
+            f_06z = f"gep30.t06z.pgrb2s.0p25.f240"
+            f_12z = f"gep30.t12z.pgrb2s.0p25.f240"
+            f_18z = f"gep30.t18z.pgrb2s.0p25.f240"          
+    
         if proxies == None:
             t_18z = requests.get(f"{today_18z}/{f_18z}", stream=True)
             t_12z = requests.get(f"{today_12z}/{f_12z}", stream=True)
@@ -85,7 +87,7 @@ def scanner(data, proxies):
             y_12z = requests.get(f"{yday_12z}/{f_12z}", stream=True)
             y_06z = requests.get(f"{yday_06z}/{f_06z}", stream=True)
             y_00z = requests.get(f"{yday_00z}/{f_00z}", stream=True)    
-
+    
         else:
             t_18z = requests.get(f"{today_18z}/{f_18z}", stream=True, proxies=proxies)
             t_12z = requests.get(f"{today_12z}/{f_12z}", stream=True, proxies=proxies)
@@ -96,7 +98,7 @@ def scanner(data, proxies):
             y_12z = requests.get(f"{yday_12z}/{f_12z}", stream=True, proxies=proxies)
             y_06z = requests.get(f"{yday_06z}/{f_06z}", stream=True, proxies=proxies)
             y_00z = requests.get(f"{yday_00z}/{f_00z}", stream=True, proxies=proxies)         
-
+    
         if t_18z.status_code == 200:
             url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/18/atmos/pgrb2sp25/"
         elif t_18z.status_code != 200 and t_12z.status_code == 200:
