@@ -4,7 +4,7 @@ If the CSV files exist, nothing additional is necessary.
 
 If not, the function in this file will build the directory to host the CSVs and download and save the CSVs to that folder.
 
-This file is written by (C) Meteorologist Eric J. Drewitz (USDA/USFS)
+(C) Eric J. Drewitz 
 
 '''
 # Imports
