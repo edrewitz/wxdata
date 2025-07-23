@@ -1,4 +1,5 @@
-'''
+
+"""
 This file hosts the functions to check for the existence of the CSV files that have the SIGs of the various RAWS stations and data associated with those SIGs.
 If the CSV files exist, nothing additional is necessary.
 
@@ -6,7 +7,7 @@ If not, the function in this file will build the directory to host the CSVs and 
 
 (C) Eric J. Drewitz 
 
-'''
+"""
 # Imports
 import urllib.request
 import os
