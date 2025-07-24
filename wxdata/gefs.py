@@ -6,7 +6,7 @@ import sys
 import logging
 import glob
 import warnings
-#warnings.filterwarnings('ignore')
+warnings.filterwarnings('ignore')
 
 from wxdata.scanner import file_scanner, url_scanner
 from wxdata.utils import shift_longitude, lon_bounds
