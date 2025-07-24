@@ -6,6 +6,8 @@ This file has the scanner function which scans the data server for the latest FU
 
 # Imports the needed packages
 import requests
+import os
+import time
 
 # Exception handling for Python >= 3.13 and Python < 3.13
 try:
@@ -19,10 +21,110 @@ try:
 except Exception as e:
     now = datetime.utcnow()
 
+# Gets local time
+local = datetime.now()
+
 # Gets yesterday's date
 yd = now - timedelta(days=1)
 
-def scanner(model, cat, proxies):
+def index(model):
+
+    """
+    This function returns the string-index of the model run times in a file
+
+    1) model (String) - The forecast model
+
+    Optional Arguments: None
+
+    Returns
+    -------
+
+    The index values of the run times in the file. 
+    """
+
+    times = {
+        'GEFS0P25':[7, 8]
+    }
+
+    return times[model][0], times[model][1]
+
+def file_scanner(model, cat, url, url_run):
+
+    """
+    This function scans the directory to make sure: 
+    
+    1) The directory branch exists. 
+    2) Builds the directory branch if it does not exist
+    3) Makes sure the files are up to date
+
+    Required Arguments: 
+
+    1) model (String) - The model the user wants. 
+
+    2) cat (String) - The category of data the user wants (i.e. ensmean vs. enscontrol). 
+
+    3) url (String) - The URL returned from the url_scanner function. 
+
+    4) url_run (Integer) - The model run time in the URL returned from the url_scanner function. 
+
+    Returns
+    -------
+
+    1) A boolean value of True or False for download.
+    """    
+    model = model.upper()
+    cat = cat.upper()
+
+    aa, bb = index(model)
+    
+    if os.path.exists(f"{model}"):
+        pass
+    else:
+        os.mkdir(f"{model}")
+
+    if os.path.exists(f"{model}/{cat}"):
+        pass
+    else:
+        os.mkdir(f"{model}/{path}")
+
+    exists = False
+    
+    try:
+        fnames = []
+        for file in os.listdir(f"{model}/{cat}"):
+            fname = os.path.basename(f"{model}/{cat}/{file}")
+            fnames.append(fname)
+        fname = fnames[-1]
+        exists = True
+    except Exception as e:
+        download = True
+
+    if exists == False:
+        download = True
+
+    else:
+        file_run = int(f"{fname[aa]}{fname[bb]}")
+        if file_run == url_run:
+            modification_timestamp = os.path.getmtime(f"{model}/{cat}/{fname}")
+            readable_time = time.ctime(modification_timestamp)
+            update_day = int(f"{readable_time[8]}{readable_time[9]}")
+            update_hour = int(f"{readable_time[11]}{readable_time[12]}") 
+            if update_day != local.day:
+                download = True
+            else:
+                tdiff = local - timedelta(hours=6)
+                if update_hour < tdiff.hour:
+                    download = True
+                else:
+                    download = False
+            
+        else:
+            download = True
+        
+    return download     
+    
+
+def url_scanner(model, cat, proxies):
 
     """
     This function scans a webpage for the file with the latest forecast model run. 
@@ -45,7 +147,8 @@ def scanner(model, cat, proxies):
     Returns
     -------
 
-    The download link
+    1) The download link.
+    2) The time of the latest model run. 
     """
     model = model.upper()
     cat = cat.upper()
@@ -116,5 +219,6 @@ def scanner(model, cat, proxies):
         else:
             url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/00/atmos/pgrb2sp25/"
 
-
-    return url
+        url_run = int(f"{url[-19]}{url[-18]}")
+        
+    return url, url_run
