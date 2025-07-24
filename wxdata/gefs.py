@@ -82,13 +82,14 @@ def gefs_0p25(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
     cat = cat.upper()
     model = 'GEFS0P25'
 
+    url, run = url_scanner(f"{model}", f"{cat}", proxies)
+    download = file_scanner(f"{model}", f"{cat}", url, run)
+
     if cat == 'MEAN' or cat == 'CONTROL':
         if cat == 'MEAN':
             ff = 'avg'
         if cat == 'CONTROL':
             ff = 'c00'
-        url, run = url_scanner(f"{model}", f"{cat}", proxies)
-        download = file_scanner(f"{model}", f"{cat}", url, run)
         western_bound, eastern_bound = lon_bounds(western_bound, eastern_bound)
         if download == True:
             print(f"Downloading the latest {model} data...")
