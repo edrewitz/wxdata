@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-import raws_sigs as raws
+import wxdata.raws_sigs as raws
 
 try:
     from datetime import datetime, timedelta, UTC
