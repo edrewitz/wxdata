@@ -42,12 +42,37 @@ def ensemble_members(model):
     """
 
     members = {
-        'GEFS0P25':30
+        'GEFS0P25':30,
+        'GEFS0P50':30,
+        'GEFS0P50 SECONDARY PARAMETERS':30
         
     }
 
     return members[model]
         
+def url_index(model):
+
+    """
+    This function returns the string-index of the model run times in a file
+
+    1) model (String) - The forecast model
+
+    Optional Arguments: None
+
+    Returns
+    -------
+
+    The index values of the run times in the file. 
+    """
+    
+    times = {
+        'GEFS0P25':[-19, -18],
+        'GEFS0P50':[-18, -17],
+        'GEFS0P50 SECONDARY PARAMETERS':[-18, -17]
+    }
+
+    return times[model][0], times[model][1]
+
 
 def index(model):
 
@@ -65,7 +90,9 @@ def index(model):
     """
     
     times = {
-        'GEFS0P25':[7, 8]
+        'GEFS0P25':[7, 8],
+        'GEFS0P50':[7, 8],
+        'GEFS0P50 SECONDARY PARAMETERS':[7, 8]
     }
 
     return times[model][0], times[model][1]
@@ -209,33 +236,56 @@ def url_scanner(model, cat, proxies):
     """
     model = model.upper()
     cat = cat.upper()
+
+    aa, bb = url_index(model)
     
-    if model == 'GEFS0P25':
-        today_00z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/00/atmos/pgrb2sp25/"
-        today_06z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/06/atmos/pgrb2sp25/"
-        today_12z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/12/atmos/pgrb2sp25/"
-        today_18z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/18/atmos/pgrb2sp25/"
+    if model == 'GEFS0P25' or model == 'GEFS0P50' or model == 'GEFS0P50 SECONDARY PARAMETERS':
+        if model == 'GEFS0P25':
+            a = 's'
+            b = '25'
+            c = '25'
+            
+        if model == 'GEFS0P50':
+            a = 'a'
+            b = '5'
+            c = '50'
+
+        if model == 'GEFS0P50 SECONDARY PARAMETERS':
+            a = 'b'
+            b = '5'
+            c = '50'
+
+        today_00z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/00/atmos/pgrb2{a}p{b}/"
+        today_06z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/06/atmos/pgrb2{a}p{b}/"
+        today_12z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/12/atmos/pgrb2{a}p{b}/"
+        today_18z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/18/atmos/pgrb2{a}p{b}/"
         
-        yday_00z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/00/atmos/pgrb2sp25/"
-        yday_06z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/06/atmos/pgrb2sp25/"
-        yday_12z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/12/atmos/pgrb2sp25/"
-        yday_18z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/18/atmos/pgrb2sp25/"
+        yday_00z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/00/atmos/pgrb2{a}p{b}/"
+        yday_06z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/06/atmos/pgrb2{a}p{b}/"
+        yday_12z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/12/atmos/pgrb2{a}p{b}/"
+        yday_18z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/18/atmos/pgrb2{a}p{b}/"
     
         if cat == 'MEAN':
-            f_00z = f"geavg.t00z.pgrb2s.0p25.f240"
-            f_06z = f"geavg.t06z.pgrb2s.0p25.f240"
-            f_12z = f"geavg.t12z.pgrb2s.0p25.f240"
-            f_18z = f"geavg.t18z.pgrb2s.0p25.f240"
+            if model == 'GEFS0P50 SECONDARY PARAMETERS':
+                f_00z = f"gec00.t00z.pgrb2{a}.0p{c}.f240"
+                f_06z = f"gec00.t06z.pgrb2{a}.0p{c}.f240"
+                f_12z = f"gec00.t12z.pgrb2{a}.0p{c}.f240"
+                f_18z = f"gec00.t18z.pgrb2{a}.0p{c}.f240"                 
+            else:
+                f_00z = f"geavg.t00z.pgrb2{a}.0p{c}.f240"
+                f_06z = f"geavg.t06z.pgrb2{a}.0p{c}.f240"
+                f_12z = f"geavg.t12z.pgrb2{a}.0p{c}.f240"
+                f_18z = f"geavg.t18z.pgrb2{a}.0p{c}.f240"
         if cat == 'CONTROL':
-            f_00z = f"gec00.t00z.pgrb2s.0p25.f240"
-            f_06z = f"gec00.t06z.pgrb2s.0p25.f240"
-            f_12z = f"gec00.t12z.pgrb2s.0p25.f240"
-            f_18z = f"gec00.t18z.pgrb2s.0p25.f240"  
+            f_00z = f"gec00.t00z.pgrb2{a}.0p{c}.f240"
+            f_06z = f"gec00.t06z.pgrb2{a}.0p{c}.f240"
+            f_12z = f"gec00.t12z.pgrb2{a}.0p{c}.f240"
+            f_18z = f"gec00.t18z.pgrb2{a}.0p{c}.f240"  
         if cat == 'ALL MEMBERS':
-            f_00z = f"gep30.t00z.pgrb2s.0p25.f240"
-            f_06z = f"gep30.t06z.pgrb2s.0p25.f240"
-            f_12z = f"gep30.t12z.pgrb2s.0p25.f240"
-            f_18z = f"gep30.t18z.pgrb2s.0p25.f240"          
+            f_00z = f"gep30.t00z.pgrb2{a}.0p{c}.f240"
+            f_06z = f"gep30.t06z.pgrb2{a}.0p{c}.f240"
+            f_12z = f"gep30.t12z.pgrb2{a}.0p{c}.f240"
+            f_18z = f"gep30.t18z.pgrb2{a}.0p{c}.f240"         
     
         if proxies == None:
             t_18z = requests.get(f"{today_18z}/{f_18z}", stream=True)
@@ -260,22 +310,22 @@ def url_scanner(model, cat, proxies):
             y_00z = requests.get(f"{yday_00z}/{f_00z}", stream=True, proxies=proxies)         
     
         if t_18z.status_code == 200:
-            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/18/atmos/pgrb2sp25/"
+            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/18/atmos/pgrb2{a}p{b}/"
         elif t_18z.status_code != 200 and t_12z.status_code == 200:
-            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/12/atmos/pgrb2sp25/"
+            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/12/atmos/pgrb2{a}p{b}/"
         elif t_12z.status_code != 200 and t_06z.status_code == 200:
-            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/06/atmos/pgrb2sp25/"        
+            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/06/atmos/pgrb2{a}p{b}/"       
         elif t_06z.status_code != 200 and t_00z.status_code == 200:
-            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/00/atmos/pgrb2sp25/" 
+            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/00/atmos/pgrb2{a}p{b}/"
         elif t_00z.status_code != 200 and y_18z.status_code == 200:
-            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/18/atmos/pgrb2sp25/"
+            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/18/atmos/pgrb2{a}p{b}/"
         elif y_18z.status_code != 200 and y_12z.status_code == 200:
-            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/12/atmos/pgrb2sp25/"        
+            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/12/atmos/pgrb2{a}p{b}/"      
         elif y_12z.status_code != 200 and y_06z.status_code == 200:
-            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/06/atmos/pgrb2sp25/" 
+            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/06/atmos/pgrb2{a}p{b}/"
         else:
-            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/00/atmos/pgrb2sp25/"
+            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/00/atmos/pgrb2{a}p{b}/"
 
-        url_run = int(f"{url[-19]}{url[-18]}")
+        url_run = int(f"{url[aa]}{url[bb]}")
         
     return url, url_run
