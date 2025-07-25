@@ -17,7 +17,7 @@ conus = '/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.conus/'
 hawaii = '/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.hawaii/'
 
 
-def get_ndfd_grids_xarray(parameter, state):
+def get_ndfd_grids(parameter, state):
 
     """
 
