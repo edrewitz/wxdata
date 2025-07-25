@@ -27,6 +27,28 @@ local = datetime.now()
 # Gets yesterday's date
 yd = now - timedelta(days=1)
 
+def ensemble_members(model):
+
+    """
+    This function returns the number of ensemble members for an ensemble
+
+    Required Arguments:
+
+    1) model (String)
+
+    Returns
+    -------
+    The number of ensemble members for a particular ensemble
+    """
+
+    members = {
+        'GEFS0P25':30
+        
+    }
+
+    return members[model]
+        
+
 def index(model):
 
     """
@@ -41,14 +63,14 @@ def index(model):
 
     The index values of the run times in the file. 
     """
-
+    
     times = {
         'GEFS0P25':[7, 8]
     }
 
     return times[model][0], times[model][1]
 
-def file_scanner(model, cat, url, url_run):
+def file_scanner(model, cat, url, url_run, ens_members=False):
 
     """
     This function scans the directory to make sure: 
@@ -85,41 +107,76 @@ def file_scanner(model, cat, url, url_run):
     if os.path.exists(f"{model}/{cat}"):
         pass
     else:
-        os.mkdir(f"{model}/{path}")
+        os.mkdir(f"{model}/{cat}")
 
     exists = False
+
+    if ens_members == False:
+        try:
+            fnames = []
+            for file in os.listdir(f"{model}/{cat}"):
+                fname = os.path.basename(f"{model}/{cat}/{file}")
+                fnames.append(fname)
+            fname = fnames[-1]
+            exists = True
+        except Exception as e:
+            download = True
     
-    try:
-        fnames = []
-        for file in os.listdir(f"{model}/{cat}"):
-            fname = os.path.basename(f"{model}/{cat}/{file}")
-            fnames.append(fname)
-        fname = fnames[-1]
-        exists = True
-    except Exception as e:
-        download = True
-
-    if exists == False:
-        download = True
-
-    else:
-        file_run = int(f"{fname[aa]}{fname[bb]}")
-        if file_run == url_run:
-            modification_timestamp = os.path.getmtime(f"{model}/{cat}/{fname}")
-            readable_time = time.ctime(modification_timestamp)
-            update_day = int(f"{readable_time[8]}{readable_time[9]}")
-            update_hour = int(f"{readable_time[11]}{readable_time[12]}") 
-            if update_day != local.day:
-                download = True
-            else:
-                tdiff = local - timedelta(hours=6)
-                if update_hour < tdiff.hour:
+        if exists == False:
+            download = True
+    
+        else:
+            file_run = int(f"{fname[aa]}{fname[bb]}")
+            if file_run == url_run:
+                modification_timestamp = os.path.getmtime(f"{model}/{cat}/{fname}")
+                readable_time = time.ctime(modification_timestamp)
+                update_day = int(f"{readable_time[8]}{readable_time[9]}")
+                update_hour = int(f"{readable_time[11]}{readable_time[12]}") 
+                if update_day != local.day:
                     download = True
                 else:
-                    download = False
-            
-        else:
+                    tdiff = local - timedelta(hours=6)
+                    if update_hour < tdiff.hour:
+                        download = True
+                    else:
+                        download = False
+                
+            else:
+                download = True
+
+    else:
+        members = ensemble_members(f"{model}")
+        try:
+            fnames = []
+            for file in os.listdir(f"{model}/{cat}/{members}"):
+                fname = os.path.basename(f"{model}/{cat}/{members}/{file}")
+                fnames.append(fname)
+            fname = fnames[-1]
+            exists = True
+        except Exception as e:
             download = True
+
+        if exists == False:
+            download = True
+    
+        else:
+            file_run = int(f"{fname[aa]}{fname[bb]}")
+            if file_run == url_run:
+                modification_timestamp = os.path.getmtime(f"{model}/{cat}/{members}/{fname}")
+                readable_time = time.ctime(modification_timestamp)
+                update_day = int(f"{readable_time[8]}{readable_time[9]}")
+                update_hour = int(f"{readable_time[11]}{readable_time[12]}") 
+                if update_day != local.day:
+                    download = True
+                else:
+                    tdiff = local - timedelta(hours=6)
+                    if update_hour < tdiff.hour:
+                        download = True
+                    else:
+                        download = False
+                
+            else:
+                download = True
         
     return download     
     
