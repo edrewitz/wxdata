@@ -1,5 +1,36 @@
-from cartopy.util import add_cyclic_point
 import numpy as np
+import os
+
+from cartopy.util import add_cyclic_point
+
+def ens_folders(model, cat, ens_members):
+    
+    """
+    This function builds the directories for ensemble members
+    """
+
+    if os.path.exists(f"{model}"):
+        pass
+    else:
+        os.mkdir(f"{model}")
+
+    if os.path.exists(f"{model}/{cat}"):
+        pass
+    else:
+        os.mkdir(f"{model}/{cat}")
+
+    paths = []
+    for i in range(1, ens_members + 1, 1):
+        if os.path.exists(f"{model}/{cat}/{i}"):
+            pass
+        else:
+            os.mkdir(f"{model}/{cat}/{i}")
+
+        path = f"{model}/{cat}/{i}"
+
+        paths.append(path)
+
+    return paths
 
 def shift_longitude(ds, lon_name='longitude'):
     """
