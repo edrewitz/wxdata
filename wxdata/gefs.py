@@ -165,7 +165,7 @@ def gefs_0p25(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
 
         if download == True:
             print(f"Downloading the latest {model} data...")
-            for pp in range(0, 30, 10):
+            for pp in range(0, 30, 1):
                 for file in os.listdir(f"{paths[pp]}"):
                     try:
                         os.remove(f"{paths[pp]}/{file}")
