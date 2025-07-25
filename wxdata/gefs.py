@@ -24,7 +24,7 @@ local_time = datetime.now()
 
 yesterday = utc_time - timedelta(hours=24)
 
-def gefs_0p50(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None):
+def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None):
 
     """
     This function retrives the latest GEFS0p50 data. If the data is not previously downloaded nor up to date, the function
@@ -80,6 +80,12 @@ def gefs_0p50(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
     logging.disable()
     cat = cat.upper()
     model = 'GEFS0P50'
+    if step >= 12:
+        step = 12
+    elif step < 12 and step >=5:
+        step = 6
+    else:
+        step = 3
 
     if cat == 'MEAN' or cat == 'CONTROL':
         url, run = url_scanner(f"{model}", f"{cat}", proxies)
@@ -98,18 +104,18 @@ def gefs_0p50(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
                 except Exception as e:
                     pass
             
-            for i in range(0, 102, 3):
+            for i in range(0, 99 + step, step):
                 if i < 10:
                     urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
                 else:
                     urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
-            for i in range(102, 243, 3):
+            for i in range(99 + step, 240 + step, step):
                 urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
                 os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}")  
 
-            for i in range(0, 102, 3):
+            for i in range(0, 99 + step, step):
                 if i < 10:
                     try:
                         os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2a.0p50_f00{i}.grib2")
@@ -121,7 +127,7 @@ def gefs_0p50(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
                     except Exception as e:
                         pass
             
-            for i in range(102, 243, 3):
+            for i in range(99 + step, 240 + step, step):
                 try:
                     os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2a.0p50_f{i}.grib2")
                 except Exception as e:
@@ -177,18 +183,18 @@ def gefs_0p50(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
                 else:
                     ff = f"p{e}"
                         
-                for i in range(0, 102, 3):
+                for i in range(0, 99 + step, step):
                     if i < 10:
                         urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
                         os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
                     else:
                         urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
                         os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
-                for i in range(102, 243, 3):
+                for i in range(99 + step, 240 + step, step):
                     urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}")  
                             
-                for i in range(0, 102, 3):
+                for i in range(0, 99 + step, step):
                     if i < 10:
                         try:
                             os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50_f00{i}.grib2")
@@ -200,7 +206,7 @@ def gefs_0p50(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
                         except Exception as e:
                             pass
                 
-                for i in range(102, 243, 3):
+                for i in range(99 + step, 240 + step, step):
                     try:
                         os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50_f{i}.grib2")
                     except Exception as e:
@@ -231,14 +237,14 @@ def gefs_0p50(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
     
     
             else:
-                    ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
-        
-                    ds = shift_longitude(ds)
-                    ds_list.append(ds)
+                ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
     
-                    for item in os.listdir(f"{paths[p]}"):
-                        if item.endswith(".idx"):
-                            os.remove(f"{paths[p]}/{item}")
+                ds = shift_longitude(ds)
+                ds_list.append(ds)
+
+                for item in os.listdir(f"{paths[p]}"):
+                    if item.endswith(".idx"):
+                        os.remove(f"{paths[p]}/{item}")
 
         if u_and_v_wind == True:
             u = xr.concat(u_list, dim='number')
@@ -249,7 +255,7 @@ def gefs_0p50(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
             return ds
 
 
-def gefs_0p50_secondary_parameters(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None):
+def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None):
 
     """
     This function retrives the latest GEFS0p50 data. If the data is not previously downloaded nor up to date, the function
@@ -305,6 +311,12 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, u_and_v_wind=False, western
     logging.disable()
     cat = cat.upper()
     model = 'GEFS0P50 SECONDARY PARAMETERS'
+    if step >= 12:
+        step = 12
+    elif step < 12 and step >=5:
+        step = 6
+    else:
+        step = 3
 
     if cat == 'MEAN' or cat == 'CONTROL':
         url, run = url_scanner(f"{model}", f"{cat}", proxies)
@@ -324,18 +336,18 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, u_and_v_wind=False, western
                 except Exception as e:
                     pass
             
-            for i in range(0, 102, 3):
+            for i in range(0, 99 + step, step):
                 if i < 10:
                     urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
                 else:
                     urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
-            for i in range(102, 243, 3):
+            for i in range(99 + step, 240 + step, step):
                 urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}")
                 os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}")  
 
-            for i in range(0, 102, 3):
+            for i in range(0, 99 + step, step):
                 if i < 10:
                     try:
                         os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50_f00{i}.grib2")
@@ -347,7 +359,7 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, u_and_v_wind=False, western
                     except Exception as e:
                         pass
             
-            for i in range(102, 243, 3):
+            for i in range(99 + step, 240 + step, step):
                 try:
                     os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50_f{i}.grib2")
                 except Exception as e:
@@ -403,18 +415,18 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, u_and_v_wind=False, western
                 else:
                     ff = f"p{e}"
                         
-                for i in range(0, 102, 3):
+                for i in range(0, 99 + step, step):
                     if i < 10:
                         urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
                         os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
                     else:
                         urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
                         os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
-                for i in range(102, 243, 3):
+                for i in range(99 + step, 240 + step, step):
                     urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}")  
                             
-                for i in range(0, 102, 3):
+                for i in range(0, 99 + step, step):
                     if i < 10:
                         try:
                             os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50_f00{i}.grib2")
@@ -426,7 +438,7 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, u_and_v_wind=False, western
                         except Exception as e:
                             pass
                 
-                for i in range(102, 243, 3):
+                for i in range(99 + step, 240 + step, step):
                     try:
                         os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50_f{i}.grib2")
                     except Exception as e:
@@ -457,14 +469,14 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, u_and_v_wind=False, western
     
     
             else:
-                    ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
-        
-                    ds = shift_longitude(ds)
-                    ds_list.append(ds)
+                ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
     
-                    for item in os.listdir(f"{paths[p]}"):
-                        if item.endswith(".idx"):
-                            os.remove(f"{paths[p]}/{item}")
+                ds = shift_longitude(ds)
+                ds_list.append(ds)
+
+                for item in os.listdir(f"{paths[p]}"):
+                    if item.endswith(".idx"):
+                        os.remove(f"{paths[p]}/{item}")
 
         if u_and_v_wind == True:
             u = xr.concat(u_list, dim='number')
@@ -475,7 +487,7 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, u_and_v_wind=False, western
             return ds
 
 
-def gefs_0p25(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None):
+def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None):
 
     """
     This function retrives the latest GEFS0p25 data. If the data is not previously downloaded nor up to date, the function
@@ -531,6 +543,12 @@ def gefs_0p25(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
     logging.disable()
     cat = cat.upper()
     model = 'GEFS0P25'
+    if step >= 12:
+        step = 12
+    elif step < 12 and step >=5:
+        step = 6
+    else:
+        step = 3
 
     if cat == 'MEAN' or cat == 'CONTROL':
         url, run = url_scanner(f"{model}", f"{cat}", proxies)
@@ -549,18 +567,18 @@ def gefs_0p25(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
                 except Exception as e:
                     pass
             
-            for i in range(0, 102, 3):
+            for i in range(0, 99 + step, step):
                 if i < 10:
                     urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
                 else:
                     urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
-            for i in range(102, 243, 3):
+            for i in range(99 + step, 240 + step, step):
                 urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}")
                 os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}")  
 
-            for i in range(0, 102, 3):
+            for i in range(0, 99 + step, step):
                 if i < 10:
                     try:
                         os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25_f00{i}.grib2")
@@ -572,7 +590,7 @@ def gefs_0p25(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
                     except Exception as e:
                         pass
             
-            for i in range(102, 243, 3):
+            for i in range(99 + step, 240 + step, step):
                 try:
                     os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25_f{i}.grib2")
                 except Exception as e:
@@ -628,18 +646,18 @@ def gefs_0p25(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
                 else:
                     ff = f"p{e}"
                         
-                for i in range(0, 102, 3):
+                for i in range(0, 99 + step, step):
                     if i < 10:
                         urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
                         os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
                     else:
                         urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
                         os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
-                for i in range(102, 243, 3):
+                for i in range(99 + step, 240 + step, step):
                     urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}")  
                             
-                for i in range(0, 102, 3):
+                for i in range(0, 99 + step, step):
                     if i < 10:
                         try:
                             os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25_f00{i}.grib2")
@@ -651,7 +669,7 @@ def gefs_0p25(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
                         except Exception as e:
                             pass
                 
-                for i in range(102, 243, 3):
+                for i in range(99 + step, 240 + step, step):
                     try:
                         os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25_f{i}.grib2")
                     except Exception as e:
@@ -682,14 +700,14 @@ def gefs_0p25(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
     
     
             else:
-                    ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
-        
-                    ds = shift_longitude(ds)
-                    ds_list.append(ds)
+                ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
     
-                    for item in os.listdir(f"{paths[p]}"):
-                        if item.endswith(".idx"):
-                            os.remove(f"{paths[p]}/{item}")
+                ds = shift_longitude(ds)
+                ds_list.append(ds)
+
+                for item in os.listdir(f"{paths[p]}"):
+                    if item.endswith(".idx"):
+                        os.remove(f"{paths[p]}/{item}")
 
         if u_and_v_wind == True:
             u = xr.concat(u_list, dim='number')
