@@ -90,6 +90,13 @@ def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
     if cat == 'MEAN' or cat == 'CONTROL':
         url, run = url_scanner(f"{model}", f"{cat}", proxies)
         download = file_scanner(f"{model}", f"{cat}", url, run)
+        if run == 0:
+            run = '00'
+        elif run == 6:
+            run = '06'
+        else:
+            run = run
+            
         if cat == 'MEAN':
             ff = 'avg'
         if cat == 'CONTROL':
@@ -106,13 +113,13 @@ def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
             
             for i in range(0, 99 + step, step):
                 if i < 10:
-                    urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
+                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
                 else:
-                    urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
+                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
             for i in range(99 + step, 240 + step, step):
-                urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
+                urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
                 os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}")  
 
             for i in range(0, 99 + step, step):
@@ -167,6 +174,12 @@ def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
         url, run = url_scanner(f"{model}", f"{cat}", proxies)
         download = file_scanner(f"{model}", f"{cat}", url, run, ens_members=True)
         western_bound, eastern_bound = lon_bounds(western_bound, eastern_bound)
+        if run == 0:
+            run = '00'
+        elif run == 6:
+            run = '06'
+        else:
+            run = run
 
         if download == True:
             print(f"Downloading the latest {model} data...")
@@ -185,13 +198,13 @@ def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
                         
                 for i in range(0, 99 + step, step):
                     if i < 10:
-                        urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
                         os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
                     else:
-                        urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
                         os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
                 for i in range(99 + step, 240 + step, step):
-                    urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
+                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}")  
                             
                 for i in range(0, 99 + step, step):
@@ -313,14 +326,34 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, u_and_v_wind=False,
     model = 'GEFS0P50 SECONDARY PARAMETERS'
     if step >= 12:
         step = 12
+        stop = 96
+        start = 108
     elif step < 12 and step >=5:
         step = 6
+        stop = 96
+        start = 102
     else:
         step = 3
+        stop = 99
+        start = 102
 
     if cat == 'MEAN' or cat == 'CONTROL':
         url, run = url_scanner(f"{model}", f"{cat}", proxies)
         download = file_scanner(f"{model}", f"{cat}", url, run)
+        if run == 0:
+            run = '00'
+        elif run == 6:
+            run = '06'
+        else:
+            run = run
+            
+        if run == 0:
+            run = '00'
+        elif run == 6:
+            run = '06'
+        else:
+            run = run
+            
         if cat == 'MEAN':        
             ff = 'c00'
             print(f"{cat} not available for secondary parameters. Defaulting to control run.")
@@ -329,25 +362,25 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, u_and_v_wind=False,
         western_bound, eastern_bound = lon_bounds(western_bound, eastern_bound)
         if download == True:
             print(f"Downloading the latest {model} data...")
-    
+            
             for file in os.listdir(f"{model}/{cat}"):
                 try:
                     os.remove(f"{model}/{cat}/{file}")
                 except Exception as e:
                     pass
             
-            for i in range(0, 99 + step, step):
+            for i in range(0, stop + step, step):
                 if i < 10:
-                    urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
+                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
                 else:
-                    urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
+                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
-            for i in range(99 + step, 240 + step, step):
-                urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}")
+            for i in range(start + step, 240 + step, step):
+                urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}")
                 os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}")  
 
-            for i in range(0, 99 + step, step):
+            for i in range(0, stop + step, step):
                 if i < 10:
                     try:
                         os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50_f00{i}.grib2")
@@ -359,7 +392,7 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, u_and_v_wind=False,
                     except Exception as e:
                         pass
             
-            for i in range(99 + step, 240 + step, step):
+            for i in range(start + step, 240 + step, step):
                 try:
                     os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50_f{i}.grib2")
                 except Exception as e:
@@ -399,6 +432,12 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, u_and_v_wind=False,
         url, run = url_scanner(f"{model}", f"{cat}", proxies)
         download = file_scanner(f"{model}", f"{cat}", url, run, ens_members=True)
         western_bound, eastern_bound = lon_bounds(western_bound, eastern_bound)
+        if run == 0:
+            run = '00'
+        elif run == 6:
+            run = '06'
+        else:
+            run = run
 
         if download == True:
             print(f"Downloading the latest {model} data...")
@@ -415,18 +454,18 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, u_and_v_wind=False,
                 else:
                     ff = f"p{e}"
                         
-                for i in range(0, 99 + step, step):
+                for i in range(0, stop + step, step):
                     if i < 10:
-                        urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
                         os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
                     else:
-                        urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
                         os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
-                for i in range(99 + step, 240 + step, step):
-                    urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}")
+                for i in range(start + step, 240 + step, step):
+                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}")  
                             
-                for i in range(0, 99 + step, step):
+                for i in range(0, stop + step, step):
                     if i < 10:
                         try:
                             os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50_f00{i}.grib2")
@@ -438,7 +477,7 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, u_and_v_wind=False,
                         except Exception as e:
                             pass
                 
-                for i in range(99 + step, 240 + step, step):
+                for i in range(start + step, 240 + step, step):
                     try:
                         os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50_f{i}.grib2")
                     except Exception as e:
@@ -553,6 +592,13 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
     if cat == 'MEAN' or cat == 'CONTROL':
         url, run = url_scanner(f"{model}", f"{cat}", proxies)
         download = file_scanner(f"{model}", f"{cat}", url, run)
+        if run == 0:
+            run = '00'
+        elif run == 6:
+            run = '06'
+        else:
+            run = run
+            
         if cat == 'MEAN':
             ff = 'avg'
         if cat == 'CONTROL':
@@ -569,13 +615,13 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
             
             for i in range(0, 99 + step, step):
                 if i < 10:
-                    urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
+                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
                 else:
-                    urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
+                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
             for i in range(99 + step, 240 + step, step):
-                urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}")
+                urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}")
                 os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}")  
 
             for i in range(0, 99 + step, step):
@@ -630,6 +676,12 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
         url, run = url_scanner(f"{model}", f"{cat}", proxies)
         download = file_scanner(f"{model}", f"{cat}", url, run, ens_members=True)
         western_bound, eastern_bound = lon_bounds(western_bound, eastern_bound)
+        if run == 0:
+            run = '00'
+        elif run == 6:
+            run = '06'
+        else:
+            run = run
 
         if download == True:
             print(f"Downloading the latest {model} data...")
@@ -648,13 +700,13 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
                         
                 for i in range(0, 99 + step, step):
                     if i < 10:
-                        urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
                         os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
                     else:
-                        urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
                         os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
                 for i in range(99 + step, 240 + step, step):
-                    urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}")
+                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}")  
                             
                 for i in range(0, 99 + step, step):
