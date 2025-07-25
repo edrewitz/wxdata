@@ -27,6 +27,57 @@ local = datetime.now()
 # Gets yesterday's date
 yd = now - timedelta(days=1)
 
+def file_extension(fname):
+
+    """
+    Scans for file extension.
+    """
+
+    if fname[-4] == 'f':
+        ftype = False
+    else:
+        ftype = True
+
+    return ftype
+
+def file_fhour_checker(model, fname, max_fcst_hour):
+
+    """
+    This function returns the string-index of the model run times in a file
+
+    1) model (String) - The forecast model
+
+    Optional Arguments: None
+
+    Returns
+    -------
+
+    The index values of the run times in the file. 
+    """
+    
+    hr = int(f"{fname[-9]}{fname[-8]}{fname[-7]}")
+
+    if hour == max_fcst_hour:
+        download = False
+    else:
+        download = True
+
+    return download
+
+def forecast_hour(model):
+
+    """
+    This function returns the latest forecast hour for each model
+    """
+
+    hour = {
+        'GEFS0P25':240,
+        'GEFS0P50':384,
+        'GEFS0P50 SECONDARY PARAMETERS':384        
+    }
+    
+    return hour[model]
+
 def ensemble_members(model):
 
     """
@@ -125,6 +176,7 @@ def file_scanner(model, cat, url, url_run, ens_members=False):
     cat = cat.upper()
 
     aa, bb = index(model)
+    hour = forecast_hour(model)
     
     if os.path.exists(f"{model}"):
         pass
@@ -145,6 +197,7 @@ def file_scanner(model, cat, url, url_run, ens_members=False):
                 fname = os.path.basename(f"{model}/{cat}/{file}")
                 fnames.append(fname)
             fname = fnames[-1]
+            ftype = file_extension(fname)
             exists = True
         except Exception as e:
             download = True
@@ -166,7 +219,11 @@ def file_scanner(model, cat, url, url_run, ens_members=False):
                     if update_hour < tdiff.hour:
                         download = True
                     else:
-                        download = False
+                        if ftype == False:
+                            download = True
+                        else:
+                            max_fcst_hour = forecast_hour(model)
+                            download = file_fhour_checker(model, fname, max_fcst_hour)
                 
             else:
                 download = True
@@ -179,6 +236,7 @@ def file_scanner(model, cat, url, url_run, ens_members=False):
                 fname = os.path.basename(f"{model}/{cat}/{members}/{file}")
                 fnames.append(fname)
             fname = fnames[-1]
+            ftype = file_extension(fname)
             exists = True
         except Exception as e:
             download = True
@@ -200,7 +258,11 @@ def file_scanner(model, cat, url, url_run, ens_members=False):
                     if update_hour < tdiff.hour:
                         download = True
                     else:
-                        download = False
+                        if ftype == False:
+                            download = True
+                        else:
+                            max_fcst_hour = forecast_hour(model)
+                            download = file_fhour_checker(model, fname, max_fcst_hour)
                 
             else:
                 download = True
