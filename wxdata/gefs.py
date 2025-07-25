@@ -1,4 +1,4 @@
-##### IMPORTS NEEDED PYTHON MODULES #######
+    ##### IMPORTS NEEDED PYTHON MODULES #######
 import xarray as xr
 import urllib.request
 import os
@@ -9,7 +9,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 from wxdata.scanner import file_scanner, url_scanner
-from wxdata.utils import shift_longitude, lon_bounds
+from wxdata.utils import shift_longitude, lon_bounds, ens_folders
 try:
     from datetime import datetime, timedelta, UTC
 except Exception as e:
@@ -82,10 +82,9 @@ def gefs_0p25(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
     cat = cat.upper()
     model = 'GEFS0P25'
 
-    url, run = url_scanner(f"{model}", f"{cat}", proxies)
-    download = file_scanner(f"{model}", f"{cat}", url, run)
-
     if cat == 'MEAN' or cat == 'CONTROL':
+        url, run = url_scanner(f"{model}", f"{cat}", proxies)
+        download = file_scanner(f"{model}", f"{cat}", url, run)
         if cat == 'MEAN':
             ff = 'avg'
         if cat == 'CONTROL':
@@ -159,19 +158,21 @@ def gefs_0p25(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
             return ds
 
     else:
+        paths = ens_folders(model, cat, 30)
         url, run = url_scanner(f"{model}", f"{cat}", proxies)
-        download = file_scanner(f"{model}", f"{cat}", url, run)
+        download = file_scanner(f"{model}", f"{cat}", url, run, ens_members=True)
         western_bound, eastern_bound = lon_bounds(western_bound, eastern_bound)
 
         if download == True:
             print(f"Downloading the latest {model} data...")
-            for file in os.listdir(f"{model}/{cat}"):
-                try:
-                    os.remove(f"{model}/{cat}/{file}")
-                except Exception as e:
-                    pass            
+            for pp in range(0, 30, 10):
+                for file in os.listdir(f"{paths[pp]}"):
+                    try:
+                        os.remove(f"{paths[pp]}/{file}")
+                    except Exception as e:
+                        pass            
 
-            for e in range(1, 31, 1):
+            for e, p in zip(range(1, 31, 1), range(0, 30, 1)):
                 if e < 10:
                     ff = f"p0{e}"
                 else:
@@ -180,58 +181,70 @@ def gefs_0p25(cat, typeOfLevel, u_and_v_wind=False, western_bound=-180, eastern_
                 for i in range(0, 102, 3):
                     if i < 10:
                         urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
-                        os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
+                        os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
                     else:
                         urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
-                        os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
+                        os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
                 for i in range(102, 243, 3):
                     urllib.request.urlretrieve(f"{url}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}")
-                    os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}")  
+                    os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}")  
                             
                 for i in range(0, 102, 3):
                     if i < 10:
                         try:
-                            os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25_f00{i}.grib2")
+                            os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25_f00{i}.grib2")
                         except Exception as e:
                             pass
                     else:
                         try:
-                            os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25_f0{i}.grib2")
+                            os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25_f0{i}.grib2")
                         except Exception as e:
                             pass
                 
                 for i in range(102, 243, 3):
                     try:
-                        os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25_f{i}.grib2")
+                        os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25_f{i}.grib2")
                     except Exception as e:
                         pass    
 
         else:
             print(f"Data in f:{model}/{cat} is current. Skipping download.")
+
+        ds_list = []
+        u_list = []
+        v_list = []
+
+        for p in range(0, 30, 1):
+            file_pattern = f"{paths[p]}/*.grib2"
+    
+            if u_and_v_wind == True:
+                u = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10u'}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                v = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10v'}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+    
+                u = shift_longitude(u)
+                v = shift_longitude(v)
+                u_list.append(u)
+                v_list.append(v)
+
+                for item in os.listdir(f"{paths[p]}"):
+                    if item.endswith(".idx"):
+                        os.remove(f"{paths[p]}/{item}")
+    
+    
+            else:
+                    ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
         
-        file_pattern = f"{model}/{cat}/*.grib2"
+                    ds = shift_longitude(ds)
+                    ds_list.append(ds)
+    
+                    for item in os.listdir(f"{paths[p]}"):
+                        if item.endswith(".idx"):
+                            os.remove(f"{paths[p]}/{item}")
 
         if u_and_v_wind == True:
-            u = xr.open_mfdataset(file_pattern, concat_dim=['number','step'], combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10u'}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
-            v = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10v'}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
-
-            u = shift_longitude(u)
-            v = shift_longitude(v)
-
-            for item in os.listdir(f"{model}/{cat}"):
-                if item.endswith(".idx"):
-                    os.remove(f"{model}/{cat}/{item}")
-
+            u = xr.concat(u_list, dim='number')
+            v = xr.concat(v_list, dim='number')
             return u, v
-
         else:
-            ds = xr.open_mfdataset(file_pattern, concat_dim=['number','step'], combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
-
-            ds = shift_longitude(ds)
-            
-
-            for item in os.listdir(f"{model}/{cat}"):
-                if item.endswith(".idx"):
-                    os.remove(f"{model}/{cat}/{item}")
-
+            ds = xr.concat(ds_list, dim='number')
             return ds
