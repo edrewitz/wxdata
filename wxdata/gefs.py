@@ -400,7 +400,7 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
         else:
             print(f"Data in f:{model}/{cat} is current. Skipping download.")
             
-        file_pattern = f"{model}/{cat}/*.grib2"
+        file_pattern = f"{model}/{cat}/{step}/*.grib2"
         
         ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
 
@@ -614,7 +614,7 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
         else:
             print(f"Data in f:{model}/{cat} is current. Skipping download.")
             
-        file_pattern = f"{model}/{cat}/*.grib2"
+        file_pattern = f"{model}/{cat}/{step}/*.grib2"
         
         if u_and_v_wind == True:
             u = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10u'}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
