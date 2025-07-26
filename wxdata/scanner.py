@@ -57,7 +57,7 @@ def file_fhour_checker(model, fname, max_fcst_hour):
     
     hr = int(f"{fname[-9]}{fname[-8]}{fname[-7]}")
 
-    if hour == max_fcst_hour:
+    if hr == max_fcst_hour:
         download = False
     else:
         download = True
