@@ -9,16 +9,23 @@ def clear_idx_files(step=None, model=None, cat=None, paths=None, ens=False):
     """
     This function clears all the .IDX files in a folder.
     """
-
+    
     if ens == False:
-        for item in os.listdir(f"{model}/{cat}/{step}"):
-            if item.endswith(".idx"):
-                os.remove(f"{model}/{cat}/{step}/{item}")
-    else:
-        for p in paths:
-            for item in os.listdir(f"{p}"):
+        try:
+            for item in os.listdir(f"{model}/{cat}/{step}"):
                 if item.endswith(".idx"):
-                    os.remove(f"{paths[p]}/{item}")
+                    os.remove(f"{model}/{cat}/{step}/{item}")
+        except Exception as e:
+            pass
+            
+    else:
+        try:
+            for p in paths:
+                for item in os.listdir(f"{p}"):
+                    if item.endswith(".idx"):
+                        os.remove(f"{paths[p]}/{item}")
+        except Exception as e:
+            pass
         
 
 def ens_folders(model, cat, step, ens_members):
