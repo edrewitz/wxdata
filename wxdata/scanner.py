@@ -64,6 +64,7 @@ def file_fhour_checker(model, fname, max_fcst_hour):
 
     return download
 
+
 def forecast_hour(model):
 
     """
@@ -148,7 +149,7 @@ def index(model):
 
     return times[model][0], times[model][1]
 
-def file_scanner(model, cat, url, url_run, ens_members=False):
+def file_scanner(model, cat, url, url_run, step, ens_members=False):
 
     """
     This function scans the directory to make sure: 
@@ -188,13 +189,18 @@ def file_scanner(model, cat, url, url_run, ens_members=False):
     else:
         os.mkdir(f"{model}/{cat}")
 
+    if os.path.exists(f"{model}/{cat}/{step}"):
+        pass
+    else:
+        os.mkdir(f"{model}/{cat}/{step}")
+
     exists = False
 
     if ens_members == False:
         try:
             fnames = []
-            for file in os.listdir(f"{model}/{cat}"):
-                fname = os.path.basename(f"{model}/{cat}/{file}")
+            for file in os.listdir(f"{model}/{cat}/{step}"):
+                fname = os.path.basename(f"{model}/{cat}/{step}/{file}")
                 fnames.append(fname)
             fname = fnames[-1]
             ftype = file_extension(fname)
@@ -208,7 +214,7 @@ def file_scanner(model, cat, url, url_run, ens_members=False):
         else:
             file_run = int(f"{fname[aa]}{fname[bb]}")
             if file_run == url_run:
-                modification_timestamp = os.path.getmtime(f"{model}/{cat}/{fname}")
+                modification_timestamp = os.path.getmtime(f"{model}/{cat}/{step}/{fname}")
                 readable_time = time.ctime(modification_timestamp)
                 update_day = int(f"{readable_time[8]}{readable_time[9]}")
                 update_hour = int(f"{readable_time[11]}{readable_time[12]}") 
@@ -232,8 +238,8 @@ def file_scanner(model, cat, url, url_run, ens_members=False):
         members = ensemble_members(f"{model}")
         try:
             fnames = []
-            for file in os.listdir(f"{model}/{cat}/{members}"):
-                fname = os.path.basename(f"{model}/{cat}/{members}/{file}")
+            for file in os.listdir(f"{model}/{cat}/{step}/{members}"):
+                fname = os.path.basename(f"{model}/{cat}/{step}/{members}/{file}")
                 fnames.append(fname)
             fname = fnames[-1]
             ftype = file_extension(fname)
@@ -247,7 +253,7 @@ def file_scanner(model, cat, url, url_run, ens_members=False):
         else:
             file_run = int(f"{fname[aa]}{fname[bb]}")
             if file_run == url_run:
-                modification_timestamp = os.path.getmtime(f"{model}/{cat}/{members}/{fname}")
+                modification_timestamp = os.path.getmtime(f"{model}/{cat}/{step}/{members}/{fname}")
                 readable_time = time.ctime(modification_timestamp)
                 update_day = int(f"{readable_time[8]}{readable_time[9]}")
                 update_hour = int(f"{readable_time[11]}{readable_time[12]}") 
