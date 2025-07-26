@@ -11,10 +11,15 @@ import pandas as pd
 import metpy.calc as mpcalc
 import sys
 
+from wxdata.utils.utils import(
+    get_u_and_v,
+    relative_humidity,
+    saturation_vapor_pressure
+)
 from metpy.units import units
 from bs4 import BeautifulSoup
 from io import StringIO
-from wxdata.utils import get_u_and_v, relative_humidity, saturation_vapor_pressure
+
 try:
     from datetime import datetime, timedelta, UTC
 except Exception as e:
