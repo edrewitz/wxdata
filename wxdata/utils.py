@@ -3,7 +3,25 @@ import os
 
 from cartopy.util import add_cyclic_point
 
-def ens_folders(model, cat, ens_members):
+
+def clear_idx_files(step=None, model=None, cat=None, paths=None, ens=False):
+
+    """
+    This function clears all the .IDX files in a folder.
+    """
+
+    if ens == False:
+        for item in os.listdir(f"{model}/{cat}/{step}"):
+            if item.endswith(".idx"):
+                os.remove(f"{model}/{cat}/{step}/{item}")
+    else:
+        for p in paths:
+            for item in os.listdir(f"{p}"):
+                if item.endswith(".idx"):
+                    os.remove(f"{paths[p]}/{item}")
+        
+
+def ens_folders(model, cat, step, ens_members):
     
     """
     This function builds the directories for ensemble members
@@ -19,14 +37,19 @@ def ens_folders(model, cat, ens_members):
     else:
         os.mkdir(f"{model}/{cat}")
 
+    if os.path.exists(f"{model}/{cat}/{step}"):
+        pass
+    else:
+        os.mkdir(f"{model}/{cat}/{step}")
+
     paths = []
     for i in range(1, ens_members + 1, 1):
-        if os.path.exists(f"{model}/{cat}/{i}"):
+        if os.path.exists(f"{model}/{cat}/{step}/{i}"):
             pass
         else:
-            os.mkdir(f"{model}/{cat}/{i}")
+            os.mkdir(f"{model}/{cat}/{step}/{i}")
 
-        path = f"{model}/{cat}/{i}"
+        path = f"{model}/{cat}/{step}/{i}"
 
         paths.append(path)
 
