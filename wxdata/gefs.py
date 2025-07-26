@@ -362,38 +362,38 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
         if download == True:
             print(f"Downloading the latest {model} data...")
             
-            for file in os.listdir(f"{model}/{cat}"):
+            for file in os.listdir(f"{model}/{cat}/{step}"):
                 try:
-                    os.remove(f"{model}/{cat}/{file}")
+                    os.remove(f"{model}/{cat}/{step}/{file}")
                 except Exception as e:
                     pass
             
             for i in range(0, stop + step, step):
                 if i < 10:
                     urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
-                    os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
+                    os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
                 else:
                     urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
-                    os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
+                    os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
             for i in range(start, 384 + step, step):
                 urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}")
-                os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}")  
+                os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}")  
 
             for i in range(0, stop + step, step):
                 if i < 10:
                     try:
-                        os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50_f00{i}.grib2")
+                        os.replace(f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50_f00{i}.grib2")
                     except Exception as e:
                         pass
                 else:
                     try:
-                        os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50_f0{i}.grib2")
+                        os.replace(f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50_f0{i}.grib2")
                     except Exception as e:
                         pass
             
             for i in range(start, 384 + step, step):
                 try:
-                    os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2b.0p50_f{i}.grib2")
+                    os.replace(f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50_f{i}.grib2")
                 except Exception as e:
                     pass        
 
@@ -576,38 +576,38 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
         if download == True:
             print(f"Downloading the latest {model} data...")
     
-            for file in os.listdir(f"{model}/{cat}"):
+            for file in os.listdir(f"{model}/{cat}/{step}"):
                 try:
-                    os.remove(f"{model}/{cat}/{file}")
+                    os.remove(f"{model}/{cat}/{file}/{step}")
                 except Exception as e:
                     pass
             
             for i in range(0, stop + step, step):
                 if i < 10:
                     urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
-                    os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
+                    os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
                 else:
                     urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
-                    os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
+                    os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
             for i in range(start, 240 + step, step):
                 urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}")
-                os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}")  
+                os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}")  
 
             for i in range(0, stop + step, step):
                 if i < 10:
                     try:
-                        os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25_f00{i}.grib2")
+                        os.replace(f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2s.0p25_f00{i}.grib2")
                     except Exception as e:
                         pass
                 else:
                     try:
-                        os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25_f0{i}.grib2")
+                        os.replace(f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2s.0p25_f0{i}.grib2")
                     except Exception as e:
                         pass
             
             for i in range(start, 240 + step, step):
                 try:
-                    os.replace(f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{model}/{cat}/ge{ff}.t{run}z.pgrb2s.0p25_f{i}.grib2")
+                    os.replace(f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2s.0p25_f{i}.grib2")
                 except Exception as e:
                     pass        
 
@@ -623,7 +623,7 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
             u = shift_longitude(u)
             v = shift_longitude(v)
 
-            clear_idx_files(model=model, cat=cat)
+            clear_idx_files(steps=steps, model=model, cat=cat)
 
             return u, v
 
@@ -632,7 +632,7 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
 
             ds = shift_longitude(ds)
 
-            clear_idx_files(model=model, cat=cat)
+            clear_idx_files(step=step, model=model, cat=cat)
 
             return ds
 
@@ -666,6 +666,7 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
                         
                 for i in range(0, stop + step, step):
                     if i < 10:
+                        print(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
                         urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
                         os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f00{i}")
                     else:
