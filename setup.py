@@ -18,7 +18,8 @@ setup(
         "cartopy>=0.21.0",
         "beautifulsoup4>=4.13.4",
         "requests>=2.32.4",
-        "cfgrib>=0.9.10.4"
+        "cfgrib>=0.9.10.4",
+        "dask>=2025.5.1"
       
     ],
     author="Eric J. Drewitz",
