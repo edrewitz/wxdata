@@ -10,8 +10,6 @@ import requests
 import pandas as pd
 import metpy.calc as mpcalc
 import sys
-import pyximport
-pyximport.install()
 
 from wxdata.soundings.calc import(
     get_u_and_v,
