@@ -11,7 +11,7 @@ import pandas as pd
 import metpy.calc as mpcalc
 import sys
 
-from wxdata.calc import(
+from wxdata.calc.calc import(
     get_u_and_v,
     relative_humidity,
     saturation_vapor_pressure
