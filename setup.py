@@ -19,7 +19,8 @@ setup(
         "beautifulsoup4>=4.13.4",
         "requests>=2.32.4",
         "cfgrib>=0.9.10.4",
-        "dask>=2025.5.1"
+        "dask>=2025.5.1",
+        "cython>=3.1.2"
       
     ],
     author="Eric J. Drewitz",
