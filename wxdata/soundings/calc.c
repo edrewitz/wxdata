@@ -3,12 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
-        "name": "calc",
+        "name": "wxdata.soundings.calc",
         "sources": [
-            "wxdata.soundings.calc.pyx"
+            "calc.pyx"
         ]
     },
-    "module_name": "calc"
+    "module_name": "wxdata.soundings.calc"
 }
 END: Cython Metadata */
 
@@ -1124,8 +1124,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__calc
-#define __PYX_HAVE_API__calc
+#define __PYX_HAVE__wxdata__soundings__calc
+#define __PYX_HAVE_API__wxdata__soundings__calc
 /* Early includes */
 #ifdef _OPENMP
 #include <omp.h>
@@ -2262,14 +2262,14 @@ static int __Pyx_State_RemoveModule(void*);
 #define __PYX_TYPE_MODULE_PREFIX __PYX_ABI_MODULE_NAME "."
 
 
-/* Module declarations from "calc" */
+/* Module declarations from "wxdata.soundings.calc" */
 /* #### Code section: typeinfo ### */
 /* #### Code section: before_global_var ### */
-#define __Pyx_MODULE_NAME "calc"
-extern int __pyx_module_is_main_calc;
-int __pyx_module_is_main_calc = 0;
+#define __Pyx_MODULE_NAME "wxdata.soundings.calc"
+extern int __pyx_module_is_main_wxdata__soundings__calc;
+int __pyx_module_is_main_wxdata__soundings__calc = 0;
 
-/* Implementation of "calc" */
+/* Implementation of "wxdata.soundings.calc" */
 /* #### Code section: global_var ### */
 /* #### Code section: string_decls ### */
 static const char __pyx_k_[] = "?";
@@ -2290,7 +2290,6 @@ static const char __pyx_k_e_s[] = "e_s";
 static const char __pyx_k_exp[] = "exp";
 static const char __pyx_k_pop[] = "pop";
 static const char __pyx_k_sin[] = "sin";
-static const char __pyx_k_calc[] = "calc";
 static const char __pyx_k_frac[] = "frac";
 static const char __pyx_k_func[] = "__func__";
 static const char __pyx_k_main[] = "__main__";
@@ -2326,19 +2325,20 @@ static const char __pyx_k_fahrenheit_to_kelvin[] = "fahrenheit_to_kelvin";
 static const char __pyx_k_kelvin_to_fahrenheit[] = "kelvin_to_fahrenheit";
 static const char __pyx_k_celsius_to_fahrenheit[] = "celsius_to_fahrenheit";
 static const char __pyx_k_fahrenheit_to_celsius[] = "fahrenheit_to_celsius";
+static const char __pyx_k_wxdata_soundings_calc[] = "wxdata.soundings.calc";
 static const char __pyx_k_saturation_vapor_pressure[] = "saturation_vapor_pressure";
 /* #### Code section: decls ### */
-static PyObject *__pyx_pf_4calc_fahrenheit_to_celsius(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_f); /* proto */
-static PyObject *__pyx_pf_4calc_2fahrenheit_to_kelvin(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_f); /* proto */
-static PyObject *__pyx_pf_4calc_4celsius_to_fahrenheit(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_c); /* proto */
-static PyObject *__pyx_pf_4calc_6kelvin_to_fahrenheit(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_k); /* proto */
-static PyObject *__pyx_pf_4calc_8get_u_and_v(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_wind_speed, float __pyx_v_wind_dir); /* proto */
-static PyObject *__pyx_pf_4calc_10saturation_vapor_pressure(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_temperature); /* proto */
-static PyObject *__pyx_pf_4calc_12relative_humidity(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_temperature, float __pyx_v_dewpoint); /* proto */
-static PyObject *__pyx_pf_4calc_14add(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_a, float __pyx_v_b); /* proto */
-static PyObject *__pyx_pf_4calc_16subtract(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_a, float __pyx_v_b); /* proto */
-static PyObject *__pyx_pf_4calc_18multiply(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_a, float __pyx_v_b); /* proto */
-static PyObject *__pyx_pf_4calc_20exponent(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_a, float __pyx_v_b); /* proto */
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_fahrenheit_to_celsius(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_f); /* proto */
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_2fahrenheit_to_kelvin(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_f); /* proto */
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_4celsius_to_fahrenheit(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_c); /* proto */
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_6kelvin_to_fahrenheit(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_k); /* proto */
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_8get_u_and_v(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_wind_speed, float __pyx_v_wind_dir); /* proto */
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_10saturation_vapor_pressure(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_temperature); /* proto */
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_12relative_humidity(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_temperature, float __pyx_v_dewpoint); /* proto */
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_14add(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_a, float __pyx_v_b); /* proto */
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_16subtract(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_a, float __pyx_v_b); /* proto */
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_18multiply(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_a, float __pyx_v_b); /* proto */
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_20exponent(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_a, float __pyx_v_b); /* proto */
 /* #### Code section: late_includes ### */
 /* #### Code section: module_state ### */
 /* SmallCodeConfig */
@@ -2425,46 +2425,46 @@ static __pyx_mstatetype * const __pyx_mstate_global = &__pyx_mstate_global_stati
 #define __pyx_n_u_asyncio_coroutines __pyx_string_tab[3]
 #define __pyx_n_u_b __pyx_string_tab[4]
 #define __pyx_n_u_c __pyx_string_tab[5]
-#define __pyx_n_u_calc __pyx_string_tab[6]
-#define __pyx_kp_u_calc_pyx __pyx_string_tab[7]
-#define __pyx_n_u_celsius_to_fahrenheit __pyx_string_tab[8]
-#define __pyx_n_u_cline_in_traceback __pyx_string_tab[9]
-#define __pyx_n_u_cos __pyx_string_tab[10]
-#define __pyx_n_u_dewpoint __pyx_string_tab[11]
-#define __pyx_n_u_e __pyx_string_tab[12]
-#define __pyx_n_u_e_s __pyx_string_tab[13]
-#define __pyx_n_u_exp __pyx_string_tab[14]
-#define __pyx_n_u_exponent __pyx_string_tab[15]
-#define __pyx_n_u_f __pyx_string_tab[16]
-#define __pyx_n_u_fahrenheit_to_celsius __pyx_string_tab[17]
-#define __pyx_n_u_fahrenheit_to_kelvin __pyx_string_tab[18]
-#define __pyx_n_u_frac __pyx_string_tab[19]
-#define __pyx_n_u_func __pyx_string_tab[20]
-#define __pyx_n_u_get_u_and_v __pyx_string_tab[21]
-#define __pyx_n_u_initializing __pyx_string_tab[22]
-#define __pyx_n_u_is_coroutine __pyx_string_tab[23]
-#define __pyx_n_u_k __pyx_string_tab[24]
-#define __pyx_n_u_kelvin_to_fahrenheit __pyx_string_tab[25]
-#define __pyx_n_u_main __pyx_string_tab[26]
-#define __pyx_n_u_module __pyx_string_tab[27]
-#define __pyx_n_u_multiply __pyx_string_tab[28]
-#define __pyx_n_u_name __pyx_string_tab[29]
-#define __pyx_n_u_np __pyx_string_tab[30]
-#define __pyx_n_u_numpy __pyx_string_tab[31]
-#define __pyx_n_u_pop __pyx_string_tab[32]
-#define __pyx_n_u_qualname __pyx_string_tab[33]
-#define __pyx_n_u_relative_humidity __pyx_string_tab[34]
-#define __pyx_n_u_saturation_vapor_pressure __pyx_string_tab[35]
-#define __pyx_n_u_set_name __pyx_string_tab[36]
-#define __pyx_n_u_sin __pyx_string_tab[37]
-#define __pyx_n_u_spec __pyx_string_tab[38]
-#define __pyx_n_u_subtract __pyx_string_tab[39]
-#define __pyx_n_u_temperature __pyx_string_tab[40]
-#define __pyx_n_u_test __pyx_string_tab[41]
-#define __pyx_n_u_u __pyx_string_tab[42]
-#define __pyx_n_u_v __pyx_string_tab[43]
-#define __pyx_n_u_wind_dir __pyx_string_tab[44]
-#define __pyx_n_u_wind_speed __pyx_string_tab[45]
+#define __pyx_kp_u_calc_pyx __pyx_string_tab[6]
+#define __pyx_n_u_celsius_to_fahrenheit __pyx_string_tab[7]
+#define __pyx_n_u_cline_in_traceback __pyx_string_tab[8]
+#define __pyx_n_u_cos __pyx_string_tab[9]
+#define __pyx_n_u_dewpoint __pyx_string_tab[10]
+#define __pyx_n_u_e __pyx_string_tab[11]
+#define __pyx_n_u_e_s __pyx_string_tab[12]
+#define __pyx_n_u_exp __pyx_string_tab[13]
+#define __pyx_n_u_exponent __pyx_string_tab[14]
+#define __pyx_n_u_f __pyx_string_tab[15]
+#define __pyx_n_u_fahrenheit_to_celsius __pyx_string_tab[16]
+#define __pyx_n_u_fahrenheit_to_kelvin __pyx_string_tab[17]
+#define __pyx_n_u_frac __pyx_string_tab[18]
+#define __pyx_n_u_func __pyx_string_tab[19]
+#define __pyx_n_u_get_u_and_v __pyx_string_tab[20]
+#define __pyx_n_u_initializing __pyx_string_tab[21]
+#define __pyx_n_u_is_coroutine __pyx_string_tab[22]
+#define __pyx_n_u_k __pyx_string_tab[23]
+#define __pyx_n_u_kelvin_to_fahrenheit __pyx_string_tab[24]
+#define __pyx_n_u_main __pyx_string_tab[25]
+#define __pyx_n_u_module __pyx_string_tab[26]
+#define __pyx_n_u_multiply __pyx_string_tab[27]
+#define __pyx_n_u_name __pyx_string_tab[28]
+#define __pyx_n_u_np __pyx_string_tab[29]
+#define __pyx_n_u_numpy __pyx_string_tab[30]
+#define __pyx_n_u_pop __pyx_string_tab[31]
+#define __pyx_n_u_qualname __pyx_string_tab[32]
+#define __pyx_n_u_relative_humidity __pyx_string_tab[33]
+#define __pyx_n_u_saturation_vapor_pressure __pyx_string_tab[34]
+#define __pyx_n_u_set_name __pyx_string_tab[35]
+#define __pyx_n_u_sin __pyx_string_tab[36]
+#define __pyx_n_u_spec __pyx_string_tab[37]
+#define __pyx_n_u_subtract __pyx_string_tab[38]
+#define __pyx_n_u_temperature __pyx_string_tab[39]
+#define __pyx_n_u_test __pyx_string_tab[40]
+#define __pyx_n_u_u __pyx_string_tab[41]
+#define __pyx_n_u_v __pyx_string_tab[42]
+#define __pyx_n_u_wind_dir __pyx_string_tab[43]
+#define __pyx_n_u_wind_speed __pyx_string_tab[44]
+#define __pyx_n_u_wxdata_soundings_calc __pyx_string_tab[45]
 /* #### Code section: module_state_clear ### */
 #if CYTHON_USE_MODULE_STATE
 static CYTHON_SMALL_CODE int __pyx_m_clear(PyObject *m) {
@@ -2518,7 +2518,7 @@ static CYTHON_SMALL_CODE int __pyx_m_traverse(PyObject *m, visitproc visit, void
 #endif
 /* #### Code section: module_code ### */
 
-/* "calc.pyx":3
+/* "wxdata/soundings/calc.pyx":3
  * import numpy as np
  * 
  * def fahrenheit_to_celsius(float f):             # <<<<<<<<<<<<<<
@@ -2527,15 +2527,15 @@ static CYTHON_SMALL_CODE int __pyx_m_traverse(PyObject *m, visitproc visit, void
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4calc_1fahrenheit_to_celsius(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_1fahrenheit_to_celsius(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_4calc_1fahrenheit_to_celsius = {"fahrenheit_to_celsius", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_4calc_1fahrenheit_to_celsius, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_4calc_1fahrenheit_to_celsius(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_6wxdata_9soundings_4calc_1fahrenheit_to_celsius = {"fahrenheit_to_celsius", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6wxdata_9soundings_4calc_1fahrenheit_to_celsius, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_1fahrenheit_to_celsius(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -2597,11 +2597,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
     Py_XDECREF(values[__pyx_temp]);
   }
-  __Pyx_AddTraceback("calc.fahrenheit_to_celsius", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.fahrenheit_to_celsius", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4calc_fahrenheit_to_celsius(__pyx_self, __pyx_v_f);
+  __pyx_r = __pyx_pf_6wxdata_9soundings_4calc_fahrenheit_to_celsius(__pyx_self, __pyx_v_f);
 
   /* function exit code */
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -2611,7 +2611,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4calc_fahrenheit_to_celsius(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_f) {
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_fahrenheit_to_celsius(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_f) {
   double __pyx_v_frac;
   double __pyx_v_c;
   PyObject *__pyx_r = NULL;
@@ -2622,7 +2622,7 @@ static PyObject *__pyx_pf_4calc_fahrenheit_to_celsius(CYTHON_UNUSED PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("fahrenheit_to_celsius", 0);
 
-  /* "calc.pyx":4
+  /* "wxdata/soundings/calc.pyx":4
  * 
  * def fahrenheit_to_celsius(float f):
  *     frac = 5/9             # <<<<<<<<<<<<<<
@@ -2631,7 +2631,7 @@ static PyObject *__pyx_pf_4calc_fahrenheit_to_celsius(CYTHON_UNUSED PyObject *__
 */
   __pyx_v_frac = (5.0 / 9.0);
 
-  /* "calc.pyx":5
+  /* "wxdata/soundings/calc.pyx":5
  * def fahrenheit_to_celsius(float f):
  *     frac = 5/9
  *     c = frac * (f - 32)             # <<<<<<<<<<<<<<
@@ -2640,7 +2640,7 @@ static PyObject *__pyx_pf_4calc_fahrenheit_to_celsius(CYTHON_UNUSED PyObject *__
 */
   __pyx_v_c = (__pyx_v_frac * (__pyx_v_f - 32.0));
 
-  /* "calc.pyx":6
+  /* "wxdata/soundings/calc.pyx":6
  *     frac = 5/9
  *     c = frac * (f - 32)
  *     return c             # <<<<<<<<<<<<<<
@@ -2654,7 +2654,7 @@ static PyObject *__pyx_pf_4calc_fahrenheit_to_celsius(CYTHON_UNUSED PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "calc.pyx":3
+  /* "wxdata/soundings/calc.pyx":3
  * import numpy as np
  * 
  * def fahrenheit_to_celsius(float f):             # <<<<<<<<<<<<<<
@@ -2665,7 +2665,7 @@ static PyObject *__pyx_pf_4calc_fahrenheit_to_celsius(CYTHON_UNUSED PyObject *__
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("calc.fahrenheit_to_celsius", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.fahrenheit_to_celsius", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2673,7 +2673,7 @@ static PyObject *__pyx_pf_4calc_fahrenheit_to_celsius(CYTHON_UNUSED PyObject *__
   return __pyx_r;
 }
 
-/* "calc.pyx":8
+/* "wxdata/soundings/calc.pyx":8
  *     return c
  * 
  * def fahrenheit_to_kelvin(float f):             # <<<<<<<<<<<<<<
@@ -2682,15 +2682,15 @@ static PyObject *__pyx_pf_4calc_fahrenheit_to_celsius(CYTHON_UNUSED PyObject *__
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4calc_3fahrenheit_to_kelvin(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_3fahrenheit_to_kelvin(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_4calc_3fahrenheit_to_kelvin = {"fahrenheit_to_kelvin", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_4calc_3fahrenheit_to_kelvin, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_4calc_3fahrenheit_to_kelvin(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_6wxdata_9soundings_4calc_3fahrenheit_to_kelvin = {"fahrenheit_to_kelvin", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6wxdata_9soundings_4calc_3fahrenheit_to_kelvin, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_3fahrenheit_to_kelvin(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -2752,11 +2752,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
     Py_XDECREF(values[__pyx_temp]);
   }
-  __Pyx_AddTraceback("calc.fahrenheit_to_kelvin", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.fahrenheit_to_kelvin", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4calc_2fahrenheit_to_kelvin(__pyx_self, __pyx_v_f);
+  __pyx_r = __pyx_pf_6wxdata_9soundings_4calc_2fahrenheit_to_kelvin(__pyx_self, __pyx_v_f);
 
   /* function exit code */
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -2766,7 +2766,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4calc_2fahrenheit_to_kelvin(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_f) {
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_2fahrenheit_to_kelvin(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_f) {
   double __pyx_v_frac;
   double __pyx_v_c;
   PyObject *__pyx_r = NULL;
@@ -2777,7 +2777,7 @@ static PyObject *__pyx_pf_4calc_2fahrenheit_to_kelvin(CYTHON_UNUSED PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("fahrenheit_to_kelvin", 0);
 
-  /* "calc.pyx":9
+  /* "wxdata/soundings/calc.pyx":9
  * 
  * def fahrenheit_to_kelvin(float f):
  *     frac = 5/9             # <<<<<<<<<<<<<<
@@ -2786,7 +2786,7 @@ static PyObject *__pyx_pf_4calc_2fahrenheit_to_kelvin(CYTHON_UNUSED PyObject *__
 */
   __pyx_v_frac = (5.0 / 9.0);
 
-  /* "calc.pyx":10
+  /* "wxdata/soundings/calc.pyx":10
  * def fahrenheit_to_kelvin(float f):
  *     frac = 5/9
  *     c = frac * (f - 32)             # <<<<<<<<<<<<<<
@@ -2795,7 +2795,7 @@ static PyObject *__pyx_pf_4calc_2fahrenheit_to_kelvin(CYTHON_UNUSED PyObject *__
 */
   __pyx_v_c = (__pyx_v_frac * (__pyx_v_f - 32.0));
 
-  /* "calc.pyx":11
+  /* "wxdata/soundings/calc.pyx":11
  *     frac = 5/9
  *     c = frac * (f - 32)
  *     return c + 273.15             # <<<<<<<<<<<<<<
@@ -2809,7 +2809,7 @@ static PyObject *__pyx_pf_4calc_2fahrenheit_to_kelvin(CYTHON_UNUSED PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "calc.pyx":8
+  /* "wxdata/soundings/calc.pyx":8
  *     return c
  * 
  * def fahrenheit_to_kelvin(float f):             # <<<<<<<<<<<<<<
@@ -2820,7 +2820,7 @@ static PyObject *__pyx_pf_4calc_2fahrenheit_to_kelvin(CYTHON_UNUSED PyObject *__
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("calc.fahrenheit_to_kelvin", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.fahrenheit_to_kelvin", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2828,7 +2828,7 @@ static PyObject *__pyx_pf_4calc_2fahrenheit_to_kelvin(CYTHON_UNUSED PyObject *__
   return __pyx_r;
 }
 
-/* "calc.pyx":13
+/* "wxdata/soundings/calc.pyx":13
  *     return c + 273.15
  * 
  * def celsius_to_fahrenheit(float c):             # <<<<<<<<<<<<<<
@@ -2837,15 +2837,15 @@ static PyObject *__pyx_pf_4calc_2fahrenheit_to_kelvin(CYTHON_UNUSED PyObject *__
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4calc_5celsius_to_fahrenheit(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_5celsius_to_fahrenheit(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_4calc_5celsius_to_fahrenheit = {"celsius_to_fahrenheit", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_4calc_5celsius_to_fahrenheit, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_4calc_5celsius_to_fahrenheit(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_6wxdata_9soundings_4calc_5celsius_to_fahrenheit = {"celsius_to_fahrenheit", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6wxdata_9soundings_4calc_5celsius_to_fahrenheit, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_5celsius_to_fahrenheit(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -2907,11 +2907,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
     Py_XDECREF(values[__pyx_temp]);
   }
-  __Pyx_AddTraceback("calc.celsius_to_fahrenheit", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.celsius_to_fahrenheit", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4calc_4celsius_to_fahrenheit(__pyx_self, __pyx_v_c);
+  __pyx_r = __pyx_pf_6wxdata_9soundings_4calc_4celsius_to_fahrenheit(__pyx_self, __pyx_v_c);
 
   /* function exit code */
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -2921,7 +2921,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4calc_4celsius_to_fahrenheit(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_c) {
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_4celsius_to_fahrenheit(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_c) {
   double __pyx_v_frac;
   double __pyx_v_f;
   PyObject *__pyx_r = NULL;
@@ -2932,7 +2932,7 @@ static PyObject *__pyx_pf_4calc_4celsius_to_fahrenheit(CYTHON_UNUSED PyObject *_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("celsius_to_fahrenheit", 0);
 
-  /* "calc.pyx":14
+  /* "wxdata/soundings/calc.pyx":14
  * 
  * def celsius_to_fahrenheit(float c):
  *     frac = 9/5             # <<<<<<<<<<<<<<
@@ -2941,7 +2941,7 @@ static PyObject *__pyx_pf_4calc_4celsius_to_fahrenheit(CYTHON_UNUSED PyObject *_
 */
   __pyx_v_frac = (9.0 / 5.0);
 
-  /* "calc.pyx":15
+  /* "wxdata/soundings/calc.pyx":15
  * def celsius_to_fahrenheit(float c):
  *     frac = 9/5
  *     f = (c * frac) + 32             # <<<<<<<<<<<<<<
@@ -2950,7 +2950,7 @@ static PyObject *__pyx_pf_4calc_4celsius_to_fahrenheit(CYTHON_UNUSED PyObject *_
 */
   __pyx_v_f = ((__pyx_v_c * __pyx_v_frac) + 32.0);
 
-  /* "calc.pyx":16
+  /* "wxdata/soundings/calc.pyx":16
  *     frac = 9/5
  *     f = (c * frac) + 32
  *     return f             # <<<<<<<<<<<<<<
@@ -2964,7 +2964,7 @@ static PyObject *__pyx_pf_4calc_4celsius_to_fahrenheit(CYTHON_UNUSED PyObject *_
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "calc.pyx":13
+  /* "wxdata/soundings/calc.pyx":13
  *     return c + 273.15
  * 
  * def celsius_to_fahrenheit(float c):             # <<<<<<<<<<<<<<
@@ -2975,7 +2975,7 @@ static PyObject *__pyx_pf_4calc_4celsius_to_fahrenheit(CYTHON_UNUSED PyObject *_
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("calc.celsius_to_fahrenheit", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.celsius_to_fahrenheit", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2983,7 +2983,7 @@ static PyObject *__pyx_pf_4calc_4celsius_to_fahrenheit(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "calc.pyx":18
+/* "wxdata/soundings/calc.pyx":18
  *     return f
  * 
  * def kelvin_to_fahrenheit(float k):             # <<<<<<<<<<<<<<
@@ -2992,15 +2992,15 @@ static PyObject *__pyx_pf_4calc_4celsius_to_fahrenheit(CYTHON_UNUSED PyObject *_
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4calc_7kelvin_to_fahrenheit(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_7kelvin_to_fahrenheit(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_4calc_7kelvin_to_fahrenheit = {"kelvin_to_fahrenheit", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_4calc_7kelvin_to_fahrenheit, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_4calc_7kelvin_to_fahrenheit(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_6wxdata_9soundings_4calc_7kelvin_to_fahrenheit = {"kelvin_to_fahrenheit", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6wxdata_9soundings_4calc_7kelvin_to_fahrenheit, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_7kelvin_to_fahrenheit(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -3062,11 +3062,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
     Py_XDECREF(values[__pyx_temp]);
   }
-  __Pyx_AddTraceback("calc.kelvin_to_fahrenheit", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.kelvin_to_fahrenheit", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4calc_6kelvin_to_fahrenheit(__pyx_self, __pyx_v_k);
+  __pyx_r = __pyx_pf_6wxdata_9soundings_4calc_6kelvin_to_fahrenheit(__pyx_self, __pyx_v_k);
 
   /* function exit code */
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -3076,7 +3076,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4calc_6kelvin_to_fahrenheit(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_k) {
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_6kelvin_to_fahrenheit(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_k) {
   double __pyx_v_c;
   double __pyx_v_frac;
   double __pyx_v_f;
@@ -3088,7 +3088,7 @@ static PyObject *__pyx_pf_4calc_6kelvin_to_fahrenheit(CYTHON_UNUSED PyObject *__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("kelvin_to_fahrenheit", 0);
 
-  /* "calc.pyx":19
+  /* "wxdata/soundings/calc.pyx":19
  * 
  * def kelvin_to_fahrenheit(float k):
  *     c = k - 273.15             # <<<<<<<<<<<<<<
@@ -3097,7 +3097,7 @@ static PyObject *__pyx_pf_4calc_6kelvin_to_fahrenheit(CYTHON_UNUSED PyObject *__
 */
   __pyx_v_c = (__pyx_v_k - 273.15);
 
-  /* "calc.pyx":20
+  /* "wxdata/soundings/calc.pyx":20
  * def kelvin_to_fahrenheit(float k):
  *     c = k - 273.15
  *     frac = 9/5             # <<<<<<<<<<<<<<
@@ -3106,7 +3106,7 @@ static PyObject *__pyx_pf_4calc_6kelvin_to_fahrenheit(CYTHON_UNUSED PyObject *__
 */
   __pyx_v_frac = (9.0 / 5.0);
 
-  /* "calc.pyx":21
+  /* "wxdata/soundings/calc.pyx":21
  *     c = k - 273.15
  *     frac = 9/5
  *     f = (c * frac) + 32             # <<<<<<<<<<<<<<
@@ -3115,7 +3115,7 @@ static PyObject *__pyx_pf_4calc_6kelvin_to_fahrenheit(CYTHON_UNUSED PyObject *__
 */
   __pyx_v_f = ((__pyx_v_c * __pyx_v_frac) + 32.0);
 
-  /* "calc.pyx":22
+  /* "wxdata/soundings/calc.pyx":22
  *     frac = 9/5
  *     f = (c * frac) + 32
  *     return f             # <<<<<<<<<<<<<<
@@ -3129,7 +3129,7 @@ static PyObject *__pyx_pf_4calc_6kelvin_to_fahrenheit(CYTHON_UNUSED PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "calc.pyx":18
+  /* "wxdata/soundings/calc.pyx":18
  *     return f
  * 
  * def kelvin_to_fahrenheit(float k):             # <<<<<<<<<<<<<<
@@ -3140,7 +3140,7 @@ static PyObject *__pyx_pf_4calc_6kelvin_to_fahrenheit(CYTHON_UNUSED PyObject *__
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("calc.kelvin_to_fahrenheit", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.kelvin_to_fahrenheit", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3148,7 +3148,7 @@ static PyObject *__pyx_pf_4calc_6kelvin_to_fahrenheit(CYTHON_UNUSED PyObject *__
   return __pyx_r;
 }
 
-/* "calc.pyx":24
+/* "wxdata/soundings/calc.pyx":24
  *     return f
  * 
  * def get_u_and_v(float wind_speed, float wind_dir):             # <<<<<<<<<<<<<<
@@ -3157,16 +3157,16 @@ static PyObject *__pyx_pf_4calc_6kelvin_to_fahrenheit(CYTHON_UNUSED PyObject *__
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4calc_9get_u_and_v(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_9get_u_and_v(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_4calc_8get_u_and_v, "\n    This function calculates the u and u wind components\n\n    Required Arguments:\n\n    1) wind_speed (Float or Integer) \n\n    2) wind_direction (Float or Integer)\n\n    Returns\n    -------\n\n    u and v wind components\n    ");
-static PyMethodDef __pyx_mdef_4calc_9get_u_and_v = {"get_u_and_v", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_4calc_9get_u_and_v, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_4calc_8get_u_and_v};
-static PyObject *__pyx_pw_4calc_9get_u_and_v(PyObject *__pyx_self, 
+PyDoc_STRVAR(__pyx_doc_6wxdata_9soundings_4calc_8get_u_and_v, "\n    This function calculates the u and u wind components\n\n    Required Arguments:\n\n    1) wind_speed (Float or Integer) \n\n    2) wind_direction (Float or Integer)\n\n    Returns\n    -------\n\n    u and v wind components\n    ");
+static PyMethodDef __pyx_mdef_6wxdata_9soundings_4calc_9get_u_and_v = {"get_u_and_v", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6wxdata_9soundings_4calc_9get_u_and_v, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6wxdata_9soundings_4calc_8get_u_and_v};
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_9get_u_and_v(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -3236,11 +3236,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
     Py_XDECREF(values[__pyx_temp]);
   }
-  __Pyx_AddTraceback("calc.get_u_and_v", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.get_u_and_v", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4calc_8get_u_and_v(__pyx_self, __pyx_v_wind_speed, __pyx_v_wind_dir);
+  __pyx_r = __pyx_pf_6wxdata_9soundings_4calc_8get_u_and_v(__pyx_self, __pyx_v_wind_speed, __pyx_v_wind_dir);
 
   /* function exit code */
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -3250,7 +3250,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4calc_8get_u_and_v(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_wind_speed, float __pyx_v_wind_dir) {
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_8get_u_and_v(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_wind_speed, float __pyx_v_wind_dir) {
   PyObject *__pyx_v_u = NULL;
   PyObject *__pyx_v_v = NULL;
   PyObject *__pyx_r = NULL;
@@ -3266,7 +3266,7 @@ static PyObject *__pyx_pf_4calc_8get_u_and_v(CYTHON_UNUSED PyObject *__pyx_self,
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_u_and_v", 0);
 
-  /* "calc.pyx":41
+  /* "wxdata/soundings/calc.pyx":41
  *     """
  * 
  *     u = wind_speed * np.cos(wind_dir)             # <<<<<<<<<<<<<<
@@ -3311,7 +3311,7 @@ static PyObject *__pyx_pf_4calc_8get_u_and_v(CYTHON_UNUSED PyObject *__pyx_self,
   __pyx_v_u = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "calc.pyx":42
+  /* "wxdata/soundings/calc.pyx":42
  * 
  *     u = wind_speed * np.cos(wind_dir)
  *     v = wind_speed * np.sin(wind_dir)             # <<<<<<<<<<<<<<
@@ -3356,7 +3356,7 @@ static PyObject *__pyx_pf_4calc_8get_u_and_v(CYTHON_UNUSED PyObject *__pyx_self,
   __pyx_v_v = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "calc.pyx":44
+  /* "wxdata/soundings/calc.pyx":44
  *     v = wind_speed * np.sin(wind_dir)
  * 
  *     return u, v             # <<<<<<<<<<<<<<
@@ -3376,7 +3376,7 @@ static PyObject *__pyx_pf_4calc_8get_u_and_v(CYTHON_UNUSED PyObject *__pyx_self,
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "calc.pyx":24
+  /* "wxdata/soundings/calc.pyx":24
  *     return f
  * 
  * def get_u_and_v(float wind_speed, float wind_dir):             # <<<<<<<<<<<<<<
@@ -3391,7 +3391,7 @@ static PyObject *__pyx_pf_4calc_8get_u_and_v(CYTHON_UNUSED PyObject *__pyx_self,
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("calc.get_u_and_v", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.get_u_and_v", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_u);
@@ -3401,7 +3401,7 @@ static PyObject *__pyx_pf_4calc_8get_u_and_v(CYTHON_UNUSED PyObject *__pyx_self,
   return __pyx_r;
 }
 
-/* "calc.pyx":46
+/* "wxdata/soundings/calc.pyx":46
  *     return u, v
  * 
  * def saturation_vapor_pressure(float temperature):             # <<<<<<<<<<<<<<
@@ -3410,16 +3410,16 @@ static PyObject *__pyx_pf_4calc_8get_u_and_v(CYTHON_UNUSED PyObject *__pyx_self,
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4calc_11saturation_vapor_pressure(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_11saturation_vapor_pressure(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_4calc_10saturation_vapor_pressure, "\n    This function calculates the saturation vapor pressure from temperature.\n    This function uses the formula from Bolton 1980.   \n\n    Required Arguments:\n\n    1) temperature (Float or Integer)\n\n    Returns\n    -------\n\n    The saturation vapor pressure\n    ");
-static PyMethodDef __pyx_mdef_4calc_11saturation_vapor_pressure = {"saturation_vapor_pressure", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_4calc_11saturation_vapor_pressure, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_4calc_10saturation_vapor_pressure};
-static PyObject *__pyx_pw_4calc_11saturation_vapor_pressure(PyObject *__pyx_self, 
+PyDoc_STRVAR(__pyx_doc_6wxdata_9soundings_4calc_10saturation_vapor_pressure, "\n    This function calculates the saturation vapor pressure from temperature.\n    This function uses the formula from Bolton 1980.   \n\n    Required Arguments:\n\n    1) temperature (Float or Integer)\n\n    Returns\n    -------\n\n    The saturation vapor pressure\n    ");
+static PyMethodDef __pyx_mdef_6wxdata_9soundings_4calc_11saturation_vapor_pressure = {"saturation_vapor_pressure", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6wxdata_9soundings_4calc_11saturation_vapor_pressure, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6wxdata_9soundings_4calc_10saturation_vapor_pressure};
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_11saturation_vapor_pressure(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -3481,11 +3481,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
     Py_XDECREF(values[__pyx_temp]);
   }
-  __Pyx_AddTraceback("calc.saturation_vapor_pressure", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.saturation_vapor_pressure", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4calc_10saturation_vapor_pressure(__pyx_self, __pyx_v_temperature);
+  __pyx_r = __pyx_pf_6wxdata_9soundings_4calc_10saturation_vapor_pressure(__pyx_self, __pyx_v_temperature);
 
   /* function exit code */
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -3495,7 +3495,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4calc_10saturation_vapor_pressure(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_temperature) {
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_10saturation_vapor_pressure(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_temperature) {
   PyObject *__pyx_v_e = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -3511,7 +3511,7 @@ static PyObject *__pyx_pf_4calc_10saturation_vapor_pressure(CYTHON_UNUSED PyObje
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("saturation_vapor_pressure", 0);
 
-  /* "calc.pyx":62
+  /* "wxdata/soundings/calc.pyx":62
  *     """
  * 
  *     e = 6.112 * np.exp(17.67 * (temperature) / (temperature + 243.5))             # <<<<<<<<<<<<<<
@@ -3559,7 +3559,7 @@ static PyObject *__pyx_pf_4calc_10saturation_vapor_pressure(CYTHON_UNUSED PyObje
   __pyx_v_e = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "calc.pyx":63
+  /* "wxdata/soundings/calc.pyx":63
  * 
  *     e = 6.112 * np.exp(17.67 * (temperature) / (temperature + 243.5))
  *     return e             # <<<<<<<<<<<<<<
@@ -3571,7 +3571,7 @@ static PyObject *__pyx_pf_4calc_10saturation_vapor_pressure(CYTHON_UNUSED PyObje
   __pyx_r = __pyx_v_e;
   goto __pyx_L0;
 
-  /* "calc.pyx":46
+  /* "wxdata/soundings/calc.pyx":46
  *     return u, v
  * 
  * def saturation_vapor_pressure(float temperature):             # <<<<<<<<<<<<<<
@@ -3585,7 +3585,7 @@ static PyObject *__pyx_pf_4calc_10saturation_vapor_pressure(CYTHON_UNUSED PyObje
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("calc.saturation_vapor_pressure", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.saturation_vapor_pressure", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_e);
@@ -3594,7 +3594,7 @@ static PyObject *__pyx_pf_4calc_10saturation_vapor_pressure(CYTHON_UNUSED PyObje
   return __pyx_r;
 }
 
-/* "calc.pyx":66
+/* "wxdata/soundings/calc.pyx":66
  * 
  * 
  * def relative_humidity(float temperature, float dewpoint):             # <<<<<<<<<<<<<<
@@ -3603,16 +3603,16 @@ static PyObject *__pyx_pf_4calc_10saturation_vapor_pressure(CYTHON_UNUSED PyObje
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4calc_13relative_humidity(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_13relative_humidity(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-PyDoc_STRVAR(__pyx_doc_4calc_12relative_humidity, "\n    This function calculates the relative humidity from temperature and dewpoint. \n\n    Required Arguments:\n\n    1) temperature (Float or Integer)\n\n    2) dewpoint (Float or Integer)\n\n    Returns\n    -------\n\n    The relative humidity\n    ");
-static PyMethodDef __pyx_mdef_4calc_13relative_humidity = {"relative_humidity", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_4calc_13relative_humidity, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_4calc_12relative_humidity};
-static PyObject *__pyx_pw_4calc_13relative_humidity(PyObject *__pyx_self, 
+PyDoc_STRVAR(__pyx_doc_6wxdata_9soundings_4calc_12relative_humidity, "\n    This function calculates the relative humidity from temperature and dewpoint. \n\n    Required Arguments:\n\n    1) temperature (Float or Integer)\n\n    2) dewpoint (Float or Integer)\n\n    Returns\n    -------\n\n    The relative humidity\n    ");
+static PyMethodDef __pyx_mdef_6wxdata_9soundings_4calc_13relative_humidity = {"relative_humidity", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6wxdata_9soundings_4calc_13relative_humidity, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6wxdata_9soundings_4calc_12relative_humidity};
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_13relative_humidity(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -3682,11 +3682,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
     Py_XDECREF(values[__pyx_temp]);
   }
-  __Pyx_AddTraceback("calc.relative_humidity", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.relative_humidity", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4calc_12relative_humidity(__pyx_self, __pyx_v_temperature, __pyx_v_dewpoint);
+  __pyx_r = __pyx_pf_6wxdata_9soundings_4calc_12relative_humidity(__pyx_self, __pyx_v_temperature, __pyx_v_dewpoint);
 
   /* function exit code */
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -3696,7 +3696,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4calc_12relative_humidity(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_temperature, float __pyx_v_dewpoint) {
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_12relative_humidity(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_temperature, float __pyx_v_dewpoint) {
   PyObject *__pyx_v_e = NULL;
   PyObject *__pyx_v_e_s = NULL;
   PyObject *__pyx_r = NULL;
@@ -3711,7 +3711,7 @@ static PyObject *__pyx_pf_4calc_12relative_humidity(CYTHON_UNUSED PyObject *__py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("relative_humidity", 0);
 
-  /* "calc.pyx":83
+  /* "wxdata/soundings/calc.pyx":83
  *     """
  * 
  *     e = saturation_vapor_pressure(dewpoint)             # <<<<<<<<<<<<<<
@@ -3747,7 +3747,7 @@ static PyObject *__pyx_pf_4calc_12relative_humidity(CYTHON_UNUSED PyObject *__py
   __pyx_v_e = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "calc.pyx":84
+  /* "wxdata/soundings/calc.pyx":84
  * 
  *     e = saturation_vapor_pressure(dewpoint)
  *     e_s = saturation_vapor_pressure(temperature)             # <<<<<<<<<<<<<<
@@ -3783,7 +3783,7 @@ static PyObject *__pyx_pf_4calc_12relative_humidity(CYTHON_UNUSED PyObject *__py
   __pyx_v_e_s = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "calc.pyx":85
+  /* "wxdata/soundings/calc.pyx":85
  *     e = saturation_vapor_pressure(dewpoint)
  *     e_s = saturation_vapor_pressure(temperature)
  *     return (e / e_s) * 100             # <<<<<<<<<<<<<<
@@ -3800,7 +3800,7 @@ static PyObject *__pyx_pf_4calc_12relative_humidity(CYTHON_UNUSED PyObject *__py
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "calc.pyx":66
+  /* "wxdata/soundings/calc.pyx":66
  * 
  * 
  * def relative_humidity(float temperature, float dewpoint):             # <<<<<<<<<<<<<<
@@ -3814,7 +3814,7 @@ static PyObject *__pyx_pf_4calc_12relative_humidity(CYTHON_UNUSED PyObject *__py
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("calc.relative_humidity", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.relative_humidity", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_e);
@@ -3824,7 +3824,7 @@ static PyObject *__pyx_pf_4calc_12relative_humidity(CYTHON_UNUSED PyObject *__py
   return __pyx_r;
 }
 
-/* "calc.pyx":88
+/* "wxdata/soundings/calc.pyx":88
  * 
  * 
  * def add(float a, float b):             # <<<<<<<<<<<<<<
@@ -3833,15 +3833,15 @@ static PyObject *__pyx_pf_4calc_12relative_humidity(CYTHON_UNUSED PyObject *__py
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4calc_15add(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_15add(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_4calc_15add = {"add", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_4calc_15add, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_4calc_15add(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_6wxdata_9soundings_4calc_15add = {"add", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6wxdata_9soundings_4calc_15add, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_15add(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -3911,11 +3911,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
     Py_XDECREF(values[__pyx_temp]);
   }
-  __Pyx_AddTraceback("calc.add", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.add", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4calc_14add(__pyx_self, __pyx_v_a, __pyx_v_b);
+  __pyx_r = __pyx_pf_6wxdata_9soundings_4calc_14add(__pyx_self, __pyx_v_a, __pyx_v_b);
 
   /* function exit code */
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -3925,7 +3925,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4calc_14add(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_a, float __pyx_v_b) {
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_14add(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_a, float __pyx_v_b) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3934,7 +3934,7 @@ static PyObject *__pyx_pf_4calc_14add(CYTHON_UNUSED PyObject *__pyx_self, float 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("add", 0);
 
-  /* "calc.pyx":89
+  /* "wxdata/soundings/calc.pyx":89
  * 
  * def add(float a, float b):
  *     return a + b             # <<<<<<<<<<<<<<
@@ -3948,7 +3948,7 @@ static PyObject *__pyx_pf_4calc_14add(CYTHON_UNUSED PyObject *__pyx_self, float 
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "calc.pyx":88
+  /* "wxdata/soundings/calc.pyx":88
  * 
  * 
  * def add(float a, float b):             # <<<<<<<<<<<<<<
@@ -3959,7 +3959,7 @@ static PyObject *__pyx_pf_4calc_14add(CYTHON_UNUSED PyObject *__pyx_self, float 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("calc.add", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.add", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3967,7 +3967,7 @@ static PyObject *__pyx_pf_4calc_14add(CYTHON_UNUSED PyObject *__pyx_self, float 
   return __pyx_r;
 }
 
-/* "calc.pyx":91
+/* "wxdata/soundings/calc.pyx":91
  *     return a + b
  * 
  * def subtract(float a, float b):             # <<<<<<<<<<<<<<
@@ -3976,15 +3976,15 @@ static PyObject *__pyx_pf_4calc_14add(CYTHON_UNUSED PyObject *__pyx_self, float 
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4calc_17subtract(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_17subtract(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_4calc_17subtract = {"subtract", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_4calc_17subtract, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_4calc_17subtract(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_6wxdata_9soundings_4calc_17subtract = {"subtract", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6wxdata_9soundings_4calc_17subtract, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_17subtract(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -4054,11 +4054,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
     Py_XDECREF(values[__pyx_temp]);
   }
-  __Pyx_AddTraceback("calc.subtract", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.subtract", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4calc_16subtract(__pyx_self, __pyx_v_a, __pyx_v_b);
+  __pyx_r = __pyx_pf_6wxdata_9soundings_4calc_16subtract(__pyx_self, __pyx_v_a, __pyx_v_b);
 
   /* function exit code */
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -4068,7 +4068,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4calc_16subtract(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_a, float __pyx_v_b) {
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_16subtract(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_a, float __pyx_v_b) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4077,7 +4077,7 @@ static PyObject *__pyx_pf_4calc_16subtract(CYTHON_UNUSED PyObject *__pyx_self, f
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("subtract", 0);
 
-  /* "calc.pyx":92
+  /* "wxdata/soundings/calc.pyx":92
  * 
  * def subtract(float a, float b):
  *     return a - b             # <<<<<<<<<<<<<<
@@ -4091,7 +4091,7 @@ static PyObject *__pyx_pf_4calc_16subtract(CYTHON_UNUSED PyObject *__pyx_self, f
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "calc.pyx":91
+  /* "wxdata/soundings/calc.pyx":91
  *     return a + b
  * 
  * def subtract(float a, float b):             # <<<<<<<<<<<<<<
@@ -4102,7 +4102,7 @@ static PyObject *__pyx_pf_4calc_16subtract(CYTHON_UNUSED PyObject *__pyx_self, f
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("calc.subtract", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.subtract", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4110,7 +4110,7 @@ static PyObject *__pyx_pf_4calc_16subtract(CYTHON_UNUSED PyObject *__pyx_self, f
   return __pyx_r;
 }
 
-/* "calc.pyx":94
+/* "wxdata/soundings/calc.pyx":94
  *     return a - b
  * 
  * def multiply(float a, float b):             # <<<<<<<<<<<<<<
@@ -4119,15 +4119,15 @@ static PyObject *__pyx_pf_4calc_16subtract(CYTHON_UNUSED PyObject *__pyx_self, f
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4calc_19multiply(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_19multiply(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_4calc_19multiply = {"multiply", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_4calc_19multiply, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_4calc_19multiply(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_6wxdata_9soundings_4calc_19multiply = {"multiply", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6wxdata_9soundings_4calc_19multiply, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_19multiply(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -4197,11 +4197,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
     Py_XDECREF(values[__pyx_temp]);
   }
-  __Pyx_AddTraceback("calc.multiply", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.multiply", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4calc_18multiply(__pyx_self, __pyx_v_a, __pyx_v_b);
+  __pyx_r = __pyx_pf_6wxdata_9soundings_4calc_18multiply(__pyx_self, __pyx_v_a, __pyx_v_b);
 
   /* function exit code */
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -4211,7 +4211,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4calc_18multiply(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_a, float __pyx_v_b) {
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_18multiply(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_a, float __pyx_v_b) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4220,7 +4220,7 @@ static PyObject *__pyx_pf_4calc_18multiply(CYTHON_UNUSED PyObject *__pyx_self, f
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("multiply", 0);
 
-  /* "calc.pyx":95
+  /* "wxdata/soundings/calc.pyx":95
  * 
  * def multiply(float a, float b):
  *     return a * b             # <<<<<<<<<<<<<<
@@ -4234,7 +4234,7 @@ static PyObject *__pyx_pf_4calc_18multiply(CYTHON_UNUSED PyObject *__pyx_self, f
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "calc.pyx":94
+  /* "wxdata/soundings/calc.pyx":94
  *     return a - b
  * 
  * def multiply(float a, float b):             # <<<<<<<<<<<<<<
@@ -4245,7 +4245,7 @@ static PyObject *__pyx_pf_4calc_18multiply(CYTHON_UNUSED PyObject *__pyx_self, f
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("calc.multiply", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.multiply", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4253,7 +4253,7 @@ static PyObject *__pyx_pf_4calc_18multiply(CYTHON_UNUSED PyObject *__pyx_self, f
   return __pyx_r;
 }
 
-/* "calc.pyx":97
+/* "wxdata/soundings/calc.pyx":97
  *     return a * b
  * 
  * def exponent(float a, float b):             # <<<<<<<<<<<<<<
@@ -4262,15 +4262,15 @@ static PyObject *__pyx_pf_4calc_18multiply(CYTHON_UNUSED PyObject *__pyx_self, f
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4calc_21exponent(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_21exponent(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_4calc_21exponent = {"exponent", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_4calc_21exponent, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_4calc_21exponent(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_6wxdata_9soundings_4calc_21exponent = {"exponent", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6wxdata_9soundings_4calc_21exponent, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_6wxdata_9soundings_4calc_21exponent(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -4340,11 +4340,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
     Py_XDECREF(values[__pyx_temp]);
   }
-  __Pyx_AddTraceback("calc.exponent", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.exponent", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4calc_20exponent(__pyx_self, __pyx_v_a, __pyx_v_b);
+  __pyx_r = __pyx_pf_6wxdata_9soundings_4calc_20exponent(__pyx_self, __pyx_v_a, __pyx_v_b);
 
   /* function exit code */
   for (Py_ssize_t __pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -4354,7 +4354,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4calc_20exponent(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_a, float __pyx_v_b) {
+static PyObject *__pyx_pf_6wxdata_9soundings_4calc_20exponent(CYTHON_UNUSED PyObject *__pyx_self, float __pyx_v_a, float __pyx_v_b) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __pyx_t_double_complex __pyx_t_1;
@@ -4364,7 +4364,7 @@ static PyObject *__pyx_pf_4calc_20exponent(CYTHON_UNUSED PyObject *__pyx_self, f
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("exponent", 0);
 
-  /* "calc.pyx":98
+  /* "wxdata/soundings/calc.pyx":98
  * 
  * def exponent(float a, float b):
  *     return a ** b             # <<<<<<<<<<<<<<
@@ -4379,7 +4379,7 @@ static PyObject *__pyx_pf_4calc_20exponent(CYTHON_UNUSED PyObject *__pyx_self, f
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "calc.pyx":97
+  /* "wxdata/soundings/calc.pyx":97
  *     return a * b
  * 
  * def exponent(float a, float b):             # <<<<<<<<<<<<<<
@@ -4390,7 +4390,7 @@ static PyObject *__pyx_pf_4calc_20exponent(CYTHON_UNUSED PyObject *__pyx_self, f
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("calc.exponent", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("wxdata.soundings.calc.exponent", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4738,13 +4738,13 @@ __Pyx_RefNannySetupContext("PyInit_calc", 0);
   if (__pyx_AsyncGen_init(__pyx_m) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
   /*--- Library function declarations ---*/
-  if (__pyx_module_is_main_calc) {
+  if (__pyx_module_is_main_wxdata__soundings__calc) {
     if (PyObject_SetAttr(__pyx_m, __pyx_mstate_global->__pyx_n_u_name, __pyx_mstate_global->__pyx_n_u_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "calc")) {
-      if (unlikely((PyDict_SetItemString(modules, "calc", __pyx_m) < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "wxdata.soundings.calc")) {
+      if (unlikely((PyDict_SetItemString(modules, "wxdata.soundings.calc", __pyx_m) < 0))) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   /*--- Builtin init code ---*/
@@ -4762,7 +4762,7 @@ __Pyx_RefNannySetupContext("PyInit_calc", 0);
   (void)__Pyx_modinit_function_import_code(__pyx_mstate);
   /*--- Execution code ---*/
 
-  /* "calc.pyx":1
+  /* "wxdata/soundings/calc.pyx":1
  * import numpy as np             # <<<<<<<<<<<<<<
  * 
  * def fahrenheit_to_celsius(float f):
@@ -4772,139 +4772,139 @@ __Pyx_RefNannySetupContext("PyInit_calc", 0);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_np, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "calc.pyx":3
+  /* "wxdata/soundings/calc.pyx":3
  * import numpy as np
  * 
  * def fahrenheit_to_celsius(float f):             # <<<<<<<<<<<<<<
  *     frac = 5/9
  *     c = frac * (f - 32)
 */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_4calc_1fahrenheit_to_celsius, 0, __pyx_mstate_global->__pyx_n_u_fahrenheit_to_celsius, NULL, __pyx_mstate_global->__pyx_n_u_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[0])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6wxdata_9soundings_4calc_1fahrenheit_to_celsius, 0, __pyx_mstate_global->__pyx_n_u_fahrenheit_to_celsius, NULL, __pyx_mstate_global->__pyx_n_u_wxdata_soundings_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[0])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_fahrenheit_to_celsius, __pyx_t_2) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "calc.pyx":8
+  /* "wxdata/soundings/calc.pyx":8
  *     return c
  * 
  * def fahrenheit_to_kelvin(float f):             # <<<<<<<<<<<<<<
  *     frac = 5/9
  *     c = frac * (f - 32)
 */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_4calc_3fahrenheit_to_kelvin, 0, __pyx_mstate_global->__pyx_n_u_fahrenheit_to_kelvin, NULL, __pyx_mstate_global->__pyx_n_u_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[1])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6wxdata_9soundings_4calc_3fahrenheit_to_kelvin, 0, __pyx_mstate_global->__pyx_n_u_fahrenheit_to_kelvin, NULL, __pyx_mstate_global->__pyx_n_u_wxdata_soundings_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[1])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_fahrenheit_to_kelvin, __pyx_t_2) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "calc.pyx":13
+  /* "wxdata/soundings/calc.pyx":13
  *     return c + 273.15
  * 
  * def celsius_to_fahrenheit(float c):             # <<<<<<<<<<<<<<
  *     frac = 9/5
  *     f = (c * frac) + 32
 */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_4calc_5celsius_to_fahrenheit, 0, __pyx_mstate_global->__pyx_n_u_celsius_to_fahrenheit, NULL, __pyx_mstate_global->__pyx_n_u_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[2])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6wxdata_9soundings_4calc_5celsius_to_fahrenheit, 0, __pyx_mstate_global->__pyx_n_u_celsius_to_fahrenheit, NULL, __pyx_mstate_global->__pyx_n_u_wxdata_soundings_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[2])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_celsius_to_fahrenheit, __pyx_t_2) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "calc.pyx":18
+  /* "wxdata/soundings/calc.pyx":18
  *     return f
  * 
  * def kelvin_to_fahrenheit(float k):             # <<<<<<<<<<<<<<
  *     c = k - 273.15
  *     frac = 9/5
 */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_4calc_7kelvin_to_fahrenheit, 0, __pyx_mstate_global->__pyx_n_u_kelvin_to_fahrenheit, NULL, __pyx_mstate_global->__pyx_n_u_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[3])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 18, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6wxdata_9soundings_4calc_7kelvin_to_fahrenheit, 0, __pyx_mstate_global->__pyx_n_u_kelvin_to_fahrenheit, NULL, __pyx_mstate_global->__pyx_n_u_wxdata_soundings_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[3])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_kelvin_to_fahrenheit, __pyx_t_2) < 0) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "calc.pyx":24
+  /* "wxdata/soundings/calc.pyx":24
  *     return f
  * 
  * def get_u_and_v(float wind_speed, float wind_dir):             # <<<<<<<<<<<<<<
  * 
  *     """
 */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_4calc_9get_u_and_v, 0, __pyx_mstate_global->__pyx_n_u_get_u_and_v, NULL, __pyx_mstate_global->__pyx_n_u_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[4])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6wxdata_9soundings_4calc_9get_u_and_v, 0, __pyx_mstate_global->__pyx_n_u_get_u_and_v, NULL, __pyx_mstate_global->__pyx_n_u_wxdata_soundings_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[4])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_get_u_and_v, __pyx_t_2) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "calc.pyx":46
+  /* "wxdata/soundings/calc.pyx":46
  *     return u, v
  * 
  * def saturation_vapor_pressure(float temperature):             # <<<<<<<<<<<<<<
  * 
  *     """
 */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_4calc_11saturation_vapor_pressure, 0, __pyx_mstate_global->__pyx_n_u_saturation_vapor_pressure, NULL, __pyx_mstate_global->__pyx_n_u_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[5])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6wxdata_9soundings_4calc_11saturation_vapor_pressure, 0, __pyx_mstate_global->__pyx_n_u_saturation_vapor_pressure, NULL, __pyx_mstate_global->__pyx_n_u_wxdata_soundings_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[5])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_saturation_vapor_pressure, __pyx_t_2) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "calc.pyx":66
+  /* "wxdata/soundings/calc.pyx":66
  * 
  * 
  * def relative_humidity(float temperature, float dewpoint):             # <<<<<<<<<<<<<<
  * 
  *     """
 */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_4calc_13relative_humidity, 0, __pyx_mstate_global->__pyx_n_u_relative_humidity, NULL, __pyx_mstate_global->__pyx_n_u_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[6])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6wxdata_9soundings_4calc_13relative_humidity, 0, __pyx_mstate_global->__pyx_n_u_relative_humidity, NULL, __pyx_mstate_global->__pyx_n_u_wxdata_soundings_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[6])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_relative_humidity, __pyx_t_2) < 0) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "calc.pyx":88
+  /* "wxdata/soundings/calc.pyx":88
  * 
  * 
  * def add(float a, float b):             # <<<<<<<<<<<<<<
  *     return a + b
  * 
 */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_4calc_15add, 0, __pyx_mstate_global->__pyx_n_u_add, NULL, __pyx_mstate_global->__pyx_n_u_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[7])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6wxdata_9soundings_4calc_15add, 0, __pyx_mstate_global->__pyx_n_u_add, NULL, __pyx_mstate_global->__pyx_n_u_wxdata_soundings_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[7])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_add, __pyx_t_2) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "calc.pyx":91
+  /* "wxdata/soundings/calc.pyx":91
  *     return a + b
  * 
  * def subtract(float a, float b):             # <<<<<<<<<<<<<<
  *     return a - b
  * 
 */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_4calc_17subtract, 0, __pyx_mstate_global->__pyx_n_u_subtract, NULL, __pyx_mstate_global->__pyx_n_u_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[8])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6wxdata_9soundings_4calc_17subtract, 0, __pyx_mstate_global->__pyx_n_u_subtract, NULL, __pyx_mstate_global->__pyx_n_u_wxdata_soundings_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[8])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_subtract, __pyx_t_2) < 0) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "calc.pyx":94
+  /* "wxdata/soundings/calc.pyx":94
  *     return a - b
  * 
  * def multiply(float a, float b):             # <<<<<<<<<<<<<<
  *     return a * b
  * 
 */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_4calc_19multiply, 0, __pyx_mstate_global->__pyx_n_u_multiply, NULL, __pyx_mstate_global->__pyx_n_u_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[9])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6wxdata_9soundings_4calc_19multiply, 0, __pyx_mstate_global->__pyx_n_u_multiply, NULL, __pyx_mstate_global->__pyx_n_u_wxdata_soundings_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[9])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_multiply, __pyx_t_2) < 0) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "calc.pyx":97
+  /* "wxdata/soundings/calc.pyx":97
  *     return a * b
  * 
  * def exponent(float a, float b):             # <<<<<<<<<<<<<<
  *     return a ** b
  * 
 */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_4calc_21exponent, 0, __pyx_mstate_global->__pyx_n_u_exponent, NULL, __pyx_mstate_global->__pyx_n_u_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[10])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6wxdata_9soundings_4calc_21exponent, 0, __pyx_mstate_global->__pyx_n_u_exponent, NULL, __pyx_mstate_global->__pyx_n_u_wxdata_soundings_calc, __pyx_mstate_global->__pyx_d, ((PyObject *)__pyx_mstate_global->__pyx_codeobj_tab[10])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_mstate_global->__pyx_d, __pyx_mstate_global->__pyx_n_u_exponent, __pyx_t_2) < 0) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "calc.pyx":1
+  /* "wxdata/soundings/calc.pyx":1
  * import numpy as np             # <<<<<<<<<<<<<<
  * 
  * def fahrenheit_to_celsius(float f):
@@ -4921,7 +4921,7 @@ __Pyx_RefNannySetupContext("PyInit_calc", 0);
   __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_mstate->__pyx_d && stringtab_initialized) {
-      __Pyx_AddTraceback("init calc", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init wxdata.soundings.calc", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     #if !CYTHON_USE_MODULE_STATE
     Py_CLEAR(__pyx_m);
@@ -4935,7 +4935,7 @@ __Pyx_RefNannySetupContext("PyInit_calc", 0);
     }
     #endif
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init calc");
+    PyErr_SetString(PyExc_ImportError, "init wxdata.soundings.calc");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -4978,7 +4978,6 @@ static const __Pyx_StringTabEntry __pyx_string_tab[] = {
   {__pyx_k_asyncio_coroutines, sizeof(__pyx_k_asyncio_coroutines), 0, 1, 1}, /* PyObject cname: __pyx_n_u_asyncio_coroutines */
   {__pyx_k_b, sizeof(__pyx_k_b), 0, 1, 1}, /* PyObject cname: __pyx_n_u_b */
   {__pyx_k_c, sizeof(__pyx_k_c), 0, 1, 1}, /* PyObject cname: __pyx_n_u_c */
-  {__pyx_k_calc, sizeof(__pyx_k_calc), 0, 1, 1}, /* PyObject cname: __pyx_n_u_calc */
   {__pyx_k_calc_pyx, sizeof(__pyx_k_calc_pyx), 0, 1, 0}, /* PyObject cname: __pyx_kp_u_calc_pyx */
   {__pyx_k_celsius_to_fahrenheit, sizeof(__pyx_k_celsius_to_fahrenheit), 0, 1, 1}, /* PyObject cname: __pyx_n_u_celsius_to_fahrenheit */
   {__pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 1, 1}, /* PyObject cname: __pyx_n_u_cline_in_traceback */
@@ -5018,6 +5017,7 @@ static const __Pyx_StringTabEntry __pyx_string_tab[] = {
   {__pyx_k_v, sizeof(__pyx_k_v), 0, 1, 1}, /* PyObject cname: __pyx_n_u_v */
   {__pyx_k_wind_dir, sizeof(__pyx_k_wind_dir), 0, 1, 1}, /* PyObject cname: __pyx_n_u_wind_dir */
   {__pyx_k_wind_speed, sizeof(__pyx_k_wind_speed), 0, 1, 1}, /* PyObject cname: __pyx_n_u_wind_speed */
+  {__pyx_k_wxdata_soundings_calc, sizeof(__pyx_k_wxdata_soundings_calc), 0, 1, 1}, /* PyObject cname: __pyx_n_u_wxdata_soundings_calc */
   {0, 0, 0, 0, 0}
 };
 /* InitStrings.proto */
