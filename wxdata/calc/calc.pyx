@@ -1,5 +1,26 @@
 import numpy as np
 
+def fahrenheit_to_celsius(float f):
+    frac = 5/9
+    c = frac * (f - 32)
+    return c
+
+def fahrenheit_to_kelvin(float f):
+    frac = 5/9
+    c = frac * (f - 32)
+    return c + 273.15
+
+def celsius_to_fahrenheit(float c):
+    frac = 9/5
+    f = (c * frac) + 32
+    return f
+
+def kelvin_to_fahrenheit(float k):
+    c = k - 273.15
+    frac = 9/5
+    f = (c * frac) + 32
+    return f    
+
 def get_u_and_v(float wind_speed, float wind_dir):
 
     """
@@ -62,3 +83,18 @@ def relative_humidity(float temperature, float dewpoint):
     e = saturation_vapor_pressure(dewpoint)
     e_s = saturation_vapor_pressure(temperature)
     return (e / e_s) * 100
+
+
+def add(float a, float b):
+    return a + b
+
+def subtract(float a, float b):
+    return a - b
+
+def multiply(float a, float b):
+    return a * b
+
+def exponent(float a, float b):
+    return a ** b
+
+    
