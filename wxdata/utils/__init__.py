@@ -4,4 +4,4 @@ from wxdata.utils.scanner import(
     url_scanner
 )
 
-from wxdata.utils.calc import *
+from wxdata.utils.calc.calc import *
