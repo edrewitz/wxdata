@@ -5,7 +5,7 @@
     "distutils": {
         "name": "calc",
         "sources": [
-            "calc.pyx"
+            "wxdata.soundings.calc.pyx"
         ]
     },
     "module_name": "calc"
