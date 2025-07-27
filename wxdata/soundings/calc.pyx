@@ -1,4 +1,4 @@
-cimport numpy as np
+import numpy as np
 
 def fahrenheit_to_celsius(float f):
     frac = 5/9
