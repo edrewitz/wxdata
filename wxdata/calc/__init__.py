@@ -1,1 +1,1 @@
-from wxdata.calc.calc import *
+from wxdata.calc import *
