@@ -13,7 +13,7 @@ import sys
 import pyximport
 pyximport.install()
 
-from ..soundings.calc import(
+from wxdata.calc.calc import(
     get_u_and_v,
     relative_humidity,
     saturation_vapor_pressure
