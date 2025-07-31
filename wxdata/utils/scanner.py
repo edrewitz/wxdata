@@ -396,4 +396,6 @@ def url_scanner(model, cat, proxies):
 
         url_run = int(f"{url[aa]}{url[bb]}")
         
+        print(url)
+        
     return url, url_run
