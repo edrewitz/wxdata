@@ -80,7 +80,7 @@ def station_ids(station_id):
         'YQD':'71867',
         'YBK':'71926',
         'YCB':'71925',
-        'YRB':'71924'
+        'YRB':'71924',
         'YUX':'71081'
 
     }
