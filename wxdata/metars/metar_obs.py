@@ -20,9 +20,15 @@ def extract_gzipped_file(compressed_file, decompressed_file):
     compressed_file (str): Path to the gzipped file.
     decompressed_file (str): Path where the decompressed file will be saved.
     """
+
     with gzip.open(compressed_file, 'rb') as f_in:
         with open(decompressed_file, 'wb') as f_out:
             f_out.write(f_in.read())
+            
+    if os.path.exists(compressed_file):
+        os.remove(compressed_file)
+    else:
+        pass
 
 def download_metar_data():
     
@@ -32,12 +38,20 @@ def download_metar_data():
     Returns:        
     pd.DataFrame: A DataFrame containing the METAR data.
     """
+    
+    urllib.request.urlretrieve(f"https://aviationweather.gov/data/cache/metars.cache.csv.gz", f"metars.cache.csv.gz")
     extract_gzipped_file('metars.cache.csv.gz', 'metars.csv')
     
     if os.path.exists(f"METAR Data"):
         pass
     else:
         os.mkdir(f"METAR Data")
+
+    try:
+        for file in os.listdir(f"METAR Data"):
+            os.remove(f"METAR Data/{file}")
+    except Exception as e:
+        pass
         
     os.replace(f"metars.csv", f"METAR Data/metars.csv")
 
