@@ -13,3 +13,4 @@ from wxdata.fems.fems import(
 from wxdata.noaa.nws import get_ndfd_grids
 from wxdata.soundings.wyoming_soundings import get_observed_sounding_data
 from wxdata.utils.utils import cyclic_point
+from wxdata.metars.metar_obs import download_metar_data
