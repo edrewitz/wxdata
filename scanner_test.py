@@ -3,7 +3,8 @@ from wxdata.utils.scanner import(
     url_scanner
 )
 
-model = "GEFS0p25"
+model = "GFS0P25"
+#model = 'GEFS0P25'
 cat = "Control"
 proxies = None
 step = 3

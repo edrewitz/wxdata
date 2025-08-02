@@ -74,7 +74,9 @@ def forecast_hour(model):
     hour = {
         'GEFS0P25':240,
         'GEFS0P50':384,
-        'GEFS0P50 SECONDARY PARAMETERS':384        
+        'GEFS0P50 SECONDARY PARAMETERS':384,
+        'GFS0P25':384,
+        'GFS0P25 SECONDARY PARAMETERS':384        
     }
     
     return hour[model]
@@ -120,7 +122,8 @@ def url_index(model):
     times = {
         'GEFS0P25':[-19, -18],
         'GEFS0P50':[-18, -17],
-        'GEFS0P50 SECONDARY PARAMETERS':[-18, -17]
+        'GEFS0P50 SECONDARY PARAMETERS':[-18, -17],
+        'GFS0P25':[-9, -8]
     }
 
     return times[model][0], times[model][1]
@@ -144,7 +147,8 @@ def index(model):
     times = {
         'GEFS0P25':[7, 8],
         'GEFS0P50':[7, 8],
-        'GEFS0P50 SECONDARY PARAMETERS':[7, 8]
+        'GEFS0P50 SECONDARY PARAMETERS':[7, 8],
+        'GFS0P25':[5, 6]
     }
 
     return times[model][0], times[model][1]
@@ -307,6 +311,30 @@ def url_scanner(model, cat, proxies):
 
     aa, bb = url_index(model)
     
+    print(aa, bb)
+    
+    if model == 'GFS0P25' or model == 'GFS0P25 SECONDARY PARAMETERS':
+        today_00z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/00/atmos/"
+        today_06z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/06/atmos/"
+        today_12z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/12/atmos/"
+        today_18z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/18/atmos/"
+        
+        yday_00z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/00/atmos/"
+        yday_06z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/06/atmos/"
+        yday_12z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/12/atmos/"
+        yday_18z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/18/atmos/"
+        
+        if model == 'GFS0P25':
+            f_00z = "gfs.t00z.pgrb2.0p25.f384"
+            f_06z = "gfs.t06z.pgrb2.0p25.f384"
+            f_12z = "gfs.t12z.pgrb2.0p25.f384"
+            f_18z = "gfs.t18z.pgrb2.0p25.f384"
+        else:
+            f_00z = "gfs.t00z.pgrb2b.0p25.f384"
+            f_06z = "gfs.t06z.pgrb2b.0p25.f384"
+            f_12z = "gfs.t12z.pgrb2b.0p25.f384"
+            f_18z = "gfs.t18z.pgrb2b.0p25.f384"
+    
     if model == 'GEFS0P25' or model == 'GEFS0P50' or model == 'GEFS0P50 SECONDARY PARAMETERS':
         if model == 'GEFS0P25':
             a = 's'
@@ -355,47 +383,48 @@ def url_scanner(model, cat, proxies):
             f_12z = f"gep30.t12z.pgrb2{a}.0p{c}.f240"
             f_18z = f"gep30.t18z.pgrb2{a}.0p{c}.f240"         
     
-        if proxies == None:
-            t_18z = requests.get(f"{today_18z}/{f_18z}", stream=True)
-            t_12z = requests.get(f"{today_12z}/{f_12z}", stream=True)
-            t_06z = requests.get(f"{today_06z}/{f_06z}", stream=True)
-            t_00z = requests.get(f"{today_00z}/{f_00z}", stream=True)
-    
-            y_18z = requests.get(f"{yday_18z}/{f_18z}", stream=True)
-            y_12z = requests.get(f"{yday_12z}/{f_12z}", stream=True)
-            y_06z = requests.get(f"{yday_06z}/{f_06z}", stream=True)
-            y_00z = requests.get(f"{yday_00z}/{f_00z}", stream=True)    
-    
-        else:
-            t_18z = requests.get(f"{today_18z}/{f_18z}", stream=True, proxies=proxies)
-            t_12z = requests.get(f"{today_12z}/{f_12z}", stream=True, proxies=proxies)
-            t_06z = requests.get(f"{today_06z}/{f_06z}", stream=True, proxies=proxies)
-            t_00z = requests.get(f"{today_00z}/{f_00z}", stream=True, proxies=proxies)
-    
-            y_18z = requests.get(f"{yday_18z}/{f_18z}", stream=True, proxies=proxies)
-            y_12z = requests.get(f"{yday_12z}/{f_12z}", stream=True, proxies=proxies)
-            y_06z = requests.get(f"{yday_06z}/{f_06z}", stream=True, proxies=proxies)
-            y_00z = requests.get(f"{yday_00z}/{f_00z}", stream=True, proxies=proxies)         
-    
-        if t_18z.status_code == 200:
-            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/18/atmos/pgrb2{a}p{b}/"
-        elif t_18z.status_code != 200 and t_12z.status_code == 200:
-            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/12/atmos/pgrb2{a}p{b}/"
-        elif t_12z.status_code != 200 and t_06z.status_code == 200:
-            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/06/atmos/pgrb2{a}p{b}/"       
-        elif t_06z.status_code != 200 and t_00z.status_code == 200:
-            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/00/atmos/pgrb2{a}p{b}/"
-        elif t_00z.status_code != 200 and y_18z.status_code == 200:
-            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/18/atmos/pgrb2{a}p{b}/"
-        elif y_18z.status_code != 200 and y_12z.status_code == 200:
-            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/12/atmos/pgrb2{a}p{b}/"      
-        elif y_12z.status_code != 200 and y_06z.status_code == 200:
-            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/06/atmos/pgrb2{a}p{b}/"
-        else:
-            url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/00/atmos/pgrb2{a}p{b}/"
+    if proxies == None:
+        t_18z = requests.get(f"{today_18z}/{f_18z}", stream=True)
+        t_12z = requests.get(f"{today_12z}/{f_12z}", stream=True)
+        t_06z = requests.get(f"{today_06z}/{f_06z}", stream=True)
+        t_00z = requests.get(f"{today_00z}/{f_00z}", stream=True)
 
-        url_run = int(f"{url[aa]}{url[bb]}")
-        
-        print(url)
+        y_18z = requests.get(f"{yday_18z}/{f_18z}", stream=True)
+        y_12z = requests.get(f"{yday_12z}/{f_12z}", stream=True)
+        y_06z = requests.get(f"{yday_06z}/{f_06z}", stream=True)
+        y_00z = requests.get(f"{yday_00z}/{f_00z}", stream=True)    
+
+    else:
+        t_18z = requests.get(f"{today_18z}/{f_18z}", stream=True, proxies=proxies)
+        t_12z = requests.get(f"{today_12z}/{f_12z}", stream=True, proxies=proxies)
+        t_06z = requests.get(f"{today_06z}/{f_06z}", stream=True, proxies=proxies)
+        t_00z = requests.get(f"{today_00z}/{f_00z}", stream=True, proxies=proxies)
+
+        y_18z = requests.get(f"{yday_18z}/{f_18z}", stream=True, proxies=proxies)
+        y_12z = requests.get(f"{yday_12z}/{f_12z}", stream=True, proxies=proxies)
+        y_06z = requests.get(f"{yday_06z}/{f_06z}", stream=True, proxies=proxies)
+        y_00z = requests.get(f"{yday_00z}/{f_00z}", stream=True, proxies=proxies)         
+
+    if t_18z.status_code == 200:
+        url = f"{today_18z}"
+    elif t_18z.status_code != 200 and t_12z.status_code == 200:
+        url = f"{today_12z}"
+    elif t_12z.status_code != 200 and t_06z.status_code == 200:
+        url = f"{today_06z}"
+    elif t_06z.status_code != 200 and t_00z.status_code == 200:
+        url = f"{today_00z}"
+    elif t_00z.status_code != 200 and y_18z.status_code == 200:
+        url = f"{yday_18z}"
+    elif y_18z.status_code != 200 and y_12z.status_code == 200:
+        url = f"{yday_12z}"
+    elif y_12z.status_code != 200 and y_06z.status_code == 200:
+        url = f"{yday_06z}"
+    else:
+        url = f"{yday_00z}"
+
+    url_run = int(f"{url[aa]}{url[bb]}")
+    
+    print(url)
+    print(url_run)
         
     return url, url_run
