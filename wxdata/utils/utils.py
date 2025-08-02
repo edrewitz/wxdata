@@ -1,6 +1,27 @@
 import os
+import gzip
 
 from cartopy.util import add_cyclic_point
+
+
+def extract_gzipped_file(compressed_file, decompressed_file):
+    
+    """
+    Extracts a gzipped file to a specified location.
+
+    Parameters:
+    compressed_file (str): Path to the gzipped file.
+    decompressed_file (str): Path where the decompressed file will be saved.
+    """
+
+    with gzip.open(compressed_file, 'rb') as f_in:
+        with open(decompressed_file, 'wb') as f_out:
+            f_out.write(f_in.read())
+            
+    if os.path.exists(compressed_file):
+        os.remove(compressed_file)
+    else:
+        pass
 
 
 def clear_idx_files(step=None, model=None, cat=None, paths=None, ens=False):
