@@ -123,7 +123,8 @@ def url_index(model):
         'GEFS0P25':[-19, -18],
         'GEFS0P50':[-18, -17],
         'GEFS0P50 SECONDARY PARAMETERS':[-18, -17],
-        'GFS0P25':[-9, -8]
+        'GFS0P25':[-9, -8],
+        'GFS0P25 SECONDARY PARAMETERS':[-9, -8]
     }
 
     return times[model][0], times[model][1]
@@ -148,7 +149,8 @@ def index(model):
         'GEFS0P25':[7, 8],
         'GEFS0P50':[7, 8],
         'GEFS0P50 SECONDARY PARAMETERS':[7, 8],
-        'GFS0P25':[5, 6]
+        'GFS0P25':[5, 6],
+        'GFS0P25 SECONDARY PARAMETERS':[5, 6]
     }
 
     return times[model][0], times[model][1]

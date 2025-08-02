@@ -3,7 +3,7 @@ from wxdata.utils.scanner import(
     url_scanner
 )
 
-model = "GFS0P25"
+model = "GFS0P25 SECONDARY PARAMETERS"
 #model = 'GEFS0P25'
 cat = "Control"
 proxies = None
