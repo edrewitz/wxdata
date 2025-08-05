@@ -5,9 +5,9 @@ from wxdata.utils.scanner import(
 
 #model = "GFS0P25 SECONDARY PARAMETERS"
 model = 'GEFS0P25'
-cat = "Mean"
+cat = "Spread"
 proxies = None
 step = 3
 
-url, run = url_scanner(f"{model}", f"{cat}", proxies, 'chem')
+url, run = url_scanner(f"{model}", f"{cat}", proxies, 'wave')
 download = file_scanner(f"{model}", f"{cat}", url, run, step)

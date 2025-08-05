@@ -141,6 +141,17 @@ def url_index(model, directory):
             'GFS0P25':[-9, -8],
             'GFS0P25 SECONDARY PARAMETERS':[-9, -8]
         }
+        
+    else:
+        
+        times = {
+            'GEFS0P25':[-16, -15],
+            'GEFS0P50':[-18, -17],
+            'GEFS0P50 SECONDARY PARAMETERS':[-18, -17],
+            'GFS0P25':[-9, -8],
+            'GFS0P25 SECONDARY PARAMETERS':[-9, -8]
+        }        
+        
 
     return times[model][0], times[model][1]
 
@@ -367,9 +378,17 @@ def url_scanner(model, cat, proxies, directory):
     if model == 'GEFS0P25' or model == 'GEFS0P50' or model == 'GEFS0P50 SECONDARY PARAMETERS':
         
         if model == 'GEFS0P25':
-            a = 's'
-            b = '25'
-            c = '25'
+            if directory != 'wave':
+                if directory == 'atmos':
+                    a = 's'
+                else:
+                    a = 'a'
+                b = '25'
+                c = '25'
+                
+                folder = f"pgrb2{a}p{b}"
+            else:
+                folder = 'gridded'
             
         if model == 'GEFS0P50':
             a = 'a'
@@ -381,15 +400,15 @@ def url_scanner(model, cat, proxies, directory):
             b = '5'
             c = '50'
 
-        today_00z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/00/{directory}/pgrb2{a}p{b}/"
-        today_06z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/06/{directory}/pgrb2{a}p{b}/"
-        today_12z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/12/{directory}/pgrb2{a}p{b}/"
-        today_18z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/18/{directory}/pgrb2{a}p{b}/"
+        today_00z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/00/{directory}/{folder}/"
+        today_06z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/06/{directory}/{folder}/"
+        today_12z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/12/{directory}/{folder}/"
+        today_18z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{now.strftime('%Y%m%d')}/18/{directory}/{folder}/"
         
-        yday_00z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/00/{directory}/pgrb2{a}p{b}/"
-        yday_06z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/06/{directory}/pgrb2{a}p{b}/"
-        yday_12z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/12/{directory}/pgrb2{a}p{b}/"
-        yday_18z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/18/{directory}/pgrb2{a}p{b}/"
+        yday_00z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/00/{directory}/{folder}/"
+        yday_06z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/06/{directory}/{folder}/"
+        yday_12z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/12/{directory}/{folder}/"
+        yday_18z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/18/{directory}/{folder}/"
     
         if directory == 'atmos':
             if cat == 'MEAN':
@@ -417,7 +436,27 @@ def url_scanner(model, cat, proxies, directory):
             f_00z = f"gefs.chem.t00z.a2d_0p25.f120.grib2"    
             f_06z = f"gefs.chem.t06z.a2d_0p25.f120.grib2"  
             f_12z = f"gefs.chem.t12z.a2d_0p25.f120.grib2"  
-            f_18z = f"gefs.chem.t18z.a2d_0p25.f120.grib2"    
+            f_18z = f"gefs.chem.t18z.a2d_0p25.f120.grib2"   
+        else:
+            if cat == 'MEAN' or cat == 'SPREAD':
+                f_00z = f"gefs.wave.t00z.{cat.lower()}.global.0p25.f384.grib2"  
+                f_06z = f"gefs.wave.t06z.{cat.lower()}.global.0p25.f384.grib2"  
+                f_12z = f"gefs.wave.t12z.{cat.lower()}.global.0p25.f384.grib2"  
+                f_18z = f"gefs.wave.t18z.{cat.lower()}.global.0p25.f384.grib2"  
+            if cat == 'CONTROL':
+                f_00z = f"gefs.wave.t00z.c00.global.0p25.f384.grib2"  
+                f_06z = f"gefs.wave.t06z.c00.global.0p25.f384.grib2"  
+                f_12z = f"gefs.wave.t12z.c00.global.0p25.f384.grib2"  
+                f_18z = f"gefs.wave.t18z.c00.global.0p25.f384.grib2"  
+            if cat == 'ALL MEMBERS':
+                f_00z = f"gefs.wave.t00z.p30.global.0p25.f384.grib2"  
+                f_06z = f"gefs.wave.t06z.p30.global.0p25.f384.grib2"  
+                f_12z = f"gefs.wave.t12z.p30.global.0p25.f384.grib2"  
+                f_18z = f"gefs.wave.t18z.p30.global.0p25.f384.grib2"     
+                                        
+            
+    print(yday_18z)
+    print(f_18z) 
     
     if proxies == None:
         t_18z = requests.get(f"{today_18z}/{f_18z}", stream=True)
@@ -439,7 +478,9 @@ def url_scanner(model, cat, proxies, directory):
         y_18z = requests.get(f"{yday_18z}/{f_18z}", stream=True, proxies=proxies)
         y_12z = requests.get(f"{yday_12z}/{f_12z}", stream=True, proxies=proxies)
         y_06z = requests.get(f"{yday_06z}/{f_06z}", stream=True, proxies=proxies)
-        y_00z = requests.get(f"{yday_00z}/{f_00z}", stream=True, proxies=proxies)         
+        y_00z = requests.get(f"{yday_00z}/{f_00z}", stream=True, proxies=proxies)      
+        
+    print(y_18z.status_code)   
 
     if t_18z.status_code == 200:
         url = f"{today_18z}"
