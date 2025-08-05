@@ -9,5 +9,5 @@ cat = "Control"
 proxies = None
 step = 3
 
-url, run = url_scanner(f"{model}", f"{cat}", proxies)
+url, run = url_scanner(f"{model}", f"{cat}", proxies, 'atmos')
 download = file_scanner(f"{model}", f"{cat}", url, run, step)
