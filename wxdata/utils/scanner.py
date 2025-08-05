@@ -354,17 +354,18 @@ def url_scanner(model, cat, proxies, directory):
         yday_18z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/18/{directory}/"
         
         if model == 'GFS0P25':
-            f_00z = "gfs.t00z.pgrb2.0p25.f384"
-            f_06z = "gfs.t06z.pgrb2.0p25.f384"
-            f_12z = "gfs.t12z.pgrb2.0p25.f384"
-            f_18z = "gfs.t18z.pgrb2.0p25.f384"
+            f_00z = f"gfs.t00z.pgrb2.0p25.f384"
+            f_06z = f"gfs.t06z.pgrb2.0p25.f384"
+            f_12z = f"gfs.t12z.pgrb2.0p25.f384"
+            f_18z = f"gfs.t18z.pgrb2.0p25.f384"
         else:
-            f_00z = "gfs.t00z.pgrb2b.0p25.f384"
-            f_06z = "gfs.t06z.pgrb2b.0p25.f384"
-            f_12z = "gfs.t12z.pgrb2b.0p25.f384"
-            f_18z = "gfs.t18z.pgrb2b.0p25.f384"
+            f_00z = f"gfs.t00z.pgrb2b.0p25.f384"
+            f_06z = f"gfs.t06z.pgrb2b.0p25.f384"
+            f_12z = f"gfs.t12z.pgrb2b.0p25.f384"
+            f_18z = f"gfs.t18z.pgrb2b.0p25.f384"
     
     if model == 'GEFS0P25' or model == 'GEFS0P50' or model == 'GEFS0P50 SECONDARY PARAMETERS':
+        
         if model == 'GEFS0P25':
             a = 's'
             b = '25'
@@ -390,27 +391,33 @@ def url_scanner(model, cat, proxies, directory):
         yday_12z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/12/{directory}/pgrb2{a}p{b}/"
         yday_18z = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gens/prod/gefs.{yd.strftime('%Y%m%d')}/18/{directory}/pgrb2{a}p{b}/"
     
-        if cat == 'MEAN':
-            if model == 'GEFS0P50 SECONDARY PARAMETERS':
+        if directory == 'atmos':
+            if cat == 'MEAN':
+                if model == 'GEFS0P50 SECONDARY PARAMETERS':
+                    f_00z = f"gec00.t00z.pgrb2{a}.0p{c}.f240"
+                    f_06z = f"gec00.t06z.pgrb2{a}.0p{c}.f240"
+                    f_12z = f"gec00.t12z.pgrb2{a}.0p{c}.f240"
+                    f_18z = f"gec00.t18z.pgrb2{a}.0p{c}.f240"                 
+                else:
+                    f_00z = f"geavg.t00z.pgrb2{a}.0p{c}.f240"
+                    f_06z = f"geavg.t06z.pgrb2{a}.0p{c}.f240"
+                    f_12z = f"geavg.t12z.pgrb2{a}.0p{c}.f240"
+                    f_18z = f"geavg.t18z.pgrb2{a}.0p{c}.f240"
+            if cat == 'CONTROL':
                 f_00z = f"gec00.t00z.pgrb2{a}.0p{c}.f240"
                 f_06z = f"gec00.t06z.pgrb2{a}.0p{c}.f240"
                 f_12z = f"gec00.t12z.pgrb2{a}.0p{c}.f240"
-                f_18z = f"gec00.t18z.pgrb2{a}.0p{c}.f240"                 
-            else:
-                f_00z = f"geavg.t00z.pgrb2{a}.0p{c}.f240"
-                f_06z = f"geavg.t06z.pgrb2{a}.0p{c}.f240"
-                f_12z = f"geavg.t12z.pgrb2{a}.0p{c}.f240"
-                f_18z = f"geavg.t18z.pgrb2{a}.0p{c}.f240"
-        if cat == 'CONTROL':
-            f_00z = f"gec00.t00z.pgrb2{a}.0p{c}.f240"
-            f_06z = f"gec00.t06z.pgrb2{a}.0p{c}.f240"
-            f_12z = f"gec00.t12z.pgrb2{a}.0p{c}.f240"
-            f_18z = f"gec00.t18z.pgrb2{a}.0p{c}.f240"  
-        if cat == 'ALL MEMBERS':
-            f_00z = f"gep30.t00z.pgrb2{a}.0p{c}.f240"
-            f_06z = f"gep30.t06z.pgrb2{a}.0p{c}.f240"
-            f_12z = f"gep30.t12z.pgrb2{a}.0p{c}.f240"
-            f_18z = f"gep30.t18z.pgrb2{a}.0p{c}.f240"         
+                f_18z = f"gec00.t18z.pgrb2{a}.0p{c}.f240"  
+            if cat == 'ALL MEMBERS':
+                f_00z = f"gep30.t00z.pgrb2{a}.0p{c}.f240"
+                f_06z = f"gep30.t06z.pgrb2{a}.0p{c}.f240"
+                f_12z = f"gep30.t12z.pgrb2{a}.0p{c}.f240"
+                f_18z = f"gep30.t18z.pgrb2{a}.0p{c}.f240"     
+        elif directory == 'chem':
+            f_00z = f"gefs.chem.t00z.a2d_0p25.f120.grib2"    
+            f_06z = f"gefs.chem.t06z.a2d_0p25.f120.grib2"  
+            f_12z = f"gefs.chem.t12z.a2d_0p25.f120.grib2"  
+            f_18z = f"gefs.chem.t18z.a2d_0p25.f120.grib2"    
     
     if proxies == None:
         t_18z = requests.get(f"{today_18z}/{f_18z}", stream=True)

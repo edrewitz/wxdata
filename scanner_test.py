@@ -3,9 +3,9 @@ from wxdata.utils.scanner import(
     url_scanner
 )
 
-model = "GFS0P25 SECONDARY PARAMETERS"
-#model = 'GEFS0P25'
-cat = "Control"
+#model = "GFS0P25 SECONDARY PARAMETERS"
+model = 'GEFS0P25'
+cat = "Mean"
 proxies = None
 step = 3
 
