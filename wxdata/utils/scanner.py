@@ -7,6 +7,7 @@ This file has the scanner function which scans the data server for the latest FU
 # Imports the needed packages
 import requests
 import os
+import sys
 import time
 
 # Exception handling for Python >= 3.13 and Python < 3.13
@@ -104,12 +105,14 @@ def ensemble_members(model):
 
     return members[model]
         
-def url_index(model):
+def url_index(model, directory):
 
     """
     This function returns the string-index of the model run times in a file
 
     1) model (String) - The forecast model
+
+    2) directory (String) - The directory the user wants to scan
 
     Optional Arguments: None
 
@@ -119,13 +122,25 @@ def url_index(model):
     The index values of the run times in the file. 
     """
     
-    times = {
-        'GEFS0P25':[-19, -18],
-        'GEFS0P50':[-18, -17],
-        'GEFS0P50 SECONDARY PARAMETERS':[-18, -17],
-        'GFS0P25':[-9, -8],
-        'GFS0P25 SECONDARY PARAMETERS':[-9, -8]
-    }
+    if directory == 'atmos':
+    
+        times = {
+            'GEFS0P25':[-19, -18],
+            'GEFS0P50':[-18, -17],
+            'GEFS0P50 SECONDARY PARAMETERS':[-18, -17],
+            'GFS0P25':[-9, -8],
+            'GFS0P25 SECONDARY PARAMETERS':[-9, -8]
+        }
+        
+    elif directory == 'chem':
+
+        times = {
+            'GEFS0P25':[-18, -17],
+            'GEFS0P50':[-18, -17],
+            'GEFS0P50 SECONDARY PARAMETERS':[-18, -17],
+            'GFS0P25':[-9, -8],
+            'GFS0P25 SECONDARY PARAMETERS':[-9, -8]
+        }
 
     return times[model][0], times[model][1]
 
@@ -319,8 +334,12 @@ def url_scanner(model, cat, proxies, directory):
     cat = cat.upper()
     directory = directory.lower()
 
-    aa, bb = url_index(model)
-    
+    try:
+        aa, bb = url_index(model, directory)
+    except Exception as e:
+        print(f"{directory} is not a valid directory for {model}.")
+        sys.exit(1)
+
     print(aa, bb)
     
     if model == 'GFS0P25' or model == 'GFS0P25 SECONDARY PARAMETERS':
