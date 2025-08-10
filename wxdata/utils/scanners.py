@@ -1,7 +1,7 @@
 """
 This file has the scanner function which scans the data server for the latest FULL dataset and returns the download url
 
-(C) Eric J. Drewitz 
+(C) Eric J. Drewitz 2025
 """
 
 # Imports the needed packages
@@ -635,3 +635,4 @@ def rtma_url_scanner(model, cat, proxies):
         sys.exit()
         
     return url, fname                
+
