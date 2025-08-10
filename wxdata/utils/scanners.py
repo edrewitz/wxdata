@@ -507,8 +507,6 @@ def gfs_url_scanner(model, cat, proxies, directory):
         url = f"{yday_00z}"
 
     url_run = int(f"{url[aa]}{url[bb]}")
-    
-    print(url)
         
     return url, url_run
 
