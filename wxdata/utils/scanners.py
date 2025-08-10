@@ -308,10 +308,10 @@ def file_scanner(model, cat, url, url_run, step, ens_members=False):
     return download     
     
 
-def model_url_scanner(model, cat, proxies, directory):
+def gfs_url_scanner(model, cat, proxies, directory):
 
     """
-    This function scans a webpage for the file with the latest forecast model run. 
+    This function scans a webpage for the file with the latest GFS/GEFS forecast model run. 
     If the page has complete data, the download link will be returned. 
     If the page is incomplete, the scanner will check for the previous run data. 
     This scanner is used so the user downloads the latest FULL dataset. 
@@ -319,6 +319,12 @@ def model_url_scanner(model, cat, proxies, directory):
     Required Arguments: 
 
     1) model (String) - The model the user wants. 
+    
+    i) GFS0P25
+    ii) GFS0P25 SECONDARY PARAMETERS
+    iii) GEFS0P25
+    iv) GEFS0P50
+    v) GEFS0P50 SECONDARY PARAMETERS
 
     2) cat (String) - The category of data the user wants (i.e. ensmean vs. enscontrol). 
 
@@ -350,8 +356,6 @@ def model_url_scanner(model, cat, proxies, directory):
     except Exception as e:
         print(f"{directory} is not a valid directory for {model}.")
         sys.exit(1)
-
-    print(aa, bb)
     
     if model == 'GFS0P25' or model == 'GFS0P25 SECONDARY PARAMETERS':
         if directory == 'wave':
