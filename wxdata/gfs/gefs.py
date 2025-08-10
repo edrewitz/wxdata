@@ -8,9 +8,9 @@ import glob
 import warnings
 warnings.filterwarnings('ignore')
 
-from wxdata.utils.scanner import( 
+from wxdata.utils.scanners import( 
     file_scanner, 
-    url_scanner
+    model_url_scanner
 )
 
 from wxdata.utils.utils import(
@@ -105,7 +105,7 @@ def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
 
     if cat == 'MEAN' or cat == 'CONTROL':
         clear_idx_files(step=step, model=model, cat=cat)
-        url, run = url_scanner(f"{model}", f"{cat}", proxies)
+        url, run = model_url_scanner(f"{model}", f"{cat}", proxies)
         download = file_scanner(f"{model}", f"{cat}", url, run, step)
         if run == 0:
             run = '00'
@@ -185,7 +185,7 @@ def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
     else:
         paths = ens_folders(model, cat, step, 30)
         clear_idx_files(paths=paths, ens=True)
-        url, run = url_scanner(f"{model}", f"{cat}", proxies)
+        url, run = model_url_scanner(f"{model}", f"{cat}", proxies)
         download = file_scanner(f"{model}", f"{cat}", url, run, step, ens_members=True)
         western_bound, eastern_bound = lon_bounds(western_bound, eastern_bound)
         if run == 0:
@@ -351,7 +351,7 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
         print(f"{cat} not available for secondary parameters. Defaulting to control run.")
         cat = 'CONTROL'
         clear_idx_files(step=step, model=model, cat=cat)
-        url, run = url_scanner(f"{model}", f"{cat}", proxies)
+        url, run = model_url_scanner(f"{model}", f"{cat}", proxies)
         download = file_scanner(f"{model}", f"{cat}", url, run, step)
         if run == 0:
             run = '00'
@@ -423,7 +423,7 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
     else:
         paths = ens_folders(model, cat, step, 30)
         clear_idx_files(paths=paths, ens=True)
-        url, run = url_scanner(f"{model}", f"{cat}", proxies)
+        url, run = model_url_scanner(f"{model}", f"{cat}", proxies)
         download = file_scanner(f"{model}", f"{cat}", url, run, step, ens_members=True)
         western_bound, eastern_bound = lon_bounds(western_bound, eastern_bound)
         if run == 0:
@@ -569,7 +569,7 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
 
     if cat == 'MEAN' or cat == 'CONTROL':
         clear_idx_files(step=step, model=model, cat=cat)
-        url, run = url_scanner(f"{model}", f"{cat}", proxies)
+        url, run = model_url_scanner(f"{model}", f"{cat}", proxies)
         download = file_scanner(f"{model}", f"{cat}", url, run, step)
         if run == 0:
             run = '00'
@@ -649,7 +649,7 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
     else:
         paths = ens_folders(model, cat, step, 30)
         clear_idx_files(paths=paths, ens=True)
-        url, run = url_scanner(f"{model}", f"{cat}", proxies)
+        url, run = model_url_scanner(f"{model}", f"{cat}", proxies)
         download = file_scanner(f"{model}", f"{cat}", url, run, step, ens_members=True)
         western_bound, eastern_bound = lon_bounds(western_bound, eastern_bound)
         if run == 0:

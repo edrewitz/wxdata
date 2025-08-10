@@ -308,7 +308,7 @@ def file_scanner(model, cat, url, url_run, step, ens_members=False):
     return download     
     
 
-def url_scanner(model, cat, proxies, directory):
+def model_url_scanner(model, cat, proxies, directory):
 
     """
     This function scans a webpage for the file with the latest forecast model run. 
@@ -507,3 +507,129 @@ def url_scanner(model, cat, proxies, directory):
     print(url)
         
     return url, url_run
+
+
+def rtma_url_scanner(model, cat, proxies):
+    
+    """
+    This function scans for the latest available RTMA Dataset within the past 4 hours.
+    
+    Required Arguments:
+    
+    1) model (String) - The RTMA Model:
+    
+    RTMA Models:
+    i) RTMA - CONUS
+    ii) AK RTMA - Alaska
+    iii) HI RTMA - Hawaii
+    iv) GU RTMA - Guam
+    v) PR RTMA - Puerto Rico
+    
+    2) cat (String) - The category of the variables. 
+    
+    i) Analysis
+    ii) Error
+    iii) Forecast
+    
+    3) proxies (dict or None) - If the user is using a proxy server, the user must change the following:
+
+    proxies=None ---> proxies={'http':'http://url',
+                            'https':'https://url'
+                        }
+    
+    Returns
+    -------
+    
+    The URL path to the file and the filename for the most recent RTMA Dataset.
+    
+    """
+    
+    model = model.upper()
+    cat = cat.upper()
+    
+    if model == 'RTMA':
+        directory = 'rtma2p5'
+    elif model == 'AK RTMA':
+        directory = 'akrtma'
+    elif model == 'HI RTMA':
+        directory = 'hirtma'
+    elif model == 'GU RTMA':
+        directory = 'gurtma'
+    else:
+        directory = 'prrtma'
+          
+    if cat == 'ANALYSIS':
+        f_cat = 'anl'
+    elif cat == 'ERROR':
+        f_cat = 'err'
+    else:
+        f_cat = 'ges'
+            
+    h_00 = now
+    h_01 = now - timedelta(hours=1)
+    h_02 = now - timedelta(hours=2)
+    h_03 = now - timedelta(hours=3)
+    h_04 = now - timedelta(hours=4)
+            
+    url_00 = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/rtma/prod/{directory}.{h_00.strftime('%Y%m%d')}/"    
+    url_01 = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/rtma/prod/{directory}.{h_01.strftime('%Y%m%d')}/" 
+    url_02 = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/rtma/prod/{directory}.{h_02.strftime('%Y%m%d')}/"  
+    url_03 = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/rtma/prod/{directory}.{h_03.strftime('%Y%m%d')}/"  
+    url_04 = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/rtma/prod/{directory}.{h_04.strftime('%Y%m%d')}/"  
+    
+    
+    if model == 'AK RTMA':
+        f_00 = f"{directory}.t{h_00.hour}z.2dvar{f_cat}_ndfd_3p0.grb2"
+        f_01 = f"{directory}.t{h_01.hour}z.2dvar{f_cat}_ndfd_3p0.grb2"
+        f_02 = f"{directory}.t{h_02.hour}z.2dvar{f_cat}_ndfd_3p0.grb2"
+        f_03 = f"{directory}.t{h_03.hour}z.2dvar{f_cat}_ndfd_3p0.grb2"
+        f_04 = f"{directory}.t{h_04.hour}z.2dvar{f_cat}_ndfd_3p0.grb2"
+    
+    elif model == 'RTMA':
+        f_00 = f"{directory}.t{h_00.hour}z.2dvar{f_cat}_ndfd.grb2_wexp"
+        f_01 = f"{directory}.t{h_01.hour}z.2dvar{f_cat}_ndfd.grb2_wexp"
+        f_02 = f"{directory}.t{h_02.hour}z.2dvar{f_cat}_ndfd.grb2_wexp"
+        f_03 = f"{directory}.t{h_03.hour}z.2dvar{f_cat}_ndfd.grb2_wexp"
+        f_04 = f"{directory}.t{h_04.hour}z.2dvar{f_cat}_ndfd.grb2_wexp"
+        
+    else:
+        f_00 = f"{directory}.t{h_00.hour}z.2dvar{f_cat}_ndfd.grb2"
+        f_01 = f"{directory}.t{h_01.hour}z.2dvar{f_cat}_ndfd.grb2"
+        f_02 = f"{directory}.t{h_02.hour}z.2dvar{f_cat}_ndfd.grb2"
+        f_03 = f"{directory}.t{h_03.hour}z.2dvar{f_cat}_ndfd.grb2"
+        f_04 = f"{directory}.t{h_04.hour}z.2dvar{f_cat}_ndfd.grb2"
+    
+    if proxies == None:
+        r0 = requests.get(f"{url_00}/{f_00}", stream=True)
+        r1 = requests.get(f"{url_01}/{f_01}", stream=True)
+        r2 = requests.get(f"{url_02}/{f_02}", stream=True)
+        r3 = requests.get(f"{url_03}/{f_03}", stream=True)
+        r4 = requests.get(f"{url_04}/{f_04}", stream=True)
+        
+    else:
+        r0 = requests.get(f"{url_00}/{f_00}", stream=True, proxies=proxies)
+        r1 = requests.get(f"{url_01}/{f_01}", stream=True, proxies=proxies)
+        r2 = requests.get(f"{url_02}/{f_02}", stream=True, proxies=proxies)
+        r3 = requests.get(f"{url_03}/{f_03}", stream=True, proxies=proxies)
+        r4 = requests.get(f"{url_04}/{f_04}", stream=True, proxies=proxies)
+        
+    if r0.status_code == 200:
+        url = url_00
+        fname = f_00
+    elif r0.status_code != 200 and r1.status_code == 200:
+        url = url_01
+        fname = f_01  
+    elif r1.status_code != 200 and r2.status_code == 200:
+        url = url_02
+        fname = f_02
+    elif r2.status_code != 200 and r3.status_code == 200:
+        url = url_03
+        fname = f_03
+    elif r3.status_code != 200 and r4.status_code == 200:
+        url = url_04
+        fname = f_04
+    else:
+        print(f"The latest file available is over 4 hours old. Aborting...")
+        sys.exit()
+        
+    return url, fname                
