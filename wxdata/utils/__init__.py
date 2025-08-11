@@ -1,6 +1,2 @@
-from wxdata.utils.utils import *
-from wxdata.utils.scanners import( 
-    file_scanner,
-    gfs_url_scanner,
-    rtma_url_scanner
-)
+from wxdata.utils.file_funcs import *
+from wxdata.utils.coords import *

@@ -11,11 +11,13 @@ import pandas as pd
 import metpy.calc as mpcalc
 import sys
 
-from wxdata.calc.calc import(
-    get_u_and_v,
+from wxdata.calc.thermodynamics import(
+
     relative_humidity,
     saturation_vapor_pressure
 )
+
+from wxdata.calc.kinematics import get_u_and_v
 from metpy.units import units
 from bs4 import BeautifulSoup
 from io import StringIO

@@ -1,4 +1,10 @@
-    ##### IMPORTS NEEDED PYTHON MODULES #######
+"""
+This file hosts functions that download various types of GFS and GEFS Data
+
+(C) Eric J. Drewitz 2025
+"""
+
+
 import xarray as xr
 import urllib.request
 import os
@@ -8,16 +14,19 @@ import glob
 import warnings
 warnings.filterwarnings('ignore')
 
-from wxdata.utils.scanners import( 
-    file_scanner, 
-    gfs_url_scanner
+from wxdata.scanners.url_scanners import gfs_url_scanner
+from wxdata.scanners.file_scanners import file_scanner
+
+from wxdata.utils.file_funcs import(
+    
+    ens_folders, 
+    clear_idx_files    
 )
 
-from wxdata.utils.utils import(
+from wxdata.utils.coords import(
+    
     shift_longitude, 
     lon_bounds, 
-    ens_folders, 
-    clear_idx_files
 )
 
 try:

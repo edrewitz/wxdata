@@ -9,7 +9,7 @@ import csv
 import urllib.request
 import os
 
-from wxdata.utils.utils import extract_gzipped_file
+from wxdata.utils.file_funcs import extract_gzipped_file
 
 def download_metar_data():
     

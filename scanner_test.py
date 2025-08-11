@@ -1,4 +1,4 @@
-from wxdata.utils.scanners import( 
+from wxdata.scanners.url_scanners import( 
     file_scanner, 
     model_url_scanner,
     rtma_url_scanner
