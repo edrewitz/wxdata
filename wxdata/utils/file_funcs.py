@@ -53,7 +53,7 @@ def clear_idx_files(step=None, model=None, cat=None, paths=None, ens=False):
             for p in paths:
                 for item in os.listdir(f"{p}"):
                     if item.endswith(".idx"):
-                        os.remove(f"{paths[p]}/{item}")
+                        os.remove(f"{p}/{item}")
         except Exception as e:
             pass
         

@@ -23,11 +23,7 @@ from wxdata.utils.file_funcs import(
     clear_idx_files    
 )
 
-from wxdata.utils.coords import(
-    
-    shift_longitude, 
-    lon_bounds, 
-)
+from wxdata.utils.coords import shift_longitude
 
 try:
     from datetime import datetime, timedelta, UTC
@@ -43,7 +39,7 @@ local_time = datetime.now()
 
 yesterday = utc_time - timedelta(hours=24)
 
-def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None):
+def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None, directory='atmos'):
 
     """
     This function retrives the latest GEFS0p50 data. If the data is not previously downloaded nor up to date, the function
@@ -89,6 +85,10 @@ def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
                            'https':'https://url'
                         }
 
+    7) directory (String) - Default='atmos'. The directory the user wants to download data from.
+       Directories: 1) atmos
+                    2) chem
+                    3) wave
     Returns
     -------
 
@@ -114,7 +114,7 @@ def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
 
     if cat == 'MEAN' or cat == 'CONTROL':
         clear_idx_files(step=step, model=model, cat=cat)
-        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies)
+        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies, directory)
         download = file_scanner(f"{model}", f"{cat}", url, run, step)
         if run == 0:
             run = '00'
@@ -127,7 +127,6 @@ def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
             ff = 'avg'
         if cat == 'CONTROL':
             ff = 'c00'
-        western_bound, eastern_bound = lon_bounds(western_bound, eastern_bound)
         if download == True:
             print(f"Downloading the latest {model} data...")
     
@@ -145,8 +144,11 @@ def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
                     urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
             for i in range(start, 384 + step, step):
-                urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
-                os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}")  
+                try:
+                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
+                    os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}") 
+                except Exception as e:
+                    pass 
 
             for i in range(0, stop + step, step):
                 if i < 10:
@@ -172,20 +174,25 @@ def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
         file_pattern = f"{model}/{cat}/{step}/*.grib2"
         
         if u_and_v_wind == True:
-            u = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10u'}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
-            v = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10v'}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+            u = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10u'})
+            v = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10v'})
 
             u = shift_longitude(u)
             v = shift_longitude(v)
+            
+            u = u.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+            v = v.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
 
             clear_idx_files(step=step, model=model, cat=cat)
 
             return u, v
 
         else:
-            ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+            ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel})
 
             ds = shift_longitude(ds)
+            
+            ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
 
             clear_idx_files(step=step, model=model, cat=cat)
 
@@ -194,9 +201,8 @@ def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
     else:
         paths = ens_folders(model, cat, step, 30)
         clear_idx_files(paths=paths, ens=True)
-        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies)
+        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies, directory)
         download = file_scanner(f"{model}", f"{cat}", url, run, step, ens_members=True)
-        western_bound, eastern_bound = lon_bounds(western_bound, eastern_bound)
         if run == 0:
             run = '00'
         elif run == 6:
@@ -227,8 +233,11 @@ def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
                         urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
                         os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
                 for i in range(start, 384 + step, step):
-                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
-                    os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}")  
+                    try:
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
+                        os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}")  
+                    except Exception as e:
+                        pass
                             
                 for i in range(0, stop + step, step):
                     if i < 10:
@@ -259,11 +268,15 @@ def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
             file_pattern = f"{paths[p]}/*.grib2"
     
             if u_and_v_wind == True:
-                u = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10u'}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
-                v = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10v'}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                u = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10u'})
+                v = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10v'})
     
                 u = shift_longitude(u)
                 v = shift_longitude(v)
+                
+                u = u.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1)) 
+                v = v.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                
                 u_list.append(u)
                 v_list.append(v)
 
@@ -271,9 +284,12 @@ def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
     
     
             else:
-                ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel})
     
                 ds = shift_longitude(ds)
+                
+                ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                
                 ds_list.append(ds)
 
                 clear_idx_files(paths=paths, ens=True)
@@ -287,7 +303,7 @@ def gefs_0p50(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
             return ds
 
 
-def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None):
+def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None, directory='atmos'):
 
     """
     This function retrives the latest GEFS0p50 data. If the data is not previously downloaded nor up to date, the function
@@ -332,7 +348,11 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
                            'http':'http://url',
                            'https':'https://url'
                         }
-
+                        
+    7) directory (String) - Default='atmos'. The directory the user wants to download data from.
+       Directories: 1) atmos
+                    2) chem
+                    3) wave
     Returns
     -------
 
@@ -360,7 +380,7 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
         print(f"{cat} not available for secondary parameters. Defaulting to control run.")
         cat = 'CONTROL'
         clear_idx_files(step=step, model=model, cat=cat)
-        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies)
+        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies, directory)
         download = file_scanner(f"{model}", f"{cat}", url, run, step)
         if run == 0:
             run = '00'
@@ -377,7 +397,6 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
             run = run
             
             ff = 'c00'
-        western_bound, eastern_bound = lon_bounds(western_bound, eastern_bound)
         if download == True:
             print(f"Downloading the latest {model} data...")
             
@@ -395,8 +414,11 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
                     urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
             for i in range(start, 384 + step, step):
-                urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}")
-                os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}")  
+                try:
+                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}")
+                    os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}")  
+                except Exception as e:
+                    pass
 
             for i in range(0, stop + step, step):
                 if i < 10:
@@ -421,9 +443,11 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
             
         file_pattern = f"{model}/{cat}/{step}/*.grib2"
         
-        ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+        ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel})
 
         ds = shift_longitude(ds)
+        
+        ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
 
         clear_idx_files(step=step, model=model, cat=cat)
 
@@ -432,9 +456,8 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
     else:
         paths = ens_folders(model, cat, step, 30)
         clear_idx_files(paths=paths, ens=True)
-        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies)
+        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies, directory)
         download = file_scanner(f"{model}", f"{cat}", url, run, step, ens_members=True)
-        western_bound, eastern_bound = lon_bounds(western_bound, eastern_bound)
         if run == 0:
             run = '00'
         elif run == 6:
@@ -465,8 +488,11 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
                         urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
                         os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
                 for i in range(start, 384 + step, step):
-                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}")
-                    os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}")  
+                    try:
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}")
+                        os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}")  
+                    except Exception as e:
+                        pass
                             
                 for i in range(0, stop + step, step):
                     if i < 10:
@@ -494,9 +520,12 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
         for p in range(0, 30, 1):
             file_pattern = f"{paths[p]}/*.grib2"
 
-            ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+            ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel})
 
             ds = shift_longitude(ds)
+            
+            ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+            
             ds_list.append(ds)
 
             clear_idx_files(paths=paths, ens=True)
@@ -507,7 +536,7 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
 
 
 
-def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None):
+def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None, directory='atmos'):
 
     """
     This function retrives the latest GEFS0p25 data. If the data is not previously downloaded nor up to date, the function
@@ -553,6 +582,10 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
                            'https':'https://url'
                         }
 
+    7) directory (String) - Default='atmos'. The directory the user wants to download data from.
+       Directories: 1) atmos
+                    2) chem
+                    3) wave
     Returns
     -------
 
@@ -578,7 +611,7 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
 
     if cat == 'MEAN' or cat == 'CONTROL':
         clear_idx_files(step=step, model=model, cat=cat)
-        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies)
+        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies, directory)
         download = file_scanner(f"{model}", f"{cat}", url, run, step)
         if run == 0:
             run = '00'
@@ -591,7 +624,6 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
             ff = 'avg'
         if cat == 'CONTROL':
             ff = 'c00'
-        western_bound, eastern_bound = lon_bounds(western_bound, eastern_bound)
         if download == True:
             print(f"Downloading the latest {model} data...")
     
@@ -609,8 +641,11 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
                     urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
                     os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
             for i in range(start, 240 + step, step):
-                urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}")
-                os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}")  
+                try:
+                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}")
+                    os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}") 
+                except Exception as e:
+                    pass 
 
             for i in range(0, stop + step, step):
                 if i < 10:
@@ -636,20 +671,25 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
         file_pattern = f"{model}/{cat}/{step}/*.grib2"
         
         if u_and_v_wind == True:
-            u = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10u'}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
-            v = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10v'}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+            u = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10u'})
+            v = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10v'})
 
             u = shift_longitude(u)
             v = shift_longitude(v)
+            
+            u = u.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+            v = v.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
 
             clear_idx_files(steps=steps, model=model, cat=cat)
 
             return u, v
 
         else:
-            ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+            ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel})
 
             ds = shift_longitude(ds)
+            
+            ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
 
             clear_idx_files(step=step, model=model, cat=cat)
 
@@ -658,9 +698,8 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
     else:
         paths = ens_folders(model, cat, step, 30)
         clear_idx_files(paths=paths, ens=True)
-        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies)
+        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies, directory)
         download = file_scanner(f"{model}", f"{cat}", url, run, step, ens_members=True)
-        western_bound, eastern_bound = lon_bounds(western_bound, eastern_bound)
         if run == 0:
             run = '00'
         elif run == 6:
@@ -692,8 +731,11 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
                         urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
                         os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f0{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f0{i}")
                 for i in range(start, 240 + step, step):
-                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}")
-                    os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}")  
+                    try:
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}")
+                        os.replace(f"ge{ff}.t{run}z.pgrb2s.0p25.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2s.0p25.f{i}")  
+                    except Exception as e:
+                        pass
                             
                 for i in range(0, stop + step, step):
                     if i < 10:
@@ -724,11 +766,15 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
             file_pattern = f"{paths[p]}/*.grib2"
     
             if u_and_v_wind == True:
-                u = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10u'}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
-                v = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10v'}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                u = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10u'})
+                v = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName': '10v'})
     
                 u = shift_longitude(u)
                 v = shift_longitude(v)
+                
+                u = u.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1)) 
+                v = v.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                
                 u_list.append(u)
                 v_list.append(v)
 
@@ -736,9 +782,12 @@ def gefs_0p25(cat, typeOfLevel, step=3, u_and_v_wind=False, western_bound=-180, 
     
     
             else:
-                ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel}).sel(longitude=slice(360-western_bound, 360-eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel})
     
                 ds = shift_longitude(ds)
+                
+                ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                
                 ds_list.append(ds)
 
                 clear_idx_files(paths=paths, ens=True)

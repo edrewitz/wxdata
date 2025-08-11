@@ -1,6 +1,5 @@
 from wxdata.scanners.url_scanners import( 
-    file_scanner, 
-    model_url_scanner,
+    gfs_url_scanner,
     rtma_url_scanner
 )
 
@@ -11,7 +10,7 @@ cat = "Spread"
 proxies = None
 step = 3
 
-url, run = url_scanner(f"{model}", f"{cat}", proxies, 'atmos')
+url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies, 'atmos')
 download = file_scanner(f"{model}", f"{cat}", url, run, step)
 '''
 

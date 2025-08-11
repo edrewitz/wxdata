@@ -8,6 +8,14 @@ import os
 import time
 
 from wxdata.scanners.checks import *
+from wxdata.scanners.keys import *
+
+# Exception handling for Python >= 3.13 and Python < 3.13
+
+from datetime import datetime, timedelta
+    
+# Gets local time
+local = datetime.now()
 
 def file_scanner(model, cat, url, url_run, step, ens_members=False):
 
