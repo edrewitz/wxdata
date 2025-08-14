@@ -5,3 +5,4 @@ from wxdata.scanners.url_scanners import(
     gfs_url_scanner,
     rtma_url_scanner
 )
+

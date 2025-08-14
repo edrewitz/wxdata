@@ -146,30 +146,47 @@ def gfs_url_scanner(model, cat, proxies, directory):
         if directory == 'atmos':
             if cat == 'MEAN':
                 if model == 'GEFS0P50 SECONDARY PARAMETERS':
-                    f_00z = f"gec00.t00z.pgrb2{a}.0p{c}.f240"
-                    f_06z = f"gec00.t06z.pgrb2{a}.0p{c}.f240"
-                    f_12z = f"gec00.t12z.pgrb2{a}.0p{c}.f240"
-                    f_18z = f"gec00.t18z.pgrb2{a}.0p{c}.f240"                 
+                    f_00z = f"gec00.t00z.pgrb2{a}.0p{c}.f384"
+                    f_06z = f"gec00.t06z.pgrb2{a}.0p{c}.f384"
+                    f_12z = f"gec00.t12z.pgrb2{a}.0p{c}.f384"
+                    f_18z = f"gec00.t18z.pgrb2{a}.0p{c}.f384" 
+                elif model == 'GEFS0P50':
+                    f_00z = f"geavg.t00z.pgrb2{a}.0p{c}.f384"
+                    f_06z = f"geavg.t06z.pgrb2{a}.0p{c}.f384"
+                    f_12z = f"geavg.t12z.pgrb2{a}.0p{c}.f384"
+                    f_18z = f"geavg.t18z.pgrb2{a}.0p{c}.f384"                
                 else:
                     f_00z = f"geavg.t00z.pgrb2{a}.0p{c}.f240"
                     f_06z = f"geavg.t06z.pgrb2{a}.0p{c}.f240"
                     f_12z = f"geavg.t12z.pgrb2{a}.0p{c}.f240"
                     f_18z = f"geavg.t18z.pgrb2{a}.0p{c}.f240"
             if cat == 'CONTROL':
-                f_00z = f"gec00.t00z.pgrb2{a}.0p{c}.f240"
-                f_06z = f"gec00.t06z.pgrb2{a}.0p{c}.f240"
-                f_12z = f"gec00.t12z.pgrb2{a}.0p{c}.f240"
-                f_18z = f"gec00.t18z.pgrb2{a}.0p{c}.f240"  
+                if model == 'GEFS0P25':
+                    f_00z = f"gec00.t00z.pgrb2{a}.0p{c}.f240"
+                    f_06z = f"gec00.t06z.pgrb2{a}.0p{c}.f240"
+                    f_12z = f"gec00.t12z.pgrb2{a}.0p{c}.f240"
+                    f_18z = f"gec00.t18z.pgrb2{a}.0p{c}.f240" 
+                else:
+                    f_00z = f"gec00.t00z.pgrb2{a}.0p{c}.f384"
+                    f_06z = f"gec00.t06z.pgrb2{a}.0p{c}.f384"
+                    f_12z = f"gec00.t12z.pgrb2{a}.0p{c}.f384"
+                    f_18z = f"gec00.t18z.pgrb2{a}.0p{c}.f384"                      
             if cat == 'ALL MEMBERS':
-                f_00z = f"gep30.t00z.pgrb2{a}.0p{c}.f240"
-                f_06z = f"gep30.t06z.pgrb2{a}.0p{c}.f240"
-                f_12z = f"gep30.t12z.pgrb2{a}.0p{c}.f240"
-                f_18z = f"gep30.t18z.pgrb2{a}.0p{c}.f240"     
-        elif directory == 'chem':
-            f_00z = f"gefs.chem.t00z.a2d_0p25.f120.grib2"    
-            f_06z = f"gefs.chem.t06z.a2d_0p25.f120.grib2"  
-            f_12z = f"gefs.chem.t12z.a2d_0p25.f120.grib2"  
-            f_18z = f"gefs.chem.t18z.a2d_0p25.f120.grib2"   
+                if model == 'GEFS0P25':
+                    f_00z = f"gep30.t00z.pgrb2{a}.0p{c}.f240"
+                    f_06z = f"gep30.t06z.pgrb2{a}.0p{c}.f240"
+                    f_12z = f"gep30.t12z.pgrb2{a}.0p{c}.f240"
+                    f_18z = f"gep30.t18z.pgrb2{a}.0p{c}.f240"   
+                else:
+                    f_00z = f"gep30.t00z.pgrb2{a}.0p{c}.f384"
+                    f_06z = f"gep30.t06z.pgrb2{a}.0p{c}.f384"
+                    f_12z = f"gep30.t12z.pgrb2{a}.0p{c}.f384"
+                    f_18z = f"gep30.t18z.pgrb2{a}.0p{c}.f384"                         
+        elif directory == 'CHEM':
+            f_00z = f"gefs.chem.t00z.a2d_0p{c}.f120.grib2"    
+            f_06z = f"gefs.chem.t06z.a2d_0p{c}.f120.grib2"  
+            f_12z = f"gefs.chem.t12z.a2d_0p{c}.f120.grib2"  
+            f_18z = f"gefs.chem.t18z.a2d_0p{c}.f120.grib2"   
         else:
             if cat == 'MEAN' or cat == 'SPREAD':
                 f_00z = f"gefs.wave.t00z.{cat.lower()}.global.0p{c}.f384.grib2"  
@@ -227,6 +244,8 @@ def gfs_url_scanner(model, cat, proxies, directory):
         url = f"{yday_00z}"
 
     url_run = int(f"{url[aa]}{url[bb]}")
+    
+    print(url)
         
     return url, url_run
 

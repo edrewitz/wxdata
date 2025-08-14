@@ -75,10 +75,8 @@ def file_scanner(model, cat, url, url_run, step, ens_members=False):
             exists = True
         except Exception as e:
             download = True
-    
         if exists == False:
             download = True
-    
         else:
             file_run = int(f"{fname[aa]}{fname[bb]}")
             if file_run == url_run:
