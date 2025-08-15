@@ -1,8 +1,8 @@
 from wxdata.utils.recycle_bin import(
     
-    clear_recycle_bin_windows,
     clear_trash_bin_mac,
-    clear_trash_bin_linux
+    clear_trash_bin_linux,
+    clear_recycle_bin_windows
 )
 
 from wxdata.utils.file_funcs import *

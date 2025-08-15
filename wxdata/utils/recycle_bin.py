@@ -1,27 +1,38 @@
+"""
+This file hosts functions that clear recycle/trash bins on different OS to preserve memory.
+
+(C) Eric J. Drewitz 2025
+"""
+
 import subprocess
-import os
+import ctypes
 
-try:
-    import winshell
-except Exception as e:
-    pass
+    
+def clear_recycle_bin_windows(confirm=False, show_progress=False, sound=False):
+    """
+    Empties the Recycle Bin.
 
-def clear_recycle_bin_windows():
-    
+    Args:
+        confirm (bool): If True, displays a confirmation dialog.
+        show_progress (bool): If True, displays a progress dialog during deletion.
+        sound (bool): If True, plays a sound when the operation is complete.
     """
-    This function clears the recycle bin on Windows OS
-    
-    Required Arguments: None
-    
-    Optional Arguments: None    
-    """
-    
-    try:
-        winshell.recycle_bin().empty(confirm=False, show_progress=False, sound=False)
-    except Exception as e:
+    # Define flags for SHEmptyRecycleBin
+    flags = 0
+    if not confirm:
+        flags |= 0x00000001  # SHERB_NOCONFIRMATION
+    if not show_progress:
+        flags |= 0x00000002  # SHERB_NOPROGRESSUI
+    if not sound:
+        flags |= 0x00000004  # SHERB_NOSOUND
+
+    # Call the SHEmptyRecycleBin function
+    result = ctypes.windll.shell32.SHEmptyRecycleBinA(None, None, flags)
+
+    if result == 0:  # S_OK
         pass
-    
-    
+    else:
+        print(f"Failed to empty Recycle Bin. Recycle Bin Already Empty")
     
 def clear_trash_bin_mac():
     
