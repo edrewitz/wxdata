@@ -17,6 +17,7 @@ import numpy as np
 
 from wxdata.preprocess.keys import get_var_keys
 from wxdata.preprocess.paths import get_branch_path
+from wxdata.preprocess.conventions import standardize_var_keys
 from wxdata.utils.coords import shift_longitude
 
 sys.tracebacklimit = 0
@@ -82,6 +83,6 @@ def process_data(model, cat, step, western_bound, eastern_bound, northern_bound,
                     ds_list.append(ds)  
                               
         ds = xr.concat(ds_list, dim='time')
-        #ds = ds.drop_duplicates(dim="step", keep="last")
+        ds = standardize_var_keys(ds, model)
     
     return ds
