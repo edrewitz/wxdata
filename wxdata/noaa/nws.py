@@ -11,6 +11,11 @@ import urllib.request
 import warnings
 warnings.filterwarnings('ignore')
 
+from wxdata.utils.recycle_bin import *
+clear_recycle_bin_windows()
+clear_trash_bin_mac()
+clear_trash_bin_linux()
+
 
 alaska = '/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.alaska/'
 conus = '/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.conus/'

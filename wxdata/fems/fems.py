@@ -1,6 +1,10 @@
 import pandas as pd
 import os
 import wxdata.fems.raws_sigs as raws
+from wxdata.utils.recycle_bin import *
+clear_recycle_bin_windows()
+clear_trash_bin_mac()
+clear_trash_bin_linux()
 
 try:
     from datetime import datetime, timedelta, UTC

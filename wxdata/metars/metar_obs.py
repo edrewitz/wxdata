@@ -10,6 +10,10 @@ import urllib.request
 import os
 
 from wxdata.utils.file_funcs import extract_gzipped_file
+from wxdata.utils.recycle_bin import *
+clear_recycle_bin_windows()
+clear_trash_bin_mac()
+clear_trash_bin_linux()
 
 def download_metar_data():
     

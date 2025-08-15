@@ -27,12 +27,7 @@ def clear_recycle_bin_windows(confirm=False, show_progress=False, sound=False):
         flags |= 0x00000004  # SHERB_NOSOUND
 
     # Call the SHEmptyRecycleBin function
-    result = ctypes.windll.shell32.SHEmptyRecycleBinA(None, None, flags)
-
-    if result == 0:  # S_OK
-        pass
-    else:
-        print(f"Failed to empty Recycle Bin. Recycle Bin Already Empty")
+    ctypes.windll.shell32.SHEmptyRecycleBinA(None, None, flags)
     
 def clear_trash_bin_mac():
     

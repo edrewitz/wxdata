@@ -22,6 +22,11 @@ from metpy.units import units
 from bs4 import BeautifulSoup
 from io import StringIO
 
+from wxdata.utils.recycle_bin import *
+clear_recycle_bin_windows()
+clear_trash_bin_mac()
+clear_trash_bin_linux()
+
 try:
     from datetime import datetime, timedelta, UTC
 except Exception as e:
@@ -52,19 +57,13 @@ def station_ids(station_id):
 
     station_ids = {
 
-        'NKX':'72293',
-        'VBG':'72393',
         'PABR':'70026',
         'PAOM':'70200',
         'PAMC':'70231',
-        'PAVA':'70361',
-        'YEV':'71957',
-        'YVQ':'71043',
         'PAYA':'70361',
         'PANT':'70398',
-        'ZKS':'71908',
-        'YZT':'71109',
-        'CWVK':'73033',
+        'PAVA':'70361',
+        'NKX':'72293',
         'OTX':'72786',
         'SLE':'72694',
         'MFR':'72597',
@@ -79,11 +78,50 @@ def station_ids(station_id):
         'GJT':'72476',
         'RIW':'72672',
         'GGW':'72768',
+        'BIS':'72764',
+        'UNR':'72662',
+        'ABQ':'72365',
+        'MAF':'72265',
+        'DRT':'72261',
+        'MMAN':'76394',
+        'CRP':'72251',
+        'BRO':'72250',
+        'FWD':'72249',
+        'AMA':'72363',
+        'OUN':'72357',
+        'DDC':'72451',
+        'TOP':'72456',
+        'LBF':'72562',
+        'OAX':'72558',
+        'ABR':'72659',
+        'INL':'72747',
+        'MPX':'72649',
+        'SGF':'72440',
+        'LZK':'72340',
+        'SHV':'72248',
+        'LCH':'72240',
+        'LIX':'72233',
+        'JAN':'72235',
+        'VBG':'72393',
+        'YEV':'71957',
+        'YVQ':'71043',
+        'ZXS':'71908',
+        'YZT':'71109',
+        'CWVK':'73033',
         'YQD':'71867',
         'YBK':'71926',
         'YCB':'71925',
         'YRB':'71924',
-        'YUX':'71081'
+        'YUX':'71081',
+        'YFB':'71909',
+        'YVP':'71906',
+        'YAH':'71823',
+        'YZV':'71811',
+        'YYR':'71816',
+        'YJT':'71815',
+        'AYT':'71802',
+        'BGEM':'04220',
+        'BGBW':'04270'
 
     }
 
@@ -145,7 +183,7 @@ def get_observed_sounding_data(station_id, current=True, custom_time=None, compa
             y = date.year
             m = date.month
             d = date.day
-            new_date = datetime(y, m, d, hour)
+            date = datetime(y, m, d, hour)
         else:
             year = int(f"{custom_time[0]}{custom_time[1]}{custom_time[2]}{custom_time[3]}")
             month = int(f"{custom_time[5]}{custom_time[6]}")
@@ -164,11 +202,22 @@ def get_observed_sounding_data(station_id, current=True, custom_time=None, compa
                     f'&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}{hour}&TO={date.strftime('%d')}{hour}'
                     f'&STNM={station_number}')
     
+        max_retries = 5
+        retry = 0
         if proxies == None:
             response = requests.get(url, stream=True)
+            while response.status_code != 200:
+                response = requests.get(url, stream=True)
+                retry = retry + 1
+                if retry > max_retries:
+                    break
         else:
             response = requests.get(url, stream=True, proxies=proxies)
-    
+            while response.status_code != 200:
+                response = requests.get(url, stream=True, proxies=proxies)
+                retry = retry + 1
+                if retry > max_retries:
+                    break    
         try:
             soup = BeautifulSoup(response.content, "html.parser")
             data = StringIO(soup.find_all('pre')[0].contents[0])
@@ -178,7 +227,7 @@ def get_observed_sounding_data(station_id, current=True, custom_time=None, compa
     
         if success == False and current == True:
     
-            date = new_date - timedelta(hours=12)
+            date = date - timedelta(hours=12)
             hour = date.hour
     
             if hour == 0:  
@@ -190,10 +239,22 @@ def get_observed_sounding_data(station_id, current=True, custom_time=None, compa
                         f'&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}{hour}&TO={date.strftime('%d')}{hour}'
                         f'&STNM={station_number}')
         
+            max_retries = 5
+            retry = 0
             if proxies == None:
                 response = requests.get(url, stream=True)
+                while response.status_code != 200:
+                    response = requests.get(url, stream=True)
+                    retry = retry + 1
+                    if retry > max_retries:
+                        break
             else:
                 response = requests.get(url, stream=True, proxies=proxies)
+                while response.status_code != 200:
+                    response = requests.get(url, stream=True, proxies=proxies)
+                    retry = retry + 1
+                    if retry > max_retries:
+                        break    
     
             try:
                 soup = BeautifulSoup(response.content, "html.parser")
@@ -219,7 +280,7 @@ def get_observed_sounding_data(station_id, current=True, custom_time=None, compa
         theta = df['THETA'].values * units('degK')
         df['BVF'] = mpcalc.brunt_vaisala_frequency(height, theta, vertical_dim=0)
     
-        return df
+        return df, date
 
     else:
         date = now
@@ -232,7 +293,7 @@ def get_observed_sounding_data(station_id, current=True, custom_time=None, compa
         y = date.year
         m = date.month
         d = date.day
-        new_date = datetime(y, m, d, hour)
+        date = datetime(y, m, d, hour)
     
         if hour == 0:  
             url = ('http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST'
@@ -251,13 +312,27 @@ def get_observed_sounding_data(station_id, current=True, custom_time=None, compa
             url_24 = ('http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST'
                     f'&YEAR={date_24.strftime('%Y')}&MONTH={date_24.strftime('%m')}&FROM={date_24.strftime('%d')}{hour}&TO={date_24.strftime('%d')}{hour}'
                     f'&STNM={station_number}')
-    
+
+        max_retries = 5
+        retry = 0
         if proxies == None:
             response = requests.get(url, stream=True)
             response_24 = requests.get(url_24, stream=True)
+            while response.status_code != 200 and response_24.status_code != 200:
+                response = requests.get(url, stream=True)
+                response_24 = requests.get(url_24, stream=True)
+                retry = retry + 1
+                if retry > max_retries:
+                    break
         else:
             response = requests.get(url, stream=True, proxies=proxies)
             response_24 = requests.get(url_24, stream=True, proxies=proxies)
+            while response.status_code != 200 and response_24.status_code != 200:
+                response = requests.get(url, stream=True, proxies=proxies)
+                response_24 = requests.get(url_24, stream=True, proxies=proxies)
+                retry = retry + 1
+                if retry > max_retries:
+                    break
     
         try:
             soup = BeautifulSoup(response.content, "html.parser")
@@ -270,7 +345,7 @@ def get_observed_sounding_data(station_id, current=True, custom_time=None, compa
     
         if success == False and current == True:
     
-            date = new_date - timedelta(hours=12)
+            date = date - timedelta(hours=12)
             date_24 = date - timedelta(hours=24)
             hour = date.hour
     
@@ -292,12 +367,26 @@ def get_observed_sounding_data(station_id, current=True, custom_time=None, compa
                         f'&YEAR={date_24.strftime('%Y')}&MONTH={date_24.strftime('%m')}&FROM={date_24.strftime('%d')}{hour}&TO={date_24.strftime('%d')}{hour}'
                         f'&STNM={station_number}')
         
+            max_retries = 5
+            retry = 0
             if proxies == None:
                 response = requests.get(url, stream=True)
                 response_24 = requests.get(url_24, stream=True)
+                while response.status_code != 200 and response_24.status_code != 200:
+                    response = requests.get(url, stream=True)
+                    response_24 = requests.get(url_24, stream=True)
+                    retry = retry + 1
+                    if retry > max_retries:
+                        break
             else:
                 response = requests.get(url, stream=True, proxies=proxies)
                 response_24 = requests.get(url_24, stream=True, proxies=proxies)
+                while response.status_code != 200 and response_24.status_code != 200:
+                    response = requests.get(url, stream=True, proxies=proxies)
+                    response_24 = requests.get(url_24, stream=True, proxies=proxies)
+                    retry = retry + 1
+                    if retry > max_retries:
+                        break
     
             try:
                 soup = BeautifulSoup(response.content, "html.parser")
@@ -337,7 +426,7 @@ def get_observed_sounding_data(station_id, current=True, custom_time=None, compa
         theta_24 = df_24['THETA'].values * units('degK')
         df_24['BVF'] = mpcalc.brunt_vaisala_frequency(height_24, theta_24, vertical_dim=0)
     
-        return df, df_24
+        return df, df_24, date, date_24
 
 
 
