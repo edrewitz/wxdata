@@ -34,17 +34,19 @@ def extract_gzipped_file(compressed_file, decompressed_file):
         pass
 
 
-def clear_idx_files(step=None, model=None, cat=None, paths=None, ens=False):
+def clear_idx_files(directory=None, step=None, model=None, cat=None, paths=None, ens=False):
 
     """
     This function clears all the .IDX files in a folder.
     """
+    if directory != None:
+        directory = directory.upper()
     
     if ens == False:
         try:
-            for item in os.listdir(f"{model}/{cat}/{step}"):
+            for item in os.listdir(f"{model}/{cat}/{step}/{directory}"):
                 if item.endswith(".idx"):
-                    os.remove(f"{model}/{cat}/{step}/{item}")
+                    os.remove(f"{model}/{cat}/{step}/{directory}/{item}")
         except Exception as e:
             pass
             
@@ -58,12 +60,13 @@ def clear_idx_files(step=None, model=None, cat=None, paths=None, ens=False):
             pass
         
 
-def ens_folders(model, cat, step, ens_members):
+def ens_folders(model, cat, step, directory, ens_members):
     
     """
     This function builds the directories for ensemble members
     """
-
+    directory = directory.upper()
+    
     if os.path.exists(f"{model}"):
         pass
     else:
@@ -78,15 +81,20 @@ def ens_folders(model, cat, step, ens_members):
         pass
     else:
         os.mkdir(f"{model}/{cat}/{step}")
+        
+    if os.path.exists(f"{model}/{cat}/{step}/{directory}"):
+        pass
+    else:
+        os.mkdir(f"{model}/{cat}/{step}/{directory}")
 
     paths = []
-    for i in range(1, ens_members + 1, 1):
-        if os.path.exists(f"{model}/{cat}/{step}/{i}"):
+    for i in ens_members:
+        if os.path.exists(f"{model}/{cat}/{step}/{directory}/{i}"):
             pass
         else:
-            os.mkdir(f"{model}/{cat}/{step}/{i}")
+            os.mkdir(f"{model}/{cat}/{step}/{directory}/{i}")
 
-        path = f"{model}/{cat}/{step}/{i}"
+        path = f"{model}/{cat}/{step}/{directory}/{i}"
 
         paths.append(path)
 

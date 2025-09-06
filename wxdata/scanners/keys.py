@@ -3,45 +3,6 @@ This file hosts dictionary functions that return values based on keys.
 
 (C) Eric J. Drewitz 2025
 """
-
-def forecast_hour(model):
-
-    """
-    This function returns the latest forecast hour for each model
-    """
-
-    hour = {
-        'GEFS0P25':240,
-        'GEFS0P50':384,
-        'GEFS0P50 SECONDARY PARAMETERS':384,
-        'GFS0P25':384,
-        'GFS0P25 SECONDARY PARAMETERS':384        
-    }
-    
-    return hour[model]
-
-def ensemble_members(model):
-
-    """
-    This function returns the number of ensemble members for an ensemble
-
-    Required Arguments:
-
-    1) model (String)
-
-    Returns
-    -------
-    The number of ensemble members for a particular ensemble
-    """
-
-    members = {
-        'GEFS0P25':30,
-        'GEFS0P50':30,
-        'GEFS0P50 SECONDARY PARAMETERS':30
-        
-    }
-
-    return members[model]
         
 def url_index(model, directory):
 
@@ -74,7 +35,7 @@ def url_index(model, directory):
 
         times = {
             'GEFS0P25':[-18, -17],
-            'GEFS0P50':[-18, -17],
+            'GEFS0P50':[-17, -16],
             'GEFS0P50 SECONDARY PARAMETERS':[-18, -17],
             'GFS0P25':[-9, -8],
             'GFS0P25 SECONDARY PARAMETERS':[-9, -8]

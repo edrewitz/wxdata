@@ -9,7 +9,7 @@ import os
 folder = os.getcwd()
 folder_modified = folder.replace("\\", "/")
 
-def get_branch_path(model, cat, step):
+def get_branch_path(model, cat, step, directory):
     
     """
     This function returns the branch path to the data files
@@ -31,9 +31,14 @@ def get_branch_path(model, cat, step):
     """
     model = model.upper()
     cat = cat.upper()
-
-    path = f"{folder_modified}/{model}/{cat}/{step}"
+    directory = directory.upper()
     
-    print(path)
-
-    return path
+    if cat != 'MEAN' and cat != 'CONTROL':
+        paths = []
+        for folder in os.listdir(f"{model}/{cat}/{step}/{directory}"):
+            path = f"{model}/{cat}/{step}/{directory}/{folder}"
+            paths.append(path)
+    else:
+        paths = f"{model}/{cat}/{step}/{directory}"
+    
+    return paths

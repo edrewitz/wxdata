@@ -6,6 +6,7 @@ This file hosts functions that download various types of GFS and GEFS Data
 
 
 import xarray as xr
+import numpy as np
 import urllib.request
 import os
 import sys
@@ -45,7 +46,7 @@ local_time = datetime.now()
 
 yesterday = utc_time - timedelta(hours=24)
 
-def gefs_0p50(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None, directory='atmos'):
+def gefs_0p50(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None, directory='atmos', members='all', final_forecast_hour=384):
 
     """
     This function retrives the latest GEFS0p50 data. If the data is not previously downloaded nor up to date, the function
@@ -105,23 +106,32 @@ def gefs_0p50(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound
     logging.disable()
     cat = cat.upper()
     model = 'GEFS0P50'
-    if step >= 12:
-        step = 12
-        stop = 96
-        start = 108
-    elif step < 12 and step >=5:
-        step = 6
-        stop = 96
-        start = 102
+    
+    if step == 6:
+        if final_forecast_hour > 100:
+            step = 6
+            stop = 96 + step
+            start = 102
+        else:
+            step = 6
+            stop = final_forecast_hour + step
+    elif step == 3:
+        if final_forecast_hour > 100:
+            step = 3
+            stop = 99 + step
+            start = 102
+        else:
+            step = 3
+            stop = final_forecast_hour + step
     else:
-        step = 3
-        stop = 99
-        start = 102
+        print("ERROR! User entered an invalid step value\nSteps must either be 3 or 6 hourly.")
+        sys.exit(1)
 
     if cat == 'MEAN' or cat == 'CONTROL':
-        clear_idx_files(step=step, model=model, cat=cat)
-        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies, directory)
-        download = file_scanner(f"{model}", f"{cat}", url, run, step)
+        clear_idx_files(directory=directory, step=step, model=model, cat=cat)
+        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies, directory, final_forecast_hour)
+        download = file_scanner(f"{model}", f"{cat}", directory, url, run, step, final_forecast_hour)
+        directory = directory.upper()
         if run == 0:
             run = '00'
         elif run == 6:
@@ -136,56 +146,71 @@ def gefs_0p50(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound
         if download == True:
             print(f"Downloading the latest {model} data...")
     
-            for file in os.listdir(f"{model}/{cat}/{step}"):
+            for file in os.listdir(f"{model}/{cat}/{step}/{directory}"):
                 try:
-                    os.remove(f"{model}/{cat}/{step}/{file}")
+                    os.remove(f"{model}/{cat}/{step}/{directory}/{file}")
                 except Exception as e:
                     pass
             
-            for i in range(0, stop + step, step):
+            for i in range(0, stop, step):
                 if i < 10:
                     urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
-                    os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
+                    os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
                 else:
                     urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
-                    os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
-            for i in range(start, 384 + step, step):
-                try:
-                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
-                    os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}") 
-                except Exception as e:
-                    pass 
+                    os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
+            if final_forecast_hour > 100:
+                for i in range(start, final_forecast_hour + step, step):
+                    try:
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
+                        os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}") 
+                    except Exception as e:
+                        pass 
 
             for i in range(0, stop + step, step):
                 if i < 10:
                     try:
-                        os.replace(f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2a.0p50_f00{i}.grib2")
+                        os.replace(f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50_f00{i}.grib2")
                     except Exception as e:
                         pass
                 else:
                     try:
-                        os.replace(f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2a.0p50_f0{i}.grib2")
+                        os.replace(f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50_f0{i}.grib2")
                     except Exception as e:
                         pass
-            
-            for i in range(start, 384 + step, step):
-                try:
-                    os.replace(f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2a.0p50_f{i}.grib2")
-                except Exception as e:
-                    pass        
+            if final_forecast_hour > 100:
+                for i in range(start, final_forecast_hour + step, step):
+                    try:
+                        os.replace(f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50_f{i}.grib2")
+                    except Exception as e:
+                        pass        
 
         else:
             print(f"Data in f:{model}/{cat}/{step} is current. Skipping download.")
         
-        ds = process_data(model, cat, step, western_bound, eastern_bound, northern_bound, southern_bound, False)
+        ds = process_data(model, cat, step, directory, western_bound, eastern_bound, northern_bound, southern_bound, False)
 
-        clear_idx_files(step=step, model=model, cat=cat)
+        clear_idx_files(directory=directory, step=step, model=model, cat=cat)
 
     else:
-        paths = ens_folders(model, cat, step, 30)
+        
+        try:
+            members = members.lower()
+        except Exception as e:
+            pass
+        
+        try:
+            if members == 'all':
+                members = np.arange(0, 31, 1)
+            else:
+                members = members
+        except Exception as e:
+            members = members
+            
+        paths = ens_folders(model, cat, step, directory, members)
         clear_idx_files(paths=paths, ens=True)
-        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies, directory)
-        download = file_scanner(f"{model}", f"{cat}", url, run, step, ens_members=True)
+        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies, directory, final_forecast_hour, members=members)
+        download = file_scanner(f"{model}", f"{cat}", directory, url, run, step, final_forecast_hour, ens_members=True, members=members)
         if run == 0:
             run = '00'
         elif run == 6:
@@ -195,55 +220,58 @@ def gefs_0p50(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound
 
         if download == True:
             print(f"Downloading the latest {model} data...")
-            for pp in range(0, 30, 1):
-                for file in os.listdir(f"{paths[pp]}"):
+            for pp in paths:
+                for file in os.listdir(f"{pp}"):
                     try:
-                        os.remove(f"{paths[pp]}/{file}")
+                        os.remove(f"{pp}/{file}")
                     except Exception as e:
                         pass            
 
-            for e, p in zip(range(1, 31, 1), range(0, 30, 1)):
+            for e, p in zip(members, paths):
                 if e < 10:
                     ff = f"p0{e}"
                 else:
                     ff = f"p{e}"
                         
-                for i in range(0, stop + step, step):
+                for i in range(0, stop, step):
                     if i < 10:
                         urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
-                        os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
+                        os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
                     else:
                         urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
-                        os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
-                for i in range(start, 384 + step, step):
-                    try:
-                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
-                        os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}")  
-                    except Exception as e:
-                        pass
+                        os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
+                        
+                if final_forecast_hour > 100:
+                    for i in range(start, final_forecast_hour + step, step):
+                        try:
+                            urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
+                            os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}")  
+                        except Exception as e:
+                            pass
                             
-                for i in range(0, stop + step, step):
+                for i in range(0, stop, step):
                     if i < 10:
                         try:
-                            os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50_f00{i}.grib2")
+                            os.replace(f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50_f00{i}.grib2")
                         except Exception as e:
                             pass
                     else:
                         try:
-                            os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50_f0{i}.grib2")
+                            os.replace(f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50_f0{i}.grib2")
                         except Exception as e:
                             pass
-                
-                for i in range(start, 384 + step, step):
-                    try:
-                        os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2a.0p50_f{i}.grib2")
-                    except Exception as e:
-                        pass    
+                if final_forecast_hour > 100:
+                    for i in range(start, final_forecast_hour + step, step):
+                        try:
+                            os.replace(f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50_f{i}.grib2")
+                        except Exception as e:
+                            pass    
 
         else:
             print(f"Data in f:{model}/{cat} is current. Skipping download.")
 
-        ds = process_data(model, cat, step, western_bound, eastern_bound, northern_bound, southern_bound, True)
+        ds = process_data(model, cat, step, directory, western_bound, eastern_bound, northern_bound, southern_bound, True)
+        clear_idx_files(paths=paths, ens=True)
         
     return ds
 

@@ -9,15 +9,12 @@ import time
 
 from wxdata.scanners.checks import *
 from wxdata.scanners.keys import *
-
-# Exception handling for Python >= 3.13 and Python < 3.13
-
 from datetime import datetime, timedelta
     
 # Gets local time
 local = datetime.now()
 
-def file_scanner(model, cat, url, url_run, step, ens_members=False):
+def file_scanner(model, cat, directory, url, url_run, step, final_forecast_hour, ens_members=False, members=None):
 
     """
     This function scans the directory to make sure: 
@@ -43,9 +40,9 @@ def file_scanner(model, cat, url, url_run, step, ens_members=False):
     """    
     model = model.upper()
     cat = cat.upper()
+    directory = directory.upper()
 
     aa, bb = index(model)
-    hour = forecast_hour(model)
     
     if os.path.exists(f"{model}"):
         pass
@@ -61,14 +58,19 @@ def file_scanner(model, cat, url, url_run, step, ens_members=False):
         pass
     else:
         os.mkdir(f"{model}/{cat}/{step}")
+        
+    if os.path.exists(f"{model}/{cat}/{step}/{directory}"):
+        pass
+    else:
+        os.mkdir(f"{model}/{cat}/{step}/{directory}")
 
     exists = False
 
     if ens_members == False:
         try:
             fnames = []
-            for file in os.listdir(f"{model}/{cat}/{step}"):
-                fname = os.path.basename(f"{model}/{cat}/{step}/{file}")
+            for file in os.listdir(f"{model}/{cat}/{step}/{directory}"):
+                fname = os.path.basename(f"{model}/{cat}/{step}/{directory}/{file}")
                 fnames.append(fname)
             fname = fnames[-1]
             ftype = file_extension(fname)
@@ -80,7 +82,7 @@ def file_scanner(model, cat, url, url_run, step, ens_members=False):
         else:
             file_run = int(f"{fname[aa]}{fname[bb]}")
             if file_run == url_run:
-                modification_timestamp = os.path.getmtime(f"{model}/{cat}/{step}/{fname}")
+                modification_timestamp = os.path.getmtime(f"{model}/{cat}/{step}/{directory}/{fname}")
                 readable_time = time.ctime(modification_timestamp)
                 update_day = int(f"{readable_time[8]}{readable_time[9]}")
                 update_hour = int(f"{readable_time[11]}{readable_time[12]}") 
@@ -94,18 +96,17 @@ def file_scanner(model, cat, url, url_run, step, ens_members=False):
                         if ftype == False:
                             download = True
                         else:
-                            max_fcst_hour = forecast_hour(model)
-                            download = file_fhour_checker(model, fname, max_fcst_hour)
+                            download = file_fhour_checker(model, fname, final_forecast_hour)
                 
             else:
                 download = True
 
     else:
-        members = ensemble_members(f"{model}")
+        members = members[-1]
         try:
             fnames = []
-            for file in os.listdir(f"{model}/{cat}/{step}/{members}"):
-                fname = os.path.basename(f"{model}/{cat}/{step}/{members}/{file}")
+            for file in os.listdir(f"{model}/{cat}/{step}/{directory}/{members}"):
+                fname = os.path.basename(f"{model}/{cat}/{step}/{directory}/{members}/{file}")
                 fnames.append(fname)
             fname = fnames[-1]
             ftype = file_extension(fname)
@@ -119,7 +120,7 @@ def file_scanner(model, cat, url, url_run, step, ens_members=False):
         else:
             file_run = int(f"{fname[aa]}{fname[bb]}")
             if file_run == url_run:
-                modification_timestamp = os.path.getmtime(f"{model}/{cat}/{step}/{members}/{fname}")
+                modification_timestamp = os.path.getmtime(f"{model}/{cat}/{step}/{directory}/{members}/{fname}")
                 readable_time = time.ctime(modification_timestamp)
                 update_day = int(f"{readable_time[8]}{readable_time[9]}")
                 update_hour = int(f"{readable_time[11]}{readable_time[12]}") 
@@ -133,8 +134,7 @@ def file_scanner(model, cat, url, url_run, step, ens_members=False):
                         if ftype == False:
                             download = True
                         else:
-                            max_fcst_hour = forecast_hour(model)
-                            download = file_fhour_checker(model, fname, max_fcst_hour)
+                            download = file_fhour_checker(model, fname, final_forecast_hour)
                 
             else:
                 download = True
