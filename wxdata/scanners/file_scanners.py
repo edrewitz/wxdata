@@ -42,7 +42,7 @@ def file_scanner(model, cat, directory, url, url_run, step, final_forecast_hour,
     cat = cat.upper()
     directory = directory.upper()
 
-    aa, bb = index(model)
+    aa, bb = index(model, directory)
     
     if os.path.exists(f"{model}"):
         pass
@@ -62,7 +62,7 @@ def file_scanner(model, cat, directory, url, url_run, step, final_forecast_hour,
     if os.path.exists(f"{model}/{cat}/{step}/{directory}"):
         pass
     else:
-        os.mkdir(f"{model}/{cat}/{step}/{directory}")
+        os.mkdir(f"{model}/{cat}/{step}/{directory}")      
 
     exists = False
 
@@ -138,5 +138,6 @@ def file_scanner(model, cat, directory, url, url_run, step, final_forecast_hour,
                 
             else:
                 download = True
+                    
         
     return download

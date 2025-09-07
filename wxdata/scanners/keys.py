@@ -55,7 +55,7 @@ def url_index(model, directory):
     return times[model][0], times[model][1]
 
 
-def index(model):
+def index(model, directory):
 
     """
     This function returns the string-index of the model run times in a file
@@ -69,13 +69,35 @@ def index(model):
 
     The index values of the run times in the file. 
     """
+    directory = directory.upper()
     
-    times = {
-        'GEFS0P25':[7, 8],
-        'GEFS0P50':[7, 8],
-        'GEFS0P50 SECONDARY PARAMETERS':[7, 8],
-        'GFS0P25':[5, 6],
-        'GFS0P25 SECONDARY PARAMETERS':[5, 6]
-    }
+    if directory == 'ATMOS':
+    
+        times = {
+            'GEFS0P25':[7, 8],
+            'GEFS0P50':[7, 8],
+            'GEFS0P50 SECONDARY PARAMETERS':[7, 8],
+            'GFS0P25':[5, 6],
+            'GFS0P25 SECONDARY PARAMETERS':[5, 6]
+        }
+        
+    elif directory == 'CHEM':
+        
+        times = {
+            'GEFS0P25':[7, 8],
+            'GEFS0P50':[11, 12],
+            'GEFS0P50 SECONDARY PARAMETERS':[7, 8],
+            'GFS0P25':[5, 6],
+            'GFS0P25 SECONDARY PARAMETERS':[5, 6]
+        }
+    else:
+        
+        times = {
+            'GEFS0P25':[7, 8],
+            'GEFS0P50':[7, 8],
+            'GEFS0P50 SECONDARY PARAMETERS':[7, 8],
+            'GFS0P25':[5, 6],
+            'GFS0P25 SECONDARY PARAMETERS':[5, 6]
+        }
 
     return times[model][0], times[model][1]

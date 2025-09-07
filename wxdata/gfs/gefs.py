@@ -25,7 +25,7 @@ from wxdata.utils.file_funcs import(
 )
 
 from wxdata.utils.coords import shift_longitude
-from wxdata.preprocess.process import process_data
+from wxdata.gfs.process import process_data
 
 from wxdata.utils.recycle_bin import *
 clear_recycle_bin_windows()
@@ -95,7 +95,7 @@ def gefs_0p50(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound
     7) directory (String) - Default='atmos'. The directory the user wants to download data from.
        Directories: 1) atmos
                     2) chem
-                    3) wave
+
     Returns
     -------
 
@@ -151,39 +151,61 @@ def gefs_0p50(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound
                     os.remove(f"{model}/{cat}/{step}/{directory}/{file}")
                 except Exception as e:
                     pass
+                
+            if directory == 'ATMOS':
             
-            for i in range(0, stop, step):
-                if i < 10:
-                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
-                    os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
-                else:
-                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
-                    os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
-            if final_forecast_hour > 100:
-                for i in range(start, final_forecast_hour + step, step):
-                    try:
-                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
-                        os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}") 
-                    except Exception as e:
-                        pass 
+                for i in range(0, stop, step):
+                    if i < 10:
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
+                        os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
+                    else:
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
+                        os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
+                if final_forecast_hour > 100:
+                    for i in range(start, final_forecast_hour + step, step):
+                        try:
+                            urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
+                            os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}") 
+                        except Exception as e:
+                            pass 
 
-            for i in range(0, stop + step, step):
-                if i < 10:
-                    try:
-                        os.replace(f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50_f00{i}.grib2")
-                    except Exception as e:
-                        pass
-                else:
-                    try:
-                        os.replace(f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50_f0{i}.grib2")
-                    except Exception as e:
-                        pass
-            if final_forecast_hour > 100:
-                for i in range(start, final_forecast_hour + step, step):
-                    try:
-                        os.replace(f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50_f{i}.grib2")
-                    except Exception as e:
-                        pass        
+                for i in range(0, stop, step):
+                    if i < 10:
+                        try:
+                            os.replace(f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50_f00{i}.grib2")
+                        except Exception as e:
+                            pass
+                    else:
+                        try:
+                            os.replace(f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50_f0{i}.grib2")
+                        except Exception as e:
+                            pass
+                if final_forecast_hour > 100:
+                    for i in range(start, final_forecast_hour + step, step):
+                        try:
+                            os.replace(f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2a.0p50_f{i}.grib2")
+                        except Exception as e:
+                            pass    
+                        
+            else:
+                
+                if final_forecast_hour >= 120:
+                    final_forecast_hour = 120
+                    
+                for i in range(0, stop, step):
+                    if i < 10:
+                        urllib.request.urlretrieve(f"{url}gefs.chem.t{run}z.a3d_0p50.f00{i}.grib2", f"gefs.chem.t{run}z.a3d_0p50.f00{i}.grib2")
+                        os.replace(f"gefs.chem.t{run}z.a3d_0p50.f00{i}.grib2", f"{model}/{cat}/{step}/{directory}/gefs.chem.t{run}z.a3d_0p50.f00{i}.grib2")
+                    else:
+                        urllib.request.urlretrieve(f"{url}gefs.chem.t{run}z.a3d_0p50.f0{i}.grib2", f"gefs.chem.t{run}z.a3d_0p50.f0{i}.grib2")
+                        os.replace(f"gefs.chem.t{run}z.a3d_0p50.f0{i}.grib2", f"{model}/{cat}/{step}/{directory}/gefs.chem.t{run}z.a3d_0p50.f0{i}.grib2")
+                if final_forecast_hour > 100:
+                    for i in range(start, final_forecast_hour + step, step):
+                        try:
+                            urllib.request.urlretrieve(f"{url}gefs.chem.t{run}z.a3d_0p50.f{i}.grib2", f"gefs.chem.t{run}z.a3d_0p50.f{i}.grib2")
+                            os.replace(f"gefs.chem.t{run}z.a3d_0p50.f{i}.grib2", f"{model}/{cat}/{step}/{directory}/gefs.chem.t{run}z.a3d_0p50.f{i}.grib2") 
+                        except Exception as e:
+                            pass              
 
         else:
             print(f"Data in f:{model}/{cat}/{step} is current. Skipping download.")
@@ -276,7 +298,7 @@ def gefs_0p50(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound
     return ds
 
 
-def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None, directory='atmos', bandwidth='high'):
+def gefs_0p50_secondary_parameters(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None, members='all', final_forecast_hour=384):
 
     """
     This function retrives the latest GEFS0p50 data. If the data is not previously downloaded nor up to date, the function
@@ -324,8 +346,7 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
                         
     7) directory (String) - Default='atmos'. The directory the user wants to download data from.
        Directories: 1) atmos
-                    2) chem
-                    3) wave
+
     Returns
     -------
 
@@ -335,27 +356,37 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
     sys.tracebacklimit = 0
     logging.disable()
     cat = cat.upper()
-    bandwidth = bandwidth.lower()
     model = 'GEFS0P50 SECONDARY PARAMETERS'
-    if step >= 12:
-        step = 12
-        stop = 96
-        start = 108
-    elif step < 12 and step >=5:
-        step = 6
-        stop = 96
-        start = 102
-    else:
-        step = 3
-        stop = 99
-        start = 102
-
-    if cat == 'MEAN' or cat == 'CONTROL':
-        print(f"{cat} not available for secondary parameters. Defaulting to control run.")
+    directory = 'atmos'
+    
+    if cat == 'MEAN':
         cat = 'CONTROL'
-        clear_idx_files(step=step, model=model, cat=cat)
-        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies, directory)
-        download = file_scanner(f"{model}", f"{cat}", url, run, step)
+    
+    if step == 6:
+        if final_forecast_hour > 100:
+            step = 6
+            stop = 96 + step
+            start = 102
+        else:
+            step = 6
+            stop = final_forecast_hour + step
+    elif step == 3:
+        if final_forecast_hour > 100:
+            step = 3
+            stop = 99 + step
+            start = 102
+        else:
+            step = 3
+            stop = final_forecast_hour + step
+    else:
+        print("ERROR! User entered an invalid step value\nSteps must either be 3 or 6 hourly.")
+        sys.exit(1)
+
+    if cat == 'CONTROL':
+        clear_idx_files(directory=directory, step=step, model=model, cat=cat)
+        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies, directory, final_forecast_hour)
+        download = file_scanner(f"{model}", f"{cat}", directory, url, run, step, final_forecast_hour)
+        directory = directory.upper()
         if run == 0:
             run = '00'
         elif run == 6:
@@ -363,75 +394,77 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
         else:
             run = run
             
-        if run == 0:
-            run = '00'
-        elif run == 6:
-            run = '06'
-        else:
-            run = run
-            
+        if cat == 'CONTROL':
             ff = 'c00'
         if download == True:
             print(f"Downloading the latest {model} data...")
-            
-            for file in os.listdir(f"{model}/{cat}/{step}"):
+    
+            for file in os.listdir(f"{model}/{cat}/{step}/{directory}"):
                 try:
-                    os.remove(f"{model}/{cat}/{step}/{file}")
+                    os.remove(f"{model}/{cat}/{step}/{directory}/{file}")
                 except Exception as e:
                     pass
-                
-            for i in range(0, stop + step, step):
+            
+            for i in range(0, stop, step):
                 if i < 10:
                     urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
-                    os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
+                    os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
                 else:
                     urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
-                    os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
-            for i in range(start, 384 + step, step):
-                try:
-                    urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}")
-                    os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}")  
-                except Exception as e:
-                    pass
+                    os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
+            if final_forecast_hour > 100:
+                for i in range(start, final_forecast_hour + step, step):
+                    try:
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}")
+                        os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}") 
+                    except Exception as e:
+                        pass 
 
-            for i in range(0, stop + step, step):
+            for i in range(0, stop, step):
                 if i < 10:
                     try:
-                        os.replace(f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50_f00{i}.grib2")
+                        os.replace(f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2b.0p50_f00{i}.grib2")
                     except Exception as e:
                         pass
                 else:
                     try:
-                        os.replace(f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50_f0{i}.grib2")
+                        os.replace(f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2b.0p50_f0{i}.grib2")
                     except Exception as e:
                         pass
-            
-            for i in range(start, 384 + step, step):
-                try:
-                    os.replace(f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{model}/{cat}/{step}/ge{ff}.t{run}z.pgrb2b.0p50_f{i}.grib2")
-                except Exception as e:
-                    pass        
+            if final_forecast_hour > 100:
+                for i in range(start, final_forecast_hour + step, step):
+                    try:
+                        os.replace(f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{model}/{cat}/{step}/{directory}/ge{ff}.t{run}z.pgrb2b.0p50_f{i}.grib2")
+                    except Exception as e:
+                        pass    
+                        
 
         else:
-            print(f"Data in f:{model}/{cat} is current. Skipping download.")
-            
-        file_pattern = f"{model}/{cat}/{step}/*.grib2"
+            print(f"Data in f:{model}/{cat}/{step} is current. Skipping download.")
         
-        ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel})
+        ds = process_data(model, cat, step, directory, western_bound, eastern_bound, northern_bound, southern_bound, False)
 
-        ds = shift_longitude(ds)
-        
-        ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
-
-        clear_idx_files(step=step, model=model, cat=cat)
-
-        return ds
+        clear_idx_files(directory=directory, step=step, model=model, cat=cat)
 
     else:
-        paths = ens_folders(model, cat, step, 30)
+        
+        try:
+            members = members.lower()
+        except Exception as e:
+            pass
+        
+        try:
+            if members == 'all':
+                members = np.arange(0, 31, 1)
+            else:
+                members = members
+        except Exception as e:
+            members = members
+            
+        paths = ens_folders(model, cat, step, directory, members)
         clear_idx_files(paths=paths, ens=True)
-        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies, directory)
-        download = file_scanner(f"{model}", f"{cat}", url, run, step, ens_members=True)
+        url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies, directory, final_forecast_hour, members=members)
+        download = file_scanner(f"{model}", f"{cat}", directory, url, run, step, final_forecast_hour, ens_members=True, members=members)
         if run == 0:
             run = '00'
         elif run == 6:
@@ -441,72 +474,60 @@ def gefs_0p50_secondary_parameters(cat, typeOfLevel, step=3, western_bound=-180,
 
         if download == True:
             print(f"Downloading the latest {model} data...")
-            for pp in range(0, 30, 1):
-                for file in os.listdir(f"{paths[pp]}"):
+            for pp in paths:
+                for file in os.listdir(f"{pp}"):
                     try:
-                        os.remove(f"{paths[pp]}/{file}")
+                        os.remove(f"{pp}/{file}")
                     except Exception as e:
-                        pass        
+                        pass            
 
-            for e, p in zip(range(1, 31, 1), range(0, 30, 1)):
+            for e, p in zip(members, paths):
                 if e < 10:
                     ff = f"p0{e}"
                 else:
                     ff = f"p{e}"
                         
-                for i in range(0, stop + step, step):
+                for i in range(0, stop, step):
                     if i < 10:
-                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
-                        os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
+                        os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
                     else:
-                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
-                        os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
-                for i in range(start, 384 + step, step):
-                    try:
-                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}")
-                        os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}")  
-                    except Exception as e:
-                        pass
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
+                        os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
+                        
+                if final_forecast_hour > 100:
+                    for i in range(start, final_forecast_hour + step, step):
+                        try:
+                            urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
+                            os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}")  
+                        except Exception as e:
+                            pass
                             
-                for i in range(0, stop + step, step):
+                for i in range(0, stop, step):
                     if i < 10:
                         try:
-                            os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50_f00{i}.grib2")
+                            os.replace(f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50_f00{i}.grib2")
                         except Exception as e:
                             pass
                     else:
                         try:
-                            os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50_f0{i}.grib2")
+                            os.replace(f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50_f0{i}.grib2")
                         except Exception as e:
                             pass
-                
-                for i in range(start, 384 + step, step):
-                    try:
-                        os.replace(f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{paths[p]}/ge{ff}.t{run}z.pgrb2b.0p50_f{i}.grib2")
-                    except Exception as e:
-                        pass    
+                if final_forecast_hour > 100:
+                    for i in range(start, final_forecast_hour + step, step):
+                        try:
+                            os.replace(f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50_f{i}.grib2")
+                        except Exception as e:
+                            pass    
 
         else:
             print(f"Data in f:{model}/{cat} is current. Skipping download.")
 
-        ds_list = []
-
-        for p in range(0, 30, 1):
-            file_pattern = f"{paths[p]}/*.grib2"
-
-            ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': typeOfLevel})
-
-            ds = shift_longitude(ds)
-            
-            ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
-            
-            ds_list.append(ds)
-
-            clear_idx_files(paths=paths, ens=True)
-
-        ds = xr.concat(ds_list, dim='number')
-
-        return ds
+        ds = process_data(model, cat, step, directory, western_bound, eastern_bound, northern_bound, southern_bound, True)
+        clear_idx_files(paths=paths, ens=True)
+        
+    return ds
 
 
 

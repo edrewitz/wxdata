@@ -70,6 +70,7 @@ def ecmwf_url_scanner(model, cat, proxies, directory):
     model = model.upper()
     cat = cat.upper()
     directory = directory.lower()
+    
 
     try:
         aa, bb = url_index(model, directory)
@@ -304,6 +305,13 @@ def gfs_url_scanner(model, cat, proxies, directory, final_forecast_hour, members
     else:
         pass
     
+    if directory == 'chem' and final_forecast_hour >= 120:
+        final_forecast_hour = 120
+        
+    if final_forecast_hour < 100:
+        final_forecast_hour = f"0{final_forecast_hour}"
+    else:
+        final_forecast_hour = final_forecast_hour
 
     try:
         aa, bb = url_index(model, directory)
@@ -416,11 +424,17 @@ def gfs_url_scanner(model, cat, proxies, directory, final_forecast_hour, members
                     f_06z = f"gep{member}.t06z.pgrb2{a}.0p{c}.f{final_forecast_hour}"
                     f_12z = f"gep{member}.t12z.pgrb2{a}.0p{c}.f{final_forecast_hour}"
                     f_18z = f"gep{member}.t18z.pgrb2{a}.0p{c}.f{final_forecast_hour}"                         
-        elif directory == 'CHEM':
-            f_00z = f"gefs.chem.t00z.a2d_0p{c}.f{final_forecast_hour}.grib2"    
-            f_06z = f"gefs.chem.t06z.a2d_0p{c}.f{final_forecast_hour}.grib2"  
-            f_12z = f"gefs.chem.t12z.a2d_0p{c}.f{final_forecast_hour}.grib2"  
-            f_18z = f"gefs.chem.t18z.a2d_0p{c}.f{final_forecast_hour}.grib2"   
+        elif directory == 'chem':
+            if model == 'GEFS0P25':
+                f_00z = f"gefs.chem.t00z.a2d_0p{c}.f{final_forecast_hour}.grib2"    
+                f_06z = f"gefs.chem.t06z.a2d_0p{c}.f{final_forecast_hour}.grib2"  
+                f_12z = f"gefs.chem.t12z.a2d_0p{c}.f{final_forecast_hour}.grib2"  
+                f_18z = f"gefs.chem.t18z.a2d_0p{c}.f{final_forecast_hour}.grib2"   
+            else:
+                f_00z = f"gefs.chem.t00z.a3d_0p{c}.f{final_forecast_hour}.grib2"    
+                f_06z = f"gefs.chem.t06z.a3d_0p{c}.f{final_forecast_hour}.grib2"  
+                f_12z = f"gefs.chem.t12z.a3d_0p{c}.f{final_forecast_hour}.grib2"  
+                f_18z = f"gefs.chem.t18z.a3d_0p{c}.f{final_forecast_hour}.grib2"   
         else:
             if cat == 'MEAN' or cat == 'SPREAD':
                 f_00z = f"gefs.wave.t00z.{cat.lower()}.global.0p{c}.f{final_forecast_hour}.grib2"  
