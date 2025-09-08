@@ -489,35 +489,35 @@ def gefs_0p50_secondary_parameters(cat, step=3, western_bound=-180, eastern_boun
                         
                 for i in range(0, stop, step):
                     if i < 10:
-                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
-                        os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}")
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
+                        os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{p}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}")
                     else:
-                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
-                        os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}")
+                        urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
+                        os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{p}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}")
                         
                 if final_forecast_hour > 100:
                     for i in range(start, final_forecast_hour + step, step):
                         try:
-                            urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}")
-                            os.replace(f"ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}")  
+                            urllib.request.urlretrieve(f"{url}ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}")
+                            os.replace(f"ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{p}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}")  
                         except Exception as e:
                             pass
                             
                 for i in range(0, stop, step):
                     if i < 10:
                         try:
-                            os.replace(f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f00{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50_f00{i}.grib2")
+                            os.replace(f"{p}/ge{ff}.t{run}z.pgrb2b.0p50.f00{i}", f"{p}/ge{ff}.t{run}z.pgrb2b.0p50_f00{i}.grib2")
                         except Exception as e:
                             pass
                     else:
                         try:
-                            os.replace(f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f0{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50_f0{i}.grib2")
+                            os.replace(f"{p}/ge{ff}.t{run}z.pgrb2b.0p50.f0{i}", f"{p}/ge{ff}.t{run}z.pgrb2b.0p50_f0{i}.grib2")
                         except Exception as e:
                             pass
                 if final_forecast_hour > 100:
                     for i in range(start, final_forecast_hour + step, step):
                         try:
-                            os.replace(f"{p}/ge{ff}.t{run}z.pgrb2a.0p50.f{i}", f"{p}/ge{ff}.t{run}z.pgrb2a.0p50_f{i}.grib2")
+                            os.replace(f"{p}/ge{ff}.t{run}z.pgrb2b.0p50.f{i}", f"{p}/ge{ff}.t{run}z.pgrb2b.0p50_f{i}.grib2")
                         except Exception as e:
                             pass    
 
