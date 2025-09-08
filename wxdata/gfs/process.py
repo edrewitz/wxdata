@@ -1217,8 +1217,7 @@ def process_data(model, cat, step, directory, western_bound, eastern_bound, nort
             ds['parcel_lifted_index_to_500hPa'] = ds45['pli']
             ds['mixed_layer_cape'] = ds46['cape']
             ds['mixed_layer_cin'] = ds47['cin']
-            ds['pressure_level_from_which_a_parcel_was_lifted'] = ds48['plpl']
-                      
+            ds['pressure_level_from_which_a_parcel_was_lifted'] = ds48['plpl']            
             
             ds = ds.drop_vars(
                 
