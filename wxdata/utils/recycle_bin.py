@@ -17,17 +17,20 @@ def clear_recycle_bin_windows(confirm=False, show_progress=False, sound=False):
         show_progress (bool): If True, displays a progress dialog during deletion.
         sound (bool): If True, plays a sound when the operation is complete.
     """
-    # Define flags for SHEmptyRecycleBin
-    flags = 0
-    if not confirm:
-        flags |= 0x00000001  # SHERB_NOCONFIRMATION
-    if not show_progress:
-        flags |= 0x00000002  # SHERB_NOPROGRESSUI
-    if not sound:
-        flags |= 0x00000004  # SHERB_NOSOUND
+    try:
+        # Define flags for SHEmptyRecycleBin
+        flags = 0
+        if not confirm:
+            flags |= 0x00000001  # SHERB_NOCONFIRMATION
+        if not show_progress:
+            flags |= 0x00000002  # SHERB_NOPROGRESSUI
+        if not sound:
+            flags |= 0x00000004  # SHERB_NOSOUND
 
-    # Call the SHEmptyRecycleBin function
-    ctypes.windll.shell32.SHEmptyRecycleBinA(None, None, flags)
+        # Call the SHEmptyRecycleBin function
+        ctypes.windll.shell32.SHEmptyRecycleBinA(None, None, flags)
+    except Exception as e:
+        pass
     
 def clear_trash_bin_mac():
     
