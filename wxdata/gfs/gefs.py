@@ -57,7 +57,7 @@ def gefs_0p50(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound
 
     Required Arguments:
 
-    1) cat (String) - The category of the data. (i.e. mean, control, all members)
+    1) cat (String) - The category of the data. (i.e. mean, control, members)
 
     Optional Arguments:
     
@@ -359,7 +359,7 @@ def gefs_0p50_secondary_parameters(cat, step=3, western_bound=-180, eastern_boun
 
     Required Arguments:
 
-    1) cat (String) - The category of the data. (i.e. mean, control, all members)
+    1) cat (String) - The category of the data. (i.e. mean, control, members)
 
     Optional Arguments:
     
@@ -707,7 +707,7 @@ def gefs_0p25(cat, step=3, u_and_v_wind=False, western_bound=-180, eastern_bound
 
     Required Arguments:
 
-    1) cat (String) - The category of the data. (i.e. mean, control, all members, (prob, spread -> only if directory='wave'))
+    1) cat (String) - The category of the data. (i.e. mean, control, members, (prob, spread -> only if directory='wave'))
 
     Optional Arguments:
     
