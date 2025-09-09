@@ -1,4 +1,4 @@
-**Global Ensemble Forecast System 0.50 X 0.50 DEGREE (GEFS0P50)**
+# Global Ensemble Forecast System 0.50 X 0.50 DEGREE (GEFS0P50)
 
 ***gefs_0p50(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None, directory='atmos', members='all', final_forecast_hour=384)***
 
