@@ -24,7 +24,6 @@ from wxdata.utils.file_funcs import(
     clear_idx_files    
 )
 
-from wxdata.utils.coords import shift_longitude
 from wxdata.gfs.process import process_data
 
 from wxdata.utils.recycle_bin import *
