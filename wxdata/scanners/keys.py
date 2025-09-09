@@ -86,16 +86,13 @@ def index(model, directory):
         times = {
             'GEFS0P25':[7, 8],
             'GEFS0P50':[11, 12],
-            'GEFS0P50 SECONDARY PARAMETERS':[7, 8],
             'GFS0P25':[5, 6],
             'GFS0P25 SECONDARY PARAMETERS':[5, 6]
         }
     else:
         
         times = {
-            'GEFS0P25':[7, 8],
-            'GEFS0P50':[7, 8],
-            'GEFS0P50 SECONDARY PARAMETERS':[7, 8],
+            'GEFS0P25':[11, 12],
             'GFS0P25':[5, 6],
             'GFS0P25 SECONDARY PARAMETERS':[5, 6]
         }

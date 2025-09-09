@@ -33,7 +33,7 @@ def get_branch_path(model, cat, step, directory):
     cat = cat.upper()
     directory = directory.upper()
     
-    if cat != 'MEAN' and cat != 'CONTROL':
+    if cat != 'MEAN' and cat != 'CONTROL' and cat != 'PROB' and cat != 'SPREAD':
         paths = []
         for folder in os.listdir(f"{model}/{cat}/{step}/{directory}"):
             path = f"{model}/{cat}/{step}/{directory}/{folder}"

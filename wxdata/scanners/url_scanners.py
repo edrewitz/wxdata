@@ -305,6 +305,9 @@ def gfs_url_scanner(model, cat, proxies, directory, final_forecast_hour, members
     else:
         pass
     
+    if model == 'GEFS0P25' and final_forecast_hour > 240:
+        final_forecast_hour = 240
+    
     if directory == 'chem' and final_forecast_hour >= 120:
         final_forecast_hour = 120
         
@@ -436,7 +439,7 @@ def gfs_url_scanner(model, cat, proxies, directory, final_forecast_hour, members
                 f_12z = f"gefs.chem.t12z.a3d_0p{c}.f{final_forecast_hour}.grib2"  
                 f_18z = f"gefs.chem.t18z.a3d_0p{c}.f{final_forecast_hour}.grib2"   
         else:
-            if cat == 'MEAN' or cat == 'SPREAD':
+            if cat == 'MEAN' or cat == 'SPREAD' or cat == 'PROB':
                 f_00z = f"gefs.wave.t00z.{cat.lower()}.global.0p{c}.f{final_forecast_hour}.grib2"  
                 f_06z = f"gefs.wave.t06z.{cat.lower()}.global.0p{c}.f{final_forecast_hour}.grib2"  
                 f_12z = f"gefs.wave.t12z.{cat.lower()}.global.0p{c}.f{final_forecast_hour}.grib2"  

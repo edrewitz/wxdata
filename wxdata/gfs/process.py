@@ -36,12 +36,256 @@ def process_data(model, cat, step, directory, western_bound, eastern_bound, nort
 
     3) step (Integer) - The forecast increment. Either 3, 6 or 12 hour increments.
     
+    4) directory (String) - The subdirectory within the GFS/GEFS directory (atmos, chem, wave)
+    
+    5) western_bound (Float) - The western bound of the dataset. 
+    
+    6) eastern_bound (Float) - The eastern bound of the dataset. 
+    
+    7) northern_bound (Float) - The northern bound of the dataset. 
+    
+    8) southern_bound (Float) - The southern bound of the dataset. 
+    
     Optional Arguments: None
     
+    New Variable Keys After Pre-Processing (Decrypted GRIB Keys Into Plain Language)
+    --------------------------------------------------------------------------------
+    
+    GEFS0P50
+    --------
+
+        ATMOS (Atmospheric) Directory
+        -----------------------------
+    
+           'surface_pressure'
+            'orography'
+            'water_equivalent_of_accumulated_snow_depth'
+            'snow_depth'
+            'sea_ice_thickness'
+            'total_precipitation'
+            'categorical_snow'
+            'categorical_ice_pellets'
+            'categorical_freezing_rain'
+            'categorical_rain'] = 'crain'
+            'time_mean_surface_latent_heat_flux'
+            'time_mean_surface_sensible_heat_flux'
+            'surface_downward_shortwave_radiation_flux'
+            'surface_downward_longwave_radiation_flux'
+            'surface_upward_shortwave_radiation_flux'
+            'surface_upward_longwave_radiation_flux'
+            'mslp'
+            'soil_temperature'
+            'soil_moisture'
+            '2m_relative_humidity'
+            '2m_temperature'
+            'maximum_temperature'
+            'minimum_temperature'
+            'precipitable_water'
+            'geopotential_height'
+            'air_temperature'
+            'relative_humidity'
+            'u_wind_component'
+            'v_wind_component'
+            'mixed_layer_cape'
+            'mixed_layer_cin'
+            
+    
+        CHEM (Atmospheric Chemistry) Directory
+        --------------------------------------
+        
+            'fine_particulates'
+            'coarse_particulates'
+            
+            
+    GEFS0P50 SECONDARY PARAMETERS  
+    -----------------------------
+    
+        'surface_temperature'
+        'surface_visibility'
+        'surface_wind_gust'
+        'haines_index'
+        'plant_canopy_surface_water'
+        'snow_cover'
+        'percent_frozen_precipitation'
+        'snow_phase_change_heat_flux'
+        'surface_roughness'
+        'frictional_velocity'
+        'wilting_point'
+        'field_capacity'
+        'sunshine_duration'
+        'surface_lifted_index'
+        'best_4_layer_lifted_index'
+        'land_sea_mask'
+        'sea_ice_area_fraction'
+        'orography'
+        'surface_cape'
+        'surface_cin'
+        'convective_precipitation_rate'
+        'precipitation_rate'
+        'total_convective_precipitation'
+        'total_non_convective_precipitation'
+        'total_precipitation'
+        'water_runoff'
+        'ground_heat_flux'
+        'time_mean_u_component_of_atmospheric_surface_momentum_flux'
+        'time_mean_v_component_of_atmospheric_surface_momentum_flux'
+        'instantaneous_eastward_gravity_wave_surface_flux'
+        'instantaneous_northward_gravity_wave_surface_flux'
+        'uv_b_downward_solar_flux'
+        'clear_sky_uv_b_downward_solar_flux'
+        'average_surface_albedo'
+        'mslp'
+        'mslp_eta_reduction'
+        'boundary_layer_u_wind_component'
+        'boundary_layer_v_wind_component'
+        'ventilation_rate' 
+        'geopotential_height'
+        'air_temperature' 
+        'vertical_velocity'
+        'u_wind_component'
+        'v_wind_component'
+        'ozone_mixing_ratio'
+        'absolute_vorticity'
+        'cloud_mixing_ratio'
+        'icing_severity'
+        'total_cloud_cover'
+        'relative_humidity'
+        'liquid_volumetric_soil_moisture_non_frozen'
+        'soil_temperature'
+        'volumetric_soil_moisture_content'
+        '2m_specific_humidity'
+        '2m_dew_point'
+        '2m_apparent_temperature'
+        '80m_specific_humidity'
+        '80m_air_pressure'
+        '80m_u_wind_component'
+        '80m_v_wind_component'
+        'atmosphere_single_layer_relative_humidity'
+        'cloud_water'
+        'total_ozone'
+        'cloud_ceiling_height'
+        'brightness_temperature'
+        '3km_helicity'
+        'u_component_of_storm_motion'
+        'v_component_of_storm_motion'
+        'tropopause_height'
+        'tropopause_pressure'
+        'tropopause_standard_atmosphere_reference_height'
+        'tropopause_u_wind_component'
+        'tropopause_v_wind_component'
+        'tropopause_temperature'
+        'tropopause_vertical_speed_shear'
+        'max_wind_u_component'
+        'max_wind_v_component'
+        'zero_deg_c_isotherm_geopotential_height'
+        'zero_deg_c_isotherm_relative_humidity'
+        'highest_tropospheric_freezing_level_geopotential_height'
+        'highest_tropospheric_freezing_level_relative_humidity'
+        '995_sigma_relative_humdity'
+        '995_sigma_temperature'
+        '995_sigma_theta'
+        '995_u_wind_component'
+        '995_v_wind_component'
+        '995_vertical_velocity'
+        'potential_vorticity'
+        'theta_level_u_wind_component'
+        'theta_level_v_wind_component'
+        'theta_level_temperature'
+        'theta_level_montgomery_potential'
+        'potential_vorticity_level_u_wind_component'
+        'potential_vorticity_level_v_wind_component'
+        'potential_vorticity_level_temperature'
+        'potential_vorticity_level_geopotential_height'
+        'potential_vorticity_level_air_pressure'
+        'potential_vorticity_level_vertical_speed_shear'
+        'mixed_layer_air_temperature'
+        'mixed_layer_relative_humidity'
+        'mixed_layer_specific_humidity'
+        'mixed_layer_u_wind_component'
+        'mixed_layer_v_wind_component'
+        'mixed_layer_dew_point'
+        'mixed_layer_precipitable_water'
+        'parcel_lifted_index_to_500hPa'
+        'mixed_layer_cape'
+        'mixed_layer_cin'
+        'pressure_level_from_which_a_parcel_was_lifted' 
+        
+    GEFS0P25
+    --------
+    
+        ATMOS (Atmospheric) Directory
+        -----------------------------
+          
+            'surface_visibility'
+            'surface_wind_gust'
+            'surface_pressure'
+            'orography'
+            'water_equivalent_of_accumulated_snow_depth'
+            'snow_depth'
+            'sea_ice_thickness'
+            'percent_frozen_precipitation'
+            'surface_cape'
+            'surface_cin'
+            'total_precipitation'
+            'categorical_snow'
+            'categorical_ice_pellets'
+            'categorical_freezing_rain'
+            'categorical_rain'
+            'time_mean_surface_latent_heat_flux'
+            'time_mean_surface_sensible_heat_flux'
+            'surface_downward_shortwave_radiation_flux'
+            'surface_downward_longwave_radiation_flux'
+            'surface_upward_shortwave_radiation_flux'
+            'surface_upward_longwave_radiation_flux'         
+            'mslp'
+            'mslp_eta_reduction' 
+            'soil_temperature'
+            'soil_moisture'
+            '2m_relative_humidity'
+            '2m_temperature'
+            '2m_dew_point'
+            'maximum_temperature'
+            'minimum_temperature'           
+            '10m_u_wind_component'
+            '10m_v_wind_component'
+            'precipitable_water'
+            'cloud_ceiling_height'    
+            '3km_helicity'     
+            'mixed_layer_cape'
+            'mixed_layer_cin'    
+            
+        CHEM (Atmospheric Chemistry) Directory
+        --------------------------------------
+        
+            'fine_particulates'
+            'coarse_particulates'    
+    
+    
+        WAVE (Marine Weather/Ocean Forecasting)
+        ---------------------------------------
+        
+            'significant_wave_height_combined_wind_waves_and_swell'
+            'primary_wave_period'
+            'primary_wave_direction'
+            'significant_wave_height_wind_waves'
+            'wind_wave_mean_period'
+            'wind_wave_direction'
+            'wind_speed'
+            'wind_direction'
+            'significant_height_of_total_swell'
+            'mean_period_of_total_swell'
+            'direction_of_swell_waves'
+            'u_wind_component'
+            'v_wind_component'
+            'sea_ice_area_fraction'
+            'mean_wave_period_based_on_first_moment'
+            'mean_wave_period'
+            'mean_wave_direction' 
+        
     Returns
     -------
     
-    An xarray data array of the pre-processed GEFS0P50 Data.    
+    An xarray data array of the pre-processed GFS/GEFS Data.    
     """
     model = model.upper()
     cat = cat.upper()
@@ -241,7 +485,7 @@ def process_data(model, cat, step, directory, western_bound, eastern_bound, nort
                 
             ds['surface_pressure'] = ds['sp']
             ds['orography'] = ds['orog']
-            ds['accumulated_snow_depth_swe'] = ds['sdwe']
+            ds['water_equivalent_of_accumulated_snow_depth'] = ds['sdwe']
             ds['snow_depth'] = ds['sde']
             ds['sea_ice_thickness'] = ds['sithick']
             ds['total_precipitation'] = ds['tp']
@@ -347,7 +591,7 @@ def process_data(model, cat, step, directory, western_bound, eastern_bound, nort
             ds['surface_lifted_index'] = ds['lftx']
             ds['best_4_layer_lifted_index'] = ds['lftx4']
             ds['land_sea_mask'] = ds['lsm']
-            ds['sea_ice_area_friction'] = ds['siconc']
+            ds['sea_ice_area_fraction'] = ds['siconc']
             ds['orography'] = ds['orog']
             ds['surface_cape'] = ds['cape']
             ds['surface_cin'] = ds['cin']
@@ -1124,7 +1368,7 @@ def process_data(model, cat, step, directory, western_bound, eastern_bound, nort
             ds['surface_lifted_index'] = ds['lftx']
             ds['best_4_layer_lifted_index'] = ds['lftx4']
             ds['land_sea_mask'] = ds['lsm']
-            ds['sea_ice_area_friction'] = ds['siconc']
+            ds['sea_ice_area_fraction'] = ds['siconc']
             ds['orography'] = ds['orog']
             ds['surface_cape'] = ds['cape']
             ds['surface_cin'] = ds['cin']
@@ -1258,4 +1502,498 @@ def process_data(model, cat, step, directory, western_bound, eastern_bound, nort
                 
                 ) 
     
+    
+    if model == 'GEFS0P25':
+        
+        if directory == 'ATMOS':
+            
+            if ensemble == False:
+                
+                path = paths
+                
+                file_pattern = f"{path}/*.grib2"
+                
+                ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'surface'})
+                ds = shift_longitude(ds)
+                ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                ds['surface_visibility'] = ds['vis']
+                ds['surface_wind_gust'] = ds['gust']
+                ds['surface_pressure'] = ds['sp']
+                ds['orography'] = ds['orog']
+                ds['water_equivalent_of_accumulated_snow_depth'] = ds['sdwe']
+                ds['snow_depth'] = ds['sde']
+                ds['sea_ice_thickness'] = ds['sithick']
+                ds['percent_frozen_precipitation'] = ds['cpofp']
+                ds['surface_cape'] = ds['cape']
+                ds['surface_cin'] = ds['cin']
+                ds['total_precipitation'] = ds['tp']
+                ds['categorical_snow'] = ds['csnow']
+                ds['categorical_ice_pellets'] = ds['cicep']
+                ds['categorical_freezing_rain'] = ds['cfrzr']
+                ds['categorical_rain'] = ds['crain']
+                ds['time_mean_surface_latent_heat_flux'] = ds['avg_slhtf']
+                ds['time_mean_surface_sensible_heat_flux'] = ds['avg_ishf']
+                ds['surface_downward_shortwave_radiation_flux'] = ds['sdswrf']
+                ds['surface_downward_longwave_radiation_flux'] = ds['sdlwrf']
+                ds['surface_upward_shortwave_radiation_flux'] = ds['suswrf']
+                ds['surface_upward_longwave_radiation_flux'] = ds['sulwrf']
+                
+                
+                ds = ds.drop_vars(
+                    ['vis',
+                     'gust',
+                     'sp',
+                     'orog',
+                     'sdwe',
+                     'sde',
+                     'sithick',
+                     'cpofp',
+                     'cape',
+                     'cin',
+                     'tp',
+                     'csnow',
+                     'cicep',
+                     'cfrzr',
+                     'crain',
+                     'avg_slhtf',
+                     'avg_ishf',
+                     'sdswrf',
+                     'sdlwrf',
+                     'suswrf',
+                     'sulwrf']
+                )                
+                
+
+                ds1 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'meanSea'})
+                ds1 = shift_longitude(ds1)
+                ds1 = ds1.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                ds['mslp'] = ds1['prmsl']
+                ds['mslp_eta_reduction'] = ds1['mslet']              
+
+                ds2 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'depthBelowLandLayer'})
+                ds2 = shift_longitude(ds2)
+                ds2 = ds2.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                ds['soil_temperature'] = ds2['st']
+                ds['soil_moisture'] = ds2['soilw']
+
+                ds3 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround'})
+                ds3 = shift_longitude(ds3)
+                ds3 = ds3.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                ds['2m_relative_humidity'] = ds3['r2']
+                ds['2m_temperature'] = ds3['t2m']
+                ds['2m_dew_point'] = ds3['d2m']
+                ds['maximum_temperature'] = ds3['tmax']
+                ds['minimum_temperature'] = ds3['tmin']
+
+                ds4 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName':'10u'})
+                ds4 = shift_longitude(ds4)
+                ds4 = ds4.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                ds['10m_u_wind_component'] = ds4['u10']
+
+                ds5 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName':'10v'})
+                ds5 = shift_longitude(ds5)
+                ds5 = ds5.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                ds['10m_v_wind_component'] = ds5['v10']
+
+                ds6 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'atmosphereSingleLayer'})
+                ds6 = shift_longitude(ds6)
+                ds6 = ds6.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                ds['precipitable_water'] = ds6['pwat']
+
+                ds7 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'cloudCeiling'})
+                ds7 = shift_longitude(ds7)
+                ds7 = ds7.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                ds['cloud_ceiling_height'] = ds7['gh']
+
+                ds8 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGroundLayer'})
+                ds8 = shift_longitude(ds8)
+                ds8 = ds8.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                ds['3km_helicity'] = ds8['hlcy'] 
+
+                ds9 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'pressureFromGroundLayer'})
+                ds9 = shift_longitude(ds9)
+                ds9 = ds9.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                ds['mixed_layer_cape'] = ds9['cape']
+                ds['mixed_layer_cin'] = ds9['cin']
+                
+            else:
+                
+                ds_list_1 = []
+                for path in paths:                
+                    file_pattern = f"{path}/*.grib2"
+                    ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'surface'})
+                    ds = shift_longitude(ds)
+                    ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                    ds_list_1.append(ds)
+                
+                ds_list_2 = []
+                for path in paths:
+                    file_pattern = f"{path}/*.grib2"
+                    ds1 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'meanSea'})
+                    ds1 = shift_longitude(ds1)
+                    ds1 = ds1.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                    ds_list_2.append(ds1)
+
+                ds_list_3 = []
+                for path in paths:                
+                    file_pattern = f"{path}/*.grib2"
+                    ds2 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'depthBelowLandLayer'})
+                    ds2 = shift_longitude(ds2)
+                    ds2 = ds2.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                    ds_list_3.append(ds2)
+
+
+                ds_list_4 = []
+                for path in paths:                
+                    file_pattern = f"{path}/*.grib2"
+                    ds3 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround'})
+                    ds3 = shift_longitude(ds3)
+                    ds3 = ds3.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                    ds_list_4.append(ds3)
+                
+                
+                ds_list_5 = []
+                for path in paths:                
+                    file_pattern = f"{path}/*.grib2"
+                    ds4 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName':'10u'})
+                    ds4 = shift_longitude(ds4)
+                    ds4 = ds4.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                    ds_list_5.append(ds4)
+                
+                
+                ds_list_6 = []
+                for path in paths:                
+                    file_pattern = f"{path}/*.grib2"
+                    ds5 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround', 'shortName':'10v'})
+                    ds5 = shift_longitude(ds5)
+                    ds5 = ds5.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                    ds_list_6.append(ds5)
+                
+                
+                ds_list_7 = []
+                for path in paths:                
+                    file_pattern = f"{path}/*.grib2"
+                    ds6 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'atmosphereSingleLayer'})
+                    ds6 = shift_longitude(ds6)
+                    ds6 = ds6.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                    ds_list_7.append(ds6)
+                
+                
+                ds_list_8 = []
+                for path in paths:                
+                    file_pattern = f"{path}/*.grib2"
+                    ds7 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'cloudCeiling'})
+                    ds7 = shift_longitude(ds7)
+                    ds7 = ds7.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                    ds_list_8.append(ds7)
+                
+                
+                ds_list_9 = []
+                for path in paths:                
+                    file_pattern = f"{path}/*.grib2"
+                    ds8 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGroundLayer'})
+                    ds8 = shift_longitude(ds8)
+                    ds8 = ds8.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                    ds_list_9.append(ds8)
+                
+                
+                ds_list_10 = []
+                for path in paths:                
+                    file_pattern = f"{path}/*.grib2"
+                    ds9 = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'pressureFromGroundLayer'})
+                    ds9 = shift_longitude(ds9)
+                    ds9 = ds9.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                    ds_list_10.append(ds9)
+
+                ds = xr.concat(ds_list_1, dim='number')
+                ds1 = xr.concat(ds_list_2, dim='number')
+                ds2 = xr.concat(ds_list_3, dim='number')
+                ds3 = xr.concat(ds_list_4, dim='number')
+                ds4 = xr.concat(ds_list_5, dim='number')
+                ds5 = xr.concat(ds_list_6, dim='number')
+                ds6 = xr.concat(ds_list_7, dim='number')
+                ds7 = xr.concat(ds_list_8, dim='number')
+                ds8 = xr.concat(ds_list_9, dim='number')
+                ds9 = xr.concat(ds_list_10, dim='number')
+    
+                ds['surface_visibility'] = ds['vis']
+                ds['surface_wind_gust'] = ds['gust']
+                ds['surface_pressure'] = ds['sp']
+                ds['orography'] = ds['orog']
+                ds['water_equivalent_of_accumulated_snow_depth'] = ds['sdwe']
+                ds['snow_depth'] = ds['sde']
+                ds['sea_ice_thickness'] = ds['sithick']
+                ds['percent_frozen_precipitation'] = ds['cpofp']
+                ds['surface_cape'] = ds['cape']
+                ds['surface_cin'] = ds['cin']
+                ds['total_precipitation'] = ds['tp']
+                ds['categorical_snow'] = ds['csnow']
+                ds['categorical_ice_pellets'] = ds['cicep']
+                ds['categorical_freezing_rain'] = ds['cfrzr']
+                ds['categorical_rain'] = ds['crain']
+                ds['time_mean_surface_latent_heat_flux'] = ds['avg_slhtf']
+                ds['time_mean_surface_sensible_heat_flux'] = ds['avg_ishf']
+                ds['surface_downward_shortwave_radiation_flux'] = ds['sdswrf']
+                ds['surface_downward_longwave_radiation_flux'] = ds['sdlwrf']
+                ds['surface_upward_shortwave_radiation_flux'] = ds['suswrf']
+                ds['surface_upward_longwave_radiation_flux'] = ds['sulwrf']
+                
+                ds['mslp'] = ds1['prmsl']
+                ds['mslp_eta_reduction'] = ds1['mslet']    
+                ds['soil_temperature'] = ds2['st']
+                ds['soil_moisture'] = ds2['soilw']   
+                ds['2m_relative_humidity'] = ds3['r2']
+                ds['2m_temperature'] = ds3['t2m']
+                ds['2m_dew_point'] = ds3['d2m']
+                ds['maximum_temperature'] = ds3['tmax']
+                ds['minimum_temperature'] = ds3['tmin']             
+                ds['10m_u_wind_component'] = ds4['u10']
+                ds['10m_v_wind_component'] = ds5['v10']
+                ds['precipitable_water'] = ds6['pwat']  
+                ds['cloud_ceiling_height'] = ds7['gh']     
+                ds['3km_helicity'] = ds8['hlcy']          
+                ds['mixed_layer_cape'] = ds9['cape']
+                ds['mixed_layer_cin'] = ds9['cin']  
+                
+                ds = ds.drop_vars(
+                    ['vis',
+                     'gust',
+                     'sp',
+                     'orog',
+                     'sdwe',
+                     'sde',
+                     'sithick',
+                     'cpofp',
+                     'cape',
+                     'cin',
+                     'tp',
+                     'csnow',
+                     'cicep',
+                     'cfrzr',
+                     'crain',
+                     'avg_slhtf',
+                     'avg_ishf',
+                     'sdswrf',
+                     'sdlwrf',
+                     'suswrf',
+                     'sulwrf']
+                ) 
+        
+        elif directory == 'CHEM':
+            
+                path = paths
+                
+                file_pattern = f"{path}/*.grib2"
+                
+                ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False)
+                ds = shift_longitude(ds)
+                ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                ds['fine_particulates'] = ds['pmtf']
+                ds['coarse_particulates'] = ds['pmtc']
+                
+                ds = ds.drop_vars(
+                    ['pmtf',
+                    'pmtc',
+                    'unknown']
+                )      
+                
+        else:
+            
+            if ensemble == False:
+            
+                if cat == 'MEAN':
+                    
+                    path = paths
+                    
+                    file_pattern = f"{path}/*.grib2"
+                    
+                    ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False)
+                    ds = shift_longitude(ds)
+                    ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                    ds['significant_wave_height_combined_wind_waves_and_swell'] = ds['swh']
+                    ds['primary_wave_period'] = ds['perpw']
+                    ds['primary_wave_direction'] = ds['dirpw']
+                    ds['significant_wave_height_wind_waves'] = ds['shww']
+                    ds['wind_wave_mean_period'] = ds['mpww']
+                    ds['wind_wave_direction'] = ds['wvdir']
+                    ds['wind_speed'] = ds['ws']
+                    ds['wind_direction'] = ds['wdir']
+                    ds['significant_height_of_total_swell'] = ds['shts']
+                    ds['mean_period_of_total_swell'] = ds['mpts']
+                    
+                    ds = ds.drop_vars(
+                        
+                        ['swh',
+                         'perpw',
+                         'dirpw',
+                         'shww',
+                         'mpww',
+                         'wvdir',
+                         'ws',
+                         'wdir',
+                         'shts',
+                         'mpts']
+                    )
+                    
+                elif cat == 'CONTROL':
+                    
+                    path = paths
+                    
+                    file_pattern = f"{path}/*.grib2"
+                    
+                    ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False)
+                    ds = shift_longitude(ds)
+                    ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                    ds['significant_wave_height_combined_wind_waves_and_swell'] = ds['swh']
+                    ds['primary_wave_period'] = ds['perpw']
+                    ds['primary_wave_direction'] = ds['dirpw']
+                    ds['significant_wave_height_wind_waves'] = ds['shww']
+                    ds['wind_wave_mean_period'] = ds['mpww']
+                    ds['wind_wave_direction'] = ds['wvdir']
+                    ds['wind_speed'] = ds['ws']
+                    ds['wind_direction'] = ds['wdir']
+                    ds['significant_height_of_total_swell'] = ds['shts']
+                    ds['mean_period_of_total_swell'] = ds['mpts']
+                    ds['direction_of_swell_waves'] = ds['swdir']
+                    ds['u_wind_component'] = ds['u']
+                    ds['v_wind_component'] = ds['v']
+                    ds['sea_ice_area_fraction'] = ds['siconc']
+                    ds['mean_wave_period_based_on_first_moment'] = ds['mp1']
+                    ds['mean_wave_period'] = ds['mwp']
+                    ds['mean_wave_direction'] = ds['mwd']
+                    
+                    
+                    ds = ds.drop_vars(
+                        
+                        ['swh',
+                         'perpw',
+                         'dirpw',
+                         'shww',
+                         'mpww',
+                         'wvdir',
+                         'ws',
+                         'wdir',
+                         'shts',
+                         'mpts',
+                         'swdir',
+                         'u',
+                         'v',
+                         'siconc',
+                         'mp1',
+                         'mwp',
+                         'mwd']
+                    )
+                    
+                elif cat == 'PROB':
+                    
+                    path = paths
+                    
+                    file_pattern = f"{path}/*.grib2"
+                    
+                    ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False)
+                    ds = shift_longitude(ds)
+                    ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                    ds['significant_wave_height_combined_wind_waves_and_swell'] = ds['swh']
+                    ds['primary_wave_period'] = ds['perpw']
+                    ds['significant_wave_height_wind_waves'] = ds['shww']
+                    ds['wind_wave_mean_period'] = ds['mpww']
+                    ds['wind_speed'] = ds['ws']
+                    ds['significant_height_of_total_swell'] = ds['shts']
+                    ds['mean_period_of_total_swell'] = ds['mpts']
+
+                    ds = ds.drop_vars(
+                        
+                        ['swh',
+                         'perpw',
+                         'shww',
+                         'mpww',
+                         'ws',
+                         'shts',
+                         'mpts']
+                    )
+
+                else:
+
+                    path = paths
+                    
+                    file_pattern = f"{path}/*.grib2"
+                    
+                    ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False)
+                    ds = shift_longitude(ds)
+                    ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                    ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False)
+                    ds = shift_longitude(ds)
+                    ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                    ds['significant_wave_height_combined_wind_waves_and_swell'] = ds['swh']
+                    ds['primary_wave_period'] = ds['perpw']
+                    ds['primary_wave_direction'] = ds['dirpw']
+                    ds['significant_wave_height_wind_waves'] = ds['shww']
+                    ds['wind_wave_mean_period'] = ds['mpww']
+                    ds['wind_wave_direction'] = ds['wvdir']
+                    ds['wind_speed'] = ds['ws']
+                    ds['wind_direction'] = ds['wdir']
+                    ds['significant_height_of_total_swell'] = ds['shts']
+                    ds['mean_period_of_total_swell'] = ds['mpts']
+
+                    ds = ds.drop_vars(
+                        
+                        ['swh',
+                         'perpw',
+                         'shww',
+                         'mpww',
+                         'ws',
+                         'shts',
+                         'mpts',
+                         'dirpw',
+                         'wvdir',
+                         'wdir']
+                    )
+                    
+            else:
+                
+                ds_list_1 = []
+                for path in paths:                
+                    file_pattern = f"{path}/*.grib2"
+                    ds = xr.open_mfdataset(file_pattern, concat_dim='step', combine='nested', coords='minimal', engine='cfgrib', compat='override', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'surface'})
+                    ds = shift_longitude(ds)
+                    ds = ds.sel(longitude=slice(western_bound, eastern_bound, 1), latitude=slice(northern_bound, southern_bound, 1))
+                    ds_list_1.append(ds)
+                    
+                    
+                ds = xr.concat(ds_list_1, dim='number')
+                ds['significant_wave_height_combined_wind_waves_and_swell'] = ds['swh']
+                ds['primary_wave_period'] = ds['perpw']
+                ds['primary_wave_direction'] = ds['dirpw']
+                ds['significant_wave_height_wind_waves'] = ds['shww']
+                ds['wind_wave_mean_period'] = ds['mpww']
+                ds['wind_wave_direction'] = ds['wvdir']
+                ds['wind_speed'] = ds['ws']
+                ds['wind_direction'] = ds['wdir']
+                ds['u_wind_component'] = ds['u']
+                ds['v_wind_component'] = ds['v']
+                ds['sea_ice_area_fraction'] = ds['siconc']
+                ds['mean_wave_period_based_on_first_moment'] = ds['mp1']
+                ds['mean_wave_period'] = ds['mwp']
+                ds['mean_wave_direction'] = ds['mwd']
+                
+                
+                ds = ds.drop_vars(
+                    
+                    ['swh',
+                        'perpw',
+                        'dirpw',
+                        'shww',
+                        'mpww',
+                        'wvdir',
+                        'ws',
+                        'wdir',
+                        'u',
+                        'v',
+                        'siconc',
+                        'mp1',
+                        'mwp',
+                        'mwd']
+                )
+                
+
     return ds
