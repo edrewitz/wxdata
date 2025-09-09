@@ -1,12 +1,6 @@
-**Global Ensemble Forecast System (GEFS)**
+**Global Ensemble Forecast System 0.50 X 0.50 DEGREE (GEFS0P50)**
 
-###### Table of Contents
-
-1. [GEFS0P50]()
-2. [GEFS0P50 SECONDARY PARAMETERS]()
-3. [GEFS0P25]()
-
-###### GEFS0P50
+***gefs_0p50(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None, directory='atmos', members='all', final_forecast_hour=384)***
 
 This function retrives the latest GEFS0P50 data. If the data is not previously downloaded nor up to date, the function
 will download and pre-process the latest dataset. 
