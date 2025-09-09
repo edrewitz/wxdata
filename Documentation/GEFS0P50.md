@@ -72,7 +72,7 @@ wxdata converts all GRIB variable keys into a standardized variable key format t
         'categorical_snow'
         'categorical_ice_pellets'
         'categorical_freezing_rain'
-        'categorical_rain'] = 'crain'
+        'categorical_rain'
         'time_mean_surface_latent_heat_flux'
         'time_mean_surface_sensible_heat_flux'
         'surface_downward_shortwave_radiation_flux'
