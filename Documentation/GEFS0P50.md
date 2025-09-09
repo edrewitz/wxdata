@@ -10,7 +10,7 @@ files are up to date, the function will skip downloading the newest dataset.
 
 Required Arguments:
 
-1) cat (String) - The category of the data. (i.e. mean, control, all members)
+1) cat (String) - The category of the data. (i.e. mean, control, members)
 
 Optional Arguments:
 
