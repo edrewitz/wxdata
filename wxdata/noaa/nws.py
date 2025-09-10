@@ -23,6 +23,21 @@ hawaii = '/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.hawaii/'
 
 def get_parameters(parameter):
     
+    """
+    This function returns the filename for a given NDFD Weather Element. 
+    
+    Required Arguments:
+    
+    1) parameter (String) - The parameter name as a string. 
+    
+    Optional Arguments: None
+    
+    Returns
+    -------
+    
+    The filename for a given parameter. 
+    """
+    
     parameters = {
         
         'maximum_relative_humidity':'ds.maxrh.bin',
