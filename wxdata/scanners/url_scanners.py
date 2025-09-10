@@ -281,8 +281,15 @@ def gfs_url_scanner(model, cat, proxies, directory, final_forecast_hour, members
        Directories: 1) atmos
                     2) chem
                     3) wave
+                    
+    5) final_forecast_hour (Integer) - Default = 384. The final forecast hour the user wishes to download. The GEFS0P50
+    goes out to 384 hours. For those who wish to have a shorter dataset, they may set final_forecast_hour to a value lower than 
+    384 by the nereast increment of 3 hours. 
     
-    Optional Arguments: None
+    Optional Arguments: 
+    
+    1) members (Integer) - Default = None. An array of integers corresponding to the last (highest number) ensemble member in the 
+    datast which the user wishes to download. 
 
     Returns
     -------

@@ -278,7 +278,7 @@ def get_observed_sounding_data(station_id, current=True, custom_time=None, compa
         df['THETA'] = mpcalc.potential_temperature(pressure, temperature)
         height = df['HGHT'].values * units('meters')
         theta = df['THETA'].values * units('degK')
-        df['BVF'] = mpcalc.brunt_vaisala_frequency(height, theta, vertical_dim=0)
+        df['BVF'] = mpcalc.brunt_vaisala_frequency(height, theta, vertical_dim=0) 
     
         return df, date
 

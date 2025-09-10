@@ -21,6 +21,44 @@ alaska = '/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.alaska/'
 conus = '/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.conus/'
 hawaii = '/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.hawaii/'
 
+def get_parameters(parameter):
+    
+    parameters = {
+        
+        'maximum_relative_humidity':'ds.maxrh.bin',
+        'mainimum_relative_humidity':'ds.minrh.bin',
+        'maximum_temperature':'ds.maxt.bin',
+        'minimum_temperature':'ds.mint.bin',
+        'relative_humidity':'ds.rhm.bin',
+        'temperature':'ds.temp.bin',
+        'apparent_temperature':'ds.apt.bin',
+        'wind_speed':'ds.wspd.bin',
+        'wind_gust':'ds.wgust.bin',
+        'wind_direction':'ds.wdir.bin',
+        'spc_critical_fire_weather_forecast':'ds.critfireo.bin',
+        'spc_dry_lightning_forecast':'ds.dryfireo.bin',
+        'spc_convective_outlook':'ds.conhazo.bin',
+        'ice_accumulation':'ds.iceaccum.bin',
+        'probability_of_hail':'ds.phail.bin',
+        '12_hour_probability_of_precipitation':'ds.pop12.bin',
+        'probability_of_extreme_tornadoes':'ds.ptornado.bin',
+        'total_probability_of_severe_thunderstorms':'ds.ptotsvrtstm.bin',
+        'total_probability_of_extreme_severe_thunderstorms':'ds.ptotxsvrtstm.bin',
+        'probability_of_extreme_thunderstorm_winds':'ds.pxtstmwinds.bin',
+        'probability_of_extreme_hail':'ds.pxhail.bin',
+        'probability_of_extreme_tornadoes':'ds.pxtornado.bin',
+        'probability_of_damaging_thunderstorm_winds':'ds.ptstmwinds.bin',
+        'quantitative_precipitation_forecast':'ds.qpf.bin',
+        'sky_cover':'ds.sky.bin',
+        'snow_amount':'ds.snow.bin',
+        'snow_level':'ds.snowlevel.bin'       
+        
+        
+        
+    }
+    
+    return parameters[parameter]
+
 
 def get_ndfd_grids(parameter, state):
 
@@ -62,75 +100,32 @@ def get_ndfd_grids(parameter, state):
         except Exception as e:
             pass
 
-    if parameter == 'ds.maxrh.bin':
-        short_term_fname = 'ds.maxrh_short.bin'
-        extended_fname = 'ds.maxrh_extended.bin'
+    fname = get_parameters(parameter)
 
-    if parameter == 'ds.minrh.bin':
-        short_term_fname = 'ds.minrh_short.bin'
-        extended_fname = 'ds.minrh_extended.bin'
-
-    if parameter == 'ds.maxt.bin':
-        short_term_fname = 'ds.maxt_short.bin'
-        extended_fname = 'ds.maxt_extended.bin'
-
-    if parameter == 'ds.mint.bin':
-        short_term_fname = 'ds.mint_short.bin'
-        extended_fname = 'ds.mint_extended.bin'
-
-    if parameter == 'ds.rhm.bin':
-        short_term_fname = 'ds.rhm_short.bin'
-        extended_fname = 'ds.rhm_extended.bin'    
-
-    if parameter == 'ds.temp.bin':
-        short_term_fname = 'ds.temp_short.bin'
-        extended_fname = 'ds.temp_extended.bin' 
-
-    if parameter == 'ds.wspd.bin':
-        short_term_fname = 'ds.wspd_short.bin'
-        extended_fname = 'ds.wspd_extended.bin'  
-
-    if parameter == 'ds.wgust.bin':
-        short_term_fname = 'ds.wgust_short.bin'
-        extended_fname = 'ds.wgust_extended.bin'   
-
-    if parameter == 'ds.wdir.bin':
-        short_term_fname = 'ds.wdir_short.bin'
-        extended_fname = 'ds.wdir_extended.bin'  
-
-    if parameter == 'ds.critfireo.bin':
-        short_term_fname = 'ds.critfireo_short.bin'
-        extended_fname = 'ds.critfireo_extended.bin'     
-
-    if parameter == 'ds.dryfireo.bin':
-        short_term_fname = 'ds.dryfireo_short.bin'
-        extended_fname = 'ds.dryfireo_extended.bin' 
-
-    if parameter == 'ds.conhazo.bin':
-        short_term_fname = 'ds.conhazo_short.bin'
-        extended_fname = 'ds.conhazo_extended.bin' 
+    short_term_fname = f"ds.{parameter}_short.bin"
+    extended_fname = f"ds.{parameter}_extended.bin"
 
 
     if os.path.exists(short_term_fname):
         os.remove(short_term_fname)
-        urllib.request.urlretrieve(f"https://tgftp.nws.noaa.gov{directory_name}VP.001-003/{parameter}", f"{parameter}")
-        os.rename(parameter, short_term_fname)
+        urllib.request.urlretrieve(f"https://tgftp.nws.noaa.gov{directory_name}VP.001-003/{fname}", f"{fname}")
+        os.rename(fname, short_term_fname)
     else:
-        urllib.request.urlretrieve(f"https://tgftp.nws.noaa.gov{directory_name}VP.001-003/{parameter}", f"{parameter}")
-        os.rename(parameter, short_term_fname)
+        urllib.request.urlretrieve(f"https://tgftp.nws.noaa.gov{directory_name}VP.001-003/{fname}", f"{fname}")
+        os.rename(fname, short_term_fname)
     
     if os.path.exists(extended_fname):
         try:
             os.remove(extended_fname)
-            urllib.request.urlretrieve(f"https://tgftp.nws.noaa.gov{directory_name}VP.004-007/{parameter}", f"{parameter}")
-            os.rename(parameter, extended_fname)
+            urllib.request.urlretrieve(f"https://tgftp.nws.noaa.gov{directory_name}VP.004-007/{fname}", f"{fname}")
+            os.rename(fname, extended_fname)
             extended = True
         except Exception as e:
             extended = False
     else:
         try:
-            urllib.request.urlretrieve(f"https://tgftp.nws.noaa.gov{directory_name}VP.004-007/{parameter}", f"{parameter}")
-            os.rename(parameter, extended_fname)
+            urllib.request.urlretrieve(f"https://tgftp.nws.noaa.gov{directory_name}VP.004-007/{fname}", f"{fname}")
+            os.rename(fname, extended_fname)
             extended = True
         except Exception as e:
             extended = False
@@ -205,5 +200,13 @@ def get_ndfd_grids(parameter, state):
             os.remove(f"NWS Data/{item}")
         
     print(f"Retrieved {parameter} NDFD grids.")
+    
+    data_var_names_1 = [var.name for var in ds1.data_vars.values()]
+    ds1[parameter] = ds1[data_var_names_1[0]]
+    ds1 = ds1.drop_vars(data_var_names_1[0])
+    
+    data_var_names_2 = [var.name for var in ds2.data_vars.values()]
+    ds2[parameter] = ds2[data_var_names_2[0]]
+    ds2 = ds2.drop_vars(data_var_names_2[0])
 
     return ds1, ds2
