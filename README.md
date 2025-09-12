@@ -2,7 +2,7 @@
 
 ![weather icon](https://github.com/edrewitz/wxdata/blob/main/icons/weather%20icon.jpg) ![python icon](https://github.com/edrewitz/wxdata/blob/main/icons/python%20logo.png)
 
-An open-source repository that helps users download and pre-process various types of weather data. 
+An open-source library that helps users download and pre-process various types of weather data. 
 
 **WxData Module List**
 
