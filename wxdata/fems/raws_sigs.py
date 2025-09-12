@@ -1,13 +1,12 @@
-
-'''
+"""
 This file hosts the functions to check for the existence of the CSV files that have the SIGs of the various RAWS stations and data associated with those SIGs.
 If the CSV files exist, nothing additional is necessary.
 
 If not, the function in this file will build the directory to host the CSVs and download and save the CSVs to that folder.
 
-This file is written by (C) Meteorologist Eric J. Drewitz (USDA/USFS)
+(C) Eric J. Drewitz 2025
 
-'''
+"""
 # Imports
 import urllib.request
 import os
@@ -22,6 +21,32 @@ except Exception as e:
 from calendar import isleap
 
 def get_number_of_psas_by_gacc(gacc_region):
+    
+    """
+    This function returns the number of Predictive Services Areas (PSAs) for each GACC. 
+    
+    Required Arguments:
+    
+    1) gacc_region (String) - The 4-letter GACC abbreviation
+    
+    GACC Abbreviations
+    ------------------
+    
+    oscc - South Ops
+    oncc - North Ops
+    nwcc - Northwest Coordination Center
+    swcc - Southwest Coordination Center
+    nrcc - Northern Rockies Coordination Center
+    gbcc - Great Basin Coordination Center
+    aicc - Alaska Interagency Coordination Center
+    rmcc - Rocky Mountain Coordination Center
+    sacc - Southern Area Coordination Center
+    eacc - Eastern Area Coordination Center
+    
+    Returns
+    -------
+    The number of PSAs for each GACC. 
+    """
 
     gacc_region = gacc_region.upper()
 
@@ -49,7 +74,18 @@ def get_number_of_psas_by_gacc(gacc_region):
     return psas
 
 def calculate_daily_stats(df):
-    """Calculate daily max, min and average statistics for the selected component."""
+    """
+    Calculate daily max, min and average statistics for the selected component.
+    
+    Required Arguments:
+    
+    1) df (Pandas DataFrame) - A Pandas DataFrame of the fuels data. 
+    
+    Returns
+    -------
+    
+    Daily Maximum, Daily Minimum and Daily Average for all variables    
+    """
     daily_max = df.groupby('julian_date').max(numeric_only=True).reset_index()
     daily_min = df.groupby('julian_date').min(numeric_only=True).reset_index()
     daily_avg = df.groupby('julian_date').mean(numeric_only=True).reset_index()
@@ -57,7 +93,7 @@ def calculate_daily_stats(df):
 
 def check_folders():
     
-    r'''
+    """
     This function checks if the folder that will house the CSV files exists.
     If not the folder will be created.
 
@@ -65,8 +101,11 @@ def check_folders():
 
     Optional Arguments: None
 
-    Returns: A folder that will house the RAWS SIGs CSV files
-    '''
+    Returns
+    ------- 
+    
+    A folder that will house the RAWS SIGs CSV files
+    """
 
     gacc_id = ['OSCC', 'ONCC', 'SWCC', 'AICC', 'NWCC', 'GBCC', 'NRCC', 'RMCC', 'EACC', 'SACC']
 
@@ -83,7 +122,7 @@ def check_folders():
 
 def get_raws_sig_info():
 
-    r'''
+    """
     This function will download the CSV files that have the RAWS SIG Information from my github page if they are not detected
     on the user's computer. 
 
@@ -91,8 +130,11 @@ def get_raws_sig_info():
 
     Optional Arguments: None
 
-    Returns: Downloading the RAWS SIG Information CSV files and placing them in the f:RAWS SIGs folder if they aren't there already
-    '''
+    Returns
+    ------- 
+    
+    Downloading the RAWS SIG Information CSV files and placing them in the f:RAWS SIGs folder if they aren't there already
+    """
 
     if os.path.exists(f"RAWS SIGs/OSCC/OSCC_StationList.csv"):
         pass
@@ -153,7 +195,7 @@ get_raws_sig_info()
 
 def get_sigs(gacc_region):
 
-    r'''
+    """
     This function returns the information of the SIGs in each GACC Region. 
 
     Required Arguments: 
@@ -162,15 +204,52 @@ def get_sigs(gacc_region):
 
     Optional Arguments: None
 
-    Returns: Returns the station list for each SIG. 
-
-    '''
+    Returns
+    -------
+    
+    The station list for each SIG. 
+    """
 
     df = pd.read_csv(f"RAWS SIGs/{gacc_region.upper()}/{gacc_region.upper()}_StationList.csv")
 
     return df
 
 def get_stats(gacc_region):
+    
+    """
+    This function creates daily max/min/avg for each Predictive Services Area (PSA).
+    
+    The stats for the period has the running maximum, minimum and average for the period. 
+
+    Required Arguments:
+
+    1) gacc_region (String) - The 4-letter abbreviation of the GACC
+    
+    GACC Abbreviations
+    ------------------
+    
+    oscc - South Ops
+    oncc - North Ops
+    nwcc - Northwest Coordination Center
+    swcc - Southwest Coordination Center
+    nrcc - Northern Rockies Coordination Center
+    gbcc - Great Basin Coordination Center
+    aicc - Alaska Interagency Coordination Center
+    rmcc - Rocky Mountain Coordination Center
+    sacc - Southern Area Coordination Center
+    eacc - Eastern Area Coordination Center  
+
+    Optional Arguments: None
+
+    Returns
+    ------- 
+    
+    CSV files saved to the following path:
+    
+    FEMS Data/Station Climo/{gacc_region}/PSA {psa}/MAX/{fname_max}
+    FEMS Data/Station Climo/{gacc_region}/PSA {psa}/MIN/{fname_min}
+    FEMS Data/Station Climo/{gacc_region}/PSA {psa}/AVG/{fname_avg}
+    """
 
     gacc_region = gacc_region.upper()
     
@@ -265,11 +344,14 @@ def get_stats(gacc_region):
                 daily_min = df.groupby('julian_date').min(numeric_only=True)
                 daily_avg = df.groupby('julian_date').mean(numeric_only=True)
             except Exception as e:
-                df['observationTime'] = pd.to_datetime(df['observationTime'])
-                df['julian_date'] = df['observationTime'].dt.dayofyear
-                daily_max = df.groupby('julian_date').max(numeric_only=True)
-                daily_min = df.groupby('julian_date').min(numeric_only=True)
-                daily_avg = df.groupby('julian_date').mean(numeric_only=True)
+                try:
+                    df['observationTime'] = pd.to_datetime(df['observationTime'])
+                    df['julian_date'] = df['observationTime'].dt.dayofyear
+                    daily_max = df.groupby('julian_date').max(numeric_only=True)
+                    daily_min = df.groupby('julian_date').min(numeric_only=True)
+                    daily_avg = df.groupby('julian_date').mean(numeric_only=True)
+                except Exception as e:
+                    pass
 
             try:
                 fname_max = f"{df['stationId'].iloc[0]}_max.csv"
@@ -278,29 +360,58 @@ def get_stats(gacc_region):
             except Exception as e:
                 fname_max = f"{df['stationName'].iloc[0]}_max.csv"
                 fname_min = f"{df['stationName'].iloc[0]}_min.csv"
-                fname_avg = f"{df['stationName'].iloc[0]}_avg.csv"                
-            daily_max.to_csv(fname_max, index=False)
-            os.replace(f"{fname_max}", f"FEMS Data/Station Climo/{gacc_region}/PSA {psa}/MAX/{fname_max}")
-            daily_min.to_csv(fname_min, index=False)
-            os.replace(f"{fname_min}", f"FEMS Data/Station Climo/{gacc_region}/PSA {psa}/MIN/{fname_min}")
-            daily_avg.to_csv(fname_avg, index=False)
-            os.replace(f"{fname_avg}", f"FEMS Data/Station Climo/{gacc_region}/PSA {psa}/AVG/{fname_avg}")
+                fname_avg = f"{df['stationName'].iloc[0]}_avg.csv"  
+                
+            try:              
+                daily_max.to_csv(fname_max, index=False)
+                os.replace(f"{fname_max}", f"FEMS Data/Station Climo/{gacc_region}/PSA {psa}/MAX/{fname_max}")
+            except Exception as e:
+                pass
+            
+            try:
+                daily_min.to_csv(fname_min, index=False)
+                os.replace(f"{fname_min}", f"FEMS Data/Station Climo/{gacc_region}/PSA {psa}/MIN/{fname_min}")
+            except Exception as e:
+                pass
+            
+            try:
+                daily_avg.to_csv(fname_avg, index=False)
+                os.replace(f"{fname_avg}", f"FEMS Data/Station Climo/{gacc_region}/PSA {psa}/AVG/{fname_avg}")
+            except Exception as e:
+                pass
         psa = psa + 1
 
 def get_psa_percentiles(gacc_region):
 
-    r'''
+    """
     This function will parse through the various RAWS CSV files and calculate the 100-hr DFM, 1000-hr DFM and ERC percentiles by SIG. 
 
     Required Arguments:
 
     1) gacc_region (String) - The 4-letter abbreviation of the GACC
+    
+    GACC Abbreviations
+    ------------------
+    
+    oscc - South Ops
+    oncc - North Ops
+    nwcc - Northwest Coordination Center
+    swcc - Southwest Coordination Center
+    nrcc - Northern Rockies Coordination Center
+    gbcc - Great Basin Coordination Center
+    aicc - Alaska Interagency Coordination Center
+    rmcc - Rocky Mountain Coordination Center
+    sacc - Southern Area Coordination Center
+    eacc - Eastern Area Coordination Center
 
     Optional Arguments: None
 
-    Returns: A CSV file hosting all the PSA percentiles saved to f:FEMS Data/{gacc_region}/PSA Percentiles
+    Returns
+    ------- 
+    
+    A CSV file hosting all the PSA percentiles saved to f:FEMS Data/{gacc_region}/PSA Percentiles
 
-    '''
+    """
 
     gacc_region = gacc_region.upper()
     
@@ -633,6 +744,36 @@ def get_psa_percentiles(gacc_region):
     os.replace(f"{fname}", f"FEMS Data/{gacc_region}/PSA Percentiles/{fname}")
 
 def station_stats(gacc_region):
+    
+    """
+    This function sorts the stats for each RAWS Station. 
+    
+    Required Arguments:
+
+    1) gacc_region (String) - The 4-letter abbreviation of the GACC
+    
+    GACC Abbreviations
+    ------------------
+    
+    oscc - South Ops
+    oncc - North Ops
+    nwcc - Northwest Coordination Center
+    swcc - Southwest Coordination Center
+    nrcc - Northern Rockies Coordination Center
+    gbcc - Great Basin Coordination Center
+    aicc - Alaska Interagency Coordination Center
+    rmcc - Rocky Mountain Coordination Center
+    sacc - Southern Area Coordination Center
+    eacc - Eastern Area Coordination Center
+
+    Optional Arguments: None
+
+    Returns
+    ------- 
+    
+    A CSV file hosting all the stats for each station at: FEMS Data/Station Stats/{gacc_region}/PSA {psa}/{fname}
+    
+    """
 
     gacc_region = gacc_region.upper()
     
@@ -749,6 +890,35 @@ def station_stats(gacc_region):
         psa = psa + 1
 
 def station_forecast(gacc_region):
+    
+    """
+    This function retrieves the NFDRS forecast for each RAWS station in each Predictive Services Area SIG. 
+    
+    Required Arguments:
+
+    1) gacc_region (String) - The 4-letter abbreviation of the GACC
+    
+    GACC Abbreviations
+    ------------------
+    
+    oscc - South Ops
+    oncc - North Ops
+    nwcc - Northwest Coordination Center
+    swcc - Southwest Coordination Center
+    nrcc - Northern Rockies Coordination Center
+    gbcc - Great Basin Coordination Center
+    aicc - Alaska Interagency Coordination Center
+    rmcc - Rocky Mountain Coordination Center
+    sacc - Southern Area Coordination Center
+    eacc - Eastern Area Coordination Center
+
+    Optional Arguments: None
+
+    Returns
+    ------- 
+    
+    A CSV file hosting all the data sorted by PSA at: FEMS Data/Station Forecasts/{gacc_region}/PSA {psa}/{fname} 
+    """
 
     gacc_region = gacc_region.upper()
     
@@ -876,25 +1046,60 @@ def station_forecast(gacc_region):
             except Exception as e:
                 ic = data['IC'].max()
     
-            if len(f100) == days and len(f1000) == days and len(erc) == days and len(bi) == days and len(sc) == days:
-                main = pd.DataFrame()
-                main['f100'] = f100.values
-                main['f1000'] = f1000.values
-                main['erc'] = erc.values
-                main['bi'] = bi.values
-                main['sc'] = sc.values
-                main['ic'] = ic.values
+            main = pd.DataFrame()
+            main['f100'] = f100.values
+            main['f1000'] = f1000.values
+            main['erc'] = erc.values
+            main['bi'] = bi.values
+            main['sc'] = sc.values
+            main['ic'] = ic.values
+            try:
                 main['dates'] = dates
-        
-                fname = f"{files[i]}"
-                main.to_csv(fname, index=False)
-                os.replace(f"{fname}", f"FEMS Data/Station Forecasts/{gacc_region}/PSA {psa}/{fname}")
-            else:
-                pass
+            except Exception as e:
+                days = abs((start_date - end_date).days)
+                dates = []
+                for day in range(0, days + 1):
+                    date = start_date + timedelta(days=day)
+                    dates.append(date)    
+                main['dates'] = dates          
+    
+            fname = f"{files[i]}"
+            main.to_csv(fname, index=False)
+            os.replace(f"{fname}", f"FEMS Data/Station Forecasts/{gacc_region}/PSA {psa}/{fname}")
     
         psa = psa + 1
 
 def sort_data_by_psa(gacc_region):
+    
+    """
+    This function sorts all the weather data by Predictive Services Area for each GACC. 
+
+    Required Arguments:
+
+    1) gacc_region (String) - The 4-letter abbreviation of the GACC
+    
+    GACC Abbreviations
+    ------------------
+    
+    oscc - South Ops
+    oncc - North Ops
+    nwcc - Northwest Coordination Center
+    swcc - Southwest Coordination Center
+    nrcc - Northern Rockies Coordination Center
+    gbcc - Great Basin Coordination Center
+    aicc - Alaska Interagency Coordination Center
+    rmcc - Rocky Mountain Coordination Center
+    sacc - Southern Area Coordination Center
+    eacc - Eastern Area Coordination Center
+
+    Optional Arguments: None
+
+    Returns
+    ------- 
+    
+    A CSV file hosting all the data sorted by PSA at: FEMS Data/{gacc_region}/PSA Data/{fname}
+    
+    """
 
     gacc_region = gacc_region.upper()
     path_to_sort = f"FEMS Data/Station Stats/{gacc_region}"  
@@ -1096,6 +1301,35 @@ def sort_data_by_psa(gacc_region):
             psa = psa + 1
 
 def sort_forecasts_by_psa(gacc_region):
+    
+    """
+    This function returns the NFDRS Forecast for each Predictive Services Area for a GACC.
+    
+    Required Arguments:
+
+    1) gacc_region (String) - The 4-letter abbreviation of the GACC
+    
+    GACC Abbreviations
+    ------------------
+    
+    oscc - South Ops
+    oncc - North Ops
+    nwcc - Northwest Coordination Center
+    swcc - Southwest Coordination Center
+    nrcc - Northern Rockies Coordination Center
+    gbcc - Great Basin Coordination Center
+    aicc - Alaska Interagency Coordination Center
+    rmcc - Rocky Mountain Coordination Center
+    sacc - Southern Area Coordination Center
+    eacc - Eastern Area Coordination Center
+
+    Optional Arguments: None
+
+    Returns
+    ------- 
+    
+    A CSV file hosting all the data sorted by PSA at: FEMS Data/{gacc_region}/PSA Forecast/{fname}    
+    """
 
     gacc_region = gacc_region.upper()
     path_to_sort = f"FEMS Data/Station Forecasts/{gacc_region}"  
@@ -1255,35 +1489,83 @@ def sort_forecasts_by_psa(gacc_region):
                 pass  
         
             main = pd.DataFrame()
-            
-            main['dates'] = df_dates
-            main['dates'] = pd.to_datetime(main['dates'])
-            main['julian_date'] = main['dates'].dt.dayofyear
-            
-            main['f100_mean'] = f100_mean
-            main['f100_max'] = f100_max
-            main['f100_min'] = f100_min
-            
-            main['f1000_mean'] = f1000_mean
-            main['f1000_max'] = f1000_max
-            main['f1000_min'] = f1000_min
-            
-            main['erc_mean'] = erc_mean
-            main['erc_max'] = erc_max
-            main['erc_min'] = erc_min
-            
-            main['bi_mean'] = bi_mean
-            main['bi_max'] = bi_max
-            main['bi_min'] = bi_min
-            
-            main['sc_mean'] = sc_mean
-            main['sc_max'] = sc_max
-            main['sc_min'] = sc_min
-    
-            main['ic_mean'] = ic_mean
-            main['ic_max'] = ic_max
-            main['ic_min'] = ic_min
+
+            try:
+                main['dates'] = df_dates
+                main['dates'] = pd.to_datetime(main['dates'])
+                main['julian_date'] = main['dates'].dt.dayofyear
+                    
+                main['f100_mean'] = f100_mean
+                main['f100_max'] = f100_max
+                main['f100_min'] = f100_min
+                
+                main['f1000_mean'] = f1000_mean
+                main['f1000_max'] = f1000_max
+                main['f1000_min'] = f1000_min
+                
+                main['erc_mean'] = erc_mean
+                main['erc_max'] = erc_max
+                main['erc_min'] = erc_min
+                
+                main['bi_mean'] = bi_mean
+                main['bi_max'] = bi_max
+                main['bi_min'] = bi_min
+                
+                main['sc_mean'] = sc_mean
+                main['sc_max'] = sc_max
+                main['sc_min'] = sc_min
         
+                main['ic_mean'] = ic_mean
+                main['ic_max'] = ic_max
+                main['ic_min'] = ic_min
+            except Exception as e:
+
+                dates = []
+                
+                try:
+                    now = datetime.now(UTC)
+                except Exception as e:
+                    now = datetime.utcnow()
+                    
+                for d in range(0, 7):
+                    date = now + timedelta(days=d)
+                    dates.append(date)
+                
+                
+                main['dates'] = dates
+                main['dates'] = pd.to_datetime(main['dates'])
+                main['julian_date'] = main['dates'].dt.dayofyear
+                    
+                main['f100_mean'] = f100_mean
+                main['f100_max'] = f100_max
+                main['f100_min'] = f100_min
+                
+                main['f1000_mean'] = f1000_mean
+                main['f1000_max'] = f1000_max
+                main['f1000_min'] = f1000_min
+                
+                main['erc_mean'] = erc_mean
+                main['erc_max'] = erc_max
+                main['erc_min'] = erc_min
+                
+                main['bi_mean'] = bi_mean
+                main['bi_max'] = bi_max
+                main['bi_min'] = bi_min
+                
+                main['sc_mean'] = sc_mean
+                main['sc_max'] = sc_max
+                main['sc_min'] = sc_min
+        
+                main['ic_mean'] = ic_mean
+                main['ic_max'] = ic_max
+                main['ic_min'] = ic_min 
+                
+            if os.path.exists(f"FEMS Data/{gacc_region}"):
+                pass
+            
+            else:
+                os.mkdir(f"FEMS Data/{gacc_region}")               
+                
             if os.path.exists(f"FEMS Data/{gacc_region}/PSA Forecast"):
                 pass
             else:
@@ -1303,8 +1585,38 @@ def sort_forecasts_by_psa(gacc_region):
             main.to_csv(fname, index=False)
             os.replace(f"{fname}", f"FEMS Data/{gacc_region}/PSA Forecast/{fname}")
             psa = psa + 1
+            
 
 def get_psa_climatology(gacc_region):
+    
+    """
+    This function generates a climatology for the period specified for a Predictive Services Area at a specific GACC. 
+    
+    Required Arguments:
+
+    1) gacc_region (String) - The 4-letter abbreviation of the GACC
+    
+    GACC Abbreviations
+    ------------------
+    
+    oscc - South Ops
+    oncc - North Ops
+    nwcc - Northwest Coordination Center
+    swcc - Southwest Coordination Center
+    nrcc - Northern Rockies Coordination Center
+    gbcc - Great Basin Coordination Center
+    aicc - Alaska Interagency Coordination Center
+    rmcc - Rocky Mountain Coordination Center
+    sacc - Southern Area Coordination Center
+    eacc - Eastern Area Coordination Center
+
+    Optional Arguments: None
+
+    Returns
+    ------- 
+    
+    A CSV file hosting all the data sorted by PSA at: FEMS Data/{gacc_region}/PSA Climo/{folder_name}/{fname}
+    """
     
     num_psas = get_number_of_psas_by_gacc(gacc_region)
     
