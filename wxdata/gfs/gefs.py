@@ -4,8 +4,6 @@ This file hosts functions that download various types of GFS and GEFS Data
 (C) Eric J. Drewitz 2025
 """
 
-
-import xarray as xr
 import numpy as np
 import urllib.request
 import os
@@ -16,7 +14,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 from wxdata.scanners.url_scanners import gfs_url_scanner
-from wxdata.scanners.file_scanners import file_scanner
+from wxdata.scanners.file_scanners import gfs_file_scanner
 
 from wxdata.utils.file_funcs import(
     
@@ -31,21 +29,9 @@ clear_recycle_bin_windows()
 clear_trash_bin_mac()
 clear_trash_bin_linux()
 
-try:
-    from datetime import datetime, timedelta, UTC
-except Exception as e:
-    from datetime import datetime, timedelta
 
-try:
-    utc_time = datetime.now(UTC)
-except Exception as e:
-    utc_time = datetime.utcnow()
 
-local_time = datetime.now()
-
-yesterday = utc_time - timedelta(hours=24)
-
-def gefs_0p50(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None, directory='atmos', members='all', final_forecast_hour=384):
+def gefs_0p50(cat='mean', step=3, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None, directory='atmos', members='all', final_forecast_hour=384):
 
     """
     This function retrives the latest GEFS0P50 data. If the data is not previously downloaded nor up to date, the function
@@ -54,34 +40,34 @@ def gefs_0p50(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound
     To avoid bans from the data servers, the function will scan the data server and locally hosted files and if the 
     files are up to date, the function will skip downloading the newest dataset. 
 
-    Required Arguments:
-
-    1) cat (String) - The category of the data. (i.e. mean, control, members)
+    Required Arguments: None
 
     Optional Arguments:
     
-    1) step (Integer) - Default = 3. The hourly increments of the dataset. Valid step intervals are 3hr and 6hr.  
+    1) cat (String) - Default='mean'. The category of the data. (i.e. mean, control, members)
+    
+    2) step (Integer) - Default = 3. The hourly increments of the dataset. Valid step intervals are 3hr and 6hr.  
 
-    2) western_bound (Float or Integer) - Default=-180. The western bound of the data needed. 
+    3) western_bound (Float or Integer) - Default=-180. The western bound of the data needed. 
 
-    3) eastern_bound (Float or Integer) - Default=180. The eastern bound of the data needed.
+    4) eastern_bound (Float or Integer) - Default=180. The eastern bound of the data needed.
 
-    4) northern_bound (Float or Integer) - Default=90. The northern bound of the data needed.
+    5) northern_bound (Float or Integer) - Default=90. The northern bound of the data needed.
 
-    5) southern_bound (Float or Integer) - Default=-90. The southern bound of the data needed.
+    6) southern_bound (Float or Integer) - Default=-90. The southern bound of the data needed.
 
-    6) proxies (dict or None) - If the user is using proxy server(s), the user must change the following:
+    7) proxies (dict or None) - If the user is using proxy server(s), the user must change the following:
 
        proxies=None ---> proxies={
                            'http':'http://url',
                            'https':'https://url'
                         }
 
-    7) directory (String) - Default='atmos'. The directory the user wants to download data from.
+    8) directory (String) - Default='atmos'. The directory the user wants to download data from.
        Directories: 1) atmos
                     2) chem
                     
-    8) members (String or List) - Default = 'all'. The individual ensemble members. There are 30 members in this ensemble.
+    9) members (String or List) - Default = 'all'. The individual ensemble members. There are 30 members in this ensemble.
     If 'all' is selected, all 30 members will download. This could be timeconsuming so if the user wishes to only use a select number
     of members, the user must pass in a list of integers corresponding to the ensemble members. 
     
@@ -89,7 +75,7 @@ def gefs_0p50(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound
     
     *CAT MUST BE SET TO 'members' FOR THIS ARGUMENT TO BE VALID*
     
-    9) final_forecast_hour (Integer) - Default = 384. The final forecast hour the user wishes to download. The GEFS0P50
+    10) final_forecast_hour (Integer) - Default = 384. The final forecast hour the user wishes to download. The GEFS0P50
     goes out to 384 hours. For those who wish to have a shorter dataset, they may set final_forecast_hour to a value lower than 
     384 by the nereast increment of 3 hours. 
     
@@ -347,7 +333,7 @@ def gefs_0p50(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound
     return ds
 
 
-def gefs_0p50_secondary_parameters(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None, members='all', final_forecast_hour=384):
+def gefs_0p50_secondary_parameters(cat='control', step=3, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None, members='all', final_forecast_hour=384):
 
     """
     This function retrives the latest GEFS0P50 SECONDARY PARAMETERS data. If the data is not previously downloaded nor up to date, the function
@@ -356,30 +342,31 @@ def gefs_0p50_secondary_parameters(cat, step=3, western_bound=-180, eastern_boun
     To avoid bans from the data servers, the function will scan the data server and locally hosted files and if the 
     files are up to date, the function will skip downloading the newest dataset. 
 
-    Required Arguments:
-
-    1) cat (String) - The category of the data. (i.e. mean, control, members)
+    Required Arguments: None
 
     Optional Arguments:
     
-    1) step (Integer) - Default = 3. The hourly increments of the dataset. Valid step intervals are 3hr and 6hr.  
+    1) cat (String) - Default='control' The category of the data. (i.e. mean, control, members)
+    *If the user sets cat='mean', cat will automatically be reset to 'control' as mean is not valid for this dataset*
+    
+    2) step (Integer) - Default = 3. The hourly increments of the dataset. Valid step intervals are 3hr and 6hr.  
 
-    2) western_bound (Float or Integer) - Default=-180. The western bound of the data needed. 
+    3) western_bound (Float or Integer) - Default=-180. The western bound of the data needed. 
 
-    3) eastern_bound (Float or Integer) - Default=180. The eastern bound of the data needed.
+    4) eastern_bound (Float or Integer) - Default=180. The eastern bound of the data needed.
 
-    4) northern_bound (Float or Integer) - Default=90. The northern bound of the data needed.
+    5) northern_bound (Float or Integer) - Default=90. The northern bound of the data needed.
 
-    5) southern_bound (Float or Integer) - Default=-90. The southern bound of the data needed.
+    6) southern_bound (Float or Integer) - Default=-90. The southern bound of the data needed.
 
-    6) proxies (dict or None) - If the user is using proxy server(s), the user must change the following:
+    7) proxies (dict or None) - If the user is using proxy server(s), the user must change the following:
 
        proxies=None ---> proxies={
                            'http':'http://url',
                            'https':'https://url'
                         }
                     
-    7) members (String or List) - Default = 'all'. The individual ensemble members. There are 30 members in this ensemble.
+    8) members (String or List) - Default = 'all'. The individual ensemble members. There are 30 members in this ensemble.
     If 'all' is selected, all 30 members will download. This could be timeconsuming so if the user wishes to only use a select number
     of members, the user must pass in a list of integers corresponding to the ensemble members. 
     
@@ -387,7 +374,7 @@ def gefs_0p50_secondary_parameters(cat, step=3, western_bound=-180, eastern_boun
     
     *CAT MUST BE SET TO 'members' FOR THIS ARGUMENT TO BE VALID*
     
-    8) final_forecast_hour (Integer) - Default = 384. The final forecast hour the user wishes to download. The GEFS0P50
+    9) final_forecast_hour (Integer) - Default = 384. The final forecast hour the user wishes to download. The GEFS0P50
     goes out to 384 hours. For those who wish to have a shorter dataset, they may set final_forecast_hour to a value lower than 
     384 by the nereast increment of 3 hours. 
     
@@ -695,7 +682,7 @@ def gefs_0p50_secondary_parameters(cat, step=3, western_bound=-180, eastern_boun
 
 
 
-def gefs_0p25(cat, step=3, u_and_v_wind=False, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None, directory='atmos', members='all', final_forecast_hour=384):
+def gefs_0p25(cat='mean', step=3, u_and_v_wind=False, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None, directory='atmos', members='all', final_forecast_hour=384):
 
     """
     This function retrives the latest GEFS0P25 data. If the data is not previously downloaded nor up to date, the function
@@ -704,35 +691,35 @@ def gefs_0p25(cat, step=3, u_and_v_wind=False, western_bound=-180, eastern_bound
     To avoid bans from the data servers, the function will scan the data server and locally hosted files and if the 
     files are up to date, the function will skip downloading the newest dataset. 
 
-    Required Arguments:
-
-    1) cat (String) - The category of the data. (i.e. mean, control, members, (prob, spread -> only if directory='wave'))
-
+    Required Arguments: None
+    
     Optional Arguments:
     
-    1) step (Integer) - Default = 3. The hourly increments of the dataset. Valid step intervals are 3hr and 6hr.  
+    1) cat (String) - Default='mean'. The category of the data. (i.e. mean, control, members, (prob, spread -> only if directory='wave'))
+    
+    2) step (Integer) - Default = 3. The hourly increments of the dataset. Valid step intervals are 3hr and 6hr.  
 
-    2) western_bound (Float or Integer) - Default=-180. The western bound of the data needed. 
+    3) western_bound (Float or Integer) - Default=-180. The western bound of the data needed. 
 
-    3) eastern_bound (Float or Integer) - Default=180. The eastern bound of the data needed.
+    4) eastern_bound (Float or Integer) - Default=180. The eastern bound of the data needed.
 
-    4) northern_bound (Float or Integer) - Default=90. The northern bound of the data needed.
+    5) northern_bound (Float or Integer) - Default=90. The northern bound of the data needed.
 
-    5) southern_bound (Float or Integer) - Default=-90. The southern bound of the data needed.
+    6) southern_bound (Float or Integer) - Default=-90. The southern bound of the data needed.
 
-    6) proxies (dict or None) - If the user is using proxy server(s), the user must change the following:
+    7) proxies (dict or None) - If the user is using proxy server(s), the user must change the following:
 
        proxies=None ---> proxies={
                            'http':'http://url',
                            'https':'https://url'
                         }
 
-    7) directory (String) - Default='atmos'. The directory the user wants to download data from.
+    8) directory (String) - Default='atmos'. The directory the user wants to download data from.
        Directories: 1) atmos
                     2) chem
                     3) wave
                     
-    8) members (String or List) - Default = 'all'. The individual ensemble members. There are 30 members in this ensemble.
+    9) members (String or List) - Default = 'all'. The individual ensemble members. There are 30 members in this ensemble.
     If 'all' is selected, all 30 members will download. This could be timeconsuming so if the user wishes to only use a select number
     of members, the user must pass in a list of integers corresponding to the ensemble members. 
     
@@ -740,7 +727,7 @@ def gefs_0p25(cat, step=3, u_and_v_wind=False, western_bound=-180, eastern_bound
     
     *CAT MUST BE SET TO 'members' FOR THIS ARGUMENT TO BE VALID*
     
-    9) final_forecast_hour (Integer) - Default = 384. The final forecast hour the user wishes to download. The GEFS0P50
+    10) final_forecast_hour (Integer) - Default = 384. The final forecast hour the user wishes to download. The GEFS0P50
     goes out to 384 hours. For those who wish to have a shorter dataset, they may set final_forecast_hour to a value lower than 
     384 by the nereast increment of 3 hours. 
     

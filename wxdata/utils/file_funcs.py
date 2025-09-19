@@ -39,26 +39,40 @@ def clear_idx_files(directory=None, step=None, model=None, cat=None, paths=None,
     """
     This function clears all the .IDX files in a folder.
     """
-    if directory != None:
-        directory = directory.upper()
+    model = model.upper()
     
-    if ens == False:
-        try:
-            for item in os.listdir(f"{model}/{cat}/{step}/{directory}"):
-                if item.endswith(".idx"):
-                    os.remove(f"{model}/{cat}/{step}/{directory}/{item}")
-        except Exception as e:
-            pass
-            
-    else:
-        try:
-            for p in paths:
-                for item in os.listdir(f"{p}"):
+    if model == 'GEFS0P50' or model == 'GEFS0P50 SECONDARY PARAMETERS' or model == 'GEFS0P25':
+        if directory != None:
+            directory = directory.upper()
+        
+        if ens == False:
+            try:
+                for item in os.listdir(f"{model}/{cat}/{step}/{directory}"):
                     if item.endswith(".idx"):
-                        os.remove(f"{p}/{item}")
+                        os.remove(f"{model}/{cat}/{step}/{directory}/{item}")
+            except Exception as e:
+                pass
+                
+        else:
+            try:
+                for p in paths:
+                    for item in os.listdir(f"{p}"):
+                        if item.endswith(".idx"):
+                            os.remove(f"{p}/{item}")
+            except Exception as e:
+                pass
+        
+    elif model == 'RTMA' or model == 'AK RTMA' or model == 'HI RTMA' or model == 'GU RTMA':
+        path = paths
+        try:
+            for item in os.listdir(f"{path}"):
+                if item.endswith(".idx"):
+                    os.remove(f"{path}/{item}")
         except Exception as e:
             pass
         
+    else:
+        pass
 
 def ens_folders(model, cat, step, directory, ens_members):
     

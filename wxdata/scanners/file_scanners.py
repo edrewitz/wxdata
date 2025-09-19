@@ -14,7 +14,67 @@ from datetime import datetime, timedelta
 # Gets local time
 local = datetime.now()
 
-def file_scanner(model, cat, directory, url, url_run, step, final_forecast_hour, ens_members=False, members=None):
+def rtma_file_scanner(path, fname, model):
+    
+    """
+    This function scans the RTMA files to make sure they are up to date. 
+    
+    This function will then return a boolean value if new data needs to be downloaded. 
+    
+    A boolean value of True means the data needs to be updated and False, the data does not need to be updated. 
+    
+    Required Arguments:
+    
+    1) path (String) - The path to the files. 
+    
+    2) fname (String) - The name of the file with the RTMA data. 
+    
+    Optional Arguments: None
+    
+    Returns
+    -------
+    
+    A boolean value of True or False if the data needs to be downloaded or not. 
+    """
+    
+    download = False
+        
+    aa, bb = rtma_files_index(model)
+        
+    hr = int(f"{fname[aa]}{fname[bb]}")
+    
+    try:
+        for file in os.listdir(f"{path}"):
+            name = os.path.basename(f"{path}/{file}")
+            
+        name_hr = int(f"{name[aa]}{name[bb]}")
+        if name_hr == hr:
+            pass
+        else:
+            download = True
+    except Exception as e:
+        download = True
+
+    if download == False:
+        try:
+            mtime = os.path.getmtime(f"{path}/{fname}")
+            readable_time = time.ctime(mtime)
+            update_day = int(f"{readable_time[8]}{readable_time[9]}")
+            update_hour = int(f"{readable_time[11]}{readable_time[12]}")
+            
+            if update_day != local.day:
+                download = True
+            elif update_day == local.day and update_hour != local.hour:
+                download = True
+            else:
+                download = False
+        except Exception as e:
+            download = True
+        
+    return download
+    
+
+def gfs_file_scanner(model, cat, directory, url, url_run, step, final_forecast_hour, ens_members=False, members=None):
 
     """
     This function scans the directory to make sure: 

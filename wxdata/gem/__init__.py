@@ -1,0 +1,1 @@
+from wxdata.gem.gem import gem_global
