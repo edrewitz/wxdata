@@ -46,6 +46,8 @@ def station_ids(station_id):
     Required Arguments:
 
     1) station_id (String)
+    
+    To find the list of station IDs, visit: https://weather.uwyo.edu/upperair/sounding_legacy.html
 
     Returns
     -------
@@ -212,9 +214,112 @@ def station_ids(station_id):
         'WBGB':'96441',
         'WBGG':'96413',
         'WASS':'97502',
-        'WAAA':'97180'
-        
-        
+        'WAAA':'97180',
+        'WRSJ':'96935',
+        'WRRR':'97230',
+        'WRKK':'97372',
+        'YPDN':'94120',
+        'YBRM':'94203',
+        'YPPD':'94312',
+        'YPLM':'94302',
+        'YPGN':'94403',
+        'YPPH':'94610',
+        'YPAL':'94802',
+        'YPDN':'94120',
+        'YPWR':'94659',
+        'YPAD':'94672',
+        'YMML':'94866',
+        'YSWG':'94910',
+        'YBCV':'94510',
+        'YBBN':'94578',
+        'NGFU':'91643',
+        'NFFN':'91680',
+        'YSNF':'94996',
+        'NZWP':'93112',
+        'NZPP':'93417',
+        'NZNV':'93844',
+        'WEU':'71917',
+        'WLT':'71082',
+        'BGDH':'04320',
+        'BGSC':'04339',
+        'BIKF':'04018',
+        'ENJA':'01001',
+        'ENOL':'01241',
+        'ULOL':'26477',
+        'ULWW':'27038',
+        'UUOO':'34122',
+        'UWPP':'27962',
+        'URWW':'34467',
+        'UATT':'35229',
+        'USHH':'23933',
+        'UNNN':'29634',
+        'UNII':'29263',
+        'UINN':'29698',
+        'UIAA':'30758',
+        'UEEE':'24959',
+        'UHMM':'25913',
+        'UHPP':'32540',
+        'EDZE':'10410',
+        'LIMN':'16064',
+        'LIED':'16546',
+        'LICT':'16429',
+        'LIRE':'16245',
+        'LIBN':'16332',
+        'LIPI':'16045',
+        'LDDD':'14240',
+        'LHUD':'12982',
+        'LYNI':'13388',
+        'LBSF':'15614',
+        'LGAT':'16716',
+        'LRBS':'15420',
+        'LTBM':'17240',
+        'LTAU':'17196',
+        'DTTZ':'60760',
+        'DRZA':'61024',
+        'DRRN':'61052',
+        'DFFD':'65503',
+        'DIMN':'65548',
+        'FAIR':'68263',
+        'ERZM':'17095',
+        'OITT':'40706',
+        'OING':'40738',
+        'OIMB':'40809',
+        'OIKK':'40841',
+        'OIAW':'40811',
+        'OEPA':'40373',
+        'OEHL':'40394',
+        'OEMA':'40430',
+        'OEAB':'41112',
+        'OERK':'40437',
+        'OEDF':'40417',
+        'OMAA':'41217',
+        'VAAH':'42647',
+        'VABB':'43003',
+        'VOCC':'43353',
+        'VOMM':'43279',
+        'VANP':'42867',
+        'VIDD':'42182',
+        'VILK':'42369',
+        'VEJH':'42886',
+        'VECC':'42809',
+        'VEAT':'42724',
+        'VGTJ':'41923',
+        'VEGT':'42410',
+        'VVNB':'48820',
+        'VTCC':'48327',
+        'VTPS':'48378',
+        'VTUK':'48381',
+        'VTUU':'48407',
+        'VVDN':'48855',
+        'VVTS':'48900',
+        'VTUN':'48431',
+        'VTBC':'48480',
+        'VTPB':'48500',
+        'WMKP':'48601',
+        'WIMM':'96035',
+        'WIII':'96749',
+        'WRSJ':'96935',
+        'WRRR':'97230'
         
 
     }
@@ -232,7 +337,7 @@ def get_observed_sounding_data(station_id, current=True, custom_time=None, compa
     Required Arguments:
 
     1) station_id (String or Integer) - User inputs the station_id as a string or an integer. 
-    Some stations only have the ID by integer. Please see http://www.weather.uwyo.edu/upperair/naconf.html for more info. 
+    Some stations only have the ID by integer. Please see https://weather.uwyo.edu/upperair/sounding_legacy.html for more info. 
 
     2) current (Boolean) - Default = True. When set to True, the latest available data will be returned.
     If set to False, the user can download the data for a custom date/time of their choice. 

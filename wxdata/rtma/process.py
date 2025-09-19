@@ -27,7 +27,14 @@ def rows_and_cols(model):
     
     Required Arguments: 
     
-    1) model (String) - The RTMA model being used. 
+    1) model (String) - Default='rtma'. The RTMA model being used:
+    
+    RTMA Models
+    -----------
+    
+    Hawaii = 'hi rtma'
+    Puerto Rico = 'pr rtma'
+    Guam = 'gu rtma'
     
     Optional Arguments: None
     
@@ -61,12 +68,42 @@ def process_data(path, fname, model):
     
     2) fname (String) - The filename of the RTMA Data. 
     
+    3) model (String) - Default='rtma'. The RTMA model being used:
+    
+    RTMA Models
+    -----------
+    
+    CONUS = 'rtma'
+    Alaska = 'ak rtma'
+    Hawaii = 'hi rtma'
+    Puerto Rico = 'pr rtma'
+    Guam = 'gu rtma'
+    
     Optional Arguments: None
     
     Returns
     -------
     
-    An xarray data array of the pre-processed RTMA data.     
+    An xarray data array of the RTMA Dataset with variable keys converted from the GRIB format to a Plain Language format. 
+    
+    Variable Keys
+    -------------
+    
+    'orography'
+    'surface_pressure'
+    '2m_temperature'
+    '2m_dew_point'
+    '2m_relative_humidity'
+    '2m_specific_humidity'
+    'surface_visibility'
+    'cloud_ceiling_height'
+    'total_cloud_cover'
+    '10m_u_wind_component'
+    '10m_v_wind_component'
+    '10m_wind_direction'
+    '10m_wind_speed'
+    '10m_wind_gust'
+        
     """
     model = model.upper()
     
