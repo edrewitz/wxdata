@@ -10,7 +10,6 @@ from wxdata.fems.fems import(
     get_nfdrs_forecast_data
 )
 
-from wxdata.gem.gem import gem_global
 
 from wxdata.noaa.nws import get_ndfd_grids
 from wxdata.rtma.rtma import rtma
