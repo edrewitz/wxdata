@@ -6,6 +6,7 @@ This file has the function that downloads NOAA/NWS and NOAA/SPC Forecast Data
 # Import the needed libraries
 
 import xarray as xr
+import numpy as np
 import os
 import urllib.request
 import warnings
@@ -20,6 +21,163 @@ clear_trash_bin_linux()
 alaska = '/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.alaska/'
 conus = '/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.conus/'
 hawaii = '/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.hawaii/'
+
+def FIX_1D_GRIB_DATA(ds_short, ds_extended, varKey, short_term_fname, extended_fname):
+    
+    """
+    This function fixes the NDFD Hawaii Grids. 
+    Unfortunately, these grids are in 1-D when they need to be 2-D AND 
+    the lon/lat keeps flipping which causes erroneous plots - so we will fix that!
+    
+    Required Arguments:
+    
+    1) ds_short (xarray data array) - The dataset of NDFD short-term GRIB Data. 
+    
+    2) ds_extended (xarray data array) - The dataset of NDFD extended GRIB Data. 
+    
+    3) varKey (String) - The key name of variable being exammined. 
+    
+    Variable names are also changed from their origional key value into plain language.
+    
+        Plain Language Variable Key List
+        --------------------------------
+        
+        'maximum_relative_humidity'
+        'mainimum_relative_humidity'
+        'maximum_temperature'
+        'minimum_temperature'
+        'relative_humidity'
+        'temperature'
+        'apparent_temperature'
+        'wind_speed'
+        'wind_gust'
+        'wind_direction'
+        'spc_critical_fire_weather_forecast'
+        'spc_dry_lightning_forecast'
+        'spc_convective_outlook'
+        'ice_accumulation'
+        'probability_of_hail'
+        '12_hour_probability_of_precipitation'
+        'probability_of_extreme_tornadoes'
+        'total_probability_of_severe_thunderstorms'
+        'total_probability_of_extreme_severe_thunderstorms'
+        'probability_of_extreme_thunderstorm_winds'
+        'probability_of_extreme_hail'
+        'probability_of_extreme_tornadoes'
+        'probability_of_damaging_thunderstorm_winds'
+        'quantitative_precipitation_forecast'
+        'sky_cover'
+        'snow_amount'
+        'snow_level'
+        'probabilistic_tropical_cyclone_surface_wind_speeds_greater_than_34kts_cumulative'
+        'probabilistic_tropical_cyclone_surface_wind_speeds_greater_than_34kts_incremental'
+        'probabilistic_tropical_cyclone_surface_wind_speeds_greater_than_50kts_cumulative'
+        'probabilistic_tropical_cyclone_surface_wind_speeds_greater_than_50kts_incremental'
+        'probabilistic_tropical_cyclone_surface_wind_speeds_greater_than_64kts_cumulative'
+        'probabilistic_tropical_cyclone_surface_wind_speeds_greater_than_64kts_incremental'
+        'dew_point'
+        'visibility'
+        'significant_wave_height'
+        'warnings'
+        'weather'       
+        
+    4) short_term_fname (String) - The filename of the short-term NDFD Grids. 
+    
+    5) extended_fname (String) - The filename of the extended NDFD Grids. 
+    
+    Optional Arguments: None
+    
+    Returns
+    -------
+    
+    A cleaned up xarray data array for the Hawaii grids. 
+    """
+    
+
+    nrow = 225
+    ncol = 321
+
+    ds_list_short = []
+    for i in range(0, len(ds_short['step']), 1):
+        ds_short = ds_short.isel(step=i)
+        
+        var = ds_short[varKey].values
+        lat = ds_short['latitude'].values
+        lon = ds_short['longitude'].values
+        
+        var2d = np.empty([nrow,ncol])
+        lat2d = np.empty([nrow,ncol])
+        lon2d = np.empty([nrow,ncol])
+        
+        for i in range(0,nrow):
+            start = i*ncol
+            end = start+ncol
+            if i%2==0:
+                var2d[i,:] = var[start:end]
+            else:
+                var2d[i,:] = np.flip(var[start:end],axis=0)
+            
+            lat2d[i,:] = lat[start:end]
+            lon2d[i,:] = lon[start:end]
+        
+        lon1d = lon2d[0,:]
+        lat1d = lat2d[:,0]
+        ds_list_short.append(var2d)
+        ds_short = xr.open_dataset(f"NWS Data/{short_term_fname}", engine='cfgrib')
+        data_var_names_1 = [var.name for var in ds_short.data_vars.values()]
+        ds_short[varKey] = ds_short[data_var_names_1[0]]
+        ds_short = ds_short.drop_vars(data_var_names_1[0])
+        
+    dims = ("step", "latitude", "longitude")
+    short_coords = {
+        "step": len(ds_list_short),
+        "latitude": lat1d,  
+        "longitude": lon1d,  
+    }
+    
+    ds_short = xr.DataArray(ds_list_short, coords=short_coords, dims=dims)
+        
+    ds_list_extended = []
+    for i in range(0, len(ds_extended['step']), 1):
+        ds_extended = ds_extended.isel(step=i)
+        
+        var = ds_extended[varKey].values
+        lat = ds_extended['latitude'].values
+        lon = ds_extended['longitude'].values
+        
+        var2d = np.empty([nrow,ncol])
+        lat2d = np.empty([nrow,ncol])
+        lon2d = np.empty([nrow,ncol])
+        
+        for i in range(0,nrow):
+            start = i*ncol
+            end = start+ncol
+            if i%2==0:
+                var2d[i,:] = var[start:end]
+            else:
+                var2d[i,:] = np.flip(var[start:end],axis=0)
+            
+            lat2d[i,:] = lat[start:end]
+            lon2d[i,:] = lon[start:end]
+        
+        lon1d = lon2d[0,:]
+        lat1d = lat2d[:,0]
+        ds_list_extended.append(var2d)
+        ds_extended = xr.open_dataset(f"NWS Data/{extended_fname}", engine='cfgrib')
+        data_var_names_1 = [var.name for var in ds_extended.data_vars.values()]
+        ds_extended[varKey] = ds_extended[data_var_names_1[0]]
+        ds_extended = ds_extended.drop_vars(data_var_names_1[0])
+        
+    dims = ("step", "latitude", "longitude")
+    extended_coords = {
+        "step": len(ds_list_extended),
+        "latitude": lat1d,  
+        "longitude": lon1d,  
+    }
+    
+    ds_extended = xr.DataArray(ds_list_extended, coords=extended_coords, dims=dims)
+    
+    return ds_short, ds_extended
 
 def get_parameters(parameter):
     
@@ -150,10 +308,12 @@ def get_ndfd_grids(parameter, state):
         'weather'       
 
     """
+    
+    state = state.upper()
 
-    if state == 'AK' or state == 'ak': 
+    if state == 'AK': 
         directory_name = alaska
-    elif state == 'HI' or state == 'hi':
+    elif state == 'HI':
         directory_name = hawaii
     else:
         directory_name = conus
@@ -279,5 +439,12 @@ def get_ndfd_grids(parameter, state):
     data_var_names_2 = [var.name for var in ds2.data_vars.values()]
     ds2[parameter] = ds2[data_var_names_2[0]]
     ds2 = ds2.drop_vars(data_var_names_2[0])
+    
+    if state == 'HI':
+        
+        ds1, ds2 = FIX_1D_GRIB_DATA(ds1, ds2, parameter, short_term_fname, extended_fname)
+        
+    else:
+        pass
 
     return ds1, ds2
