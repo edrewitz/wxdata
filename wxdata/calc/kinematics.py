@@ -5,7 +5,8 @@ This file hosts functions that perform calculations using kinematics equations
 """
 import numpy as np
 
-def get_u_and_v(wind_speed, wind_dir):
+def get_u_and_v(wind_speed, 
+                wind_dir):
 
     """
     This function calculates the u and u wind components

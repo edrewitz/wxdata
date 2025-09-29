@@ -26,7 +26,8 @@ def saturation_vapor_pressure(temperature):
     return e
 
 
-def relative_humidity(temperature, dewpoint):
+def relative_humidity(temperature, 
+                      dewpoint):
 
     """
     This function calculates the relative humidity from temperature and dewpoint. 
