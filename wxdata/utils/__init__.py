@@ -7,3 +7,4 @@ from wxdata.utils.recycle_bin import(
 
 from wxdata.utils.file_funcs import *
 from wxdata.utils.coords import *
+from wxdata.utils.file_scanner import local_file_scanner

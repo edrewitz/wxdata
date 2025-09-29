@@ -12,19 +12,25 @@ import warnings
 import time
 warnings.filterwarnings('ignore')
 
-from wxdata.scanners.url_scanners import rtma_url_scanner
-from wxdata.scanners.file_scanners import rtma_file_scanner
+from wxdata.rtma.file_funcs import(
+     build_directory,
+     clear_idx_files
+)
 
-from wxdata.utils.file_funcs import clear_idx_files
-from wxdata.rtma.file_funcs import build_rtma_directory
-from wxdata.rtma.process import process_data
-
+from wxdata.rtma.url_scanners import rtma_url_scanner
+from wxdata.utils.file_scanner import local_file_scanner
+from wxdata.rtma.process import process_rtma_data
 from wxdata.utils.recycle_bin import *
-clear_recycle_bin_windows()
-clear_trash_bin_mac()
-clear_trash_bin_linux()
 
-def rtma(model='rtma', cat='analysis', proxies=None):
+def rtma(model='rtma', 
+         cat='analysis', 
+         western_bound=-125,
+         eastern_bound=-65,
+         northern_bound=50,
+         southern_bound=20,
+         proxies=None,
+         process_data=True,
+         clear_recycle_bin=True):
     
     """
     This function downloads the latest RTMA Dataset and returns it as an xarray data array. 
@@ -84,34 +90,52 @@ def rtma(model='rtma', cat='analysis', proxies=None):
     
     """
     
+    if clear_recycle_bin == True:
+        clear_recycle_bin_windows()
+        clear_trash_bin_mac()
+        clear_trash_bin_linux()
+    
     model = model.upper()
     cat = cat.upper()
     
-    url, fname = rtma_url_scanner(model, cat, proxies)
+    path = build_directory(model,
+                           cat)
     
-    path = build_rtma_directory(model, cat)
-    clear_idx_files(model=model, paths=path)
-    download = rtma_file_scanner(path, fname, model)
+    clear_idx_files(path)
+    
+    url, filename = rtma_url_scanner(model, 
+                    cat,
+                    western_bound, 
+                    eastern_bound, 
+                    northern_bound, 
+                    southern_bound, 
+                    proxies)
+    
+    download = local_file_scanner(path, 
+                                filename) 
     
     if download == True:
-        print("Deleting old data and downloading the new data.")
-        try:
-            for file in os.listdir(f"{path}"):
-                os.remove(f"{path}/{file}")
-        except Exception as e:
-            pass
-        
-        urllib.request.urlretrieve(f"{url}{fname}", f"{fname}")
-    
-        os.replace(f"{fname}", f"{path}/{fname}")
-
+        print(f"{model} Data is old. Please Wait - Updating...")
+        urllib.request.urlretrieve(f"{url}", f"{filename}")
+        os.replace(f"{filename}", f"{path}/{filename}.grib2")
     else:
-        print("Data in directory is up to date. Skipping download.")
+        print(f"{model} Data is current. Skipping download.")
+        
+    if process_data == True:
+        filename = f"{filename}.grib2"
+        ds = process_rtma_data(path, 
+                                filename, 
+                                model)
+
+        clear_idx_files(path)
+        
+        return ds
     
-    ds = process_data(path, fname, model)
-    clear_idx_files(model=model, paths=path)
+    else:
+        pass
+        
     
-    return ds
+
     
     
     

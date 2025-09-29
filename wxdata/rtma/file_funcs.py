@@ -6,7 +6,8 @@ This file hosts the functions that build the RTMA Data Directory
 
 import os
 
-def build_rtma_directory(model, cat):
+def build_directory(model, 
+                    cat):
     
     
     """
@@ -41,3 +42,25 @@ def build_rtma_directory(model, cat):
     path = f"{model}/{cat}"
     
     return path
+
+def clear_idx_files(path):
+    
+    """
+    This function clears all the .IDX files in a folder. 
+    
+    Required Arguments:
+    
+    
+    Optional Arguments:
+    
+    Returns
+    -------
+    
+    """
+    try:
+        for file in os.listdir(f"{path}"):
+            if file.endswith(".idx"):
+                os.remove(f"{path}/{file}")
+    except Exception as e:
+        pass
+    

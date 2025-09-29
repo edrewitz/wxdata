@@ -1,20 +1,20 @@
 from wxdata.scanners.url_scanners import( 
-    gfs_url_scanner,
+    gefs_url_scanner,
     rtma_url_scanner
 )
 
-'''
-model = "GFS0P25"
+
+model = "GEFS0P50 SECONDARY PARAMETERS"
 #model = 'GEFS0P25'
-cat = "Spread"
+cat = "Control"
 proxies = None
 step = 3
+directory = 'chem'
+final_forecast_hour = 240
 
-url, run = gfs_url_scanner(f"{model}", f"{cat}", proxies, 'atmos')
-download = file_scanner(f"{model}", f"{cat}", url, run, step)
-'''
+url, run = gefs_url_scanner(model, cat, proxies, directory, final_forecast_hour, members=None)
+#download = file_scanner(f"{model}", f"{cat}", url, run, step)
 
-url, file = rtma_url_scanner('rtma', 'forecast', None)
+#url, file = rtma_url_scanner('rtma', 'forecast', None)
 
 print(url)
-print(file)

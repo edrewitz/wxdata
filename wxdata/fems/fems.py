@@ -295,7 +295,12 @@ def get_psa_ids(gacc_region):
                   
     return psaIDs                 
 
-def get_single_station_data(station_id, number_of_days, start_date=None, end_date=None, fuel_model='Y', to_csv=True):
+def get_single_station_data(station_id, 
+                            number_of_days, 
+                            start_date=None, 
+                            end_date=None, 
+                            fuel_model='Y', 
+                            to_csv=True):
 
     """
     This function retrieves the dataframe for a single RAWS station in FEMS
@@ -370,7 +375,10 @@ def get_single_station_data(station_id, number_of_days, start_date=None, end_dat
     return df
 
 
-def get_raws_sig_data(gacc_region, number_of_years_for_averages=15, fuel_model='Y', start_date=None):
+def get_raws_sig_data(gacc_region, 
+                      number_of_years_for_averages=15, 
+                      fuel_model='Y', 
+                      start_date=None):
 
     """
     This function does the following:
@@ -551,7 +559,8 @@ def get_raws_sig_data(gacc_region, number_of_years_for_averages=15, fuel_model='
     return data, climo_avg, climo_min, climo_max, dates
 
 
-def get_nfdrs_forecast_data(gacc_region, fuel_model='Y'):
+def get_nfdrs_forecast_data(gacc_region, 
+                            fuel_model='Y'):
 
     """
     This function retrieves the latest fuels forecast data from FEMS.

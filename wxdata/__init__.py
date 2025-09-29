@@ -1,7 +1,13 @@
+#from wxdata.gfs.gefs import(
+ #   gefs_0p50_full,
+  #  gefs_0p50_secondary_parameters_full,
+  #  gefs_0p25_full
+#)
+
 from wxdata.gfs.gefs import(
-    gefs_0p50,
-    gefs_0p50_secondary_parameters,
-    gefs_0p25
+    
+    gefs0p50,
+    gefs0p50_secondary_parameters
 )
 
 from wxdata.fems.fems import(

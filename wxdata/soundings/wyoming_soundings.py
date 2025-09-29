@@ -329,7 +329,11 @@ def station_ids(station_id):
     return station_number
     
 
-def get_observed_sounding_data(station_id, current=True, custom_time=None, comparison_24=False, proxies=None):
+def get_observed_sounding_data(station_id, 
+                               current=True, 
+                               custom_time=None, 
+                               comparison_24=False, 
+                               proxies=None):
 
     """
     This function scrapes the University of Wyoming Sounding Database and returns the data in a Pandas DataFrame

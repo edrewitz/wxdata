@@ -9,7 +9,9 @@ import os
 folder = os.getcwd()
 folder_modified = folder.replace("\\", "/")
 
-def get_branch_path(model, cat, step, directory):
+def gefs0p50_branch_path(model, 
+                         cat,
+                         members):
     
     """
     This function returns the branch path to the data files
@@ -20,8 +22,6 @@ def get_branch_path(model, cat, step, directory):
 
     2) cat (String) - cat (String) - The category of the data. (i.e. mean, control, all members).
 
-    3) step (Integer) - The forecast increment. Either 3, 6 or 12 hour increments.
-
     Optional Arguments: None
 
     Returns
@@ -31,14 +31,13 @@ def get_branch_path(model, cat, step, directory):
     """
     model = model.upper()
     cat = cat.upper()
-    directory = directory.upper()
     
-    if cat != 'MEAN' and cat != 'CONTROL' and cat != 'PROB' and cat != 'SPREAD':
+    if cat == 'MEMBERS':
         paths = []
-        for folder in os.listdir(f"{model}/{cat}/{step}/{directory}"):
-            path = f"{model}/{cat}/{step}/{directory}/{folder}"
+        for member in members:
+            path = f"{model}/{cat}/{member}"
             paths.append(path)
     else:
-        paths = f"{model}/{cat}/{step}/{directory}"
+        paths = f"{model}/{cat}"
     
     return paths

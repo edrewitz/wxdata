@@ -22,7 +22,11 @@ alaska = '/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.alaska/'
 conus = '/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.conus/'
 hawaii = '/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.hawaii/'
 
-def FIX_1D_GRIB_DATA(ds_short, ds_extended, varKey, short_term_fname, extended_fname):
+def FIX_1D_GRIB_DATA(ds_short, 
+                     ds_extended, 
+                     varKey, 
+                     short_term_fname, 
+                     extended_fname):
     
     """
     This function fixes the NDFD Hawaii Grids. 
@@ -242,7 +246,8 @@ def get_parameters(parameter):
     return parameters[parameter]
 
 
-def get_ndfd_grids(parameter, state):
+def get_ndfd_grids(parameter, 
+                   state):
 
     """
 

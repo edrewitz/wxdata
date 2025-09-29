@@ -54,7 +54,9 @@ def rows_and_cols(model):
     
     return dims[model][0], dims[model][1]
 
-def process_data(path, fname, model):
+def process_rtma_data(path, 
+                 fname, 
+                 model):
     
     """
     This function pre-processes RTMA Data and returns an xarray data array of the data.
@@ -107,10 +109,8 @@ def process_data(path, fname, model):
     """
     model = model.upper()
     
-    if model == 'AK RTMA':
-        ds = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False).sel(x=slice(20, 1400, 2), y=slice(100, 1400, 2)) 
-    else:
-        ds = xr.open_dataset(f"{path}/{fname}", engine='cfgrib')
+
+    ds = xr.open_dataset(f"{path}/{fname}", engine='cfgrib')
     
     ds['orography'] = ds['orog']
     ds['surface_pressure'] = ds['sp']
@@ -134,34 +134,23 @@ def process_data(path, fname, model):
          'tcc']
     )
     
-    if model == 'AK RTMA':
-        ds1 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10u'}).sel(x=slice(20, 1400, 2), y=slice(100, 1400, 2)) 
-    else:
-        ds1 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10u'})
+
+    ds1 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10u'})
     ds['10m_u_wind_component'] = ds1['u10']
     
-    if model == 'AK RTMA':
-        ds2 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10v'}).sel(x=slice(20, 1400, 2), y=slice(100, 1400, 2)) 
-    else:
-        ds2 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10v'})
+    ds2 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10v'})
     ds['10m_v_wind_component'] = ds2['v10']    
     
-    if model == 'AK RTMA':
-        ds3 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10wdir'}).sel(x=slice(20, 1400, 2), y=slice(100, 1400, 2)) 
-    else:
-        ds3 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10wdir'})
+
+    ds3 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10wdir'})
     ds['10m_wind_direction'] = ds3['wdir10']
     
-    if model == 'AK RTMA':
-        ds4 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10si'}).sel(x=slice(20, 1400, 2), y=slice(100, 1400, 2)) 
-    else:
-        ds4 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10si'})
+
+    ds4 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10si'})
     ds['10m_wind_speed'] = ds4['si10']
     
-    if model == 'AK RTMA':
-        ds5 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'i10fg'}).sel(x=slice(20, 1400, 2), y=slice(100, 1400, 2)) 
-    else:
-        ds5 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'i10fg'})
+
+    ds5 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'i10fg'})
     ds['10m_wind_gust'] = ds5['i10fg']
     
     if model == 'HI RTMA' or model == 'GU RTMA' or model == 'PR RTMA':

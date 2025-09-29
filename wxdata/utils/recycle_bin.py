@@ -8,7 +8,9 @@ import subprocess
 import ctypes
 
     
-def clear_recycle_bin_windows(confirm=False, show_progress=False, sound=False):
+def clear_recycle_bin_windows(confirm=False, 
+                              show_progress=False, 
+                              sound=False):
     """
     Empties the Recycle Bin.
 

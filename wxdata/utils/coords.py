@@ -5,7 +5,32 @@ This file hosts functions that process geographical coordinates in netCDF data.
 """
 from cartopy.util import add_cyclic_point
 
-def shift_longitude(ds, lon_name='longitude'):
+def convert_lon(lon):
+    
+    """
+    This function converts longitude from -180 to 180 to 0 to 360
+    
+    Required Arguments: 
+    
+    1) lon (float) - The longitude of a point. 
+    
+    Optional Arguments: None
+    
+    Returns
+    -------
+    
+    The longitude in terms of 0 to 360.     
+    """
+    
+    if lon <= 0:
+        lon = 360 - abs(lon)
+    else:
+        lon = lon
+        
+    return lon
+
+def shift_longitude(ds, 
+                    lon_name='longitude'):
     """
     Shifts longitude values to ensure continuity across the Prime Meridian.
 
@@ -28,7 +53,8 @@ def shift_longitude(ds, lon_name='longitude'):
     ds = ds.sortby(lon_name)
     return ds
 
-def lon_bounds(western_bound, eastern_bound):
+def lon_bounds(western_bound, 
+               eastern_bound):
     """
     This function calculates the western bound with 360 being at the Prime Meridian
 
@@ -54,7 +80,9 @@ def lon_bounds(western_bound, eastern_bound):
 
     return western_bound, eastern_bound
 
-def cyclic_point(ds, parameter, lon_name='longitude'):
+def cyclic_point(ds, 
+                 parameter, 
+                 lon_name='longitude'):
     
     """
     This function returns a data array for the full 360 degree Earth. 
