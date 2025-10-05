@@ -1,104 +1,130 @@
 # Global Ensemble Forecast System 0.50 X 0.50 DEGREE (GEFS0P50)
 
-***gefs_0p50(cat, step=3, western_bound=-180, eastern_bound=180, northern_bound=90, southern_bound=-90, proxies=None, directory='atmos', members='all', final_forecast_hour=384)***
+***def gefs0p50(cat='mean', 
+             final_forecast_hour=384, 
+             western_bound=-180, 
+             eastern_bound=180, 
+             northern_bound=90, 
+             southern_bound=-90, 
+             proxies=None, 
+             step=3, 
+             members=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                      11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                      21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
+             process_data=True,
+             clear_recycle_bin=True,
+             variables=['total precipitation',
+                        'convective available potential energy',
+                        'categorical freezing rain',
+                        'categorical ice pellets',
+                        'categorical rain',
+                        'categorical snow',
+                        'convective inhibition',
+                        'downward longwave radiation flux',
+                        'downward shortwave radiation flux',
+                        'geopotential height',
+                        'ice thickness',
+                        'latent heat net flux',
+                        'pressure',
+                        'mean sea level pressure',
+                        'precipitable water',
+                        'relative humidity',
+                        'sensible heat net flux',
+                        'snow depth',
+                        'volumetric soil moisture content',
+                        'total cloud cover',
+                        'maximum temperature',
+                        'minimum temperature',
+                        'temperature',
+                        'soil temperature',
+                        'u-component of wind',
+                        'upward longwave radiation flux',
+                        'upward shortwave radiation flux',
+                        'v-component of wind',
+                        'vertical velocity',
+                        'water equivalent of accumulated snow depth']):***
 
-This function retrives the latest GEFS0P50 data. If the data is not previously downloaded nor up to date, the function
-will download and pre-process the latest dataset. 
+This function downloads the latest GEFS0P50 data for a region specified by the user
 
-To avoid bans from the data servers, the function will scan the data server and locally hosted files and if the 
-files are up to date, the function will skip downloading the newest dataset. 
-
-Required Arguments:
-
-1) cat (String) - The category of the data. (i.e. mean, control, members)
+Required Arguments: None
 
 Optional Arguments:
 
-1) step (Integer) - Default = 3. The hourly increments of the dataset. Valid step intervals are 3hr and 6hr.  
+1) cat (string) - Default='mean'. The category of the ensemble data. 
 
-2) western_bound (Float or Integer) - Default=-180. The western bound of the data needed. 
+Valid categories:
+      1) 'mean'
+      2) 'members'
+      3) 'spread'
 
-3) eastern_bound (Float or Integer) - Default=180. The eastern bound of the data needed.
-
-4) northern_bound (Float or Integer) - Default=90. The northern bound of the data needed.
-
-5) southern_bound (Float or Integer) - Default=-90. The southern bound of the data needed.
-
-6) proxies (dict or None) - If the user is using proxy server(s), the user must change the following:
-
-   proxies=None ---> proxies={
-                       'http':'http://url',
-                       'https':'https://url'
-                    }
-
-7) directory (String) - Default='atmos'. The directory the user wants to download data from.
-   Directories: 1) atmos
-                2) chem
-                
-8) members (String or List) - Default = 'all'. The individual ensemble members. There are 30 members in this ensemble.
-If 'all' is selected, all 30 members will download. This could be timeconsuming so if the user wishes to only use a select number
-of members, the user must pass in a list of integers corresponding to the ensemble members. 
-
-Here is an example: I would like to download the first 5 ensemble members ----> set members=[1, 2, 3, 4, 5]
-
-*CAT MUST BE SET TO 'members' FOR THIS ARGUMENT TO BE VALID*
-
-9) final_forecast_hour (Integer) - Default = 384. The final forecast hour the user wishes to download. The GEFS0P50
+2) final_forecast_hour (Integer) - Default = 384. The final forecast hour the user wishes to download. The GEFS0P50
 goes out to 384 hours. For those who wish to have a shorter dataset, they may set final_forecast_hour to a value lower than 
 384 by the nereast increment of 3 hours. 
 
-Here is an example: I want to only download and parse up to 240 hours which is 7 days ----> set final_forecast_hour=240   
+3) western_bound (Float or Integer) - Default=-180. The western bound of the data needed. 
 
+4) eastern_bound (Float or Integer) - Default=180. The eastern bound of the data needed.
 
+5) northern_bound (Float or Integer) - Default=90. The northern bound of the data needed.
+
+6) southern_bound (Float or Integer) - Default=-90. The southern bound of the data needed.
+
+7) proxies (dict or None) - Default=None. If the user is using proxy server(s), the user must change the following:
+
+ proxies=None ---> proxies={
+                     'http':'http://url',
+                     'https':'https://url'
+                  }
+
+8) members (List) - Default=All 30 ensemble members. The individual ensemble members. There are 30 members in this ensemble.  
+
+9) process_data (Boolean) - Default=True. When set to True, WxData will preprocess the model data. If the user wishes to process the 
+ data via their own external method, set process_data=False which means the data will be downloaded but not processed. 
+ 
+10) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
+  of the program you are calling WxData. This setting is to help preserve memory on the machine. 
+  
+11) variables (List) - A list of variable names the user wants to download in plain language. 
+    
+        Variable Name List for GEFS0P50
+        -------------------------------
+        
+			'total precipitation'
+            'convective available potential energy'
+            'categorical freezing rain'
+            'categorical ice pellets'
+            'categorical rain'
+            'categorical snow'
+            'convective inhibition'
+            'downward longwave radiation flux'
+            'downward shortwave radiation flux'
+            'geopotential height'
+            'ice thickness'
+            'latent heat net flux'
+            'pressure'
+            'mean sea level pressure'
+            'precipitable water'
+            'relative humidity'
+            'sensible heat net flux'
+            'snow depth'
+            'volumetric soil moisture content'
+            'total cloud cover'
+            'maximum temperature'
+            'minimum temperature'
+            'temperature'
+            'soil temperature'
+            'u-component of wind'
+            'upward longwave radiation flux'
+            'upward shortwave radiation flux'
+            'v-component of wind'
+            'vertical velocity'
+            'water equivalent of accumulated snow depth'
+    
+    
 Returns
 -------
 
-A processed xarray.data array of the latest GEFS0P50 data. 
+An xarray data array of the GEFS0P50 data specified to the coordinate boundaries and variable list the user specifies. 
 
-wxdata converts all GRIB variable keys into a standardized variable key format that is in plain language. 
-    
-    New Variable Keys After Pre-Processing (Decrypted GRIB Keys Into Plain Language)
-    --------------------------------------------------------------------------------
-    
-    ATMOS (Atmospheric) Directory
-    -----------------------------
-
-        'surface_pressure'
-        'orography'
-        'water_equivalent_of_accumulated_snow_depth'
-        'snow_depth'
-        'sea_ice_thickness'
-        'total_precipitation'
-        'categorical_snow'
-        'categorical_ice_pellets'
-        'categorical_freezing_rain'
-        'categorical_rain'
-        'time_mean_surface_latent_heat_flux'
-        'time_mean_surface_sensible_heat_flux'
-        'surface_downward_shortwave_radiation_flux'
-        'surface_downward_longwave_radiation_flux'
-        'surface_upward_shortwave_radiation_flux'
-        'surface_upward_longwave_radiation_flux'
-        'mslp'
-        'soil_temperature'
-        'soil_moisture'
-        '2m_relative_humidity'
-        '2m_temperature'
-        'maximum_temperature'
-        'minimum_temperature'
-        'precipitable_water'
-        'geopotential_height'
-        'air_temperature'
-        'relative_humidity'
-        'u_wind_component'
-        'v_wind_component'
-        'mixed_layer_cape'
-        'mixed_layer_cin'
-        
-
-    CHEM (Atmospheric Chemistry) Directory
-    --------------------------------------
-    
-        'fine_particulates'
-        'coarse_particulates'
+GEFS0P50 files are saved to f:GEFS0P50/{cat} or in the case of ensemble members f:GEFS0P50/{cat}/{member}
 
