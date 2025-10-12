@@ -2,16 +2,12 @@ import pandas as pd
 import os
 import shutil
 import wxdata.fems.raws_sigs as raws
-from wxdata.utils.recycle_bin import *
-clear_recycle_bin_windows()
-clear_trash_bin_mac()
-clear_trash_bin_linux()
 
+from wxdata.utils.recycle_bin import *
 from calendar import isleap
 
 try:
     from datetime import datetime, timedelta, UTC
-    
 except Exception as e:
     from datetime import datetime, timedelta 
     
@@ -300,7 +296,8 @@ def get_single_station_data(station_id,
                             start_date=None, 
                             end_date=None, 
                             fuel_model='Y', 
-                            to_csv=True):
+                            to_csv=True,
+                            clear_recycle_bin=True):
 
     """
     This function retrieves the dataframe for a single RAWS station in FEMS
@@ -337,6 +334,13 @@ def get_single_station_data(station_id,
     A Pandas DataFrame of the NFDRS data from FEMS.            
 
     """
+    if clear_recycle_bin == True:
+        clear_recycle_bin_windows()
+        clear_trash_bin_mac()
+        clear_trash_bin_linux()
+    else:
+        pass
+    
     fuel_model = fuel_model.upper()
 
     if number_of_days == 'Custom' or number_of_days == 'custom':
@@ -378,7 +382,8 @@ def get_single_station_data(station_id,
 def get_raws_sig_data(gacc_region, 
                       number_of_years_for_averages=15, 
                       fuel_model='Y', 
-                      start_date=None):
+                      start_date=None,
+                      clear_recycle_bin=True):
 
     """
     This function does the following:
@@ -421,6 +426,12 @@ def get_raws_sig_data(gacc_region,
         4) Maximum for each PSA
         5) Dates
     """
+    if clear_recycle_bin == True:
+        clear_recycle_bin_windows()
+        clear_trash_bin_mac()
+        clear_trash_bin_linux()
+    else:
+        pass
 
     gacc_region = gacc_region.upper()
     fuel_model = fuel_model.upper()
@@ -560,7 +571,8 @@ def get_raws_sig_data(gacc_region,
 
 
 def get_nfdrs_forecast_data(gacc_region, 
-                            fuel_model='Y'):
+                            fuel_model='Y',
+                            clear_recycle_bin=True):
 
     """
     This function retrieves the latest fuels forecast data from FEMS.
@@ -585,6 +597,12 @@ def get_nfdrs_forecast_data(gacc_region,
     
     A list of NFDRS forecast data in the form of a Pandas DataFrames listed by each Predictive Services Area
     """
+    if clear_recycle_bin == True:
+        clear_recycle_bin_windows()
+        clear_trash_bin_mac()
+        clear_trash_bin_linux()
+    else:
+        pass
 
     gacc_region = gacc_region.upper()
     fuel_model = fuel_model.upper()

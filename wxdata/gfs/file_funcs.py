@@ -96,7 +96,32 @@ def clear_idx_files(model, cat, members):
             pass
         
             
-                    
+def clear_empty_files(paths):
+    
+    """
+    This file checks for empty files in the directory and clears them if they exist. 
+    
+    Required Arguments:
+    
+    1) paths (List) - The list of file paths.  
+    
+    Optional Arguments: None
+    
+    Returns
+    -------
+    
+    Clears out empty files. Some variables do not have a 0th forecast hour. 
+    """                    
+    try:
+        for path in paths:
+            for file in os.listdir(f"{path}"):
+                size = os.path.getsize(f"{path}/{file}")
+                if size == 0:
+                    os.remove(f"{path}/{file}")
+                else:
+                    pass
+    except Exception as e:
+        pass
         
     
     

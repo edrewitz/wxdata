@@ -50,8 +50,10 @@ def clear_idx_files(path):
     
     Required Arguments:
     
+    1) path (String) - The path to the directory. 
     
-    Optional Arguments:
+    
+    Optional Arguments: None
     
     Returns
     -------

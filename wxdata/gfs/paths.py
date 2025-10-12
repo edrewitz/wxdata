@@ -9,7 +9,7 @@ import os
 folder = os.getcwd()
 folder_modified = folder.replace("\\", "/")
 
-def gefs0p50_branch_path(model, 
+def gefs_branch_path(model, 
                          cat,
                          members):
     
@@ -21,6 +21,8 @@ def gefs0p50_branch_path(model,
     1) model (String) - The forecast model. 
 
     2) cat (String) - cat (String) - The category of the data. (i.e. mean, control, all members).
+    
+    3) members (List) - The individual ensemble members. There are 30 members in this ensemble. 
 
     Optional Arguments: None
 

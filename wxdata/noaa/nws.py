@@ -13,9 +13,6 @@ import warnings
 warnings.filterwarnings('ignore')
 
 from wxdata.utils.recycle_bin import *
-clear_recycle_bin_windows()
-clear_trash_bin_mac()
-clear_trash_bin_linux()
 
 
 alaska = '/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.alaska/'
@@ -247,7 +244,8 @@ def get_parameters(parameter):
 
 
 def get_ndfd_grids(parameter, 
-                   state):
+                   state,
+                   clear_recycle_bin=True):
 
     """
 
@@ -261,7 +259,10 @@ def get_ndfd_grids(parameter,
 
     2) state (String) - The state or region being used. 
     
-    Optional Arguments: None
+    Optional Arguments: 
+    
+    1) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
+        of the program you are calling WxData. This setting is to help preserve memory on the machine. 
 
     Returns
     -------
@@ -313,6 +314,12 @@ def get_ndfd_grids(parameter,
         'weather'       
 
     """
+    if clear_recycle_bin == True:
+        clear_recycle_bin_windows()
+        clear_trash_bin_mac()
+        clear_trash_bin_linux()
+    else:
+        pass
     
     state = state.upper()
 

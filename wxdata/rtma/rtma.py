@@ -22,15 +22,44 @@ from wxdata.utils.file_scanner import local_file_scanner
 from wxdata.rtma.process import process_rtma_data
 from wxdata.utils.recycle_bin import *
 
+def bounds(model):
+    
+    """
+    This function determines the boundaries for the data based on the region.
+    
+    Required Arguments: 
+    
+    1) model (String) - The RTMA model being used. 
+    
+    Optional Arguments: None
+    
+    Returns
+    -------
+    
+    The bounding box for the data.     
+    """
+    
+    models = {
+        
+        'RTMA':[-125, -65, 20, 50],
+        'HI RTMA':[-180, 180, -90, 90],
+        'PR RTMA':[-68, -65, 17, 19],
+        'GU RTMA':[-180, 180, -90, 90],
+        'AK RTMA':[-180, -120, 45, 75]
+        
+    }
+    
+    return models[model][0], models[model][1], models[model][2], models[model][3]
+
 def rtma(model='rtma', 
          cat='analysis', 
-         western_bound=-125,
-         eastern_bound=-65,
-         northern_bound=50,
-         southern_bound=20,
          proxies=None,
          process_data=True,
-         clear_recycle_bin=True):
+         clear_recycle_bin=True,
+         western_bound=None,
+         eastern_bound=None,
+         southern_bound=None,
+         northern_bound=None):
     
     """
     This function downloads the latest RTMA Dataset and returns it as an xarray data array. 
@@ -64,6 +93,20 @@ def rtma(model='rtma',
     proxies=None ---> proxies={'http':'http://url',
                             'https':'https://url'
                         }
+                        
+    4) process_data (Boolean) - Default=True. When set to True, WxData will preprocess the model data. If the user wishes to process the 
+       data via their own external method, set process_data=False which means the data will be downloaded but not processed. 
+       
+    5) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
+        of the program you are calling WxData. This setting is to help preserve memory on the machine. 
+        
+    6) western_bound (Float or Integer) - Default=-180. The western bound of the data needed. 
+
+    7) eastern_bound (Float or Integer) - Default=180. The eastern bound of the data needed.
+
+    8) southern_bound (Float or Integer) - Default=-90. The northern bound of the data needed.
+
+    9) northern_bound (Float or Integer) - Default=90. The southern bound of the data needed.
     
     Returns
     -------
@@ -102,6 +145,14 @@ def rtma(model='rtma',
                            cat)
     
     clear_idx_files(path)
+    
+    if western_bound == None and eastern_bound == None and southern_bound == None and northern_bound == None:
+        western_bound, eastern_bound, southern_bound, northern_bound = bounds(model)
+    else:
+        western_bound = western_bound
+        eastern_bound = eastern_bound 
+        southern_bound = southern_bound 
+        northern_bound = northern_bound
     
     url, filename = rtma_url_scanner(model, 
                     cat,
