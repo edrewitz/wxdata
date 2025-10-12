@@ -1,5 +1,5 @@
 """
-This file hosts functions that download various types of GFS and GEFS Data
+This file hosts functions that download various types of GEFS Data
 
 (C) Eric J. Drewitz 2025
 """
