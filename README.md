@@ -15,7 +15,17 @@ This package has the following extra functionality compared to existing packages
                                            'https':'https://url'
                                            }
 
-                        [e.g. get_observed_sounding_data('nkx', proxies=proxies)] 
+                        [e.g. get_observed_sounding_data('nkx', proxies=proxies)]
+
+   - Some data access functions work on VPN/PROXY connections without needing to define VPN/PROXY settings:
+      - METARs
+      - NOAA Products
+      - FEMS
+
+   - Data access methods that users need to define VPN/PROXY IP addresses if using a VPN/PROXY connection:
+      - Various Forecast Models
+      - Observed Sounding Data from University of Wyoming
+      - Real-Time Mesoscale Analysis 
        
 2) Converts GRIB variable keys into variable keys that are in plain language.
     - (e.g. 'r2' ---> '2m_relative_humidity')
@@ -32,6 +42,9 @@ This package has the following extra functionality compared to existing packages
 
 ***Real-Time Mesoscale Analysis (RTMA)***
 1. [RTMA](https://github.com/edrewitz/wxdata/blob/main/Documentation/rtma.md#real-time-mesoscale-analysis-rtma)
+
+***NOAA Storm Prediction Center Outlooks And National Weather Service Forecasts***
+1. [Get NDFD Grids](https://github.com/edrewitz/wxdata/blob/main/Documentation/noaa.md#noaa-get-storm-prediction-center-outlooks-and-national-weather-service-forecasts-ndfd-grids)
 
 ***METAR Observations***
 1. [METAR Observations](https://github.com/edrewitz/wxdata/blob/main/Documentation/metars.md#metar-observations)
