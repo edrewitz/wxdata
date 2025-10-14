@@ -42,7 +42,7 @@ This package provides the following extra functionality compared to existing pac
         - When `clear_recycle_bin=True` the computer's recycle/trash bin is cleared with each run of the script using any WxData function.
         - If a user wishes to not clear out their recycle bin `set clear_recycle_bin=False`.
 
-**WxData Module List**
+**WxData Module Documentation**
 
 ***Global Ensemble Forecast System (GEFS)***
 1. [GEFS0P50](https://github.com/edrewitz/wxdata/blob/main/Documentation/GEFS0P50.md#global-ensemble-forecast-system-050-x-050-degree-gefs0p50)
