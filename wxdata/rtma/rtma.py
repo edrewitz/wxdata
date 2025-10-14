@@ -201,7 +201,7 @@ def rtma_comparison(model='rtma',
          northern_bound=None):
     
     """
-    This function downloads the latest RTMA Dataset and the RTMA dataset from 24 hours prior to the current RTMA dataset and returns it as an xarray data array. 
+    This function downloads the latest RTMA Dataset and the RTMA dataset from 24 hours prior to the current RTMA dataset and returns it as two xarray data arrays. 
     
     Required Arguments: None
     
