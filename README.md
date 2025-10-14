@@ -2,7 +2,38 @@
 
 ![weather icon](https://github.com/edrewitz/wxdata/blob/main/icons/weather%20icon.jpg) ![python icon](https://github.com/edrewitz/wxdata/blob/main/icons/python%20logo.png)
 
-An open-source library that helps users download and pre-process various types of weather data. 
+An open-source package that helps meteorologists and weather enthusiats download and pre-process various types of weather data. 
+
+This package only retrieves open-source weather data (i.e. nothing behind a paywall or a login). 
+
+This package provides the following extra functionality compared to existing packages for downloading weather data:
+
+1) Friendly for users working on VPN/PROXY connections.
+   - Users input their PROXY IP address as a dictionary and pass it into the function to avoid SSL errors
+     - If the user is on a VPN/PROXY Connection the following is needed:
+       
+                         proxies=None ---> proxies={
+                                           'http':'http://url',
+                                           'https':'https://url'
+                                           }
+
+                        [e.g. get_observed_sounding_data('nkx', proxies=proxies)]
+
+   - Some data access functions work on VPN/PROXY connections without needing to define VPN/PROXY settings:
+      - METARs
+      - NOAA Products
+      - FEMS
+
+   - Data access methods that users need to define VPN/PROXY IP addresses if using a VPN/PROXY connection:
+      - Various Forecast Models
+      - Observed Sounding Data from University of Wyoming
+      - Real-Time Mesoscale Analysis 
+       
+2) Converts GRIB variable keys into variable keys that are in plain language.
+    - (e.g. 'r2' ---> '2m_relative_humidity')
+3) Has a scanner that checks if the data files on your PC are up to date with those on the data server.
+   - This is a safeguard to protect newer developers from getting temporary IP address bans from the various data servers.
+   - Improves performance by preventing the potential of repetative downloading the same dataset. 
 
 **WxData Module List**
 
@@ -14,8 +45,16 @@ An open-source library that helps users download and pre-process various types o
 ***Real-Time Mesoscale Analysis (RTMA)***
 1. [RTMA](https://github.com/edrewitz/wxdata/blob/main/Documentation/rtma.md#real-time-mesoscale-analysis-rtma)
 
+***NOAA Storm Prediction Center Outlooks And National Weather Service Forecasts***
+1. [Get NDFD Grids](https://github.com/edrewitz/wxdata/blob/main/Documentation/noaa.md#noaa-get-storm-prediction-center-outlooks-and-national-weather-service-forecasts-ndfd-grids)
+
 ***METAR Observations***
 1. [METAR Observations](https://github.com/edrewitz/wxdata/blob/main/Documentation/metars.md#metar-observations)
+
+***FEMS RAWS Network***
+1. [Get Single Station RAWS Data](https://github.com/edrewitz/wxdata/blob/main/Documentation/single_raws.md#fems-get-single-raws-station-data)
+2. [Get Each SIG of RAWS Data for a Geographic Area Coordination Center](https://github.com/edrewitz/wxdata/blob/main/Documentation/raws%20sig.md#fems-get-raws-sig-data-for-a-geographic-area-coordination-center-region)
+3. [Get NFDRS Forecast Data for Each SIG for a Geographic Area Coordination Center](https://github.com/edrewitz/wxdata/blob/main/Documentation/nfdrs%20forecast.md#fems-get-nfdrs-forecast-data-for-a-raws-sig-for-a-geographic-area-coordination-center-region)
 
 ***Observed Atmospheric Soundings***
 1. [University Of Wyoming Soundings](https://github.com/edrewitz/wxdata/blob/main/Documentation/wyoming_soundings.md)
