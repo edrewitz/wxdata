@@ -12,7 +12,7 @@ import numpy as np
 
 from urllib.parse import urlparse, parse_qs
 from wxdata.utils.coords import convert_lon
-from wxdata.gfs.exception_messages import(
+from wxdata.gefs.exception_messages import(
     
     gefs0p50,
     gefs0p25

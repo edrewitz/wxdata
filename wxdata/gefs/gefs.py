@@ -12,21 +12,21 @@ import glob
 import warnings
 warnings.filterwarnings('ignore')
 
-from wxdata.gfs.file_funcs import(
+from wxdata.gefs.file_funcs import(
     
     build_directory,
     clear_idx_files,
     clear_empty_files
     
 )
-from wxdata.gfs.url_scanners import(
+from wxdata.gefs.url_scanners import(
     
     gefs_0p50_url_scanner,
     gefs_0p50_secondary_parameters_url_scanner,
     gefs_0p25_url_scanner
 )
 
-from wxdata.gfs.process import(
+from wxdata.gefs.process import(
     
     process_gefs_data,
     process_gefs_secondary_parameters_data

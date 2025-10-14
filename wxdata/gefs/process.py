@@ -18,7 +18,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 from wxdata.utils.coords import shift_longitude
-from wxdata.gfs.paths import(
+from wxdata.gefs.paths import(
     
     gefs_branch_path
 )
