@@ -49,27 +49,52 @@ This package provides the following extra functionality compared to existing pac
 2. [GEFS0P50 SECONDARY PARAMETERS](https://github.com/edrewitz/wxdata/blob/main/Documentation/GEFS0P50%20Secondary%20Parameters.md#global-ensemble-forecast-system-050-x-050-degree-secondary-parameters-gefs0p50-secondary-parameters)
 3. [GEFS0P25](https://github.com/edrewitz/wxdata/blob/main/Documentation/GEFS0P25.md#global-ensemble-forecast-system-025-x-025-degree-gefs0p25)
 
+         from wxdata.gefs.gefs import(
+             
+             gefs0p50,
+             gefs0p50_secondary_parameters,
+             gefs0p25
+         )
+   
 ***Real-Time Mesoscale Analysis (RTMA)***
 1. [RTMA](https://github.com/edrewitz/wxdata/blob/main/Documentation/rtma.md#real-time-mesoscale-analysis-rtma)
 2. [RTMA Comparison](https://github.com/edrewitz/wxdata/blob/main/Documentation/rtma%20comparison.md#real-time-mesoscale-analysis-rtma-24-hour-comparison)
 
+         from wxdata.rtma.rtma import(
+             rtma, 
+             rtma_comparison
+         )
+
 ***NOAA Storm Prediction Center Outlooks And National Weather Service Forecasts***
 1. [Get NDFD Grids](https://github.com/edrewitz/wxdata/blob/main/Documentation/noaa.md#noaa-get-storm-prediction-center-outlooks-and-national-weather-service-forecasts-ndfd-grids)
 
+         from wxdata.noaa.nws import get_ndfd_grids
+
 ***METAR Observations***
 1. [METAR Observations](https://github.com/edrewitz/wxdata/blob/main/Documentation/metars.md#metar-observations)
+
+         from wxdata.metars.metar_obs import download_metar_data
 
 ***FEMS RAWS Network***
 1. [Get Single Station RAWS Data](https://github.com/edrewitz/wxdata/blob/main/Documentation/single_raws.md#fems-get-single-raws-station-data)
 2. [Get Each SIG of RAWS Data for a Geographic Area Coordination Center](https://github.com/edrewitz/wxdata/blob/main/Documentation/raws%20sig.md#fems-get-raws-sig-data-for-a-geographic-area-coordination-center-region)
 3. [Get NFDRS Forecast Data for Each SIG for a Geographic Area Coordination Center](https://github.com/edrewitz/wxdata/blob/main/Documentation/nfdrs%20forecast.md#fems-get-nfdrs-forecast-data-for-a-raws-sig-for-a-geographic-area-coordination-center-region)
 
+         from wxdata.fems.fems import(
+             get_single_station_data,
+             get_raws_sig_data,
+             get_nfdrs_forecast_data
+         )
+
 ***Observed Atmospheric Soundings***
 1. [University Of Wyoming Soundings](https://github.com/edrewitz/wxdata/blob/main/Documentation/wyoming_soundings.md)
+
+         from wxdata.soundings.wyoming_soundings import get_observed_sounding_data
 
 ***Cyclic Points For Hemispheric Plots***
 1. [Cyclic Points](https://github.com/edrewitz/wxdata/blob/main/Documentation/cyclic_point.md#using-wxdata-to-add-cyclic-points-for-hemispheric-plots)
 
+         from wxdata.utils.coords import cyclic_point
 
 ### Citations
 
