@@ -52,10 +52,12 @@ Optional Arguments:
 
 1) cat (string) - Default='mean'. The category of the ensemble data. 
 
-Valid categories:
-      1) 'mean'
-      2) 'members'
-      3) 'spread'
+Valid categories
+
+	1) mean
+	2) members
+	3) spread
+	4) control
 
 2) final_forecast_hour (Integer) - Default = 384. The final forecast hour the user wishes to download. The GEFS0P50
 goes out to 384 hours. For those who wish to have a shorter dataset, they may set final_forecast_hour to a value lower than 
@@ -69,62 +71,99 @@ goes out to 384 hours. For those who wish to have a shorter dataset, they may se
 
 6) southern_bound (Float or Integer) - Default=-90. The southern bound of the data needed.
 
-7) proxies (dict or None) - Default=None. If the user is using proxy server(s), the user must change the following:
+7) step (Integer) - Default=3. The time increment of the data. Options are 3hr and 6hr. 
 
- proxies=None ---> proxies={
-                     'http':'http://url',
-                     'https':'https://url'
-                  }
+8) proxies (dict or None) - Default=None. If the user is using proxy server(s), the user must change the following:
 
-8) members (List) - Default=All 30 ensemble members. The individual ensemble members. There are 30 members in this ensemble.  
+proxies=None ---> proxies={
+				   'http':'http://url',
+				   'https':'https://url'
+				}
 
-9) process_data (Boolean) - Default=True. When set to True, WxData will preprocess the model data. If the user wishes to process the 
- data via their own external method, set process_data=False which means the data will be downloaded but not processed. 
- 
-10) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
-  of the program you are calling WxData. This setting is to help preserve memory on the machine. 
-  
-11) variables (List) - A list of variable names the user wants to download in plain language. 
-    
-        Variable Name List for GEFS0P50
-        -------------------------------
-        
-			'total precipitation'
-            'convective available potential energy'
-            'categorical freezing rain'
-            'categorical ice pellets'
-            'categorical rain'
-            'categorical snow'
-            'convective inhibition'
-            'downward longwave radiation flux'
-            'downward shortwave radiation flux'
-            'geopotential height'
-            'ice thickness'
-            'latent heat net flux'
-            'pressure'
-            'mean sea level pressure'
-            'precipitable water'
-            'relative humidity'
-            'sensible heat net flux'
-            'snow depth'
-            'volumetric soil moisture content'
-            'total cloud cover'
-            'maximum temperature'
-            'minimum temperature'
-            'temperature'
-            'soil temperature'
-            'u-component of wind'
-            'upward longwave radiation flux'
-            'upward shortwave radiation flux'
-            'v-component of wind'
-            'vertical velocity'
-            'water equivalent of accumulated snow depth'
-    
-    
+9) members (List) - Default=All 30 ensemble members. The individual ensemble members. There are 30 members in this ensemble.  
+
+10) process_data (Boolean) - Default=True. When set to True, WxData will preprocess the model data. If the user wishes to process the 
+data via their own external method, set process_data=False which means the data will be downloaded but not processed. 
+
+11) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
+of the program you are calling WxData. This setting is to help preserve memory on the machine. 
+
+12) variables (List) - A list of variable names the user wants to download in plain language. 
+
+Variable Name List for GEFS0P50
+
+	'total precipitation'
+	'convective available potential energy'
+	'categorical freezing rain'
+	'categorical ice pellets'
+	'categorical rain'
+	'categorical snow'
+	'convective inhibition'
+	'downward longwave radiation flux'
+	'downward shortwave radiation flux'
+	'geopotential height'
+	'ice thickness'
+	'latent heat net flux'
+	'pressure'
+	'mean sea level pressure'
+	'precipitable water'
+	'relative humidity'
+	'sensible heat net flux'
+	'snow depth'
+	'volumetric soil moisture content'
+	'total cloud cover'
+	'maximum temperature'
+	'minimum temperature'
+	'temperature'
+	'soil temperature'
+	'u-component of wind'
+	'upward longwave radiation flux'
+	'upward shortwave radiation flux'
+	'v-component of wind'
+	'vertical velocity'
+	'water equivalent of accumulated snow depth'
+
+
 Returns
 -------
 
 An xarray data array of the GEFS0P50 data specified to the coordinate boundaries and variable list the user specifies. 
 
 GEFS0P50 files are saved to f:GEFS0P50/{cat} or in the case of ensemble members f:GEFS0P50/{cat}/{member}
+
+Variables
+
+	'surface_pressure'
+	'total_precipitation'
+	'categorical_snow'
+	'categorical_ice_pellets'
+	'categorical_freezing_rain'
+	'categorical_rain'
+	'time_mean_surface_latent_heat_flux'
+	'time_mean_surface_sensible_heat_flux'
+	'surface_downward_shortwave_radiation_flux'
+	'surface_downward_longwave_radiation_flux'
+	'surface_upward_shortwave_radiation_flux'
+	'surface_upward_longwave_radiation_flux'
+	'orography'
+	'water_equivalent_of_accumulated_snow_depth'
+	'snow_depth'
+	'sea_ice_thickness'
+	'mslp'
+	'soil_temperature'
+	'volumetric_soil_moisture_content'
+	'2m_temperature'
+	'2m_relative_humidity'
+	'maximum_temperature'
+	'minimum_temperature'
+	'10m_u_wind_component'
+	'10m_v_wind_component'
+	'precipitable_water'
+	'mixed_layer_cape'
+	'mixed_layer_cin'
+	'geopotential_height'
+	'air_temperature'
+	'relative_humidity'
+	'u_wind_component'
+	'v_wind_component'
 
