@@ -173,6 +173,7 @@ def process_rtma_data(path,
         wgust = ds['10m_wind_gust'].values
         lat = ds['latitude'].values
         lon = ds['longitude'].values
+        time = ds['time'].values
 
         orog_2d = np.empty([nrows,ncols])
         pressure_2d = np.empty([nrows,ncols])
@@ -219,6 +220,7 @@ def process_rtma_data(path,
         
         dims = ("latitude", "longitude")
         coords = {
+            "time":time,
             "latitude": lat1d,  
             "longitude": lon1d,  
         }
