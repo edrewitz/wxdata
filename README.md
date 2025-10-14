@@ -44,6 +44,7 @@ This package provides the following extra functionality compared to existing pac
 
 ***Real-Time Mesoscale Analysis (RTMA)***
 1. [RTMA](https://github.com/edrewitz/wxdata/blob/main/Documentation/rtma.md#real-time-mesoscale-analysis-rtma)
+2. [RTMA Comparison](https://github.com/edrewitz/wxdata/blob/main/Documentation/rtma%20comparison.md#real-time-mesoscale-analysis-rtma-24-hour-comparison)
 
 ***NOAA Storm Prediction Center Outlooks And National Weather Service Forecasts***
 1. [Get NDFD Grids](https://github.com/edrewitz/wxdata/blob/main/Documentation/noaa.md#noaa-get-storm-prediction-center-outlooks-and-national-weather-service-forecasts-ndfd-grids)
