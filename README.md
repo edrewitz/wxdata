@@ -2,7 +2,7 @@
 
 ![weather icon](https://github.com/edrewitz/wxdata/blob/main/icons/weather%20icon.jpg) ![python icon](https://github.com/edrewitz/wxdata/blob/main/icons/python%20logo.png)
 
-An open-source package that helps meteorologists and weather enthusiats download and pre-process various types of weather data. 
+An open-source package that helps meteorologists and weather enthusiats download, pre-process and post-process various types of weather data. 
 
 This package only retrieves open-source weather data (i.e. nothing behind a paywall or a login). 
 
