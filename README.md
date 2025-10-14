@@ -9,8 +9,14 @@ This package has the following extra functionality compared to existing packages
 1) Friendly for users working on VPN/PROXY connections.
    - Users input their PROXY IP address as a dictionary and pass it into the function to avoid SSL errors
      - If the user is on a VPN/PROXY Connection the following is needed:
+       
+                         proxies=None ---> proxies={
+                                           'http':'http://url',
+                                           'https':'https://url'
+                                           }
 
-       proxies=None ---> proxies={ 'http':'http://url', 'https':'https://url' }
+                        [e.g. get_observed_sounding_data('nkx', proxies=proxies)] 
+       
 2) Converts GRIB variable keys into variable keys that are in plain language.
     - (e.g. 'r2' ---> '2m_relative_humidity')
 3) Has a scanner that checks if the data files on your PC are up to date with those on the data server.
