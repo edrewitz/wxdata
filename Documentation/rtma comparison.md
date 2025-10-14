@@ -1,6 +1,6 @@
-# Real-Time Mesoscale Analysis (RTMA)
+# Real-Time Mesoscale Analysis (RTMA) 24-Hour Comparison
 
-***def rtma(model='rtma', 
+***def rtma_comparison(model='rtma', 
          cat='analysis', 
          proxies=None,
          process_data=True,
@@ -10,8 +10,7 @@
          southern_bound=None,
          northern_bound=None):***
 
-
-This function downloads the latest RTMA Dataset and returns it as an xarray data array. 
+This function downloads the latest RTMA Dataset and the RTMA dataset from 24 hours prior to the current RTMA dataset and returns it as two xarray data arrays. 
 
 Required Arguments: None
 
@@ -29,24 +28,24 @@ Optional Arguments:
 
 2) cat (String) - Default='analysis'. The category of the RTMA dataset. 
 
-             RTMA Categories
-             
-             analysis - Latest RTMA Analysis
-             error - Latest RTMA Error
-             surface 1 hour forecast - RTMA Surface 1 Hour Forecast
+        RTMA Categories
+        
+        analysis - Latest RTMA Analysis
+        error - Latest RTMA Error
+        surface 1 hour forecast - RTMA Surface 1 Hour Forecast
 
 3) proxies (dict or None) - If the user is using a proxy server, the user must change the following:
 
 proxies=None ---> proxies={'http':'http://url',
-                      'https':'https://url'
-                  }
-                  
+                        'https':'https://url'
+                    }
+                    
 4) process_data (Boolean) - Default=True. When set to True, WxData will preprocess the model data. If the user wishes to process the 
- data via their own external method, set process_data=False which means the data will be downloaded but not processed. 
- 
+   data via their own external method, set process_data=False which means the data will be downloaded but not processed. 
+   
 5) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
-  of the program you are calling WxData. This setting is to help preserve memory on the machine. 
-  
+    of the program you are calling WxData. This setting is to help preserve memory on the machine. 
+    
 6) western_bound (Float or Integer) - Default=-180. The western bound of the data needed. 
 
 7) eastern_bound (Float or Integer) - Default=180. The eastern bound of the data needed.
@@ -58,9 +57,13 @@ proxies=None ---> proxies={'http':'http://url',
 Returns
 -------
 
-An xarray data array of the RTMA Dataset with variable keys converted from the GRIB format to a Plain Language format. 
+1) ds - The current RTMA dataset
 
-    Variables
+2) ds_24 - The RTMA dataset from 24 hours prior to the current RTMA dataset. 
+
+All with variable keys converted from the GRIB format to a Plain Language format. 
+    
+    Variable Keys
     
     'orography'
     'surface_pressure'
