@@ -327,6 +327,9 @@ def get_single_station_data(station_id,
         Z - Slash
 
     4) to_csv (Boolean) - Default = True. This will save the data into a CSV file and build a directory to hold the CSV files. 
+    
+    5) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
+        of the program you are calling WxData. This setting is to help preserve memory on the machine. 
 
     Returns
     -------
@@ -413,6 +416,9 @@ def get_raws_sig_data(gacc_region,
 
     3) start_date (String) - Default=None. If the user wishes to use a selected start date as the starting point enter the start_date
         as a string in the following format: YYYY-mm-dd
+        
+    4) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
+        of the program you are calling WxData. This setting is to help preserve memory on the machine. 
 
     Returns
     ------- 
@@ -591,6 +597,9 @@ def get_nfdrs_forecast_data(gacc_region,
         W - Grass/Shrub
         V - Grass
         Z - Slash 
+        
+    2) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
+        of the program you are calling WxData. This setting is to help preserve memory on the machine. 
 
     Returns
     -------
