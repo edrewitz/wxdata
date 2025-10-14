@@ -21,7 +21,7 @@ This package provides the following extra functionality compared to existing pac
 
    - Some data access functions work on VPN/PROXY connections without needing to define VPN/PROXY settings:
       - METARs
-      - NOAA Products
+      - NOAA Storm Prediction Center/National Weather Service Products
       - FEMS
 
    - Data access methods that users need to define VPN/PROXY IP addresses if using a VPN/PROXY connection:
