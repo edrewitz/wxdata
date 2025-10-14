@@ -758,7 +758,7 @@ def gefs0p25(cat='mean',
                         'water equivalent of accumulated snow depth']):
     
     """
-    This function downloads the latest GEFS0P50 data for a region specified by the user
+    This function downloads the latest GEFS0P25 data for a region specified by the user
     
     Required Arguments: None
     
