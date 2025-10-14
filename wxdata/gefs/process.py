@@ -1,11 +1,11 @@
 """
-This file hosts the functions that pre-process GEFS Data.
+This file hosts the functions that post-process GEFS Data.
 
-Pre-Processing includes the following:
+Post-Processing includes the following:
 
 1) Extracting the variables keys for a list of the various 'typeOfLevel'
 2) Renaming the variable names in a common notation for users to understand. 
-3) Returning an xarray data array of pre-processed data to the user. 
+3) Returning an xarray data array of post-processed data to the user. 
 
 (C) Eric J. Drewitz 2025
 """
@@ -31,7 +31,7 @@ def process_gefs_data(model,
                           members):
     
     """
-    This function pre-processes the GEFS (Primary) Parameters for GEFS0P50 and GEFS0P25. 
+    This function post-processes the GEFS (Primary) Parameters for GEFS0P50 and GEFS0P25. 
     
     Required Arguments: 
     
@@ -55,10 +55,10 @@ def process_gefs_data(model,
     Returns
     -------
     
-    An xarray data array of the pre-processed GEFS data. 
+    An xarray data array of the post-processed GEFS data. 
     GRIB Keys are converted to Plain Language Keys. 
     
-    New Variable Keys After Pre-Processing (Decrypted GRIB Keys Into Plain Language)
+    New Variable Keys After Post-Processing (Decrypted GRIB Keys Into Plain Language)
     --------------------------------------------------------------------------------
     
     GEFS0P50
@@ -696,7 +696,7 @@ def process_gefs_secondary_parameters_data(model,
     
     
     """
-    This function pre-processes the GEFS (Primary) Parameters for GEFS0P50 and GEFS0P25. 
+    This function post-processes the GEFS (Primary) Parameters for GEFS0P50 and GEFS0P25. 
     
     Required Arguments: 
     
@@ -716,10 +716,10 @@ def process_gefs_secondary_parameters_data(model,
     Returns
     -------
     
-    An xarray data array of the pre-processed GEFS data. 
+    An xarray data array of the post-processed GEFS data. 
     GRIB Keys are converted to Plain Language Keys. 
     
-    New Variable Keys After Pre-Processing (Decrypted GRIB Keys Into Plain Language)
+    New Variable Keys After Post-Processing (Decrypted GRIB Keys Into Plain Language)
     --------------------------------------------------------------------------------
     
         'surface_temperature'

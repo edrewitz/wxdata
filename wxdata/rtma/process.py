@@ -41,7 +41,7 @@ def rows_and_cols(model):
     Returns
     -------
     
-    The number of rows and columns for pre-processing the 1-D RTMA Datasets    
+    The number of rows and columns for post-processing the 1-D RTMA Datasets    
     """
     model = model.upper()
     
@@ -59,9 +59,9 @@ def process_rtma_data(path,
                  model):
     
     """
-    This function pre-processes RTMA Data and returns an xarray data array of the data.
+    This function post-processes RTMA Data and returns an xarray data array of the data.
     
-    This pre-processing will convert all variable names into a plain language format. 
+    This post-processing will convert all variable names into a plain language format. 
     
     
     Required Arguments: 
