@@ -506,7 +506,7 @@ def gefs0p50_secondary_parameters(cat='control',
     
     An xarray data array of the GEFS0P50 SECONDARY PARAMETERS data specified to the coordinate boundaries and variable list the user specifies. 
     
-    GEFS0P50 files are saved to f:GEFS0P50 SECONDARY PARAMETERS/{cat} or in the case of ensemble members f:GEFS0P50 SECONDARY PARAMETERS/{cat}/{member}
+    GEFS0P50 SECONDARY PARAMETERS files are saved to f:GEFS0P50 SECONDARY PARAMETERS/{cat} or in the case of ensemble members f:GEFS0P50 SECONDARY PARAMETERS/{cat}/{member}
     
     Variables
     ---------
