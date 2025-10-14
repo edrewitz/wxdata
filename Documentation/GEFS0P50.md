@@ -90,38 +90,38 @@ of the program you are calling WxData. This setting is to help preserve memory o
 
 12) variables (List) - A list of variable names the user wants to download in plain language. 
 
-Variable Name List for GEFS0P50
-
-	'total precipitation'
-	'convective available potential energy'
-	'categorical freezing rain'
-	'categorical ice pellets'
-	'categorical rain'
-	'categorical snow'
-	'convective inhibition'
-	'downward longwave radiation flux'
-	'downward shortwave radiation flux'
-	'geopotential height'
-	'ice thickness'
-	'latent heat net flux'
-	'pressure'
-	'mean sea level pressure'
-	'precipitable water'
-	'relative humidity'
-	'sensible heat net flux'
-	'snow depth'
-	'volumetric soil moisture content'
-	'total cloud cover'
-	'maximum temperature'
-	'minimum temperature'
-	'temperature'
-	'soil temperature'
-	'u-component of wind'
-	'upward longwave radiation flux'
-	'upward shortwave radiation flux'
-	'v-component of wind'
-	'vertical velocity'
-	'water equivalent of accumulated snow depth'
+		Variable Name List for GEFS0P50
+	
+		'total precipitation'
+		'convective available potential energy'
+		'categorical freezing rain'
+		'categorical ice pellets'
+		'categorical rain'
+		'categorical snow'
+		'convective inhibition'
+		'downward longwave radiation flux'
+		'downward shortwave radiation flux'
+		'geopotential height'
+		'ice thickness'
+		'latent heat net flux'
+		'pressure'
+		'mean sea level pressure'
+		'precipitable water'
+		'relative humidity'
+		'sensible heat net flux'
+		'snow depth'
+		'volumetric soil moisture content'
+		'total cloud cover'
+		'maximum temperature'
+		'minimum temperature'
+		'temperature'
+		'soil temperature'
+		'u-component of wind'
+		'upward longwave radiation flux'
+		'upward shortwave radiation flux'
+		'v-component of wind'
+		'vertical velocity'
+		'water equivalent of accumulated snow depth'
 
 
 Returns
@@ -131,7 +131,7 @@ An xarray data array of the GEFS0P50 data specified to the coordinate boundaries
 
 GEFS0P50 files are saved to f:GEFS0P50/{cat} or in the case of ensemble members f:GEFS0P50/{cat}/{member}
 
-Variables
+	Variables
 
 	'surface_pressure'
 	'total_precipitation'
