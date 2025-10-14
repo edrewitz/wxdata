@@ -29,11 +29,11 @@ Optional Arguments:
 
 2) cat (String) - Default='analysis'. The category of the RTMA dataset. 
 
-    RTMA Categories
-    
-    analysis - Latest RTMA Analysis
-    error - Latest RTMA Error
-    surface 1 hour forecast - RTMA Surface 1 Hour Forecast
+             RTMA Categories
+             
+             analysis - Latest RTMA Analysis
+             error - Latest RTMA Error
+             surface 1 hour forecast - RTMA Surface 1 Hour Forecast
 
 3) proxies (dict or None) - If the user is using a proxy server, the user must change the following:
 
