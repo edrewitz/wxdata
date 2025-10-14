@@ -793,15 +793,17 @@ def gefs0p25(cat='mean',
                            'https':'https://url'
                         }
     
-    8) members (List) - Default=All 30 ensemble members. The individual ensemble members. There are 30 members in this ensemble.  
+    8) step (Integer) - Default=3. The time increment of the data. Options are 3hr and 6hr. 
     
-    9) process_data (Boolean) - Default=True. When set to True, WxData will preprocess the model data. If the user wishes to process the 
+    9) members (List) - Default=All 30 ensemble members. The individual ensemble members. There are 30 members in this ensemble.  
+    
+    10) process_data (Boolean) - Default=True. When set to True, WxData will preprocess the model data. If the user wishes to process the 
        data via their own external method, set process_data=False which means the data will be downloaded but not processed. 
        
-    10) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
+    11) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
         of the program you are calling WxData. This setting is to help preserve memory on the machine. 
         
-    11) variables (List) - A list of variable names the user wants to download in plain language. 
+    12) variables (List) - A list of variable names the user wants to download in plain language. 
     
         Variable Name List for GEFS0P25
         -------------------------------
