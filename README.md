@@ -2,7 +2,20 @@
 
 ![weather icon](https://github.com/edrewitz/wxdata/blob/main/icons/weather%20icon.jpg) ![python icon](https://github.com/edrewitz/wxdata/blob/main/icons/python%20logo.png)
 
-An open-source library that helps users download and pre-process various types of weather data. 
+An open-source package that helps meteorologists and weather enthusiats download and pre-process various types of weather data. 
+
+This package has the following extra functionality compared to existing packages for downloading weather data:
+
+1) Friendly for users working on VPN/PROXY connections.
+   - Users input their PROXY IP address as a dictionary and pass it into the function to avoid SSL errors
+     - If the user is on a VPN/PROXY Connection the following is needed:
+
+       proxies=None ---> proxies={ 'http':'http://url', 'https':'https://url' }
+2) Converts GRIB variable keys into variable keys that are in plain language.
+    - (e.g. 'r2' ---> '2m_relative_humidity')
+3) Has a scanner that checks if the data files on your PC are up to date with those on the data server.
+   - This is a safeguard to protect newer developers from getting temporary IP bans from the various data servers.
+   - Improves performance by preventing the potential of repetative downloading the same dataset. 
 
 **WxData Module List**
 
