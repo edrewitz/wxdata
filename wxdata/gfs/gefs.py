@@ -294,7 +294,7 @@ def gefs0p50(cat='mean',
     else:
         pass
 
-def gefs0p50_secondary_parameters(cat='mean', 
+def gefs0p50_secondary_parameters(cat='control', 
              final_forecast_hour=384, 
              western_bound=-180, 
              eastern_bound=180, 
