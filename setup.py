@@ -7,7 +7,7 @@ if sys.version_info[0] < 3:
 
 setup(
     name = "wxdata",
-    version = "1.0",
+    version = "0.1",
     packages = find_packages(),
     install_requires=[
         "metpy>=1.5.1",
@@ -23,7 +23,7 @@ setup(
       
     ],
     author="Eric J. Drewitz",
-    description="An open source library for downloading and pre-processing various types of weather data.",
+    description="An open source library for downloading and pre/post-processing various types of weather data.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown"
 

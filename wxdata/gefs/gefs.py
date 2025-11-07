@@ -4,12 +4,12 @@ This file hosts functions that download various types of GEFS Data
 (C) Eric J. Drewitz 2025
 """
 
-import urllib.request
-import os
+import wxdata.client.client as client
 import sys
-import logging
-import glob
+import os
 import warnings
+import time
+import wxdata.utils.gefs_post_processing as gefs_post_processing
 warnings.filterwarnings('ignore')
 
 from wxdata.gefs.file_funcs import(
@@ -33,6 +33,14 @@ from wxdata.gefs.process import(
     
 )
 
+from wxdata.utils.file_funcs import(
+     custom_branch,
+     custom_branches,
+     clear_gefs_idx_files
+)
+
+from wxdata.calc.derived_fields import gefs_primary_derived_fields
+from wxdata.calc.unit_conversion import convert_temperature_units
 from wxdata.utils.file_scanner import local_file_scanner
 from wxdata.utils.recycle_bin import *
 
@@ -78,7 +86,12 @@ def gefs0p50(cat='mean',
                         'upward shortwave radiation flux',
                         'v-component of wind',
                         'vertical velocity',
-                        'water equivalent of accumulated snow depth']):
+                        'water equivalent of accumulated snow depth'],
+            convert_temperature=True,
+            convert_to='celsius',
+            custom_directory=None,
+            chunk_size=8192,
+            notifications='off'):
     
     """
     This function downloads the latest GEFS0P50 data for a region specified by the user
@@ -206,6 +219,18 @@ def gefs0p50(cat='mean',
     'relative_humidity'
     'u_wind_component'
     'v_wind_component'
+    'wind_speed'
+    'absolute_vortcity'
+    'curvature_vorticity'
+    'divergence'
+    'dew_point'
+    'temperature_advection'
+    'vorticity_advection'
+    'precipitable_water_advection'
+    'humidity_advection'
+    'potential_temperature'
+    'mixing_ratio'
+    'dry_lapse_rate'
     
     """
     if clear_recycle_bin == True:
@@ -215,17 +240,28 @@ def gefs0p50(cat='mean',
     else:
         pass    
     
+    
     cat = cat.lower()
-    
-    paths = build_directory('gefs0p50', 
-                            cat, 
-                            members)
+    if custom_directory == None:
+        
+        paths = build_directory('gefs0p50', 
+                                cat, 
+                                members)
 
-    clear_idx_files('gefs0p50', 
-                    cat, 
-                    members)
+        clear_idx_files('gefs0p50', 
+                        cat, 
+                        members)
     
-    urls, filenames = gefs_0p50_url_scanner(cat, 
+    else:
+        if cat == 'members':
+            paths = custom_branches(custom_directory)
+            
+        else:
+            paths = custom_branch(custom_directory)
+        
+        clear_gefs_idx_files(paths)
+    
+    urls, filenames, run = gefs_0p50_url_scanner(cat, 
                                             final_forecast_hour,
                                             western_bound, 
                                             eastern_bound, 
@@ -238,14 +274,18 @@ def gefs0p50(cat='mean',
     
     try:
         download = local_file_scanner(paths[-1], 
-                                        filenames[-1])
+                                        filenames[-1],
+                                        'nomads',
+                                        run)
     except Exception as e:
         download = local_file_scanner(paths, 
-                                        filenames)       
+                                        filenames,
+                                        'nomads',
+                                        run)       
     
     if download == True:
-        print(f"Data is old.\nClearing out old data and downloading new data...")
-
+        print(f"Data downloading...")
+        
         try:
             for path in paths:
                 for file in os.listdir(f"{path}"):
@@ -256,40 +296,65 @@ def gefs0p50(cat='mean',
         if cat != 'members':
             for path in paths:
                 for url, filename in zip(urls, filenames):
-                    try:
-                        urllib.request.urlretrieve(f"{url}", f"{filename}")
-                        os.replace(f"{filename}", f"{path}/{filename}.grib2")
-                    except Exception as e:
-                        pass
+                    client.get_gridded_data(f"{url}",
+                                path,
+                                f"{filename}.grib2",
+                                proxies=proxies,
+                                chunk_size=chunk_size,
+                                notifications=notifications)                                                                 
+                            
         else:
             start = 0
             increment = int(len(filenames)/len(members))
             stop = increment
             for path in paths:
                 for u, f in zip(range(start, stop, 1), range(start, stop, 1)):
-                    try:
-                        urllib.request.urlretrieve(f"{urls[u]}", f"{filenames[f]}")
-                        os.replace(f"{filenames[f]}", f"{path}/{filenames[f]}.grib2")
-                    except Exception as e:
-                        pass
+                    client.get_gridded_data(f"{urls[u]}",
+                                path,
+                                f"{filenames[f]}.grib2",
+                                proxies=proxies,
+                                chunk_size=chunk_size,
+                                notifications=notifications)  
+                                
                 start = start + increment
-                stop = stop + increment             
-                
+                stop = stop + increment     
+                        
+        print(f"Download Complete.")        
     else:
         print(f"User has the current dataset.\nSkipping download.")
         
     if process_data == True:
-        
+        print(f"Data Processing...")
         clear_empty_files(paths)
         
-        ds = process_gefs_data('gefs0p50', 
-                                    cat,
-                                    members)
+        if custom_directory == None:
+            print(f"")
+            ds = process_gefs_data('gefs0p50', 
+                                        cat,
+                                        members)
+                    
+            clear_idx_files('gefs0p50', 
+                        cat, 
+                        members)
+            
+        else:
+            ds = gefs_post_processing.primary_gefs_post_processing(paths)
+            
+            gefs_post_processing.clear_gefs_idx_files(paths)
+            
+        if convert_temperature == True:
+            ds = convert_temperature_units(ds, 
+                                            convert_to,
+                                            cat=cat)
                 
-        clear_idx_files('gefs0p50', 
-                    cat, 
-                    members)
+        else:
+            pass
         
+        ds = gefs_primary_derived_fields(ds,
+                                 convert_temperature,
+                                 convert_to)
+            
+        print(f"Data Processing Complete.")
         return ds
     else:
         pass
@@ -377,7 +442,13 @@ def gefs0p50_secondary_parameters(cat='control',
                         'vertical velocity',
                         'vertical speed shear',
                         'water runoff',
-                        'wilting point']):
+                        'wilting point'],
+             convert_temperature=True,
+             convert_to='celsius',
+            custom_directory=None,
+            chunk_size=8192,
+            notifications='off'):
+                        
     
     """
     This function downloads the latest GEFS0P50 SECONDARY PARAMETERS data for a region specified by the user
@@ -391,8 +462,10 @@ def gefs0p50_secondary_parameters(cat='control',
     Valid categories
     -----------------
     
-    1) members
-    2) control
+    1) mean
+    2) members
+    3) spread
+    4) control
     
     2) final_forecast_hour (Integer) - Default = 384. The final forecast hour the user wishes to download. The GEFS0P50 SECONDARY PARAMETERS
     goes out to 384 hours. For those who wish to have a shorter dataset, they may set final_forecast_hour to a value lower than 
@@ -630,19 +703,26 @@ def gefs0p50_secondary_parameters(cat='control',
         pass
     
     cat = cat.lower()
-    if cat == 'mean':
-        print(f"{cat} is not a valid option for the GEFS0P25 Secondary Parameters\nDefaulting to control run.")
-        cat = 'control'
     
-    paths = build_directory('gefs0p50 secondary parameters', 
-                            cat, 
-                            members)
+    if custom_directory == None:
+        paths = build_directory('gefs0p50 secondary parameters', 
+                                cat, 
+                                members)
 
-    clear_idx_files('gefs0p50 secondary parameters', 
-                    cat, 
-                    members)
+        clear_idx_files('gefs0p50 secondary parameters', 
+                        cat, 
+                        members)
+        
+    else:
+        if cat == 'members':
+            paths = custom_branches(custom_directory)
+            
+        else:
+            paths = custom_branch(custom_directory)
+        
+        clear_gefs_idx_files(paths)
     
-    urls, filenames = gefs_0p50_secondary_parameters_url_scanner(cat, 
+    urls, filenames, run = gefs_0p50_secondary_parameters_url_scanner(cat, 
                                             final_forecast_hour,
                                             western_bound, 
                                             eastern_bound, 
@@ -655,56 +735,70 @@ def gefs0p50_secondary_parameters(cat='control',
     
     try:
         download = local_file_scanner(paths[-1], 
-                                        filenames[-1])
+                                        filenames[-1],
+                                        'nomads',
+                                        run)
     except Exception as e:
         download = local_file_scanner(paths, 
-                                        filenames)       
+                                        filenames,
+                                        'nomads',
+                                        run)       
     
     if download == True:
-        print(f"Data is old.\nClearing out old data and downloading new data...")
+        print(f"Data downloading...")
 
         try:
             for path in paths:
                 for file in os.listdir(f"{path}"):
                     os.remove(f"{path}/{file}")
         except Exception as e:
-            pass
-        
-        if cat != 'members':
+            pass        
+                    
+        if cat != 'members' and cat != 'mean' and cat != 'spread':
             for path in paths:
                 for url, filename in zip(urls, filenames):
-                    try:
-                        urllib.request.urlretrieve(f"{url}", f"{filename}")
-                        os.replace(f"{filename}", f"{path}/{filename}.grib2")
-                    except Exception as e:
-                        pass
+                    client.get_gridded_data(f"{url}",
+                                path,
+                                f"{filename}.grib2",
+                                proxies=proxies,
+                                chunk_size=chunk_size,
+                                notifications=notifications)       
         else:
             start = 0
             increment = int(len(filenames)/len(members))
             stop = increment
             for path in paths:
                 for u, f in zip(range(start, stop, 1), range(start, stop, 1)):
-                    try:
-                        urllib.request.urlretrieve(f"{urls[u]}", f"{filenames[f]}")
-                        os.replace(f"{filenames[f]}", f"{path}/{filenames[f]}.grib2")
-                    except Exception as e:
-                        pass
+                    client.get_gridded_data(f"{urls[u]}",
+                                path,
+                                f"{filenames[f]}.grib2",
+                                proxies=proxies,
+                                chunk_size=chunk_size,
+                                notifications=notifications)    
+                                
                 start = start + increment
-                stop = stop + increment             
-                
+                stop = stop + increment            
+        print(f"Download Complete.")        
     else:
         print(f"User has the current dataset.\nSkipping download.")
     
     if process_data == True:
+        print(f"Data Processing...")
         
         ds = process_gefs_secondary_parameters_data('gefs0p50 secondary parameters', 
                                     cat,
                                     members)
+        
+        if convert_temperature == True:
+            ds = convert_temperature_units(ds, 
+                                           convert_to, 
+                                           cat=cat)
                 
         clear_idx_files('gefs0p50 secondary parameters', 
                     cat, 
                     members)
         
+        print(f"Data Processing Complete.")
         return ds
     else:
         pass
@@ -755,7 +849,12 @@ def gefs0p25(cat='mean',
                         'upward shortwave radiation flux',
                         'v-component of wind',
                         'visibility',
-                        'water equivalent of accumulated snow depth']):
+                        'water equivalent of accumulated snow depth'],
+             convert_temperature=True,
+             convert_to='celsius',
+             custom_directory=None,
+             chunk_size=8192,
+             notifications='off'):
     
     """
     This function downloads the latest GEFS0P25 data for a region specified by the user
@@ -881,6 +980,7 @@ def gefs0p25(cat='mean',
     '2m_temperature'
     '2m_relative_humidity'
     '2m_dew_point'
+    '2m_dew_point_depression'
     'maximum_temperature'
     'minimum_temperature'
     '10m_u_wind_component'
@@ -900,15 +1000,25 @@ def gefs0p25(cat='mean',
     
     cat = cat.lower()
     
-    paths = build_directory('gefs0p25', 
-                            cat, 
-                            members)
+    if custom_directory == None:
+        paths = build_directory('gefs0p25', 
+                                cat, 
+                                members)
 
-    clear_idx_files('gefs0p25', 
-                    cat, 
-                    members)
+        clear_idx_files('gefs0p25', 
+                        cat, 
+                        members)
+        
+    else:
+        if cat == 'members':
+            paths = custom_branches(custom_directory)
+            
+        else:
+            paths = custom_branch(custom_directory)
+        
+        clear_gefs_idx_files(paths)
     
-    urls, filenames = gefs_0p25_url_scanner(cat, 
+    urls, filenames, run = gefs_0p25_url_scanner(cat, 
                                             final_forecast_hour,
                                             western_bound, 
                                             eastern_bound, 
@@ -921,13 +1031,17 @@ def gefs0p25(cat='mean',
     
     try:
         download = local_file_scanner(paths[-1], 
-                                        filenames[-1])
+                                        filenames[-1],
+                                        'nomads',
+                                        run)
     except Exception as e:
         download = local_file_scanner(paths, 
-                                        filenames)       
+                                        filenames,
+                                        'nomads',
+                                        run)       
     
     if download == True:
-        print(f"Data is old.\nClearing out old data and downloading new data...")
+        print(f"Data downloading...")
 
         try:
             for path in paths:
@@ -939,40 +1053,50 @@ def gefs0p25(cat='mean',
         if cat != 'members':
             for path in paths:
                 for url, filename in zip(urls, filenames):
-                    try:
-                        urllib.request.urlretrieve(f"{url}", f"{filename}")
-                        os.replace(f"{filename}", f"{path}/{filename}.grib2")
-                    except Exception as e:
-                        pass
+                    client.get_gridded_data(f"{url}",
+                                path,
+                                f"{filename}.grib2",
+                                proxies=proxies,
+                                chunk_size=chunk_size,
+                                notifications=notifications)    
         else:
             start = 0
             increment = int(len(filenames)/len(members))
             stop = increment
             for path in paths:
                 for u, f in zip(range(start, stop, 1), range(start, stop, 1)):
-                    try:
-                        urllib.request.urlretrieve(f"{urls[u]}", f"{filenames[f]}")
-                        os.replace(f"{filenames[f]}", f"{path}/{filenames[f]}.grib2")
-                    except Exception as e:
-                        pass
+                    client.get_gridded_data(f"{urls[u]}",
+                                path,
+                                f"{filenames[f]}.grib2",
+                                proxies=proxies,
+                                chunk_size=chunk_size,
+                                notifications=notifications)   
+                                
                 start = start + increment
-                stop = stop + increment             
-                
+                stop = stop + increment            
+        print(f"Download Complete.")        
     else:
         print(f"User has the current dataset.\nSkipping download.")
         
     if process_data == True:
+        print(f"Data Processing...")
         
         clear_empty_files(paths)
         
         ds = process_gefs_data('gefs0p25', 
                                     cat,
                                     members)
+        
+        if convert_temperature == True:
+            ds = convert_temperature_units(ds, 
+                                           convert_to,
+                                           cat=cat)
                 
         clear_idx_files('gefs0p25', 
                     cat, 
                     members)
         
+        print(f"Data Processing Complete.")
         return ds
     else:
         pass

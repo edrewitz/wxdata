@@ -135,22 +135,37 @@ def process_rtma_data(path,
     )
     
 
-    ds1 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10u'})
+    ds1 = xr.open_dataset(f"{path}/{fname}", 
+                          engine='cfgrib', 
+                          decode_timedelta=False, 
+                          filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10u'})
     ds['10m_u_wind_component'] = ds1['u10']
     
-    ds2 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10v'})
+    ds2 = xr.open_dataset(f"{path}/{fname}", 
+                          engine='cfgrib', 
+                          decode_timedelta=False, 
+                          filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10v'})
     ds['10m_v_wind_component'] = ds2['v10']    
     
 
-    ds3 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10wdir'})
+    ds3 = xr.open_dataset(f"{path}/{fname}", 
+                          engine='cfgrib', 
+                          decode_timedelta=False, 
+                          filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10wdir'})
     ds['10m_wind_direction'] = ds3['wdir10']
     
 
-    ds4 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10si'})
+    ds4 = xr.open_dataset(f"{path}/{fname}", 
+                          engine='cfgrib', 
+                          decode_timedelta=False, 
+                          filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'10si'})
     ds['10m_wind_speed'] = ds4['si10']
     
 
-    ds5 = xr.open_dataset(f"{path}/{fname}", engine='cfgrib', decode_timedelta=False, filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'i10fg'})
+    ds5 = xr.open_dataset(f"{path}/{fname}",
+                          engine='cfgrib',
+                          decode_timedelta=False, 
+                          filter_by_keys={'typeOfLevel': 'heightAboveGround','shortName':'i10fg'})
     ds['10m_wind_gust'] = ds5['i10fg']
     
     if model == 'HI RTMA' or model == 'GU RTMA' or model == 'PR RTMA':

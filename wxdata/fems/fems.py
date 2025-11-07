@@ -2,6 +2,7 @@ import pandas as pd
 import os
 import shutil
 import wxdata.fems.raws_sigs as raws
+import wxdata.client.client as client
 
 from wxdata.utils.recycle_bin import *
 from calendar import isleap
@@ -296,8 +297,9 @@ def get_single_station_data(station_id,
                             start_date=None, 
                             end_date=None, 
                             fuel_model='Y', 
-                            to_csv=True,
-                            clear_recycle_bin=True):
+                            clear_recycle_bin=True,
+                            path='FEMS Data',
+                            proxies=None):
 
     """
     This function retrieves the dataframe for a single RAWS station in FEMS
@@ -345,10 +347,20 @@ def get_single_station_data(station_id,
         pass
     
     fuel_model = fuel_model.upper()
+    
+    fname = f"{station_id} {number_of_days} Days Fuel Model {fuel_model}.csv"
 
     if number_of_days == 'Custom' or number_of_days == 'custom':
 
-        df = pd.read_csv(f"https://fems.fs2c.usda.gov/api/climatology/download-nfdr?stationIds={str(station_id)}&endDate={end_date}Z&startDate={start_date}Z&dataFormat=csv&dataset=all&fuelModels={fuel_model}")    
+        df = client.get_csv_data(f"https://fems.fs2c.usda.gov/api/climatology/download-nfdr?"
+                            f"stationIds={str(station_id)}&endDate={end_date}Z&startDate={start_date}Z&"
+                            f"dataFormat=csv&dataset=all&fuelModels={fuel_model}",
+                            path,
+                            fname,
+                            proxies=proxies,
+                            notifications='off',
+                            clear_data=False)
+            
     else:
 
         try:
@@ -357,34 +369,24 @@ def get_single_station_data(station_id,
             now = datetime.utcnow()
             
         start = now - timedelta(days=number_of_days)
-        
-        df = pd.read_csv(f"https://fems.fs2c.usda.gov/api/climatology/download-nfdr?stationIds={str(station_id)}&endDate={now.strftime(f'%Y-%m-%d')}T{now.strftime(f'%H:%M:%S')}Z&startDate={start.strftime(f'%Y-%m-%d')}T{start.strftime(f'%H:%M:%S')}Z&dataFormat=csv&dataset=all&fuelModels={fuel_model}") 
 
-    if to_csv == True:
-
-        if os.path.exists(f"FEMS Data"):
-            pass
-        else:
-            os.mkdir(f"FEMS Data")
-
-        fname = f"{station_id} {number_of_days} Days Fuel Model {fuel_model}.csv"
-        
-        try:
-            os.remove(f"FEMS Data/{fname}")
-        except Exception as e:
-            pass
-
-        file = df.to_csv(fname, index=False)
-        os.replace(f"{fname}", f"FEMS Data/{fname}")
-    else:
-        pass
+        df = client.get_csv_data(f"https://fems.fs2c.usda.gov/api/climatology/download-nfdr?"
+                                 f"stationIds={str(station_id)}&endDate={now.strftime(f'%Y-%m-%d')}T{now.strftime(f'%H:%M:%S')}Z&"
+                                 f"startDate={start.strftime(f'%Y-%m-%d')}T{start.strftime(f'%H:%M:%S')}Z&"
+                                 f"dataFormat=csv&dataset=all&fuelModels={fuel_model}",
+                                path,
+                                fname,
+                                proxies=proxies,
+                                notifications='off',
+                                clear_data=False)
     
     return df
 
 
 def get_raws_sig_data(gacc_region, 
                       number_of_years_for_averages=15, 
-                      fuel_model='Y', 
+                      fuel_model='Y',
+                      proxies=None, 
                       start_date=None,
                       clear_recycle_bin=True):
 
@@ -469,32 +471,17 @@ def get_raws_sig_data(gacc_region,
 
     for station, psa in zip(df_station_list['RAWSID'], df_station_list['PSA Code']):
         
-        df = pd.read_csv(f"https://fems.fs2c.usda.gov/api/climatology/download-nfdr?stationIds={station}&endDate={now.strftime('%Y-%m-%dT%H:%M:%S')}Z&startDate={start.strftime('%Y-%m-%dT%H:%M:%S')}Z&dataFormat=csv&dataset=observation&fuelModels={fuel_model}")
-            
-        if os.path.exists(f"FEMS Data"):
-            pass
-        else:
-            os.mkdir(f"FEMS Data")   
-
-        if os.path.exists(f"FEMS Data/Stations"):
-            pass
-        else:
-            os.mkdir(f"FEMS Data/Stations") 
-
-        if os.path.exists(f"FEMS Data/Stations/{gacc_region}"):
-            pass
-        else:
-            os.mkdir(f"FEMS Data/Stations/{gacc_region}") 
-
-        if os.path.exists(f"FEMS Data/Stations/{gacc_region}/{psa}"):
-            pass
-        else:
-            os.mkdir(f"FEMS Data/Stations/{gacc_region}/{psa}") 
-
         fname = f"{station}.csv"
-
-        file = df.to_csv(fname, index=False)
-        os.replace(f"{fname}", f"FEMS Data/Stations/{gacc_region}/{psa}/{fname}")
+         
+        client.get_csv_data(f"https://fems.fs2c.usda.gov/api/climatology/download-nfdr?"
+                                 f"stationIds={station}&endDate={now.strftime('%Y-%m-%dT%H:%M:%S')}Z&"
+                                 f"startDate={start.strftime('%Y-%m-%dT%H:%M:%S')}Z&"
+                                 f"dataFormat=csv&dataset=observation&fuelModels={fuel_model}",
+                                    f"FEMS Data/Stations/{gacc_region}/{psa}",
+                                    fname,
+                                    proxies=proxies,
+                                    notifications='off',
+                                    return_pandas_df=False)    
         
     raws.get_psa_percentiles(gacc_region)
     raws.station_stats(gacc_region)
@@ -578,6 +565,7 @@ def get_raws_sig_data(gacc_region,
 
 def get_nfdrs_forecast_data(gacc_region, 
                             fuel_model='Y',
+                            proxies=None,
                             clear_recycle_bin=True):
 
     """
@@ -627,32 +615,17 @@ def get_nfdrs_forecast_data(gacc_region,
 
     psas = []
     for station, psa in zip(df_station_list['RAWSID'], df_station_list['PSA Code']):
-        df = pd.read_csv(f"https://fems.fs2c.usda.gov/api/climatology/download-nfdr-daily-summary/?dataset=forecast&startDate={start.strftime('%Y-%m-%d')}&endDate={end.strftime('%Y-%m-%d')}&dataFormat=csv&stationIds={station}&fuelModels={fuel_model}")
-
-        if os.path.exists(f"FEMS Data"):
-            pass
-        else:
-            os.mkdir(f"FEMS Data")   
-
-        if os.path.exists(f"FEMS Data/Forecasts"):
-            pass
-        else:
-            os.mkdir(f"FEMS Data/Forecasts") 
-
-        if os.path.exists(f"FEMS Data/Forecasts/{gacc_region}"):
-            pass
-        else:
-            os.mkdir(f"FEMS Data/Forecasts/{gacc_region}") 
-
-        if os.path.exists(f"FEMS Data/Forecasts/{gacc_region}/{psa}"):
-            pass
-        else:
-            os.mkdir(f"FEMS Data/Forecasts/{gacc_region}/{psa}") 
 
         fname = f"{station}.csv"
+        client.get_csv_data(f"https://fems.fs2c.usda.gov/api/climatology/download-nfdr-daily-summary/?"
+                            f"dataset=forecast&startDate={start.strftime('%Y-%m-%d')}&endDate={end.strftime('%Y-%m-%d')}&"
+                            f"dataFormat=csv&stationIds={station}&fuelModels={fuel_model}",
+                                    f"FEMS Data/Forecasts/{gacc_region}/{psa}",
+                                    fname,
+                                    proxies=proxies,
+                                    notifications='off',
+                                    return_pandas_df=False) 
 
-        file = df.to_csv(fname, index=False)
-        os.replace(f"{fname}", f"FEMS Data/Forecasts/{gacc_region}/{psa}/{fname}")
         psas.append(psa)
         
     raws.station_forecast(gacc_region)

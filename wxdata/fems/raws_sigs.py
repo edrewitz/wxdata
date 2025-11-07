@@ -1017,10 +1017,13 @@ def station_forecast(gacc_region):
                 df['julian_date'] = df['observationTime'].dt.dayofyear
                 data = df.groupby(pd.Grouper(key='observationTime', freq='D'))
             except Exception as e:
-                df = df[df['ObservationTime'].between(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))]
-                df['ObservationTime'] = pd.to_datetime(df['ObservationTime'])
-                df['julian_date'] = df['ObservationTime'].dt.dayofyear
-                data = df.groupby(pd.Grouper(key='ObservationTime', freq='D'))   
+                try:
+                    df = df[df['ObservationTime'].between(start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))]
+                    df['ObservationTime'] = pd.to_datetime(df['ObservationTime'])
+                    df['julian_date'] = df['ObservationTime'].dt.dayofyear
+                    data = df.groupby(pd.Grouper(key='ObservationTime', freq='D')) 
+                except Exception as e:
+                    pass  
             try:
                 f100 = data['hundredHR_TL_FuelMoisture'].min()
             except Exception as e:
@@ -1519,46 +1522,91 @@ def sort_forecasts_by_psa(gacc_region):
                 main['ic_max'] = ic_max
                 main['ic_min'] = ic_min
             except Exception as e:
-
-                dates = []
-                
                 try:
-                    now = datetime.now(UTC)
+                    dates = []
+                    
+                    try:
+                        now = datetime.now(UTC)
+                    except Exception as e:
+                        now = datetime.utcnow()
+                        
+                    for d in range(1, 7):
+                        date = now + timedelta(days=d)
+                        dates.append(date)
+                    
+                    
+                    main['dates'] = dates
+                    main['dates'] = pd.to_datetime(main['dates'])
+                    main['julian_date'] = main['dates'].dt.dayofyear
+                        
+                    main['f100_mean'] = f100_mean
+                    main['f100_max'] = f100_max
+                    main['f100_min'] = f100_min
+                    
+                    main['f1000_mean'] = f1000_mean
+                    main['f1000_max'] = f1000_max
+                    main['f1000_min'] = f1000_min
+                    
+                    main['erc_mean'] = erc_mean
+                    main['erc_max'] = erc_max
+                    main['erc_min'] = erc_min
+                    
+                    main['bi_mean'] = bi_mean
+                    main['bi_max'] = bi_max
+                    main['bi_min'] = bi_min
+                    
+                    main['sc_mean'] = sc_mean
+                    main['sc_max'] = sc_max
+                    main['sc_min'] = sc_min
+            
+                    main['ic_mean'] = ic_mean
+                    main['ic_max'] = ic_max
+                    main['ic_min'] = ic_min 
                 except Exception as e:
-                    now = datetime.utcnow()
+                    try:
+                        dates = []
+                        
+                        try:
+                            now = datetime.now(UTC)
+                        except Exception as e:
+                            now = datetime.utcnow()
+                            
+                        for d in range(1, 6):
+                            date = now + timedelta(days=d)
+                            dates.append(date)
+                        
+                        
+                        main['dates'] = dates
+                        main['dates'] = pd.to_datetime(main['dates'])
+                        main['julian_date'] = main['dates'].dt.dayofyear
+                            
+                        main['f100_mean'] = f100_mean
+                        main['f100_max'] = f100_max
+                        main['f100_min'] = f100_min
+                        
+                        main['f1000_mean'] = f1000_mean
+                        main['f1000_max'] = f1000_max
+                        main['f1000_min'] = f1000_min
+                        
+                        main['erc_mean'] = erc_mean
+                        main['erc_max'] = erc_max
+                        main['erc_min'] = erc_min
+                        
+                        main['bi_mean'] = bi_mean
+                        main['bi_max'] = bi_max
+                        main['bi_min'] = bi_min
+                        
+                        main['sc_mean'] = sc_mean
+                        main['sc_max'] = sc_max
+                        main['sc_min'] = sc_min
+                
+                        main['ic_mean'] = ic_mean
+                        main['ic_max'] = ic_max
+                        main['ic_min'] = ic_min 
+                    except Exception as e:
+                        pass
+                
                     
-                for d in range(0, 7):
-                    date = now + timedelta(days=d)
-                    dates.append(date)
-                
-                
-                main['dates'] = dates
-                main['dates'] = pd.to_datetime(main['dates'])
-                main['julian_date'] = main['dates'].dt.dayofyear
-                    
-                main['f100_mean'] = f100_mean
-                main['f100_max'] = f100_max
-                main['f100_min'] = f100_min
-                
-                main['f1000_mean'] = f1000_mean
-                main['f1000_max'] = f1000_max
-                main['f1000_min'] = f1000_min
-                
-                main['erc_mean'] = erc_mean
-                main['erc_max'] = erc_max
-                main['erc_min'] = erc_min
-                
-                main['bi_mean'] = bi_mean
-                main['bi_max'] = bi_max
-                main['bi_min'] = bi_min
-                
-                main['sc_mean'] = sc_mean
-                main['sc_max'] = sc_max
-                main['sc_min'] = sc_min
-        
-                main['ic_mean'] = ic_mean
-                main['ic_max'] = ic_max
-                main['ic_min'] = ic_min 
                 
             if os.path.exists(f"FEMS Data/{gacc_region}"):
                 pass

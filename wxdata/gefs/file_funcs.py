@@ -1,5 +1,5 @@
 """
-This file hosts the function that builds the directory and directory branches
+This file hosts the function that builds the GEFS directory and directory branches
 
 (C) Eric J. Drewitz 2025
 """
@@ -49,6 +49,26 @@ def build_directory(model, cat, members):
                 
             path = f"{model}/{cat}/{member}"
             paths.append(path)
+            
+    elif cat == 'MEAN' and model == 'GEFS0P50 SECONDARY PARAMETERS':
+        for member in members:
+            if os.path.exists(f"{model}/{cat}/{member}"):
+                pass
+            else:
+                os.mkdir(f"{model}/{cat}/{member}")
+                
+            path = f"{model}/{cat}/{member}"
+            paths.append(path)
+            
+    elif cat == 'SPREAD' and model == 'GEFS0P50 SECONDARY PARAMETERS':
+        for member in members:
+            if os.path.exists(f"{model}/{cat}/{member}"):
+                pass
+            else:
+                os.mkdir(f"{model}/{cat}/{member}")
+                
+            path = f"{model}/{cat}/{member}"
+            paths.append(path)
     else:
         path = f"{model}/{cat}"
         paths.append(path)
@@ -72,12 +92,40 @@ def clear_idx_files(model, cat, members):
     model = model.upper()
     cat = cat.upper()
     
-    if cat != 'MEMBERS':
+    if model != 'GEFS0P50 SECONDARY PARAMETERS' and cat != 'MEMBERS':
         path = f"{model}/{cat}"
         try:
             for file in os.listdir(f"{path}"):
                 if file.endswith(".idx"):
                     os.remove(f"{path}/{file}")
+        except Exception as e:
+            pass
+        
+    elif model == 'GEFS0P50 SECONDARY PARAMETERS' and cat == 'MEAN': 
+        paths = []
+        for member in members:
+            path = f"{model}/{cat}/{member}"
+            paths.append(path)
+            
+        try:
+            for path in paths:
+                for file in os.listdir(f"{path}"):
+                    if file.endswith(".idx"):
+                        os.remove(f"{path}/{file}")
+        except Exception as e:
+            pass
+        
+    elif model == 'GEFS0P50 SECONDARY PARAMETERS' and cat == 'SPREAD': 
+        paths = []
+        for member in members:
+            path = f"{model}/{cat}/{member}"
+            paths.append(path)
+            
+        try:
+            for path in paths:
+                for file in os.listdir(f"{path}"):
+                    if file.endswith(".idx"):
+                        os.remove(f"{path}/{file}")
         except Exception as e:
             pass
     

@@ -1,5 +1,5 @@
 """
-This file hosts all the URL Scanner Functions.
+This file hosts the RTMA URL Scanner Functions.
 
 These functions return the URL and filename for the latest available data on the dataservers.
 
@@ -31,6 +31,7 @@ local = datetime.now()
 
 # Gets yesterday's date
 yd = now - timedelta(days=1)
+
 
 def rtma_url_scanner(model, 
                     cat,
@@ -75,8 +76,7 @@ def rtma_url_scanner(model,
     model = model.upper()
     cat = cat.upper()
     
-    western_bound = convert_lon(western_bound)
-    eastern_bound = convert_lon(eastern_bound)
+    western_bound, eastern_bound = convert_lon(western_bound, eastern_bound)
     
     if model == 'RTMA':
         directory = 'rtma2p5'
@@ -152,18 +152,42 @@ def rtma_url_scanner(model,
         f_04 = f"{directory}.{abbrev_4}z.2dvar{f_cat}_ndfd.grb2"
     
     if proxies == None:
-        r0 = requests.get(f"{url_00}/{f_00}", stream=True)
-        r1 = requests.get(f"{url_01}/{f_01}", stream=True)
-        r2 = requests.get(f"{url_02}/{f_02}", stream=True)
-        r3 = requests.get(f"{url_03}/{f_03}", stream=True)
-        r4 = requests.get(f"{url_04}/{f_04}", stream=True)
+        try:
+            r0 = requests.get(f"{url_00}/{f_00}", stream=True)
+            r1 = requests.get(f"{url_01}/{f_01}", stream=True)
+            r2 = requests.get(f"{url_02}/{f_02}", stream=True)
+            r3 = requests.get(f"{url_03}/{f_03}", stream=True)
+            r4 = requests.get(f"{url_04}/{f_04}", stream=True)
+        except Exception as e:
+            for i in range(0, 5, 1):
+                try:
+                    r0 = requests.get(f"{url_00}/{f_00}", stream=True)
+                    r1 = requests.get(f"{url_01}/{f_01}", stream=True)
+                    r2 = requests.get(f"{url_02}/{f_02}", stream=True)
+                    r3 = requests.get(f"{url_03}/{f_03}", stream=True)
+                    r4 = requests.get(f"{url_04}/{f_04}", stream=True)  
+                    break
+                except Exception as e:
+                    i = i                  
         
     else:
-        r0 = requests.get(f"{url_00}/{f_00}", stream=True, proxies=proxies)
-        r1 = requests.get(f"{url_01}/{f_01}", stream=True, proxies=proxies)
-        r2 = requests.get(f"{url_02}/{f_02}", stream=True, proxies=proxies)
-        r3 = requests.get(f"{url_03}/{f_03}", stream=True, proxies=proxies)
-        r4 = requests.get(f"{url_04}/{f_04}", stream=True, proxies=proxies)
+        try:
+            r0 = requests.get(f"{url_00}/{f_00}", stream=True, proxies=proxies)
+            r1 = requests.get(f"{url_01}/{f_01}", stream=True, proxies=proxies)
+            r2 = requests.get(f"{url_02}/{f_02}", stream=True, proxies=proxies)
+            r3 = requests.get(f"{url_03}/{f_03}", stream=True, proxies=proxies)
+            r4 = requests.get(f"{url_04}/{f_04}", stream=True, proxies=proxies)
+        except Exception as e:
+            for i in range(0, 5, 1):
+                try:
+                    r0 = requests.get(f"{url_00}/{f_00}", stream=True, proxies=proxies)
+                    r1 = requests.get(f"{url_01}/{f_01}", stream=True, proxies=proxies)
+                    r2 = requests.get(f"{url_02}/{f_02}", stream=True, proxies=proxies)
+                    r3 = requests.get(f"{url_03}/{f_03}", stream=True, proxies=proxies)
+                    r4 = requests.get(f"{url_04}/{f_04}", stream=True, proxies=proxies)
+                    break
+                except Exception as e:
+                    i = i
         
     url_0 = (f"https://nomads.ncep.noaa.gov/cgi-bin/filter_{directory}.pl?"
              f"dir=%2F{directory}.{h_00.strftime('%Y%m%d')}&file={f_00}&all_var=on&all_lev=on&subregion=&"
@@ -204,6 +228,7 @@ def rtma_url_scanner(model,
     for response, url in zip(responses, urls):
         if response.status_code == 200:
             url = url
+            run = get_run_by_keyword(url)
             break        
     
     try:
@@ -223,7 +248,7 @@ def rtma_url_scanner(model,
     # Access individual parameters
     filename = query_params.get('file', [''])[0] 
     
-    return url, filename
+    return url, filename, run
 
 def rtma_comparison_url_scanner(model, 
                     cat,
@@ -231,10 +256,11 @@ def rtma_comparison_url_scanner(model,
                     eastern_bound, 
                     northern_bound, 
                     southern_bound, 
-                    proxies):
+                    proxies,
+                    hours):
     
     """
-    This function scans for the latest available RTMA Dataset within the past 4 hours and the dataset from 24 hours prior to the latest available dataset. 
+    This function scans for the latest available RTMA Dataset within the past 4 hours and the dataset from a user specified amount of hours prior to the latest available dataset. 
     
     Required Arguments:
     
@@ -258,18 +284,20 @@ def rtma_comparison_url_scanner(model,
     proxies=None ---> proxies={'http':'http://url',
                             'https':'https://url'
                         }
+                        
+    4) hours (Integer) - Default=24. The amount of hours previous to the current dataset for the comparison dataset. 
+    
     
     Returns
     -------
     
-    The URL path to the file and the filename for the most recent RTMA Dataset and the dataset for 24-hours prior to the latest available dataset.
+    The URL path to the file and the filename for the most recent RTMA Dataset and the dataset for a user specified amount of hours prior to the latest available dataset.
     
     """
     model = model.upper()
     cat = cat.upper()
     
-    western_bound = convert_lon(western_bound)
-    eastern_bound = convert_lon(eastern_bound)
+    western_bound, eastern_bound = convert_lon(western_bound, eastern_bound)
     
     if model == 'RTMA':
         directory = 'rtma2p5'
@@ -295,11 +323,11 @@ def rtma_comparison_url_scanner(model,
     h_03 = now - timedelta(hours=3)
     h_04 = now - timedelta(hours=4)
     
-    d0 = h_00 - timedelta(hours=24)
-    d1 = h_01 - timedelta(hours=24)
-    d2 = h_02 - timedelta(hours=24)
-    d3 = h_03 - timedelta(hours=24)
-    d4 = h_04 - timedelta(hours=24)
+    d0 = h_00 - timedelta(hours=hours)
+    d1 = h_01 - timedelta(hours=hours)
+    d2 = h_02 - timedelta(hours=hours)
+    d3 = h_03 - timedelta(hours=hours)
+    d4 = h_04 - timedelta(hours=hours)
             
     url_00 = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/rtma/prod/{directory}.{h_00.strftime('%Y%m%d')}/"    
     url_01 = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/rtma/prod/{directory}.{h_01.strftime('%Y%m%d')}/" 
@@ -333,6 +361,27 @@ def rtma_comparison_url_scanner(model,
         abbrev_4 = f"t0{h_04.hour}"
     else:
         abbrev_4 = f"t{h_04.hour}" 
+        
+    if d0.hour < 10:
+        abbrev_5 = f"t0{d0.hour}"
+    else:
+        abbrev_5 = f"t{d0.hour}" 
+    if d1.hour < 10:
+        abbrev_6 = f"t0{d1.hour}"
+    else:
+        abbrev_6 = f"t{d1.hour}" 
+    if d2.hour < 10:
+        abbrev_7 = f"t0{d2.hour}"
+    else:
+        abbrev_7 = f"t{d2.hour}" 
+    if d3.hour < 10:
+        abbrev_8 = f"t0{d3.hour}"
+    else:
+        abbrev_8 = f"t{d3.hour}" 
+    if d4.hour < 10:
+        abbrev_9 = f"t0{d4.hour}"
+    else:
+        abbrev_9 = f"t{d4.hour}" 
     
     
     if model == 'AK RTMA':
@@ -341,6 +390,12 @@ def rtma_comparison_url_scanner(model,
         f_02 = f"{directory}.{abbrev_2}z.2dvar{f_cat}_ndfd_3p0.grb2"
         f_03 = f"{directory}.{abbrev_3}z.2dvar{f_cat}_ndfd_3p0.grb2"
         f_04 = f"{directory}.{abbrev_4}z.2dvar{f_cat}_ndfd_3p0.grb2"
+        
+        f_05 = f"{directory}.{abbrev_5}z.2dvar{f_cat}_ndfd_3p0.grb2"
+        f_06 = f"{directory}.{abbrev_6}z.2dvar{f_cat}_ndfd_3p0.grb2"
+        f_07 = f"{directory}.{abbrev_7}z.2dvar{f_cat}_ndfd_3p0.grb2"
+        f_08 = f"{directory}.{abbrev_8}z.2dvar{f_cat}_ndfd_3p0.grb2"
+        f_09 = f"{directory}.{abbrev_9}z.2dvar{f_cat}_ndfd_3p0.grb2"
     
     elif model == 'RTMA':
         f_00 = f"{directory}.{abbrev_0}z.2dvar{f_cat}_ndfd.grb2_wexp"
@@ -349,38 +404,87 @@ def rtma_comparison_url_scanner(model,
         f_03 = f"{directory}.{abbrev_3}z.2dvar{f_cat}_ndfd.grb2_wexp"
         f_04 = f"{directory}.{abbrev_4}z.2dvar{f_cat}_ndfd.grb2_wexp"
         
+        f_05 = f"{directory}.{abbrev_5}z.2dvar{f_cat}_ndfd.grb2_wexp"
+        f_06 = f"{directory}.{abbrev_6}z.2dvar{f_cat}_ndfd.grb2_wexp"
+        f_07 = f"{directory}.{abbrev_7}z.2dvar{f_cat}_ndfd.grb2_wexp"
+        f_08 = f"{directory}.{abbrev_8}z.2dvar{f_cat}_ndfd.grb2_wexp"
+        f_09 = f"{directory}.{abbrev_9}z.2dvar{f_cat}_ndfd.grb2_wexp"
+        
     else:
         f_00 = f"{directory}.{abbrev_0}z.2dvar{f_cat}_ndfd.grb2"
         f_01 = f"{directory}.{abbrev_1}z.2dvar{f_cat}_ndfd.grb2"
         f_02 = f"{directory}.{abbrev_2}z.2dvar{f_cat}_ndfd.grb2"
         f_03 = f"{directory}.{abbrev_3}z.2dvar{f_cat}_ndfd.grb2"
         f_04 = f"{directory}.{abbrev_4}z.2dvar{f_cat}_ndfd.grb2"
+        
+        f_05 = f"{directory}.{abbrev_5}z.2dvar{f_cat}_ndfd.grb2"
+        f_06 = f"{directory}.{abbrev_6}z.2dvar{f_cat}_ndfd.grb2"
+        f_07 = f"{directory}.{abbrev_7}z.2dvar{f_cat}_ndfd.grb2"
+        f_08 = f"{directory}.{abbrev_8}z.2dvar{f_cat}_ndfd.grb2"
+        f_09 = f"{directory}.{abbrev_9}z.2dvar{f_cat}_ndfd.grb2"
     
     if proxies == None:
-        r0 = requests.get(f"{url_00}/{f_00}", stream=True)
-        r1 = requests.get(f"{url_01}/{f_01}", stream=True)
-        r2 = requests.get(f"{url_02}/{f_02}", stream=True)
-        r3 = requests.get(f"{url_03}/{f_03}", stream=True)
-        r4 = requests.get(f"{url_04}/{f_04}", stream=True)
-        
-        r5 = requests.get(f"{url_05}/{f_00}", stream=True)
-        r6 = requests.get(f"{url_06}/{f_01}", stream=True)
-        r7 = requests.get(f"{url_07}/{f_02}", stream=True)
-        r8 = requests.get(f"{url_08}/{f_03}", stream=True)
-        r9 = requests.get(f"{url_09}/{f_04}", stream=True)
+        try:
+            r0 = requests.get(f"{url_00}/{f_00}", stream=True)
+            r1 = requests.get(f"{url_01}/{f_01}", stream=True)
+            r2 = requests.get(f"{url_02}/{f_02}", stream=True)
+            r3 = requests.get(f"{url_03}/{f_03}", stream=True)
+            r4 = requests.get(f"{url_04}/{f_04}", stream=True)
+            
+            r5 = requests.get(f"{url_05}/{f_05}", stream=True)
+            r6 = requests.get(f"{url_06}/{f_06}", stream=True)
+            r7 = requests.get(f"{url_07}/{f_07}", stream=True)
+            r8 = requests.get(f"{url_08}/{f_08}", stream=True)
+            r9 = requests.get(f"{url_09}/{f_09}", stream=True)
+        except Exception as e:
+            for i in range(0, 5, 1):
+                try:
+                    r0 = requests.get(f"{url_00}/{f_00}", stream=True)
+                    r1 = requests.get(f"{url_01}/{f_01}", stream=True)
+                    r2 = requests.get(f"{url_02}/{f_02}", stream=True)
+                    r3 = requests.get(f"{url_03}/{f_03}", stream=True)
+                    r4 = requests.get(f"{url_04}/{f_04}", stream=True)
+                    
+                    r5 = requests.get(f"{url_05}/{f_05}", stream=True)
+                    r6 = requests.get(f"{url_06}/{f_06}", stream=True)
+                    r7 = requests.get(f"{url_07}/{f_07}", stream=True)
+                    r8 = requests.get(f"{url_08}/{f_08}", stream=True)
+                    r9 = requests.get(f"{url_09}/{f_09}", stream=True) 
+                    break
+                except Exception as e:
+                    i = i               
         
     else:
-        r0 = requests.get(f"{url_00}/{f_00}", stream=True, proxies=proxies)
-        r1 = requests.get(f"{url_01}/{f_01}", stream=True, proxies=proxies)
-        r2 = requests.get(f"{url_02}/{f_02}", stream=True, proxies=proxies)
-        r3 = requests.get(f"{url_03}/{f_03}", stream=True, proxies=proxies)
-        r4 = requests.get(f"{url_04}/{f_04}", stream=True, proxies=proxies)
-        
-        r5 = requests.get(f"{url_05}/{f_00}", stream=True, proxies=proxies)
-        r6 = requests.get(f"{url_06}/{f_01}", stream=True, proxies=proxies)
-        r7 = requests.get(f"{url_07}/{f_02}", stream=True, proxies=proxies)
-        r8 = requests.get(f"{url_08}/{f_03}", stream=True, proxies=proxies)
-        r9 = requests.get(f"{url_09}/{f_04}", stream=True, proxies=proxies)
+        try:
+            r0 = requests.get(f"{url_00}/{f_00}", stream=True, proxies=proxies)
+            r1 = requests.get(f"{url_01}/{f_01}", stream=True, proxies=proxies)
+            r2 = requests.get(f"{url_02}/{f_02}", stream=True, proxies=proxies)
+            r3 = requests.get(f"{url_03}/{f_03}", stream=True, proxies=proxies)
+            r4 = requests.get(f"{url_04}/{f_04}", stream=True, proxies=proxies)
+            
+            r5 = requests.get(f"{url_05}/{f_05}", stream=True, proxies=proxies)
+            r6 = requests.get(f"{url_06}/{f_06}", stream=True, proxies=proxies)
+            r7 = requests.get(f"{url_07}/{f_07}", stream=True, proxies=proxies)
+            r8 = requests.get(f"{url_08}/{f_08}", stream=True, proxies=proxies)
+            r9 = requests.get(f"{url_09}/{f_09}", stream=True, proxies=proxies)
+        except Exception as e:
+            for i in range(0, 5, 1):
+                try:
+                    r0 = requests.get(f"{url_00}/{f_00}", stream=True, proxies=proxies)
+                    r1 = requests.get(f"{url_01}/{f_01}", stream=True, proxies=proxies)
+                    r2 = requests.get(f"{url_02}/{f_02}", stream=True, proxies=proxies)
+                    r3 = requests.get(f"{url_03}/{f_03}", stream=True, proxies=proxies)
+                    r4 = requests.get(f"{url_04}/{f_04}", stream=True, proxies=proxies)
+                    
+                    r5 = requests.get(f"{url_05}/{f_05}", stream=True, proxies=proxies)
+                    r6 = requests.get(f"{url_06}/{f_06}", stream=True, proxies=proxies)
+                    r7 = requests.get(f"{url_07}/{f_07}", stream=True, proxies=proxies)
+                    r8 = requests.get(f"{url_08}/{f_08}", stream=True, proxies=proxies)
+                    r9 = requests.get(f"{url_09}/{f_09}", stream=True, proxies=proxies)
+                    break
+                except Exception as e:
+                    i = i
+                    
         
     url_0 = (f"https://nomads.ncep.noaa.gov/cgi-bin/filter_{directory}.pl?"
              f"dir=%2F{directory}.{h_00.strftime('%Y%m%d')}&file={f_00}&all_var=on&all_lev=on&subregion=&"
@@ -404,23 +508,23 @@ def rtma_comparison_url_scanner(model,
     
     
     url_5 = (f"https://nomads.ncep.noaa.gov/cgi-bin/filter_{directory}.pl?"
-             f"dir=%2F{directory}.{d0.strftime('%Y%m%d')}&file={f_00}&all_var=on&all_lev=on&subregion=&"
+             f"dir=%2F{directory}.{d0.strftime('%Y%m%d')}&file={f_05}&all_var=on&all_lev=on&subregion=&"
              f"toplat={northern_bound}&leftlon={western_bound}&rightlon={eastern_bound}&bottomlat={southern_bound}")    
     
     url_6 = (f"https://nomads.ncep.noaa.gov/cgi-bin/filter_{directory}.pl?"
-             f"dir=%2F{directory}.{d1.strftime('%Y%m%d')}&file={f_01}&all_var=on&all_lev=on&subregion=&"
+             f"dir=%2F{directory}.{d1.strftime('%Y%m%d')}&file={f_06}&all_var=on&all_lev=on&subregion=&"
              f"toplat={northern_bound}&leftlon={western_bound}&rightlon={eastern_bound}&bottomlat={southern_bound}")    
     
     url_7 = (f"https://nomads.ncep.noaa.gov/cgi-bin/filter_{directory}.pl?"
-             f"dir=%2F{directory}.{d2.strftime('%Y%m%d')}&file={f_02}&all_var=on&all_lev=on&subregion=&"
+             f"dir=%2F{directory}.{d2.strftime('%Y%m%d')}&file={f_07}&all_var=on&all_lev=on&subregion=&"
              f"toplat={northern_bound}&leftlon={western_bound}&rightlon={eastern_bound}&bottomlat={southern_bound}")    
     
     url_8 = (f"https://nomads.ncep.noaa.gov/cgi-bin/filter_{directory}.pl?"
-             f"dir=%2F{directory}.{d3.strftime('%Y%m%d')}&file={f_03}&all_var=on&all_lev=on&subregion=&"
+             f"dir=%2F{directory}.{d3.strftime('%Y%m%d')}&file={f_08}&all_var=on&all_lev=on&subregion=&"
              f"toplat={northern_bound}&leftlon={western_bound}&rightlon={eastern_bound}&bottomlat={southern_bound}")    
     
     url_9 = (f"https://nomads.ncep.noaa.gov/cgi-bin/filter_{directory}.pl?"
-             f"dir=%2F{directory}.{d4.strftime('%Y%m%d')}&file={f_04}&all_var=on&all_lev=on&subregion=&"
+             f"dir=%2F{directory}.{d4.strftime('%Y%m%d')}&file={f_09}&all_var=on&all_lev=on&subregion=&"
              f"toplat={northern_bound}&leftlon={western_bound}&rightlon={eastern_bound}&bottomlat={southern_bound}")   
     
     urls = [
@@ -431,7 +535,7 @@ def rtma_comparison_url_scanner(model,
         url_4
     ]
     
-    urls_24 = [
+    urls_dt = [
         
         url_5,
         url_6,
@@ -449,7 +553,7 @@ def rtma_comparison_url_scanner(model,
         r4
     ]
     
-    responses_24 = [
+    responses_dt = [
         r5,
         r6,
         r7,
@@ -457,10 +561,11 @@ def rtma_comparison_url_scanner(model,
         r9
     ]
     
-    for response, url, response_24, url_24 in zip(responses, urls, responses_24, urls_24):
-        if response.status_code == 200 and response_24.status_code == 200:
+    for response, url, response_dt, url_dt in zip(responses, urls, responses_dt, urls_dt):
+        if response.status_code == 200 and response_dt.status_code == 200:
             url = url
-            url_24 = url_24
+            url_dt = url_dt
+            run = get_run_by_keyword(url)
             break        
     
     try:
@@ -480,17 +585,17 @@ def rtma_comparison_url_scanner(model,
     # Access individual parameters
     filename = query_params.get('file', [''])[0] 
     
-    parsed_url_24 = urlparse(url_24)
+    parsed_url_dt = urlparse(url_dt)
 
     # Extract the query string
-    query_string_24 = parsed_url_24.query
+    query_string_dt = parsed_url_dt.query
 
     # Parse the query string into a dictionary of parameters
-    query_params_24 = parse_qs(query_string_24)
+    query_params_dt = parse_qs(query_string_dt)
 
     # Access individual parameters
-    filename_24 = query_params_24.get('file', [''])[0] 
+    filename_dt = query_params_dt.get('file', [''])[0] 
     
-    filename_24 = f"{filename_24}_24"
+    filename_dt = f"{filename_dt}_dt"
     
-    return url, url_24, filename, filename_24
+    return url, url_dt, filename, filename_dt, run

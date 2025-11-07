@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "wxdata"
-version = "1.0"
+version = "0.1"
 authors = [
   { name="Eric J Drewitz"},
 ]
-description = "An open source library for downloading and pre-processing various types of weather data."
+description = "An open source library for downloading and pre/post-processing various types of weather data."
 readme = "README.md"
 keywords = ["meteorology", "science", "data-analysis", "weather", "forecasting", "climatology", "climate science"]
 requires-python = ">=3.10"

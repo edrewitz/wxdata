@@ -5,10 +5,10 @@ This file has the function that downloads NOAA/NWS and NOAA/SPC Forecast Data
 """
 # Import the needed libraries
 
+import wxdata.client.client as client
 import xarray as xr
 import numpy as np
 import os
-import urllib.request
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -245,6 +245,9 @@ def get_parameters(parameter):
 
 def get_ndfd_grids(parameter, 
                    state,
+                   proxies=None,
+                   chunk_size=8192,
+                   notifications='on',
                    clear_recycle_bin=True):
 
     """
@@ -393,39 +396,43 @@ def get_ndfd_grids(parameter,
 
     if os.path.exists(short_term_fname):
         os.remove(short_term_fname)
-        urllib.request.urlretrieve(f"https://tgftp.nws.noaa.gov{directory_name}VP.001-003/{fname}", f"{fname}")
-        os.rename(fname, short_term_fname)
+        client.get_gridded_data(f"https://tgftp.nws.noaa.gov{directory_name}VP.001-003/{fname}", 
+                                f"NWS Data",
+                                f"{short_term_fname}",
+                                proxies=proxies,
+                                chunk_size=chunk_size,
+                                notifications=notifications)
     else:
-        urllib.request.urlretrieve(f"https://tgftp.nws.noaa.gov{directory_name}VP.001-003/{fname}", f"{fname}")
-        os.rename(fname, short_term_fname)
+        client.get_gridded_data(f"https://tgftp.nws.noaa.gov{directory_name}VP.001-003/{fname}", 
+                                f"NWS Data",
+                                f"{short_term_fname}",
+                                proxies=proxies,
+                                chunk_size=chunk_size,
+                                notifications=notifications)
     
     if os.path.exists(extended_fname):
         try:
             os.remove(extended_fname)
-            urllib.request.urlretrieve(f"https://tgftp.nws.noaa.gov{directory_name}VP.004-007/{fname}", f"{fname}")
-            os.rename(fname, extended_fname)
+            client.get_gridded_data(f"https://tgftp.nws.noaa.gov{directory_name}VP.004-007/{fname}", 
+                                    f"NWS Data",
+                                    f"{extended_fname}",
+                                    proxies=proxies,
+                                    chunk_size=chunk_size,
+                                    notifications=notifications)
             extended = True
         except Exception as e:
             extended = False
     else:
         try:
-            urllib.request.urlretrieve(f"https://tgftp.nws.noaa.gov{directory_name}VP.004-007/{fname}", f"{fname}")
-            os.rename(fname, extended_fname)
+            client.get_gridded_data(f"https://tgftp.nws.noaa.gov{directory_name}VP.004-007/{fname}", 
+                                    f"NWS Data",
+                                    f"{extended_fname}",
+                                    proxies=proxies,
+                                    chunk_size=chunk_size,
+                                    notifications=notifications)
             extended = True
         except Exception as e:
             extended = False
-
-    os.replace(short_term_fname, f"NWS Data/{short_term_fname}")
-    try:
-        os.replace(extended_fname, f"NWS Data/{extended_fname}")
-    except Exception as e:
-        pass
-
-    short_path = f"NWS Data/{short_term_fname}"
-    try:
-        extended_path = f"NWS Data/{extended_fname}"
-    except Exception as e:
-        pass
 
     try:
         os.remove(parameter)
@@ -433,9 +440,9 @@ def get_ndfd_grids(parameter,
         pass
 
     if state != 'AK' or state != 'ak' or state == None:
-        ds1 = xr.open_dataset(short_path, engine='cfgrib', decode_timedelta=False)
+        ds1 = xr.open_dataset(f"NWS Data/{short_term_fname}", engine='cfgrib', decode_timedelta=False)
     else:
-        ds1 = xr.open_dataset(short_path, engine='cfgrib', decode_timedelta=False).sel(x=slice(20, 1400, 2), y=slice(100, 1400, 2)) 
+        ds1 = xr.open_dataset(f"NWS Data/{short_term_fname}", engine='cfgrib', decode_timedelta=False).sel(x=slice(20, 1400, 2), y=slice(100, 1400, 2)) 
     try:
         if ds1['time'][1] == True:
             ds1 = ds1.isel(time=1)
@@ -451,9 +458,9 @@ def get_ndfd_grids(parameter,
         try:
 
             if state != 'AK' or state != 'ak' or state == None:
-                ds2 = xr.open_dataset(extended_path, engine='cfgrib', decode_timedelta=False)
+                ds2 = xr.open_dataset(f"NWS Data/{extended_fname}", engine='cfgrib', decode_timedelta=False)
             else:
-                ds2 = xr.open_dataset(extended_path, engine='cfgrib', decode_timedelta=False).sel(x=slice(20, 1400, 2), y=slice(100, 1400, 2)) 
+                ds2 = xr.open_dataset(f"NWS Data/{extended_fname}", engine='cfgrib', decode_timedelta=False).sel(x=slice(20, 1400, 2), y=slice(100, 1400, 2)) 
     
             try:
                 if ds2['time'][1] == True:

@@ -1,5 +1,5 @@
 """
-This file hosts the functions that find the various paths to the data files for data pre-processing
+This file hosts the functions that find the various paths to the GEFS data files for data pre-processing
 
 (C) Eric J. Drewitz 2025
 """
@@ -39,6 +39,19 @@ def gefs_branch_path(model,
         for member in members:
             path = f"{model}/{cat}/{member}"
             paths.append(path)
+            
+    elif cat == 'MEAN' and model == 'GEFS0P50 SECONDARY PARAMETERS':
+        paths = []
+        for member in members:
+            path = f"{model}/{cat}/{member}"
+            paths.append(path)
+            
+    elif cat == 'SPREAD' and model == 'GEFS0P50 SECONDARY PARAMETERS':
+        paths = []
+        for member in members:
+            path = f"{model}/{cat}/{member}"
+            paths.append(path)
+            
     else:
         paths = f"{model}/{cat}"
     
