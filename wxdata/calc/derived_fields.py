@@ -179,3 +179,124 @@ def gefs_primary_derived_fields(ds,
         pass
     
     return ds
+
+
+def derived_ecmwf_ifs_fields(ds,
+                             convert_temperature,
+                             convert_to):
+    
+    
+    ds = ds
+    
+    if convert_temperature == True:
+        if convert_to == 'celsius':
+            unit = 'degC'
+        else:
+            unit = 'degF'
+    else:
+        unit = 'kelvin'
+    
+    try:
+        ds['2m_dew_point_depression'] = ds['2m_temperature'] - ds['2m_dew_point']
+    except Exception as e:
+        pass
+    
+    try:
+        ds['absolute_vortcity'] = mpcalc.absolute_vorticity(ds['u_wind_component'], ds['v_wind_component'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['absolute_momentum'] = mpcalc.absolute_momentum(ds['u_wind_component'], ds['v_wind_component'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['ageostrophic_wind'] = mpcalc.ageostrophic_wind(ds['geopotential_height'], ds['u_wind_component'], ds['v_wind_component'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['curvature_vorticity'] = mpcalc.curvature_vorticity(ds['u_wind_component'], ds['v_wind_component'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['divergence'] = mpcalc.divergence(ds['u_wind_component'], ds['v_wind_component'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['geostrophic_wind'] = mpcalc.geostrophic_wind(ds['geopotential_height'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['dew_point'] = mpcalc.dewpoint_from_relative_humidity(ds['air_temperature'], ds['relative_humidity'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['dew_point_depression'] = ds['air_temperature'] - ds['dew_point']
+    except Exception as e:
+        pass
+    
+    try:
+        ds['temperature_advection'] = mpcalc.advection(ds['air_temperature'], u=ds['u_wind_component'], v=ds['v_wind_component'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['vorticity_advection'] = mpcalc.advection(ds['absolute_vortcity'], u=ds['u_wind_component'], v=ds['v_wind_component'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['precipitable_water_advection'] = mpcalc.advection(ds['precipitable_water'], u=ds['u_wind_component'], v=ds['v_wind_component'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['humidity_advection'] = mpcalc.advection(ds['relative_humidity'], u=ds['u_wind_component'], v=ds['v_wind_component'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['potential_temperature'] = mpcalc.potential_temperature(ds['isobaricInhPa'], ds['air_temperature'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['frontogenesis'] = mpcalc.frontogenesis(ds['potential_temperature'], ds['u_wind_component'], ds['v_wind_component'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['mixing_ratio'] = mpcalc.mixing_ratio_from_relative_humidity(ds['isobaricInhPa'], ds['air_temperature'], ds['relative_humidity'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['moist_lapse_rate'] = mpcalc.moist_lapse(ds['isobaricInhPa'], ds['air_temperature'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['dry_lapse_rate'] = mpcalc.dry_lapse(ds['isobaricInhPa'], ds['air_temperature'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['showalter_index'] = mpcalc.showalter_index(ds['isobaricInhPa'], ds['air_temperature'], ds['dew_point'])
+    except Exception as e:
+        pass
+    
+    try:
+        ds['bulk_shear'] = mpcalc.bulk_shear(ds['isobaricInhPa'], ds['u_wind_component'], ds['v_wind_component'])
+    except Exception as e:
+        pass
+        
+        
+    ds = ds.metpy.dequantify()
+    
+    return ds

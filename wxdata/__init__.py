@@ -39,6 +39,14 @@ These functions do the following:
      - When clear_recycle_bin=True, the user's recycle bin is also cleared. 
 """
 
+# Global Forecast System (GFS)
+from wxdata.gfs.gfs import(
+    gfs_0p25,
+    gfs_0p25_secondary_parameters,
+    gfs_0p50
+)
+
+
 # Global Ensemble Forecast System (GEFS)
 from wxdata.gefs.gefs import(
     
@@ -46,9 +54,6 @@ from wxdata.gefs.gefs import(
     gefs0p50_secondary_parameters,
     gefs0p25
 )
-
-# National Blend of Models (NBM)
-from wxdata.nbm.nbm import national_blend_of_models
 
 # European Centre for Medium-Range Weather Forecasts (ECMWF)
 from wxdata.ecmwf.ecmwf import(

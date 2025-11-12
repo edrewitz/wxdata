@@ -14,7 +14,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 from wxdata.calc.thermodynamics import relative_humidity
-from wxdata.utils.file_funcs import clear_rtma_idx_files
+from wxdata.utils.file_funcs import clear_idx_files_in_path
 
 sys.tracebacklimit = 0
 logging.disable()
@@ -108,7 +108,7 @@ def process_rtma_data(filename,
     """
     model = model.upper()
     
-    clear_rtma_idx_files(directory)
+    clear_idx_files_in_path(directory)
     
     filepath = f"{directory}/{filename}"
 
@@ -286,12 +286,12 @@ def process_rtma_data(filename,
         ds1['10m_wind_speed'] = mpcalc.smooth_gaussian(ds1['10m_wind_speed'], n=8)
         ds1['10m_wind_gust'] = mpcalc.smooth_gaussian(ds1['10m_wind_gust'], n=8)
         
-        clear_rtma_idx_files(directory)
+        clear_idx_files_in_path(directory)
         
         return ds1
         
     else:
         
-        clear_rtma_idx_files(directory)
+        clear_idx_files_in_path(directory)
     
         return ds

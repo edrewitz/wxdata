@@ -30,7 +30,10 @@ from wxdata.ecmwf.process import(
 from wxdata.calc.unit_conversion import convert_temperature_units
 from wxdata.utils.file_scanner import local_file_scanner
 from wxdata.ecmwf.paths import ecmwf_branch_paths
-from wxdata.utils.file_funcs import custom_branch
+from wxdata.utils.file_funcs import(
+    custom_branch,
+    clear_idx_files_in_path
+)
 from wxdata.utils.recycle_bin import *
 
 
@@ -242,7 +245,7 @@ def ecmwf_ifs(final_forecast_hour=360,
                                                                 northern_bound, 
                                                                 southern_bound)
             
-            ecmwf_post_processing.clear_ecmwf_idx_files(path)
+            clear_idx_files_in_path(path)
             
         if convert_temperature == True:
                 ds = convert_temperature_units(ds, 

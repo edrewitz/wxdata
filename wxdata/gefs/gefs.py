@@ -5,10 +5,8 @@ This file hosts functions that download various types of GEFS Data
 """
 
 import wxdata.client.client as client
-import sys
 import os
 import warnings
-import time
 import wxdata.utils.gefs_post_processing as gefs_post_processing
 warnings.filterwarnings('ignore')
 
@@ -359,7 +357,7 @@ def gefs0p50(cat='mean',
     else:
         pass
 
-def gefs0p50_secondary_parameters(cat='control', 
+def gefs0p50_secondary_parameters(cat='mean', 
              final_forecast_hour=384, 
              western_bound=-180, 
              eastern_bound=180, 

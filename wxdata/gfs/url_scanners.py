@@ -22,7 +22,6 @@ from wxdata.utils.nomads_gribfilter import(
 from wxdata.gfs.exception_messages import(
     
     forecast_hour_error,
-    cat_error
 )
 
 # Exception handling for Python >= 3.13 and Python < 3.13
@@ -186,15 +185,15 @@ def gfs_0p50_url_scanner(final_forecast_hour,
     # These are the different download URLs for the various runtimes in the past 24 hours
     
     # URLs to scan for the latest file
-    today_18z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/18/{cat}/")
-    today_12z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/12/{cat}/")
-    today_06z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/06/{cat}/")
-    today_00z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/00/{cat}/")
+    today_18z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/18/atmos/")
+    today_12z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/12/atmos/")
+    today_06z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/06/atmos/")
+    today_00z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/00/atmos/")
     
-    yesterday_18z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/18/{cat}/")
-    yesterday_12z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/12/{cat}/")
-    yesterday_06z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/06/{cat}/")
-    yesterday_00z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/00/{cat}/")
+    yesterday_18z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/18/atmos/")
+    yesterday_12z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/12/atmos/")
+    yesterday_06z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/06/atmos/")
+    yesterday_00z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/00/atmos/")
     
     # Gets the variable list in a string format convered to GRIB filter keys
     
@@ -326,6 +325,7 @@ def gfs_0p50_url_scanner(final_forecast_hour,
     for response, url in zip(responses, urls):
         if response.status_code == 200:
             url = url
+            run = int(f"{url[78]}{url[79]}")
             break        
     
     try:
@@ -555,7 +555,7 @@ def gfs_0p50_url_scanner(final_forecast_hour,
         filenames.append(filename)
         
     
-    return urls, filenames
+    return urls, filenames, run
 
 def gfs_0p25_url_scanner(final_forecast_hour, 
                           western_bound, 
@@ -669,15 +669,15 @@ def gfs_0p25_url_scanner(final_forecast_hour,
     # These are the different download URLs for the various runtimes in the past 24 hours
     
     # URLs to scan for the latest file
-    today_18z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/18/{cat}/")
-    today_12z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/12/{cat}/")
-    today_06z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/06/{cat}/")
-    today_00z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/00/{cat}/")
+    today_18z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/18/atmos/")
+    today_12z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/12/atmos/")
+    today_06z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/06/atmos/")
+    today_00z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/00/atmos/")
     
-    yesterday_18z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/18/{cat}/")
-    yesterday_12z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/12/{cat}/")
-    yesterday_06z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/06/{cat}/")
-    yesterday_00z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/00/{cat}/")
+    yesterday_18z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/18/atmos/")
+    yesterday_12z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/12/atmos/")
+    yesterday_06z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/06/atmos/")
+    yesterday_00z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/00/atmos/")
     
     # Gets the variable list in a string format convered to GRIB filter keys
     
@@ -810,6 +810,7 @@ def gfs_0p25_url_scanner(final_forecast_hour,
     for response, url in zip(responses, urls):
         if response.status_code == 200:
             url = url
+            run = int(f"{url[78]}{url[79]}")
             break        
     
     try:
@@ -1039,7 +1040,7 @@ def gfs_0p25_url_scanner(final_forecast_hour,
         filenames.append(filename)
         
     
-    return urls, filenames
+    return urls, filenames, run
 
 
 def gfs_0p25_secondary_parameters_url_scanner(final_forecast_hour, 
@@ -1154,15 +1155,15 @@ def gfs_0p25_secondary_parameters_url_scanner(final_forecast_hour,
     # These are the different download URLs for the various runtimes in the past 24 hours
     
     # URLs to scan for the latest file
-    today_18z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/18/{cat}/")
-    today_12z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/12/{cat}/")
-    today_06z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/06/{cat}/")
-    today_00z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/00/{cat}/")
+    today_18z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/18/atmos/")
+    today_12z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/12/atmos/")
+    today_06z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/06/atmos/")
+    today_00z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{now.strftime('%Y%m%d')}/00/atmos/")
     
-    yesterday_18z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/18/{cat}/")
-    yesterday_12z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/12/{cat}/")
-    yesterday_06z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/06/{cat}/")
-    yesterday_00z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/00/{cat}/")
+    yesterday_18z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/18/atmos/")
+    yesterday_12z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/12/atmos/")
+    yesterday_06z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/06/atmos/")
+    yesterday_00z_scan = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.{yd.strftime('%Y%m%d')}/00/atmos/")
     
     # Gets the variable list in a string format convered to GRIB filter keys
     
@@ -1295,6 +1296,7 @@ def gfs_0p25_secondary_parameters_url_scanner(final_forecast_hour,
     for response, url in zip(responses, urls):
         if response.status_code == 200:
             url = url
+            run = int(f"{url[79]}{url[80]}")
             break        
     
     try:
@@ -1524,4 +1526,4 @@ def gfs_0p25_secondary_parameters_url_scanner(final_forecast_hour,
         filenames.append(filename)
         
     
-    return urls, filenames
+    return urls, filenames, run

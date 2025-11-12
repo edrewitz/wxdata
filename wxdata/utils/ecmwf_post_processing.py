@@ -15,7 +15,7 @@ warnings.filterwarnings('ignore')
 
 from wxdata.calc.thermodynamics import relative_humidity
 from wxdata.ecmwf.paths import sorted_paths
-from wxdata.utils.file_funcs import clear_ecmwf_idx_files
+from wxdata.utils.file_funcs import clear_idx_files_in_path
 
 sys.tracebacklimit = 0
 logging.disable()
@@ -102,7 +102,7 @@ def ecmwf_ifs_post_processing(path,
     '2m_relative_humidity'
 
     """
-    clear_ecmwf_idx_files(path)
+    clear_idx_files_in_path(path)
     
     files = sorted_paths(path)
     
@@ -470,6 +470,6 @@ def ecmwf_ifs_post_processing(path,
     except Exception as e:
         pass
     
-    clear_ecmwf_idx_files(path)
+    clear_idx_files_in_path(path)
         
     return ds

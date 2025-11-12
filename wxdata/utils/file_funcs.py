@@ -93,10 +93,10 @@ def clear_gefs_idx_files(paths):
         except Exception as e:
             pass
                 
-def clear_ecmwf_idx_files(path):
+def clear_idx_files_in_path(path):
     
     """
-    This function clears all ECMWF .IDX files. 
+    This function clears all .IDX files in a folder. 
     """
     
     try:
@@ -108,21 +108,6 @@ def clear_ecmwf_idx_files(path):
     except Exception as e:
         pass
                 
-
-def clear_rtma_idx_files(directory):
-    
-    """
-    This function clears all RTMA .IDX files. 
-    """
-    
-    try:
-        for file in os.listdir(f"{directory}"):
-            if file.endswith(".idx"):
-                os.remove(f"{directory}/{file}")
-            else:
-                pass
-    except Exception as e:
-        pass
             
             
 def custom_branch(path):
