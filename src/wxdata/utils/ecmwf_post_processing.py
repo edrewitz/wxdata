@@ -282,6 +282,12 @@ def ecmwf_ifs_post_processing(path,
         pass
     
     try:
+        ds['time_maximum_10m_wind_gust'] = ds['fg10']
+        ds = ds.drop_vars('fg10')
+    except Exception as e:
+        pass
+    
+    try:
         ds['surface_net_shortwave_solar_radiation'] = ds['ssr']
         ds = ds.drop_vars('ssr')
     except Exception as e:
