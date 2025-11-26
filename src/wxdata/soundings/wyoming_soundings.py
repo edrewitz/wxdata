@@ -496,7 +496,6 @@ def get_observed_sounding_data(station_id,
 
     else:
         date = now
-        date_24 = date - timedelta(hours=24)
         if date.hour <= 12:
             hour = 00
         else:
@@ -506,6 +505,7 @@ def get_observed_sounding_data(station_id,
         m = date.month
         d = date.day
         date = datetime(y, m, d, hour)
+        date_24 = date - timedelta(hours=24)
     
         if hour == 0:  
             url = ('http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST'
