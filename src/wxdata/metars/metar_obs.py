@@ -97,9 +97,6 @@ def download_metar_data(clear_recycle_bin=True):
     new_column_names = get_csv_column_names_csv_module(f"METAR Data/metars.csv")
     
     df.columns = new_column_names
-    
-    print(df)
-    
 
     df = df.drop('raw_text', axis=1)
 
