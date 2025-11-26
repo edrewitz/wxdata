@@ -80,6 +80,8 @@ def process_rtma_data(filename,
     Puerto Rico = 'pr rtma'
     Guam = 'gu rtma'
     
+    3) directory (String) - The directory path where the RTMA files are saved to. 
+    
     Optional Arguments: None
     
     Returns

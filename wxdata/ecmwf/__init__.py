@@ -5,4 +5,3 @@ from wxdata.ecmwf.ecmwf import(
     ecmwf_ifs_wave
 )
 
-from wxdata.ecmwf.paths import sorted_paths

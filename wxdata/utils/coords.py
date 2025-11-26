@@ -5,14 +5,17 @@ This file hosts functions that process geographical coordinates in netCDF data.
 """
 from cartopy.util import add_cyclic_point
 
-def convert_lon(western_bound, eastern_bound):
+def convert_lon(western_bound, 
+                eastern_bound):
     
     """
     This function converts longitude from -180 to 180 to 0 to 360
     
     Required Arguments: 
     
-    1) lon (float) - The longitude of a point. 
+    1) western_bound (Float) - The western bound in decimal degrees.
+    
+    2) eastern_bound (Float) - The eastern bound in decimal degrees.
     
     Optional Arguments: None
     

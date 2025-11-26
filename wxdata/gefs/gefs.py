@@ -37,7 +37,6 @@ from wxdata.utils.file_funcs import(
      clear_gefs_idx_files
 )
 
-from wxdata.calc.derived_fields import gefs_primary_derived_fields
 from wxdata.calc.unit_conversion import convert_temperature_units
 from wxdata.utils.file_scanner import local_file_scanner
 from wxdata.utils.recycle_bin import *
@@ -172,6 +171,26 @@ def gefs0p50(cat='mean',
             'v-component of wind'
             'vertical velocity'
             'water equivalent of accumulated snow depth'
+            
+    13) custom_directory (String, String List or None) - Default=None. If the user wishes to define their own directory to where the files are saved,
+        the user must pass in a string representing the path of the directory. Otherwise, the directory created by default in WxData will
+        be used. If cat='members' then the user must pass in a string list showing the filepaths for each set of files binned by ensemble member.
+    
+    14) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
+        of the program you are calling WxData. This setting is to help preserve memory on the machine. 
+        
+    15) convert_temperature (Boolean) - Default=True. When set to True, the temperature related fields will be converted from Kelvin to
+        either Celsius or Fahrenheit. When False, this data remains in Kelvin.
+        
+    16) convert_to (String) - Default='celsius'. When set to 'celsius' temperature related fields convert to Celsius.
+        Set convert_to='fahrenheit' for Fahrenheit. 
+        
+    17) custom_directory (String or None) - Default=None. The directory path where the ECMWF IFS Wave files will be saved to.
+        Default = f:ECMWF/IFS/WAVE
+        
+    18) chunk_size (Integer) - Default=8192. The size of the chunks when writing the GRIB/NETCDF data to a file.
+    
+    19) notifications (String) - Default='off'. Notification when a file is downloaded and saved to {path}
     
     
     Returns
@@ -347,10 +366,6 @@ def gefs0p50(cat='mean',
                 
         else:
             pass
-        
-        ds = gefs_primary_derived_fields(ds,
-                                 convert_temperature,
-                                 convert_to)
             
         print(f"Data Processing Complete.")
         return ds
@@ -570,6 +585,26 @@ def gefs0p50_secondary_parameters(cat='mean',
         'vertical speed shear'
         'water runoff'
         'wilting point'
+        
+    13) custom_directory (String, String List or None) - Default=None. If the user wishes to define their own directory to where the files are saved,
+        the user must pass in a string representing the path of the directory. Otherwise, the directory created by default in WxData will
+        be used. If cat='members' then the user must pass in a string list showing the filepaths for each set of files binned by ensemble member.
+    
+    14) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
+        of the program you are calling WxData. This setting is to help preserve memory on the machine. 
+        
+    15) convert_temperature (Boolean) - Default=True. When set to True, the temperature related fields will be converted from Kelvin to
+        either Celsius or Fahrenheit. When False, this data remains in Kelvin.
+        
+    16) convert_to (String) - Default='celsius'. When set to 'celsius' temperature related fields convert to Celsius.
+        Set convert_to='fahrenheit' for Fahrenheit. 
+        
+    17) custom_directory (String or None) - Default=None. The directory path where the ECMWF IFS Wave files will be saved to.
+        Default = f:ECMWF/IFS/WAVE
+        
+    18) chunk_size (Integer) - Default=8192. The size of the chunks when writing the GRIB/NETCDF data to a file.
+    
+    19) notifications (String) - Default='off'. Notification when a file is downloaded and saved to {path}
     
     
     Returns
@@ -783,18 +818,26 @@ def gefs0p50_secondary_parameters(cat='mean',
     if process_data == True:
         print(f"Data Processing...")
         
-        ds = process_gefs_secondary_parameters_data('gefs0p50 secondary parameters', 
-                                    cat,
-                                    members)
+        if custom_directory == None:
+        
+            ds = process_gefs_secondary_parameters_data('gefs0p50 secondary parameters', 
+                                        cat,
+                                        members)
+            
+            clear_idx_files('gefs0p50 secondary parameters', 
+                        cat, 
+                        members)
+            
+        else:
+            ds = gefs_post_processing.secondary_gefs_post_processing(paths)
+            
+            gefs_post_processing.clear_gefs_idx_files(paths)
         
         if convert_temperature == True:
             ds = convert_temperature_units(ds, 
                                            convert_to, 
                                            cat=cat)
                 
-        clear_idx_files('gefs0p50 secondary parameters', 
-                    cat, 
-                    members)
         
         print(f"Data Processing Complete.")
         return ds
@@ -939,6 +982,26 @@ def gefs0p25(cat='mean',
         'v-component of wind'
         'visibility'
         'water equivalent of accumulated snow depth'
+        
+    13) custom_directory (String, String List or None) - Default=None. If the user wishes to define their own directory to where the files are saved,
+        the user must pass in a string representing the path of the directory. Otherwise, the directory created by default in WxData will
+        be used. If cat='members' then the user must pass in a string list showing the filepaths for each set of files binned by ensemble member.
+    
+    14) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
+        of the program you are calling WxData. This setting is to help preserve memory on the machine. 
+        
+    15) convert_temperature (Boolean) - Default=True. When set to True, the temperature related fields will be converted from Kelvin to
+        either Celsius or Fahrenheit. When False, this data remains in Kelvin.
+        
+    16) convert_to (String) - Default='celsius'. When set to 'celsius' temperature related fields convert to Celsius.
+        Set convert_to='fahrenheit' for Fahrenheit. 
+        
+    17) custom_directory (String or None) - Default=None. The directory path where the ECMWF IFS Wave files will be saved to.
+        Default = f:ECMWF/IFS/WAVE
+        
+    18) chunk_size (Integer) - Default=8192. The size of the chunks when writing the GRIB/NETCDF data to a file.
+    
+    19) notifications (String) - Default='off'. Notification when a file is downloaded and saved to {path}
     
     
     Returns
@@ -1081,18 +1144,26 @@ def gefs0p25(cat='mean',
         
         clear_empty_files(paths)
         
-        ds = process_gefs_data('gefs0p25', 
-                                    cat,
-                                    members)
+        if custom_directory == None:
+        
+            ds = process_gefs_data('gefs0p25', 
+                                        cat,
+                                        members)
+            
+            clear_idx_files('gefs0p25', 
+                        cat, 
+                        members)
+            
+        else:
+            ds = gefs_post_processing.primary_gefs_post_processing(paths)
+            
+            gefs_post_processing.clear_gefs_idx_files(paths)
         
         if convert_temperature == True:
             ds = convert_temperature_units(ds, 
                                            convert_to,
                                            cat=cat)
-                
-        clear_idx_files('gefs0p25', 
-                    cat, 
-                    members)
+            
         
         print(f"Data Processing Complete.")
         return ds

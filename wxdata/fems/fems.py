@@ -332,7 +332,16 @@ def get_single_station_data(station_id,
     
     5) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
         of the program you are calling WxData. This setting is to help preserve memory on the machine. 
+        
+    6) proxies (dict or None) - Default=None. If the user is using proxy server(s), the user must change the following:
 
+       proxies=None ---> proxies={
+                           'http':'http://url',
+                           'https':'https://url'
+                        }
+
+    7) path (String) - Default='FEMS Data". The parent directory to the FEMS data files.
+    
     Returns
     -------
     
@@ -421,6 +430,13 @@ def get_raws_sig_data(gacc_region,
         
     4) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
         of the program you are calling WxData. This setting is to help preserve memory on the machine. 
+        
+    5) proxies (dict or None) - Default=None. If the user is using proxy server(s), the user must change the following:
+
+       proxies=None ---> proxies={
+                           'http':'http://url',
+                           'https':'https://url'
+                        }
 
     Returns
     ------- 
@@ -588,6 +604,13 @@ def get_nfdrs_forecast_data(gacc_region,
         
     2) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
         of the program you are calling WxData. This setting is to help preserve memory on the machine. 
+        
+    3) proxies (dict or None) - Default=None. If the user is using proxy server(s), the user must change the following:
+
+       proxies=None ---> proxies={
+                           'http':'http://url',
+                           'https':'https://url'
+                        }
 
     Returns
     -------

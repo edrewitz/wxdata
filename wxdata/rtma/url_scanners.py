@@ -61,7 +61,15 @@ def rtma_url_scanner(model,
     ii) Error
     iii) Forecast
     
-    3) proxies (dict or None) - If the user is using a proxy server, the user must change the following:
+    3) western_bound (Float or Integer) - Default=-180. The western bound of the data needed. 
+
+    4) eastern_bound (Float or Integer) - Default=180. The eastern bound of the data needed.
+
+    5) northern_bound (Float or Integer) - Default=90. The northern bound of the data needed.
+
+    6) southern_bound (Float or Integer) - Default=-90. The southern bound of the data needed.
+    
+    7) proxies (dict or None) - If the user is using a proxy server, the user must change the following:
 
     proxies=None ---> proxies={'http':'http://url',
                             'https':'https://url'
@@ -279,13 +287,21 @@ def rtma_comparison_url_scanner(model,
     ii) Error
     iii) Forecast
     
-    3) proxies (dict or None) - If the user is using a proxy server, the user must change the following:
+    3) western_bound (Float or Integer) - Default=-180. The western bound of the data needed. 
+
+    4) eastern_bound (Float or Integer) - Default=180. The eastern bound of the data needed.
+
+    5) northern_bound (Float or Integer) - Default=90. The northern bound of the data needed.
+
+    6) southern_bound (Float or Integer) - Default=-90. The southern bound of the data needed.
+    
+    7) proxies (dict or None) - If the user is using a proxy server, the user must change the following:
 
     proxies=None ---> proxies={'http':'http://url',
                             'https':'https://url'
                         }
                         
-    4) hours (Integer) - Default=24. The amount of hours previous to the current dataset for the comparison dataset. 
+    8) hours (Integer) - Default=24. The amount of hours previous to the current dataset for the comparison dataset. 
     
     
     Returns

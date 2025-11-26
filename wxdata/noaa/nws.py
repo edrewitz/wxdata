@@ -260,6 +260,24 @@ def get_ndfd_grids(parameter,
 
     1) parameter (String) - The parameter that the user wishes to download. 
     
+    2) state (String) - The two letter state identifier (US States).
+    
+    Optional Arguments:
+    
+    1) proxies (dict or None) - Default=None. If the user is using a proxy server, the user must change the following:
+
+    proxies=None ---> proxies={'http':'http://url',
+                            'https':'https://url'
+                        }
+    
+    2) chunk_size (Integer) - Default=8192. The size of the chunks when writing the GRIB/NETCDF data to a file.
+    
+    3) notifications (String) - Default='off'. Notification when a file is downloaded and saved to {path}
+    
+    4) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
+        of the program you are calling WxData. This setting is to help preserve memory on the machine. 
+        
+        
     Parameters
     ----------
     

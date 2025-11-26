@@ -23,9 +23,6 @@ from wxdata.ecmwf.file_funcs import(
     parse_filename
 )
 
-from wxdata.ecmwf.process import(
-    process_ecmwf_ifs_data
-)
 
 from wxdata.calc.unit_conversion import convert_temperature_units
 from wxdata.utils.file_scanner import local_file_scanner
@@ -58,7 +55,7 @@ def ecmwf_ifs(final_forecast_hour=360,
     
     1) final_forecast_hour (Integer) - Default = 360. The final forecast hour the user wishes to download. The ECMWF IFS
     goes out to 360 hours. For those who wish to have a shorter dataset, they may set final_forecast_hour to a value lower than 
-    384 by the nereast increment of 3 hours. 
+    360 by the nereast increment of 3 hours. 
     
     2) western_bound (Float or Integer) - Default=-180. The western bound of the data needed. 
 
@@ -83,24 +80,26 @@ def ecmwf_ifs(final_forecast_hour=360,
     9) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
         of the program you are calling WxData. This setting is to help preserve memory on the machine. 
         
-    10) convert_temperature (Boolean) - Default=True. When set to True, Temperature and Dew Point data is converted from Kelvin to either Celsius or Fahrenheit.
-        When set to False, the data remains in Kelvin.
+    10) convert_temperature (Boolean) - Default=True. When set to True, the temperature related fields will be converted from Kelvin to
+        either Celsius or Fahrenheit. When False, this data remains in Kelvin.
         
-    11) convert_to (String) - Default='celsius'. When convert_temperature is set to True, we need to specify the new temperature units. This can be done by
-        convert_to='celsius' (default) or convert_to='fahrenheit'.
+    11) convert_to (String) - Default='celsius'. When set to 'celsius' temperature related fields convert to Celsius.
+        Set convert_to='fahrenheit' for Fahrenheit. 
         
-    12) custom_directory (String or None) - Default=None. Users who wish to use a custom save location rather than the pre-built directory in wxdata, users
-        can specify a custom path by changing this value from None to a string.
-
-            Example: custom_directory='C:/path/to/your/files'
+    12) custom_directory (String or None) - Default=None. The directory path where the ECMWF IFS Wave files will be saved to.
+        Default = f:ECMWF/IFS/WAVE
+        
+    13) chunk_size (Integer) - Default=8192. The size of the chunks when writing the GRIB/NETCDF data to a file.
+    
+    14) notifications (String) - Default='off'. Notification when a file is downloaded and saved to {path}
         
     Returns
     -------
     
     An xarray data array with post-processed GRIB2 Variable Keys into Plain Language Variable Keys
     
-    Post-Processed Variable Keys
-    ----------------------------
+    Plain Language ECMWF IFS Variable Keys (After Post-Processing)
+    --------------------------------------------------------------
     
     'total_column_water'
     'total_column_vertically_integrated_water_vapor'
@@ -147,16 +146,6 @@ def ecmwf_ifs(final_forecast_hour=360,
     '100m_v_wind_component'
     '2m_dew_point'
     '2m_relative_humidity'
-    '2m_dew_point_depression'
-    'absolute_vortcity'
-    'curvature_vorticity'
-    'dew_point'
-    'temperature_advection'
-    'vorticity_advection'
-    'humidity_advection'
-    'potential_temperature'
-    'mixing_ratio'
-    'dry_lapse_rate'
     
     """
     
@@ -230,22 +219,13 @@ def ecmwf_ifs(final_forecast_hour=360,
     if process_data == True:
         print(f"Data Processing...")
         
-        if custom_directory == None:
-            ds = process_ecmwf_ifs_data(western_bound, 
-                                    eastern_bound, 
-                                    northern_bound, 
-                                    southern_bound)
-            
-            clear_idx_files(path)
-            
-        else:
-            ds = ecmwf_post_processing.ecmwf_ifs_post_processing(path,
-                                                                 western_bound, 
-                                                                eastern_bound, 
-                                                                northern_bound, 
-                                                                southern_bound)
-            
-            clear_idx_files_in_path(path)
+        ds = ecmwf_post_processing.ecmwf_ifs_post_processing(path,
+                                                            western_bound, 
+                                                            eastern_bound, 
+                                                            northern_bound, 
+                                                            southern_bound)
+        
+        clear_idx_files_in_path(path)
             
         if convert_temperature == True:
                 ds = convert_temperature_units(ds, 
@@ -276,12 +256,12 @@ def ecmwf_aifs(final_forecast_hour=360,
               notifications='off'):
     
     """
-    This function scans for the latest ECMWF IFS dataset. If the dataset on the computer is old, the old data will be deleted
+    This function scans for the latest ECMWF AIFS dataset. If the dataset on the computer is old, the old data will be deleted
     and the new data will be downloaded. 
     
-    1) final_forecast_hour (Integer) - Default = 360. The final forecast hour the user wishes to download. The ECMWF IFS
+    1) final_forecast_hour (Integer) - Default = 360. The final forecast hour the user wishes to download. The ECMWF AIFS
     goes out to 360 hours. For those who wish to have a shorter dataset, they may set final_forecast_hour to a value lower than 
-    384 by the nereast increment of 3 hours. 
+    360 by the nereast increment of 6 hours. 
     
     2) western_bound (Float or Integer) - Default=-180. The western bound of the data needed. 
 
@@ -304,59 +284,61 @@ def ecmwf_aifs(final_forecast_hour=360,
     8) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
         of the program you are calling WxData. This setting is to help preserve memory on the machine. 
         
+    9) convert_temperature (Boolean) - Default=True. When set to True, the temperature related fields will be converted from Kelvin to
+        either Celsius or Fahrenheit. When False, this data remains in Kelvin.
+        
+    10) convert_to (String) - Default='celsius'. When set to 'celsius' temperature related fields convert to Celsius.
+        Set convert_to='fahrenheit' for Fahrenheit. 
+        
+    11) custom_directory (String or None) - Default=None. The directory path where the ECMWF IFS Wave files will be saved to.
+        Default = f:ECMWF/IFS/WAVE
+        
+    12) chunk_size (Integer) - Default=8192. The size of the chunks when writing the GRIB/NETCDF data to a file.
+    
+    13) notifications (String) - Default='off'. Notification when a file is downloaded and saved to {path}
+    
     Returns
     -------
     
     An xarray data array with post-processed GRIB2 Variable Keys into Plain Language Variable Keys
     
-    Post-Processed Variable Keys
-    ----------------------------
+    Plain Language ECMWF AIFS Variable Keys (After Post-Processing) 
+    ---------------------------------------------------------------
     
-    'total_column_water'
-    'total_column_vertically_integrated_water_vapor'
-    'snow_albedo'
-    'land_sea_mask'
-    'specific_humidity'
     'volumetric_soil_moisture_content'
-    'sea_ice_thickness'
     'soil_temperature'
-    'surface_longwave_radiation_downward'
-    'surface_net_shortwave_solar_radiation'
-    'surface_net_longwave_thermal_radiation'
-    'top_net_longwave_thermal_radiation'
-    '10m_max_wind_gust'
-    'vertical_velocity'
-    'relative_vorticity'
-    'relative_humidity'
     'geopotential_height'
-    'eastward_turbulent_surface_stress'
+    'specific_humidity'
     'u_wind_component'
-    'divergence'
-    'northward_turbulent_surface_stress'
     'v_wind_component'
     'air_temperature'
-    'water_runoff'
-    'total_precipitation'
-    'mslp'
-    'eastward_surface_sea_water_velocity'
-    'most_unstable_cape'
-    'northward_surface_sea_water_velocity'
-    'sea_surface_height'
-    'standard_deviation_of_sub_gridscale_orography'
-    'skin_temperature'
-    'slope_of_sub_gridscale_orography'
-    '10m_u_wind_component'
-    'precipitation_type'
-    '10m_v_wind_component'
-    'total_precipitation_rate'
-    'surface_shortwave_radiation_downward'
-    'geopotential'
-    'surface_pressure'
-    '2m_temperature'
+    'vertical velocity'
     '100m_u_wind_component'
     '100m_v_wind_component'
+    '10m_u_wind_component'
+    '10m_v_wind_component'
+    '2m_temperature'
     '2m_dew_point'
     '2m_relative_humidity'
+    '2m_dew_point_depression'
+    'water_runoff' 
+    'surface_geopotential_height'
+    'skin_temperature'
+    'surface_pressure'
+    'standard_deviation_of_sub_gridscale_orography'
+    'slope_of_sub_gridscale_orography'
+    'surface_shortwave_radiation_downward'
+    'land_sea_mask'
+    'surface_longwave_radiation_downward'
+    'convective_precipitation'
+    'snowfall_water_equivalent'
+    'total_precipitation'
+    'low_cloud_cover'
+    'middle_cloud_cover'
+    'high_cloud_cover'
+    'total_column_water'
+    'total_cloud_cover'
+    'mslp'
     
     """
     
@@ -384,8 +366,8 @@ def ecmwf_aifs(final_forecast_hour=360,
 
     download = local_file_scanner(path, 
                                   filename,
-                                  run,
-                                  'ecmwf')
+                                  'ecmwf',
+                                  run)
     
 
     date = parse_filename(filename)
@@ -425,21 +407,24 @@ def ecmwf_aifs(final_forecast_hour=360,
         
         
     if process_data == True:
-        print(f"Data Processing")
+        print(f"Data Processing...")
         
-        ds = process_ecmwf_ifs_data(western_bound, 
-                                eastern_bound, 
-                                northern_bound, 
-                                southern_bound)
+        ds = ecmwf_post_processing.ecmwf_aifs_post_processing(path,
+                                                            western_bound, 
+                                                            eastern_bound, 
+                                                            northern_bound, 
+                                                            southern_bound)
         
-        
+        clear_idx_files_in_path(path)
+            
         if convert_temperature == True:
-            ds = convert_temperature_units(ds, 
-                                           convert_to)        
-         
-        clear_idx_files(path)
+                ds = convert_temperature_units(ds, 
+                                            convert_to)
+                
+        else:
+            pass
         
-        print(f"Data Processing Complete")
+        print(f"Data Processing Complete.")
         return ds
     
     else:
@@ -462,12 +447,12 @@ def ecmwf_ifs_high_res(final_forecast_hour=144,
               notifications='off'):
     
     """
-    This function scans for the latest ECMWF IFS dataset. If the dataset on the computer is old, the old data will be deleted
+    This function scans for the latest ECMWF High Resolution IFS dataset. If the dataset on the computer is old, the old data will be deleted
     and the new data will be downloaded. 
     
-    1) final_forecast_hour (Integer) - Default = 360. The final forecast hour the user wishes to download. The ECMWF IFS
-    goes out to 360 hours. For those who wish to have a shorter dataset, they may set final_forecast_hour to a value lower than 
-    384 by the nereast increment of 3 hours. 
+    1) final_forecast_hour (Integer) - Default = 360. The final forecast hour the user wishes to download. The ECMWF High Resolution IFS
+    goes out to 144 hours. For those who wish to have a shorter dataset, they may set final_forecast_hour to a value lower than 
+    144 by the nereast increment of 3 hours. 
     
     2) western_bound (Float or Integer) - Default=-180. The western bound of the data needed. 
 
@@ -492,13 +477,26 @@ def ecmwf_ifs_high_res(final_forecast_hour=144,
     9) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
         of the program you are calling WxData. This setting is to help preserve memory on the machine. 
         
+    10) convert_temperature (Boolean) - Default=True. When set to True, the temperature related fields will be converted from Kelvin to
+        either Celsius or Fahrenheit. When False, this data remains in Kelvin.
+        
+    11) convert_to (String) - Default='celsius'. When set to 'celsius' temperature related fields convert to Celsius.
+        Set convert_to='fahrenheit' for Fahrenheit. 
+        
+    12) custom_directory (String or None) - Default=None. The directory path where the ECMWF IFS Wave files will be saved to.
+        Default = f:ECMWF/IFS/WAVE
+        
+    13) chunk_size (Integer) - Default=8192. The size of the chunks when writing the GRIB/NETCDF data to a file.
+    
+    14) notifications (String) - Default='off'. Notification when a file is downloaded and saved to {path}
+        
     Returns
     -------
     
     An xarray data array with post-processed GRIB2 Variable Keys into Plain Language Variable Keys
     
-    Post-Processed Variable Keys
-    ----------------------------
+    Plain Language ECMWF High Resolution IFS Variable Keys (After Post-Processing)
+    ------------------------------------------------------------------------------
     
     'total_column_water'
     'total_column_vertically_integrated_water_vapor'
@@ -571,9 +569,8 @@ def ecmwf_ifs_high_res(final_forecast_hour=144,
 
     download = local_file_scanner(path, 
                                   filename,
-                                  run,
-                                  'ecmwf')
-    
+                                  'ecmwf',
+                                  run)
 
     date = parse_filename(filename)
     
@@ -583,7 +580,7 @@ def ecmwf_ifs_high_res(final_forecast_hour=144,
         for i in range(0, final_forecast_hour + step, step):
             client.get_gridded_data(f"{url}/{date.strftime('%Y%m%d%H')}0000-{i}h-scda-fc.grib2", 
                         path,
-                        f"{date.strftime('%Y%m%d%H')}0000-{i}h-oper-fc.grib2",
+                        f"{date.strftime('%Y%m%d%H')}0000-{i}h-scda-fc.grib2",
                         proxies=proxies,
                         chunk_size=chunk_size,
                         notifications=notifications)
@@ -596,16 +593,20 @@ def ecmwf_ifs_high_res(final_forecast_hour=144,
     if process_data == True:
         print(f"Data Processing...")
         
-        ds = process_ecmwf_ifs_data(western_bound, 
-                                eastern_bound, 
-                                northern_bound, 
-                                southern_bound)
+        ds = ecmwf_post_processing.ecmwf_ifs_post_processing(path,
+                                                            western_bound, 
+                                                            eastern_bound, 
+                                                            northern_bound, 
+                                                            southern_bound)
         
+        clear_idx_files_in_path(path)
+            
         if convert_temperature == True:
-            ds = convert_temperature_units(ds, 
-                                           convert_to)
-        
-        clear_idx_files(path)
+                ds = convert_temperature_units(ds, 
+                                            convert_to)
+                
+        else:
+            pass
         
         print(f"Data Processing Complete.")
         return ds
@@ -623,19 +624,17 @@ def ecmwf_ifs_wave(final_forecast_hour=144,
               proxies=None,
               process_data=True,
               clear_recycle_bin=True,
-              convert_temperature=True,
-              convert_to='celsius',
               custom_directory=None,
               chunk_size=8192,
               notifications='off'):
     
     """
-    This function scans for the latest ECMWF IFS dataset. If the dataset on the computer is old, the old data will be deleted
+    This function scans for the latest ECMWF IFS Wave dataset. If the dataset on the computer is old, the old data will be deleted
     and the new data will be downloaded. 
     
-    1) final_forecast_hour (Integer) - Default = 360. The final forecast hour the user wishes to download. The ECMWF IFS
-    goes out to 360 hours. For those who wish to have a shorter dataset, they may set final_forecast_hour to a value lower than 
-    384 by the nereast increment of 3 hours. 
+    1) final_forecast_hour (Integer) - Default = 360. The final forecast hour the user wishes to download. The ECMWF IFS Wave
+    goes out to 144 hours. For those who wish to have a shorter dataset, they may set final_forecast_hour to a value lower than 
+    144 by the nereast increment of 3 hours. 
     
     2) western_bound (Float or Integer) - Default=-180. The western bound of the data needed. 
 
@@ -660,59 +659,26 @@ def ecmwf_ifs_wave(final_forecast_hour=144,
     9) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
         of the program you are calling WxData. This setting is to help preserve memory on the machine. 
         
+    10) custom_directory (String or None) - Default=None. The directory path where the ECMWF IFS Wave files will be saved to.
+        Default = f:ECMWF/IFS/WAVE
+        
+    11) chunk_size (Integer) - Default=8192. The size of the chunks when writing the GRIB/NETCDF data to a file.
+    
+    12) notifications (String) - Default='off'. Notification when a file is downloaded and saved to {path}
+        
     Returns
     -------
     
     An xarray data array with post-processed GRIB2 Variable Keys into Plain Language Variable Keys
     
-    Post-Processed Variable Keys
-    ----------------------------
+    Plain Language ECMWF IFS Wave Variable Keys (After Post-Processing)
+    -------------------------------------------------------------------
     
-    'total_column_water'
-    'total_column_vertically_integrated_water_vapor'
-    'snow_albedo'
-    'land_sea_mask'
-    'specific_humidity'
-    'volumetric_soil_moisture_content'
-    'sea_ice_thickness'
-    'soil_temperature'
-    'surface_longwave_radiation_downward'
-    'surface_net_shortwave_solar_radiation'
-    'surface_net_longwave_thermal_radiation'
-    'top_net_longwave_thermal_radiation'
-    '10m_max_wind_gust'
-    'vertical_velocity'
-    'relative_vorticity'
-    'relative_humidity'
-    'geopotential_height'
-    'eastward_turbulent_surface_stress'
-    'u_wind_component'
-    'divergence'
-    'northward_turbulent_surface_stress'
-    'v_wind_component'
-    'air_temperature'
-    'water_runoff'
-    'total_precipitation'
-    'mslp'
-    'eastward_surface_sea_water_velocity'
-    'most_unstable_cape'
-    'northward_surface_sea_water_velocity'
-    'sea_surface_height'
-    'standard_deviation_of_sub_gridscale_orography'
-    'skin_temperature'
-    'slope_of_sub_gridscale_orography'
-    '10m_u_wind_component'
-    'precipitation_type'
-    '10m_v_wind_component'
-    'total_precipitation_rate'
-    'surface_shortwave_radiation_downward'
-    'geopotential'
-    'surface_pressure'
-    '2m_temperature'
-    '100m_u_wind_component'
-    '100m_v_wind_component'
-    '2m_dew_point'
-    '2m_relative_humidity'
+    'mean_zero_crossing_wave_period'
+    'significant_height_of_combined_waves_and_swell'
+    'mean_wave_direction'
+    'peak_wave_period'
+    'mean_wave_period'
     
     """
     
@@ -739,8 +705,8 @@ def ecmwf_ifs_wave(final_forecast_hour=144,
 
     download = local_file_scanner(path, 
                                   filename,
-                                  run,
-                                  'ecmwf')
+                                  'ecmwf',
+                                  run)
     
 
     date = parse_filename(filename)
@@ -751,7 +717,7 @@ def ecmwf_ifs_wave(final_forecast_hour=144,
         for i in range(0, final_forecast_hour + step, step):
             client.get_gridded_data(f"{url}/{date.strftime('%Y%m%d%H')}0000-{i}h-scwv-fc.grib2", 
                         path,
-                        f"{date.strftime('%Y%m%d%H')}0000-{i}h-oper-fc.grib2",
+                        f"{date.strftime('%Y%m%d%H')}0000-{i}h-scwv-fc.grib2",
                         proxies=proxies,
                         chunk_size=chunk_size,
                         notifications=notifications)
@@ -764,16 +730,13 @@ def ecmwf_ifs_wave(final_forecast_hour=144,
     if process_data == True:
         print(f"Data Processing...")
         
-        ds = process_ecmwf_ifs_data(western_bound, 
-                                eastern_bound, 
-                                northern_bound, 
-                                southern_bound)
+        ds = ecmwf_post_processing.ecmwf_ifs_wave_post_processing(path,
+                                                            western_bound, 
+                                                            eastern_bound, 
+                                                            northern_bound, 
+                                                            southern_bound)
         
-        if convert_temperature == True:
-            ds = convert_temperature_units(ds, 
-                                           convert_to)
-        
-        clear_idx_files(path)
+        clear_idx_files_in_path(path)
         
         print(f"Data Processing Complete.")
         return ds

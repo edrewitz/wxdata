@@ -1,5 +1,6 @@
 import wxdata.utils.ecmwf_post_processing as ecmwf_post_processing
 import wxdata.utils.gefs_post_processing as gefs_post_processing
+import wxdata.utils.gfs_post_processing as gfs_post_processing
 
 from wxdata.utils.recycle_bin import(
     

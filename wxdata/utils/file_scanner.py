@@ -31,11 +31,15 @@ def extract_runtime(filename):
     """
     
     keys = ['rtma', 
-            'blend']
+            'blend',
+            'hirtma',
+            'prrtma',
+            'gurtma']
     
     for key in keys:
         if key in filename:
             step = 1
+            break
         else:
             step = 6
     
@@ -51,7 +55,6 @@ def extract_runtime(filename):
     for keyword in keywords:
         if keyword in filename:
             run = int(f"{keyword[1]}{keyword[2]}")    
-        
             
     return run
 

@@ -45,33 +45,3 @@ def ecmwf_branch_paths(model, cat):
     
     return path
 
-def sorted_paths(folder_path, ascending=True):
-    """
-    Sorts files in a given folder by their modification date.
-
-    Args:
-        folder_path (str): The path to the folder containing the files.
-        ascending (bool): If True, sorts in ascending order (oldest first).
-                          If False, sorts in descending order (newest first).
-
-    Returns:
-        list: A list of file paths sorted by modification date.
-    """
-    try:
-        # Get a list of all files (not directories) in the specified folder
-        files = [
-            os.path.join(folder_path, f)
-            for f in os.listdir(folder_path)
-            if os.path.isfile(os.path.join(folder_path, f))
-        ]
-
-        # Sort the files based on their modification time
-        # os.path.getmtime() returns the modification time as a float (seconds since epoch)
-        sorted_files = sorted(files, key=os.path.getmtime, reverse=not ascending)
-        return sorted_files
-    except FileNotFoundError:
-        print(f"Error: Folder '{folder_path}' not found.")
-        return []
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return []

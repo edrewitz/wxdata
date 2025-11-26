@@ -117,6 +117,19 @@ def rtma(model='rtma',
 
     9) northern_bound (Float or Integer) - Default=90. The southern bound of the data needed.
     
+    10) convert_temperature (Boolean) - Default=True. When set to True, the temperature related fields will be converted from Kelvin to
+        either Celsius or Fahrenheit. When False, this data remains in Kelvin.
+        
+    11) convert_to (String) - Default='celsius'. When set to 'celsius' temperature related fields convert to Celsius.
+        Set convert_to='fahrenheit' for Fahrenheit. 
+        
+    12) custom_directory (String or None) - Default=None. The directory path where the ECMWF IFS Wave files will be saved to.
+        Default = f:ECMWF/IFS/WAVE
+        
+    13) chunk_size (Integer) - Default=8192. The size of the chunks when writing the GRIB/NETCDF data to a file.
+    
+    14) notifications (String) - Default='off'. Notification when a file is downloaded and saved to {path}
+    
     Returns
     -------
     
@@ -188,10 +201,12 @@ def rtma(model='rtma',
                     southern_bound, 
                     proxies)
     
+    print(filename)
+    
     download = local_file_scanner(path, 
                                 filename,
-                                source='nomads',
-                                run=run) 
+                                'nomads',
+                                run) 
     
     if clear_data == True:
         download = True
@@ -227,8 +242,11 @@ def rtma(model='rtma',
         
         
         if convert_temperature == True:
-            ds = convert_temperature_units(ds, 
-                                            convert_to)
+            try:
+                ds = convert_temperature_units(ds, 
+                                                convert_to)
+            except Exception as e:
+                pass
             
         else:
             pass
@@ -315,6 +333,19 @@ def rtma_comparison(model='rtma',
     11) clear_data (Boolean) - Default=False. When set to True, the current data in the folder is deleted
         and new data is downloaded automatically with each run. 
         This setting is recommended for users who wish to use a medley of different comparisons. 
+        
+    12) convert_temperature (Boolean) - Default=True. When set to True, the temperature related fields will be converted from Kelvin to
+        either Celsius or Fahrenheit. When False, this data remains in Kelvin.
+        
+    13) convert_to (String) - Default='celsius'. When set to 'celsius' temperature related fields convert to Celsius.
+        Set convert_to='fahrenheit' for Fahrenheit. 
+        
+    14) custom_directory (String or None) - Default=None. The directory path where the ECMWF IFS Wave files will be saved to.
+        Default = f:ECMWF/IFS/WAVE
+        
+    15) chunk_size (Integer) - Default=8192. The size of the chunks when writing the GRIB/NETCDF data to a file.
+    
+    16) notifications (String) - Default='off'. Notification when a file is downloaded and saved to {path}
     
     Returns
     -------

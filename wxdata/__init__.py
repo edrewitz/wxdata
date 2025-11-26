@@ -1,5 +1,5 @@
 """
-This file hosts all of the functions in the WxData library that directly interact with the user. 
+This file hosts all of the functions in the WxData Python library that directly interact with the user. 
 
 (C) Eric J. Drewitz 2025
 """
@@ -102,6 +102,8 @@ Utility functions are geared towards the following types of users:
 2) Users who want to make hemispheric graphics or any graphics where cyclic points
    resolve missing data along the prime meridian or international dateline. 
 """
+# Global Forecast System (GFS)
+import wxdata.utils.gfs_post_processing as gfs_post_processing
 
 # Global Ensemble Forecast System (GEFS)
 import wxdata.utils.gefs_post_processing as gefs_post_processing
@@ -116,7 +118,12 @@ from wxdata.utils.rtma_post_processing import process_rtma_data
 # WxData function using cartopy to make cyclic points
 # This is for users who wish to make graphics that cross the -180/180 degree longitude line
 # This is commonly used for Hemispheric graphics
-from wxdata.utils.coords import cyclic_point
+# Function that converts the longitude dimension in an xarray.array 
+# From 0 to 360 to -180 to 180
+from wxdata.utils.coords import(
+    cyclic_point,
+    shift_longitude
+)
 
 # Functions to pixel query and query pixels along a line between points A and B
 from wxdata.utils.tools import(
@@ -126,3 +133,5 @@ from wxdata.utils.tools import(
 
 # This is the wxdata HTTPS Client with full VPN/PROXY Support
 import wxdata.client.client as client
+
+
