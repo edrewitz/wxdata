@@ -34,8 +34,8 @@ dependencies = [
 requires = ["setuptools>=64.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-packages = ["wxdata"]
+[tool.setuptools.packages.find]
+where = ["wxdata"]  # Look for packages in the wxdata directory
 
 [project.urls]
 Documentation = "https://github.com/edrewitz/wxdata/blob/main/Documentation/Landing%20Page.md"
