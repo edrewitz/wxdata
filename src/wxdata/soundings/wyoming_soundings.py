@@ -406,13 +406,13 @@ def get_observed_sounding_data(station_id,
     
     
         if hour == 0:  
-            url = ('http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST'
-                    f'&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}0{hour}&TO={date.strftime('%d')}0{hour}'
-                    f'&STNM={station_number}')
+            url = (f"http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST"
+                    f"&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}0{hour}&TO={date.strftime('%d')}0{hour}"
+                    f"&STNM={station_number}")
         else:
-            url = ('http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST'
-                    f'&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}{hour}&TO={date.strftime('%d')}{hour}'
-                    f'&STNM={station_number}')
+            url = (f"http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST"
+                    f"&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}{hour}&TO={date.strftime('%d')}{hour}"
+                    f"&STNM={station_number}")
     
         max_retries = 5
         retry = 0
@@ -443,13 +443,13 @@ def get_observed_sounding_data(station_id,
             hour = date.hour
     
             if hour == 0:  
-                url = ('http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST'
-                        f'&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}0{hour}&TO={date.strftime('%d')}0{hour}'
-                        f'&STNM={station_number}')
+                url = (f"http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST"
+                        f"&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}0{hour}&TO={date.strftime('%d')}0{hour}"
+                        f"&STNM={station_number}")
             else:
-                url = ('http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST'
-                        f'&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}{hour}&TO={date.strftime('%d')}{hour}'
-                        f'&STNM={station_number}')
+                url = (f"http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST"
+                        f"&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}{hour}&TO={date.strftime('%d')}{hour}"
+                        f"&STNM={station_number}")
         
             max_retries = 5
             retry = 0
@@ -508,22 +508,22 @@ def get_observed_sounding_data(station_id,
         date_24 = date - timedelta(hours=24)
     
         if hour == 0:  
-            url = ('http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST'
-                    f'&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}0{hour}&TO={date.strftime('%d')}0{hour}'
-                    f'&STNM={station_number}')
+            url = (f"http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST"
+                    f"&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}0{hour}&TO={date.strftime('%d')}0{hour}"
+                    f"&STNM={station_number}")
 
-            url_24 = ('http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST'
-                    f'&YEAR={date.strftime('%Y')}&MONTH={date_24.strftime('%m')}&FROM={date_24.strftime('%d')}0{hour}&TO={date_24.strftime('%d')}0{hour}'
-                    f'&STNM={station_number}')
+            url_24 = (f"http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST"
+                    f"&YEAR={date.strftime('%Y')}&MONTH={date_24.strftime('%m')}&FROM={date_24.strftime('%d')}0{hour}&TO={date_24.strftime('%d')}0{hour}"
+                    f"&STNM={station_number}")
             
         else:
-            url = ('http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST'
-                    f'&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}{hour}&TO={date.strftime('%d')}{hour}'
-                    f'&STNM={station_number}')
+            url = (f"http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST"
+                    f"&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}{hour}&TO={date.strftime('%d')}{hour}"
+                    f"&STNM={station_number}")
 
-            url_24 = ('http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST'
-                    f'&YEAR={date_24.strftime('%Y')}&MONTH={date_24.strftime('%m')}&FROM={date_24.strftime('%d')}{hour}&TO={date_24.strftime('%d')}{hour}'
-                    f'&STNM={station_number}')
+            url_24 = (f"http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST"
+                    f"&YEAR={date_24.strftime('%Y')}&MONTH={date_24.strftime('%m')}&FROM={date_24.strftime('%d')}{hour}&TO={date_24.strftime('%d')}{hour}"
+                    f"&STNM={station_number}")
 
         max_retries = 5
         retry = 0
@@ -562,22 +562,22 @@ def get_observed_sounding_data(station_id,
             hour = date.hour
     
             if hour == 0:  
-                url = ('http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST'
-                        f'&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}0{hour}&TO={date.strftime('%d')}0{hour}'
-                        f'&STNM={station_number}')
+                url = (f"http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST"
+                        f"&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}0{hour}&TO={date.strftime('%d')}0{hour}"
+                        f"&STNM={station_number}")
     
-                url_24 = ('http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST'
-                        f'&YEAR={date.strftime('%Y')}&MONTH={date_24.strftime('%m')}&FROM={date_24.strftime('%d')}0{hour}&TO={date_24.strftime('%d')}0{hour}'
-                        f'&STNM={station_number}')
+                url_24 = (f"http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST"
+                        f"&YEAR={date.strftime('%Y')}&MONTH={date_24.strftime('%m')}&FROM={date_24.strftime('%d')}0{hour}&TO={date_24.strftime('%d')}0{hour}"
+                        f"&STNM={station_number}")
                 
             else:
-                url = ('http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST'
-                        f'&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}{hour}&TO={date.strftime('%d')}{hour}'
-                        f'&STNM={station_number}')
+                url = (f"http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST"
+                        f"&YEAR={date.strftime('%Y')}&MONTH={date.strftime('%m')}&FROM={date.strftime('%d')}{hour}&TO={date.strftime('%d')}{hour}"
+                        f"&STNM={station_number}")
     
-                url_24 = ('http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST'
-                        f'&YEAR={date_24.strftime('%Y')}&MONTH={date_24.strftime('%m')}&FROM={date_24.strftime('%d')}{hour}&TO={date_24.strftime('%d')}{hour}'
-                        f'&STNM={station_number}')
+                url_24 = (f"http://weather.uwyo.edu/cgi-bin/sounding?region=naconf&TYPE=TEXT%3ALIST"
+                        f"&YEAR={date_24.strftime('%Y')}&MONTH={date_24.strftime('%m')}&FROM={date_24.strftime('%d')}{hour}&TO={date_24.strftime('%d')}{hour}"
+                        f"&STNM={station_number}")
         
             max_retries = 5
             retry = 0
