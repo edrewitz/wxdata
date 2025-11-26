@@ -231,6 +231,8 @@ This package provides the following extra functionality compared to existing pac
 
 **dask**: Dask Development Team (2016). Dask: Library for dynamic task scheduling. URL http://dask.pydata.org
 
+**cfgrib**: Author: ECMWF, Year: (2025), Title: cfgrib: A Python interface to map GRIB files to xarray, Source: https://github.com/ecmwf/cfgrib 
+
 ### Data Sources
 
 1) [National Oceanic and Atmospheric Administration/National Center for Environmental Prediction](https://nomads.ncep.noaa.gov/)
