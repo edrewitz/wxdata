@@ -239,19 +239,20 @@ def primary_gfs_post_processing(path):
     clear_idx_files_in_path(path)
     files = sorted_paths(path)
 
-    try:
-        ds = xr.open_mfdataset(files, 
-                            concat_dim='step', 
-                            combine='nested', 
-                            coords='minimal', 
-                            engine='cfgrib', 
-                            compat='override', 
-                            decode_timedelta=False,
-                            filter_by_keys={'typeOfLevel': 'meanSea'})
-        
-        ds = shift_longitude(ds)
-    except Exception as e:
-        pass
+    print(files)
+    #try:
+    ds = xr.open_mfdataset(files, 
+                        concat_dim='step', 
+                        combine='nested', 
+                        coords='minimal', 
+                        engine='cfgrib', 
+                        compat='override', 
+                        decode_timedelta=False,
+                        filter_by_keys={'typeOfLevel': 'meanSea'})
+    
+    ds = shift_longitude(ds)
+    #except Exception as e:
+        #pass
     
     try:
         ds1 = xr.open_mfdataset(files, 
