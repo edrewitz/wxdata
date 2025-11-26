@@ -47,6 +47,7 @@ This package provides the following extra functionality compared to existing pac
 *Regular Users*
 1) [Downloading METAR Data](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/metars.ipynb)
 2) [Downloading Observed Sounding Data](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/soundings.ipynb)
+3) [Downloading the first 72 hours of the ECMWF IFS and ECMWF AIFS](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/ecmwf.ipynb)
 
 *Advanced Users*
 1) [Using the `client` module to download the latest HadCRUT5 Analysis netCDF file and open this dataset in xarray](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/hadcrut5.ipynb)
