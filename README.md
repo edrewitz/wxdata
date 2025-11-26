@@ -16,6 +16,18 @@ This package only retrieves open-source publicly available weather data.
 
 This package provides the following extra functionality compared to existing packages for downloading weather data:
 
+**How To Install**
+
+Copy and paste either command into your terminal or anaconda prompt:
+
+*Install via Anaconda*
+
+`conda install wxdata`
+
+*Install via pip*
+
+`pip install wxdata`
+
 1) Friendly for users working on VPN/PROXY connections.
    - Users input their PROXY IP address as a dictionary and pass it into the function to avoid SSL errors
      - If the user is on a VPN/PROXY Connection the following is needed:
