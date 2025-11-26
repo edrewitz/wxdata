@@ -113,4 +113,12 @@ This package provides the following extra functionality compared to existing pac
 
 **dask**: Dask Development Team (2016). Dask: Library for dynamic task scheduling. URL http://dask.pydata.org
 
+### Data Sources
+
+1) [National Oceanic and Atmospheric Administration/National Center for Environmental Prediction](https://nomads.ncep.noaa.gov/)
+2) [European Centre for Medium-Range Weather Forecasts](https://data.ecmwf.int/forecasts/)
+3) [University of Wyoming](http://www.weather.uwyo.edu/upperair/sounding.shtml)
+4) [National Oceanic and Atmospheric Administration/National Weather Service](https://tgftp.nws.noaa.gov/)
+5) [National Oceanic and Atmospheric Administration/Aviation Weather Center](https://aviationweather.gov/)
+
 
