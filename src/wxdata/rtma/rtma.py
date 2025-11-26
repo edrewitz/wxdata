@@ -251,9 +251,12 @@ def rtma(model='rtma',
         else:
             pass
         
-        ds = rtma_derived_fields(ds,
-                                convert_temperature,
-                                convert_to)
+        try:
+            ds = rtma_derived_fields(ds,
+                                    convert_temperature,
+                                    convert_to)
+        except Exception as e:
+            pass
 
         clear_idx_files(path)
         
@@ -471,22 +474,28 @@ def rtma_comparison(model='rtma',
                                 model)
         
         if convert_temperature == True:
-            ds = convert_temperature_units(ds, 
-                                            convert_to)
-            
-            ds_dt = convert_temperature_units(ds_dt, 
-                                            convert_to)
+            try:
+                ds = convert_temperature_units(ds, 
+                                                convert_to)
+                
+                ds_dt = convert_temperature_units(ds_dt, 
+                                                convert_to)
+            except Exception as e:
+                pass
             
         else:
             pass
-            
-        ds = rtma_derived_fields(ds,
-                            convert_temperature,
-                            convert_to)
-            
-        ds_dt = rtma_derived_fields(ds_dt,
-                            convert_temperature,
-                            convert_to)
+        
+        try:    
+            ds = rtma_derived_fields(ds,
+                                convert_temperature,
+                                convert_to)
+                
+            ds_dt = rtma_derived_fields(ds_dt,
+                                convert_temperature,
+                                convert_to)
+        except Exception as e:
+            pass
 
 
         clear_idx_files(path)
