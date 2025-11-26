@@ -41,7 +41,7 @@ from wxdata.calc.unit_conversion import convert_temperature_units
 from wxdata.utils.file_scanner import local_file_scanner
 from wxdata.utils.recycle_bin import *
 
-def gefs0p50(cat='mean', 
+def gefs_0p50(cat='mean', 
              final_forecast_hour=384, 
              western_bound=-180, 
              eastern_bound=180, 
@@ -372,7 +372,7 @@ def gefs0p50(cat='mean',
     else:
         pass
 
-def gefs0p50_secondary_parameters(cat='mean', 
+def gefs_0p50_secondary_parameters(cat='mean', 
              final_forecast_hour=384, 
              western_bound=-180, 
              eastern_bound=180, 
@@ -844,7 +844,7 @@ def gefs0p50_secondary_parameters(cat='mean',
     else:
         pass
     
-def gefs0p25(cat='mean', 
+def gefs_0p25(cat='mean', 
              final_forecast_hour=240, 
              western_bound=-180, 
              eastern_bound=180, 
