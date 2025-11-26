@@ -298,7 +298,7 @@ def get_single_station_data(station_id,
                             end_date=None, 
                             fuel_model='Y', 
                             clear_recycle_bin=True,
-                            path='FEMS Data',
+                            path=f'FEMS Data',
                             proxies=None):
 
     """
