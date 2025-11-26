@@ -4,6 +4,8 @@
 
 An open-source package that helps meteorologists and weather enthusiats download, pre-process and post-process various types of weather data. 
 
+**(C) Eric J. Drewitz 2025**
+
 This package only retrieves open-source weather data (i.e. nothing behind a paywall or a login). 
 
 This package provides the following extra functionality compared to existing packages for downloading weather data:
