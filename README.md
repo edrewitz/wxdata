@@ -1,6 +1,7 @@
 # WxData
 
-![weather icon](https://github.com/edrewitz/wxdata/blob/main/icons/weather%20icon.jpg) ![python icon](https://github.com/edrewitz/wxdata/blob/main/icons/python%20logo.png)
+![weather icon](https://github.com/edrewitz/wxdata/blob/main/icons/weather%20icon.jpg) 
+![python icon](https://github.com/edrewitz/wxdata/blob/main/icons/python%20logo.png)
 
 
 
