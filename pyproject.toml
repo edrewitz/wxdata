@@ -9,7 +9,7 @@ description = "An open source library for downloading and pre/post-processing va
 readme = "README.md"
 requires-python = ">=3.10"
 
-project.license-files = { file = "LICENSE" }
+license-files = { file = "LICENSE" }
 authors = [
     { name = "Eric J. Drewitz" },
 ]
