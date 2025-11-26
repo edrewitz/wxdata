@@ -57,6 +57,7 @@ This package provides the following extra functionality compared to existing pac
 6) [Downloading the RAWS SIG Group Fuels Data and the NFDRS Forecast for the RAWS SIG Groups for the South Ops Geographic Area Coordination Center](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/fems.ipynb)
 7) [Downloading the SPC Convective Outlook for CONUS](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/spc.ipynb)
 8) [Downloading NWS Maximum Temperature Forecast for Hawaii](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/nws_hi.ipynb)
+9) [Downloading the GFS0P25 then performing pixel and line queries on the data](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/GFS.ipynb)
 
 *Advanced Users*
 1) [Using the `client` module to download the latest HadCRUT5 Analysis netCDF file and open this dataset in xarray](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/hadcrut5.ipynb)
