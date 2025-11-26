@@ -34,6 +34,8 @@ dependencies = [
  
 ]
 
+[tool.setuptools]
+py-modules = ["wxdata"]
 
 [project.urls]
 Documentation = "https://github.com/edrewitz/wxdata/blob/main/Documentation/Landing%20Page.md"
