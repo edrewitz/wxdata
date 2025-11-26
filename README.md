@@ -2,6 +2,8 @@
 
 ![weather icon](https://github.com/edrewitz/wxdata/blob/main/icons/weather%20icon.jpg) ![python icon](https://github.com/edrewitz/wxdata/blob/main/icons/python%20logo.png)
 
+
+
 **(C) Eric J. Drewitz 2025**
 
 An open-source package that helps meteorologists and weather enthusiats download, pre-process and post-process various types of weather data. 
