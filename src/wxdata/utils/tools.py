@@ -53,8 +53,12 @@ def station_coords(station_id):
     longitude = df['longitude_deg']
     latitude = df['latitude_deg']
 
-    longitude = longitude.iloc[0]
-    latitude = latitude.iloc[0]
+    try:
+        longitude = longitude.iloc[0]
+        latitude = latitude.iloc[0]
+    except Exception as e:
+        longitude = longitude
+        latitude = latitude     
     
     return longitude, latitude  
 
