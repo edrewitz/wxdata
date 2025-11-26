@@ -48,8 +48,4 @@ def build_directory(model,
     
     path = f"{folder_modified}/{model}/{cat}/"
     
-    print(path)
-    
-    
-    
     return path

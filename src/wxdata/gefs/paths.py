@@ -37,22 +37,22 @@ def gefs_branch_path(model,
     if cat == 'MEMBERS':
         paths = []
         for member in members:
-            path = f"{model}/{cat}/{member}"
+            path = f"{folder_modified}/{model}/{cat}/{member}"
             paths.append(path)
             
     elif cat == 'MEAN' and model == 'GEFS0P50 SECONDARY PARAMETERS':
         paths = []
         for member in members:
-            path = f"{model}/{cat}/{member}"
+            path = f"{folder_modified}/{model}/{cat}/{member}"
             paths.append(path)
             
     elif cat == 'SPREAD' and model == 'GEFS0P50 SECONDARY PARAMETERS':
         paths = []
         for member in members:
-            path = f"{model}/{cat}/{member}"
+            path = f"{folder_modified}/{model}/{cat}/{member}"
             paths.append(path)
             
     else:
-        paths = f"{model}/{cat}"
+        paths = f"{folder_modified}/{model}/{cat}"
     
     return paths

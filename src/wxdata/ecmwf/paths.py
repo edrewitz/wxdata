@@ -41,7 +41,7 @@ def ecmwf_branch_paths(model, cat):
     model = model.upper()
     cat = cat.upper()
     
-    path = f"ECMWF/{model}/{cat}"
+    path = f"{folder_modified}/ECMWF/{model}/{cat}"
     
     return path
 
