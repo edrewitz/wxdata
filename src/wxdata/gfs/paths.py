@@ -42,11 +42,13 @@ def build_directory(model,
     cat = cat.upper()
     
     try:
-        os.makedirs(f"{model}/{cat}")
+        os.makedirs(f"{folder_modified}/{model}/{cat}")
     except Exception as e:
         pass
     
-    path = f"{model}/{cat}"
+    path = f"{folder_modified}/{model}/{cat}"
+    
+    print(path)
     
     
     
