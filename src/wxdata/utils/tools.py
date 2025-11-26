@@ -33,6 +33,8 @@ def station_coords(station_id):
     
     The latitude (float) and longitude (float) of the ASOS station.    
     """
+
+    station_id = station_id.upper()
     
     if os.path.exists(f"Airport Codes"):
         pass
@@ -53,14 +55,8 @@ def station_coords(station_id):
     longitude = df['longitude_deg']
     latitude = df['latitude_deg']
 
-    print(longitude)
-    print(latitude)
-    try:
-        longitude = longitude.iloc[0]
-        latitude = latitude.iloc[0]
-    except Exception as e:
-        longitude = longitude
-        latitude = latitude     
+    longitude = float(longitude.iloc[0])
+    latitude = float(latitude.iloc[0])  
     
     return longitude, latitude  
 
