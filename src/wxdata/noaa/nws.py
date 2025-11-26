@@ -248,7 +248,8 @@ def get_ndfd_grids(parameter,
                    proxies=None,
                    chunk_size=8192,
                    notifications='on',
-                   clear_recycle_bin=True):
+                   clear_recycle_bin=True,
+                   include_extended_grids=True):
 
     """
 
@@ -276,6 +277,9 @@ def get_ndfd_grids(parameter,
     
     4) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
         of the program you are calling WxData. This setting is to help preserve memory on the machine. 
+        
+    5) include_extended_grids (Boolean) - Default=True. Most NOAA/NWS products have extended grids. However, SPC products do not have extended grids.
+        When downloading SPC plots or if the user does not wish to include the extended grids, set include_extended_grids=False.
         
         
     Parameters
@@ -318,14 +322,7 @@ def get_ndfd_grids(parameter,
     'visibility'
     'significant_wave_height'
     'warnings'
-    'weather'  
-
-    2) state (String) - The state or region being used. 
-    
-    Optional Arguments: 
-    
-    1) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
-        of the program you are calling WxData. This setting is to help preserve memory on the machine. 
+    'weather' 
 
     Returns
     -------
@@ -427,30 +424,32 @@ def get_ndfd_grids(parameter,
                                 proxies=proxies,
                                 chunk_size=chunk_size,
                                 notifications=notifications)
+        
+    if include_extended_grids == True:
     
-    if os.path.exists(extended_fname):
-        try:
-            os.remove(extended_fname)
-            client.get_gridded_data(f"https://tgftp.nws.noaa.gov{directory_name}VP.004-007/{fname}", 
-                                    f"NWS Data",
-                                    f"{extended_fname}",
-                                    proxies=proxies,
-                                    chunk_size=chunk_size,
-                                    notifications=notifications)
-            extended = True
-        except Exception as e:
-            extended = False
-    else:
-        try:
-            client.get_gridded_data(f"https://tgftp.nws.noaa.gov{directory_name}VP.004-007/{fname}", 
-                                    f"NWS Data",
-                                    f"{extended_fname}",
-                                    proxies=proxies,
-                                    chunk_size=chunk_size,
-                                    notifications=notifications)
-            extended = True
-        except Exception as e:
-            extended = False
+        if os.path.exists(extended_fname):
+            try:
+                os.remove(extended_fname)
+                client.get_gridded_data(f"https://tgftp.nws.noaa.gov{directory_name}VP.004-007/{fname}", 
+                                        f"NWS Data",
+                                        f"{extended_fname}",
+                                        proxies=proxies,
+                                        chunk_size=chunk_size,
+                                        notifications=notifications)
+                extended = True
+            except Exception as e:
+                extended = False
+        else:
+            try:
+                client.get_gridded_data(f"https://tgftp.nws.noaa.gov{directory_name}VP.004-007/{fname}", 
+                                        f"NWS Data",
+                                        f"{extended_fname}",
+                                        proxies=proxies,
+                                        chunk_size=chunk_size,
+                                        notifications=notifications)
+                extended = True
+            except Exception as e:
+                extended = False
 
     try:
         os.remove(parameter)
@@ -472,7 +471,7 @@ def get_ndfd_grids(parameter,
         except Exception as e:
             ds1 = ds1
 
-    if extended == True:
+    if extended == True or include_extended_grids == True:
         try:
 
             if state != 'AK' or state != 'ak' or state == None:
@@ -497,7 +496,7 @@ def get_ndfd_grids(parameter,
         
     ds1 = ds1.metpy.parse_cf()
 
-    if extended == True:
+    if extended == True or include_extended_grids == True:
         try:
             ds2 = ds2.metpy.parse_cf() 
         except Exception as e:
@@ -515,9 +514,10 @@ def get_ndfd_grids(parameter,
     ds1[parameter] = ds1[data_var_names_1[0]]
     ds1 = ds1.drop_vars(data_var_names_1[0])
     
-    data_var_names_2 = [var.name for var in ds2.data_vars.values()]
-    ds2[parameter] = ds2[data_var_names_2[0]]
-    ds2 = ds2.drop_vars(data_var_names_2[0])
+    if extended == True or include_extended_grids == True:
+        data_var_names_2 = [var.name for var in ds2.data_vars.values()]
+        ds2[parameter] = ds2[data_var_names_2[0]]
+        ds2 = ds2.drop_vars(data_var_names_2[0])
     
     if state == 'HI':
         
@@ -526,4 +526,7 @@ def get_ndfd_grids(parameter,
     else:
         pass
 
-    return ds1, ds2
+    if extended == True or include_extended_grids == True:
+        return ds1, ds2
+    else:
+        return ds1
