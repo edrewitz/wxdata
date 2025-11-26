@@ -5,42 +5,51 @@
                             start_date=None, 
                             end_date=None, 
                             fuel_model='Y', 
-                            to_csv=True,
-                            clear_recycle_bin=True):***
+                            clear_recycle_bin=True,
+                            path='FEMS Data',
+                            proxies=None):***
 
-This function retrieves the dataframe for a single RAWS station in FEMS
+    This function retrieves the dataframe for a single RAWS station in FEMS
 
-Required Arguments:
+    Required Arguments:
 
-1) station_id (Integer) - The WIMS or RAWS ID of the station. 
+    1) station_id (Integer) - The WIMS or RAWS ID of the station. 
 
-2) number_of_days (Integer or String) - How many days the user wants the summary for (90 for 90 days).
-If the user wants to use a custom date range enter 'Custom' or 'custom' in this field. 
+    2) number_of_days (Integer or String) - How many days the user wants the summary for (90 for 90 days).
+        If the user wants to use a custom date range enter 'Custom' or 'custom' in this field. 
 
-Optional Arguments:
+    Optional Arguments:
 
-1) start_date (String) - Default = None. The start date if the user wants to define a custom period. Enter as a string
-in the following format 'YYYY-mm-dd'
+    1) start_date (String) - Default = None. The start date if the user wants to define a custom period. Enter as a string
+        in the following format 'YYYY-mm-dd'
 
-2) end_date (String) - Default = None. The end date if the user wants to define a custom period. Enter as a string
-in the following format 'YYYY-mm-dd'
+    2) end_date (String) - Default = None. The end date if the user wants to define a custom period. Enter as a string
+        in the following format 'YYYY-mm-dd'
 
-3) fuel_model (String) - Default = 'Y'. The fuel model being used. 
-
+    3) fuel_model (String) - Default = 'Y'. The fuel model being used. 
         Fuel Models List:
-        
+
         Y - Timber
         X - Brush
         W - Grass/Shrub
         V - Grass
         Z - Slash
 
-4) to_csv (Boolean) - Default = True. This will save the data into a CSV file and build a directory to hold the CSV files. 
+    4) to_csv (Boolean) - Default = True. This will save the data into a CSV file and build a directory to hold the CSV files. 
+    
+    5) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
+        of the program you are calling WxData. This setting is to help preserve memory on the machine. 
+        
+    6) proxies (dict or None) - Default=None. If the user is using proxy server(s), the user must change the following:
 
-5) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
-of the program you are calling WxData. This setting is to help preserve memory on the machine. 
+       proxies=None ---> proxies={
+                           'http':'http://url',
+                           'https':'https://url'
+                        }
 
-Returns
--------
-
-A Pandas DataFrame of the NFDRS data from FEMS.   
+    7) path (String) - Default='FEMS Data". The parent directory to the FEMS data files.
+    
+    Returns
+    -------
+    
+    A Pandas DataFrame of the NFDRS data from FEMS.       
