@@ -471,7 +471,7 @@ def get_ndfd_grids(parameter,
         except Exception as e:
             ds1 = ds1
 
-    if extended == True or include_extended_grids == True:
+    if include_extended_grids == True:
         try:
 
             if state != 'AK' or state != 'ak' or state == None:
@@ -496,7 +496,7 @@ def get_ndfd_grids(parameter,
         
     ds1 = ds1.metpy.parse_cf()
 
-    if extended == True or include_extended_grids == True:
+    if include_extended_grids == True:
         try:
             ds2 = ds2.metpy.parse_cf() 
         except Exception as e:
@@ -526,7 +526,7 @@ def get_ndfd_grids(parameter,
     else:
         pass
 
-    if extended == True or include_extended_grids == True:
+    if include_extended_grids == True:
         return ds1, ds2
     else:
         return ds1
