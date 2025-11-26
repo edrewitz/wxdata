@@ -42,22 +42,38 @@ This package provides the following extra functionality compared to existing pac
         - When `clear_recycle_bin=True` the computer's recycle/trash bin is cleared with each run of the script using any WxData function.
         - If a user wishes to not clear out their recycle bin `set clear_recycle_bin=False`.
     
-**WxData Examples**
+## WxData Examples
 
 *Regular Users*
 1) [Downloading METAR Data](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/metars.ipynb)
 2) [Downloading Observed Sounding Data](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/soundings.ipynb)
 3) [Downloading the first 72 hours of the ECMWF IFS and ECMWF AIFS](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/ecmwf.ipynb)
+4) [Downloading the GEFS members p01 and p02 for only Temperature](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/gefs.ipynb)
+5) [Downloading the Real-Time Mesoscale Analysis (RTMA)](https://github.com/edrewitz/WxData/blob/main/Documentation/RTMA%20Post%20Processing.md)
+6) [Downloading the RAWS SIG Group Fuels Data and the NFDRS Forecast for the RAWS SIG Groups for the South Ops Geographic Area Coordination Center](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/fems.ipynb)
+7) [Downloading the SPC Convective Outlook for CONUS](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/spc.ipynb)
+8) [Downloading NWS Maximum Temperature Forecast for Hawaii](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/nws_hi.ipynb)
 
 *Advanced Users*
 1) [Using the `client` module to download the latest HadCRUT5 Analysis netCDF file and open this dataset in xarray](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/hadcrut5.ipynb)
 
-**WxData Documentation**
+## WxData Documentation
+
+***Global Forecast System (GFS)***
+1. [GFS0P25](https://github.com/edrewitz/WxData/blob/main/Documentation/GFS0P25.md)
+2. [GFS0P25 SECONDARY PARAMETERS](https://github.com/edrewitz/WxData/blob/main/Documentation/GFS0P25%20Secondary%20Parameters.md)
+3. [GFS0P50](https://github.com/edrewitz/WxData/blob/main/Documentation/GEFS0P50.md)
 
 ***Global Ensemble Forecast System (GEFS)***
 1. [GEFS0P50](https://github.com/edrewitz/wxdata/blob/main/Documentation/GEFS0P50.md#global-ensemble-forecast-system-050-x-050-degree-gefs0p50)
 2. [GEFS0P50 SECONDARY PARAMETERS](https://github.com/edrewitz/wxdata/blob/main/Documentation/GEFS0P50%20Secondary%20Parameters.md#global-ensemble-forecast-system-050-x-050-degree-secondary-parameters-gefs0p50-secondary-parameters)
 3. [GEFS0P25](https://github.com/edrewitz/wxdata/blob/main/Documentation/GEFS0P25.md#global-ensemble-forecast-system-025-x-025-degree-gefs0p25)
+
+***ECMWF Open Data***
+1. [ECMWF IFS](https://github.com/edrewitz/WxData/blob/main/Documentation/ECMWF_IFS.md)
+2. [ECMWF AIFS](https://github.com/edrewitz/WxData/blob/main/Documentation/ECMWF_AIFS.md)
+3. [ECMWF High Resolution IFS](https://github.com/edrewitz/WxData/blob/main/Documentation/ECMWF_High_Res_IFS.md)
+4. [ECMWF IFS Wave](https://github.com/edrewitz/WxData/blob/main/Documentation/ECMWF_IFS_Wave.md)
    
 ***Real-Time Mesoscale Analysis (RTMA)***
 1. [RTMA](https://github.com/edrewitz/wxdata/blob/main/Documentation/rtma.md#real-time-mesoscale-analysis-rtma)
@@ -77,10 +93,35 @@ This package provides the following extra functionality compared to existing pac
 ***Observed Atmospheric Soundings***
 1. [University Of Wyoming Soundings](https://github.com/edrewitz/wxdata/blob/main/Documentation/wyoming_soundings.md)
 
+***GFS Post-Processing***
+1. [Primary GFS Post-Processing](https://github.com/edrewitz/WxData/blob/main/Documentation/Primary%20GFS%20Post%20Processing.md)
+2. [Secondary GFS Post-Processing](https://github.com/edrewitz/WxData/blob/main/Documentation/Secondary%20GFS%20Post%20Processing.md)
+
+***GEFS Post-Processing***
+1. [Primary GEFS Post-Processing](https://github.com/edrewitz/WxData/blob/main/Documentation/Primary%20GEFS%20Post-Processing.md)
+2. [Secondary GEFS Post-Processing](https://github.com/edrewitz/WxData/blob/main/Documentation/Secondary%20GEFS%20Post%20Processing.md)
+
+***ECMWF Post-Processing***
+1. [ECMWF IFS and ECMWF High Resolution IFS](https://github.com/edrewitz/WxData/blob/main/Documentation/ECMWF%20IFS%20Post%20Processing.md)
+2. [ECMWF AIFS](https://github.com/edrewitz/WxData/blob/main/Documentation/ECMWF%20AIFS%20Post%20Processing.md)
+3. [ECMWF IFS Wave](https://github.com/edrewitz/WxData/blob/main/Documentation/ECMWF%20IFS%20Wave%20Post%20Processing.md)
+
+***Real-Time Mesoscale Analysis Post-Processing***
+1.[RTMA](https://github.com/edrewitz/WxData/blob/main/Documentation/RTMA%20Post%20Processing.md)
+
 ***Cyclic Points For Hemispheric Plots***
 1. [Cyclic Points](https://github.com/edrewitz/wxdata/blob/main/Documentation/cyclic_point.md#using-wxdata-to-add-cyclic-points-for-hemispheric-plots)
 
-**Importing Functions from WxData**
+***Shifting Longitude From 0 to 360 --> -180 to 180***
+1. [shift_longitude](https://github.com/edrewitz/WxData/blob/main/Documentation/shift_longitude.md)
+
+***Pixel Query***
+1. [pixel_query](https://github.com/edrewitz/WxData/blob/main/Documentation/pixel_query.md)
+
+***Line Query***
+1. [line_query](https://github.com/edrewitz/WxData/blob/main/Documentation/line_query.md)
+
+## Importing Functions from WxData
 
             """
             This section of functions are for users who want full wxdata functionality.
@@ -214,7 +255,7 @@ This package provides the following extra functionality compared to existing pac
    
 
 
-### Citations
+## Citations
 
 **MetPy**: May, R. M., Goebbert, K. H., Thielen, J. E., Leeman, J. R., Camron, M. D., Bruick, Z.,
     Bruning, E. C., Manser, R. P., Arms, S. C., and Marsh, P. T., 2022: MetPy: A
@@ -233,7 +274,7 @@ This package provides the following extra functionality compared to existing pac
 
 **cfgrib**: Author: ECMWF, Year: (2025), Title: cfgrib: A Python interface to map GRIB files to xarray, Source: https://github.com/ecmwf/cfgrib 
 
-### Data Sources
+## Data Sources
 
 1) [National Oceanic and Atmospheric Administration/National Center for Environmental Prediction](https://nomads.ncep.noaa.gov/)
 2) [European Centre for Medium-Range Weather Forecasts](https://data.ecmwf.int/forecasts/)
