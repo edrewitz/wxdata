@@ -41,8 +41,17 @@ This package provides the following extra functionality compared to existing pac
    - Optional setting `clear_recycle_bin=True` in all functions.
         - When `clear_recycle_bin=True` the computer's recycle/trash bin is cleared with each run of the script using any WxData function.
         - If a user wishes to not clear out their recycle bin `set clear_recycle_bin=False`.
+    
+**WxData Examples**
 
-**WxData Module Documentation**
+*Regular Users*
+1) [Downloading METAR Data](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/metars.ipynb)
+2) [Downloading Observed Sounding Data](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/soundings.ipynb)
+
+*Advanced Users*
+1) [Using `client` module to download the latest HadCRUT5 Analysis netCDF file and open this dataset in xarray](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/hadcrut5.ipynb)
+
+**WxData Documentation**
 
 ***Global Ensemble Forecast System (GEFS)***
 1. [GEFS0P50](https://github.com/edrewitz/wxdata/blob/main/Documentation/GEFS0P50.md#global-ensemble-forecast-system-050-x-050-degree-gefs0p50)
