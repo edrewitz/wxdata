@@ -514,7 +514,7 @@ def get_ndfd_grids(parameter,
     ds1[parameter] = ds1[data_var_names_1[0]]
     ds1 = ds1.drop_vars(data_var_names_1[0])
     
-    if extended == True or include_extended_grids == True:
+    if include_extended_grids == True:
         data_var_names_2 = [var.name for var in ds2.data_vars.values()]
         ds2[parameter] = ds2[data_var_names_2[0]]
         ds2 = ds2.drop_vars(data_var_names_2[0])
