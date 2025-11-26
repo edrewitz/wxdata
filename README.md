@@ -21,6 +21,8 @@ This package provides the following extra functionality compared to existing pac
 
                         [e.g. get_observed_sounding_data('nkx', proxies=proxies)]
 
+   For more information on configuring proxies: https://requests.readthedocs.io/en/latest/user/advanced/#proxies
+
    - Some data access functions work on VPN/PROXY connections without needing to define VPN/PROXY settings:
       - METARs
       - NOAA Storm Prediction Center/National Weather Service Products
@@ -31,14 +33,14 @@ This package provides the following extra functionality compared to existing pac
       - Observed Sounding Data from University of Wyoming
       - Real-Time Mesoscale Analysis 
        
-2) Converts GRIB variable keys into variable keys that are in plain language.
+1) Converts GRIB variable keys into variable keys that are in plain language.
     - (e.g. 'r2' ---> '2m_relative_humidity')
       
-3) Has a scanner that checks if the data files on your PC are up to date with those on the data server.
+2) Has a scanner that checks if the data files on your PC are up to date with those on the data server.
    - This is a safeguard to protect newer developers from getting temporary IP address bans from the various data servers.
    - Improves performance by preventing the potential of repetative downloading the same dataset.
 
-4) Preserves system memory via the following methods:
+3) Preserves system memory via the following methods:
    - Clears out old data files before each new data download.
    - Optional setting `clear_recycle_bin=True` in all functions.
         - When `clear_recycle_bin=True` the computer's recycle/trash bin is cleared with each run of the script using any WxData function.
