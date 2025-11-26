@@ -46,7 +46,7 @@ def build_directory(model,
     except Exception as e:
         pass
     
-    path = f"{folder_modified}/{model}/{cat}"
+    path = f"{folder_modified}/{model}/{cat}/"
     
     print(path)
     
