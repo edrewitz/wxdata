@@ -204,6 +204,12 @@ def ecmwf_ifs_post_processing(path,
         pass
     
     try:
+        ds['time_maximum_10m_wind_gust'] = ds['fg10_3']
+        ds = ds.drop_vars('fg10_3')
+    except Exception as e:
+        pass
+    
+    try:
         ds['total_column_water'] = ds['tcw']
         ds = ds.drop_vars('tcw')
     except Exception as e:
