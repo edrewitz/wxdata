@@ -105,6 +105,7 @@ def ecmwf_ifs_post_processing(path,
     '2m_dew_point'
     '2m_relative_humidity'
     '2m_dew_point_depression'
+    'time_maximum_10m_wind_gust'
 
     """
     clear_idx_files_in_path(path)
@@ -486,11 +487,13 @@ def ecmwf_ifs_post_processing(path,
     
     try:
         ds['100m_u_wind_component'] = ds2['u100']
+        ds = ds.drop_vars('u100')
     except Exception as e:
         pass
     
     try:
         ds['100m_v_wind_component'] = ds3['v100']
+        ds = ds.drop_vars('v100')
     except Exception as e:
         pass
     
