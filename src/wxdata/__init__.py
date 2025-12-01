@@ -134,4 +134,7 @@ from wxdata.utils.tools import(
 # This is the wxdata HTTPS Client with full VPN/PROXY Support
 import wxdata.client.client as client
 
+# This function executes a list of Python scripts in the order the user lists them
+from wxdata.utils.scripts import run_external_scripts
+
 
