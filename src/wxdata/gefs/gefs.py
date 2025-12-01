@@ -301,7 +301,7 @@ def gefs_0p50(cat='mean',
                                         run)       
     
     if download == True:
-        print(f"Data downloading...")
+        print(f"Downloading GEFS0P50...")
         
         try:
             for path in paths:
@@ -778,7 +778,7 @@ def gefs_0p50_secondary_parameters(cat='mean',
                                         run)       
     
     if download == True:
-        print(f"Data downloading...")
+        print(f"Downloading GEFS0P50 Secondary Parameters...")
 
         try:
             for path in paths:
@@ -1102,7 +1102,7 @@ def gefs_0p25(cat='mean',
                                         run)       
     
     if download == True:
-        print(f"Data downloading...")
+        print(f"Downloading GEFS0P25...")
 
         try:
             for path in paths:

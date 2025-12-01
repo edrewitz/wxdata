@@ -408,7 +408,7 @@ def gfs_0p25(final_forecast_hour=384,
                                     run)   
     
     if download == True:
-        print(f"Data downloading...")
+        print(f"Downloading GFS0P25...")
         
         try:
             for file in os.listdir(f"{path}"):
@@ -644,7 +644,7 @@ def gfs_0p25_secondary_parameters(final_forecast_hour=384,
                                     run)   
     
     if download == True:
-        print(f"Data downloading...")
+        print(f"Downloading GFS0P25 Secondary Parameters...")
         
         try:
             for file in os.listdir(f"{path}"):
@@ -1072,7 +1072,7 @@ def gfs_0p50(final_forecast_hour=384,
                                     run)   
     
     if download == True:
-        print(f"Data downloading...")
+        print(f"Downloading GFS0P50...")
         
         try:
             for file in os.listdir(f"{path}"):

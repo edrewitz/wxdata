@@ -214,7 +214,7 @@ def rtma(model='rtma',
         pass
     
     if download == True:
-        print(f"Data Downloading...")
+        print(f"Downloading {model.upper()}...")
         
         try:
             for file in os.listdir(f"{path}"):

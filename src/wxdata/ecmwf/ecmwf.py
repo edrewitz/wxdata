@@ -181,7 +181,7 @@ def ecmwf_ifs(final_forecast_hour=360,
     date = parse_filename(filename)
     
     if download == True:
-        print(f"Data downloading...")
+        print(f"Downloading ECMWF IFS...")
         clear_old_data(path)
         if final_forecast_hour <= 144:
             for i in range(0, final_forecast_hour + step, step):
@@ -373,7 +373,7 @@ def ecmwf_aifs(final_forecast_hour=360,
     date = parse_filename(filename)
     
     if download == True:
-        print(f"Downloading...")
+        print(f"Downloading ECMWF AIFS...")
         clear_old_data(path)
         if final_forecast_hour <= 144:
             for i in range(0, final_forecast_hour + 6, 6):
@@ -575,7 +575,7 @@ def ecmwf_ifs_high_res(final_forecast_hour=144,
     date = parse_filename(filename)
     
     if download == True:
-        print(f"Data downloading...")
+        print(f"Downloading ECMWF High Resolution IFS...")
         clear_old_data(path)
         for i in range(0, final_forecast_hour + step, step):
             client.get_gridded_data(f"{url}/{date.strftime('%Y%m%d%H')}0000-{i}h-scda-fc.grib2", 
@@ -712,7 +712,7 @@ def ecmwf_ifs_wave(final_forecast_hour=144,
     date = parse_filename(filename)
     
     if download == True:
-        print(f"Data downloading...")
+        print(f"Downloading ECMWF IFS Wave...")
         clear_old_data(path)
         for i in range(0, final_forecast_hour + step, step):
             client.get_gridded_data(f"{url}/{date.strftime('%Y%m%d%H')}0000-{i}h-scwv-fc.grib2", 
