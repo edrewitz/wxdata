@@ -42,7 +42,7 @@ def run_external_scripts(paths):
         
         try:
             subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            print(f"{fname} ran successfully. Output:")
+            print(f"{fname} ran successfully.")
         except subprocess.CalledProcessError as e:
             print(f"Script failed with return code {e.returncode}. Error:")
             print(e.stderr)
