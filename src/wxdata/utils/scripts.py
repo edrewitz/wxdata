@@ -57,8 +57,7 @@ def run_external_scripts(paths,
                     print(result.stdout)
                 else:
                     pass
-                return_result = result.stdout
-                return return_result
+                return result
             print(f"{fname} ran successfully.")
         except subprocess.CalledProcessError as e:
             print(f"Script failed with return code {e.returncode}. Error:")
