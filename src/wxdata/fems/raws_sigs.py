@@ -190,9 +190,6 @@ def get_raws_sig_info():
         urllib.request.urlretrieve(f"https://raw.githubusercontent.com/edrewitz/firewxpy/refs/heads/main/RAWS%20SIGs/SWCC_StationList.csv", f"SWCC_StationList.csv")
         os.replace(f"SWCC_StationList.csv", f"RAWS SIGs/SWCC/SWCC_StationList.csv")
 
-check_folders()
-get_raws_sig_info()
-
 def get_sigs(gacc_region):
 
     """

@@ -94,7 +94,11 @@ def get_gridded_data(url,
                     i = i 
                     if i >= 5:
                         print(f"Error - File Cannot Be Downloaded.\nError Code: {e}")    
-                        sys.exit(1)           
+                        sys.exit(1)      
+                        
+        finally:
+            if r:
+                r.close() # Ensure the connection is closed.
             
     else:
         try:
@@ -130,6 +134,10 @@ def get_gridded_data(url,
                     if i >= 5:
                         print(f"Error - File Cannot Be Downloaded.\nError Code: {e}")    
                         sys.exit(1)    
+                        
+        finally:
+            if r:
+                r.close() # Ensure the connection is closed.
                         
                         
 def get_csv_data(url,
@@ -210,6 +218,9 @@ def get_csv_data(url,
                     if i >= 5:
                         print(f"Error - File Cannot Be Downloaded.\nError Code: {e}")    
                         sys.exit(1)    
+        finally:
+            if response:
+                response.close() # Ensure the connection is closed.
                         
     else:
         try:
@@ -231,6 +242,9 @@ def get_csv_data(url,
                     if i >= 5:
                         print(f"Error - File Cannot Be Downloaded.\nError Code: {e}")    
                         sys.exit(1) 
+        finally:
+            if response:
+                response.close() # Ensure the connection is closed.
                 
                         
     data_stream = BytesIO(response.content)

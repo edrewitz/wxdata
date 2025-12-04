@@ -424,13 +424,13 @@ def gfs_0p25(final_forecast_hour=384,
                         chunk_size=chunk_size,
                         notifications=notifications)  
         
-        print("Download Complete") 
+        print("GFS0P25 Download Complete") 
             
     else:
-        print(f"User has the current dataset.\nSkipping download.")
+        print(f"GFS0P25 Data is up to date. Skipping download...") 
     
     if process_data == True:
-        print(f"Data Processing...")
+        print(f"GFS0P25 Data Processing...")
         
         ds = gfs_post_processing.primary_gfs_post_processing(path)
         
@@ -441,7 +441,7 @@ def gfs_0p25(final_forecast_hour=384,
         else:
             pass
         
-        print(f"Data Processing Complete.")
+        print(f"GFS0P25 Data Processing Complete.")
         return ds
     
     else:
@@ -660,13 +660,13 @@ def gfs_0p25_secondary_parameters(final_forecast_hour=384,
                         chunk_size=chunk_size,
                         notifications=notifications)   
             
-        print("Download Complete") 
+        print("GFS0P25 Secondary Parameters Download Complete") 
             
     else:
-        print(f"User has the current dataset.\nSkipping download.")
+        print(f"GFS0P25 Secondary Parameters Data is up to date. Skipping download...") 
     
     if process_data == True:
-        print(f"Data Processing...")
+        print(f"GFS0P25 Secondary Parameters Data Processing...")
         
         ds = gfs_post_processing.secondary_gfs_post_processing(path)
         
@@ -677,7 +677,7 @@ def gfs_0p25_secondary_parameters(final_forecast_hour=384,
         else:
             pass
         
-        print(f"Data Processing Complete.")
+        print(f"GFS0P25 Secondary Parameters Data Processing Complete.")
         return ds
     
     else:
@@ -1088,13 +1088,13 @@ def gfs_0p50(final_forecast_hour=384,
                         chunk_size=chunk_size,
                         notifications=notifications)   
             
-        print("Download Complete") 
+        print("GFS0P50 Download Complete") 
             
     else:
-        print(f"User has the current dataset.\nSkipping download.")
+        print(f"GFS0P50 Data is up to date. Skipping download...") 
     
     if process_data == True:
-        print(f"Data Processing...")
+        print(f"GFS0P50 Data Processing...")
         
         ds = gfs_post_processing.primary_gfs_post_processing(path)
         
@@ -1105,7 +1105,7 @@ def gfs_0p50(final_forecast_hour=384,
         else:
             pass
         
-        print(f"Data Processing Complete.")
+        print(f"GFS0P50 Data Processing Complete.")
         return ds
     
     else:

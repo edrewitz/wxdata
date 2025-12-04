@@ -229,12 +229,12 @@ def rtma(model='rtma',
                     chunk_size=chunk_size,
                     notifications=notifications)
         
-        print(f"Download Complete.")
+        print(f"{model.upper()} Download Complete.")
     else:
-        print(f"{model} Data is current. Skipping download.")
+        print(f"{model.upper()} Data is current. Skipping download.")
         
     if process_data == True:
-        print(f"Data Processing...")
+        print(f"{model.upper()} Data Processing...")
         filename = f"{filename}.grib2"
         ds = process_rtma_data(path, 
                                 filename, 
@@ -260,7 +260,7 @@ def rtma(model='rtma',
 
         clear_idx_files(path)
         
-        print(f"Data Processing Complete.")
+        print(f"{model.upper()} Data Processing Complete.")
         return ds
     
     else:
@@ -444,25 +444,26 @@ def rtma_comparison(model='rtma',
         except Exception as e:
             pass
         
-        print(f"Data Downloading...")
+        print(f"Current {model.upper()} Data Downloading...")
         client.get_gridded_data(f"{url}", 
                     path,
                     f"{filename}.grib2",
                     proxies=proxies,
                     chunk_size=chunk_size,
                     notifications=notifications)
+        print(f"Comparison {model.upper()} Data Downloading...")
         client.get_gridded_data(f"{url_dt}", 
                     path,
                     f"{filename_dt}.grib2",
                     proxies=proxies,
                     chunk_size=chunk_size,
                     notifications=notifications)
-        print(f"Download Complete.")
+        print(f"{model.upper()} Download Complete.")
     else:
-        print(f"{model} Data is current. Skipping download.")
+        print(f"{model.upper()} Data is current. Skipping download.")
         
     if process_data == True:
-        print(f"Data Processing...")
+        print(f"{model.upper()} Data Processing...")
         filename = f"{filename}.grib2"
         ds = process_rtma_data(path, 
                                 filename, 
@@ -500,7 +501,7 @@ def rtma_comparison(model='rtma',
 
         clear_idx_files(path)
         
-        print(f"Data Processing Complete.")
+        print(f"{model.upper()} Data Processing Complete.")
         return ds, ds_dt
     
     else:

@@ -418,15 +418,19 @@ def get_observed_sounding_data(station_id,
         retry = 0
         if proxies == None:
             response = requests.get(url, stream=True)
+            response.close()
             while response.status_code != 200:
                 response = requests.get(url, stream=True)
+                response.close()
                 retry = retry + 1
                 if retry > max_retries:
                     break
         else:
             response = requests.get(url, stream=True, proxies=proxies)
+            response.close()
             while response.status_code != 200:
                 response = requests.get(url, stream=True, proxies=proxies)
+                response.close()
                 retry = retry + 1
                 if retry > max_retries:
                     break    
@@ -455,15 +459,19 @@ def get_observed_sounding_data(station_id,
             retry = 0
             if proxies == None:
                 response = requests.get(url, stream=True)
+                response.close()
                 while response.status_code != 200:
                     response = requests.get(url, stream=True)
+                    response.close()
                     retry = retry + 1
                     if retry > max_retries:
                         break
             else:
                 response = requests.get(url, stream=True, proxies=proxies)
+                response.close()
                 while response.status_code != 200:
                     response = requests.get(url, stream=True, proxies=proxies)
+                    response.close()
                     retry = retry + 1
                     if retry > max_retries:
                         break    
@@ -529,19 +537,27 @@ def get_observed_sounding_data(station_id,
         retry = 0
         if proxies == None:
             response = requests.get(url, stream=True)
+            response.close()
             response_24 = requests.get(url_24, stream=True)
+            response_24.close()
             while response.status_code != 200 and response_24.status_code != 200:
                 response = requests.get(url, stream=True)
+                response.close()
                 response_24 = requests.get(url_24, stream=True)
+                response_24.close()
                 retry = retry + 1
                 if retry > max_retries:
                     break
         else:
             response = requests.get(url, stream=True, proxies=proxies)
+            response.close()
             response_24 = requests.get(url_24, stream=True, proxies=proxies)
+            response_24.close()
             while response.status_code != 200 and response_24.status_code != 200:
                 response = requests.get(url, stream=True, proxies=proxies)
+                response.close()
                 response_24 = requests.get(url_24, stream=True, proxies=proxies)
+                response_24.close()
                 retry = retry + 1
                 if retry > max_retries:
                     break
@@ -583,19 +599,27 @@ def get_observed_sounding_data(station_id,
             retry = 0
             if proxies == None:
                 response = requests.get(url, stream=True)
+                response.close()
                 response_24 = requests.get(url_24, stream=True)
+                response_24.close()
                 while response.status_code != 200 and response_24.status_code != 200:
                     response = requests.get(url, stream=True)
+                    response.close()
                     response_24 = requests.get(url_24, stream=True)
+                    response_24.close()
                     retry = retry + 1
                     if retry > max_retries:
                         break
             else:
                 response = requests.get(url, stream=True, proxies=proxies)
+                response.close()
                 response_24 = requests.get(url_24, stream=True, proxies=proxies)
+                response_24.close()
                 while response.status_code != 200 and response_24.status_code != 200:
                     response = requests.get(url, stream=True, proxies=proxies)
+                    response.close()
                     response_24 = requests.get(url_24, stream=True, proxies=proxies)
+                    response_24.close()
                     retry = retry + 1
                     if retry > max_retries:
                         break

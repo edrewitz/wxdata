@@ -80,17 +80,25 @@ def ecmwf_ifs_url_scanner(final_forecast_hour,
     if proxies == None:
         try:
             t_12 = requests.get(f"{today_12z_url}/{file_12z_today}", stream=True)
+            t_12.close()
             t_00 = requests.get(f"{today_00z_url}/{file_00z_today}", stream=True)
+            t_00.close()
             y_12 = requests.get(f"{yesterday_12z_url}/{file_12z_yesterday}", stream=True)
+            y_12.close()
             y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True)
+            y_00.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 time.sleep(30)
                 try:
                     t_12 = requests.get(f"{today_12z_url}/{file_12z_today}", stream=True)
+                    t_12.close()
                     t_00 = requests.get(f"{today_00z_url}/{file_00z_today}", stream=True)
+                    t_00.close()
                     y_12 = requests.get(f"{yesterday_12z_url}/{file_12z_yesterday}", stream=True)
+                    y_12.close()
                     y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True)
+                    y_00.close()
                     break
                 except Exception as e:
                     i = i
@@ -98,17 +106,25 @@ def ecmwf_ifs_url_scanner(final_forecast_hour,
     else:
         try:
             t_12 = requests.get(f"{today_12z_url}/{file_12z_today}", stream=True, proxies=proxies)
+            t_12.close()
             t_00 = requests.get(f"{today_00z_url}/{file_00z_today}", stream=True, proxies=proxies)
+            t_00.close()
             y_12 = requests.get(f"{yesterday_12z_url}/{file_12z_yesterday}", stream=True, proxies=proxies)
+            y_12.close()
             y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True, proxies=proxies)
+            y_00.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 time.sleep(30)
                 try:
                     t_12 = requests.get(f"{today_12z_url}/{file_12z_today}", stream=True, proxies=proxies)
+                    t_12.close()
                     t_00 = requests.get(f"{today_00z_url}/{file_00z_today}", stream=True, proxies=proxies)
+                    t_00.close()
                     y_12 = requests.get(f"{yesterday_12z_url}/{file_12z_yesterday}", stream=True, proxies=proxies)
+                    y_12.close()
                     y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True, proxies=proxies)
+                    y_00.close()
                     break
                 except Exception as e:
                     i = i
@@ -213,53 +229,88 @@ def ecmwf_aifs_url_scanner(final_forecast_hour,
     if proxies == None:
         try:    
             t_18 = requests.get(f"{today_18z_url}/{file_18z_today}", stream=True)
+            t_18.close()
             t_12 = requests.get(f"{today_12z_url}/{file_12z_today}", stream=True)
+            t_12.close()
             t_06 = requests.get(f"{today_06z_url}/{file_06z_today}", stream=True)
+            t_06.close()
             t_00 = requests.get(f"{today_00z_url}/{file_00z_today}", stream=True)
+            t_00.close()
             y_18 = requests.get(f"{yesterday_18z_url}/{file_18z_yesterday}", stream=True)
+            y_18.close()
             y_12 = requests.get(f"{yesterday_12z_url}/{file_12z_yesterday}", stream=True)
+            y_12.close()
             y_06 = requests.get(f"{yesterday_06z_url}/{file_06z_yesterday}", stream=True)
+            y_06.close()
             y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True)
+            y_00.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 time.sleep(30)
                 try:
                     t_18 = requests.get(f"{today_18z_url}/{file_18z_today}", stream=True)
+                    t_18.close()
                     t_12 = requests.get(f"{today_12z_url}/{file_12z_today}", stream=True)
+                    t_12.close()
                     t_06 = requests.get(f"{today_06z_url}/{file_06z_today}", stream=True)
+                    t_06.close()
                     t_00 = requests.get(f"{today_00z_url}/{file_00z_today}", stream=True)
+                    t_00.close()
                     y_18 = requests.get(f"{yesterday_18z_url}/{file_18z_yesterday}", stream=True)
+                    y_18.close()
                     y_12 = requests.get(f"{yesterday_12z_url}/{file_12z_yesterday}", stream=True)
+                    y_12.close()
                     y_06 = requests.get(f"{yesterday_06z_url}/{file_06z_yesterday}", stream=True)
+                    y_06.close()
                     y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True)
+                    y_00.close()
                     break
                 except Exception as e:
-                    i = i                    
+                    i = i     
+                    
+                       
     else:
-        try:
+        try:    
             t_18 = requests.get(f"{today_18z_url}/{file_18z_today}", stream=True, proxies=proxies)
+            t_18.close()
             t_12 = requests.get(f"{today_12z_url}/{file_12z_today}", stream=True, proxies=proxies)
+            t_12.close()
             t_06 = requests.get(f"{today_06z_url}/{file_06z_today}", stream=True, proxies=proxies)
+            t_06.close()
             t_00 = requests.get(f"{today_00z_url}/{file_00z_today}", stream=True, proxies=proxies)
+            t_00.close()
             y_18 = requests.get(f"{yesterday_18z_url}/{file_18z_yesterday}", stream=True, proxies=proxies)
+            y_18.close()
             y_12 = requests.get(f"{yesterday_12z_url}/{file_12z_yesterday}", stream=True, proxies=proxies)
+            y_12.close()
             y_06 = requests.get(f"{yesterday_06z_url}/{file_06z_yesterday}", stream=True, proxies=proxies)
+            y_06.close()
             y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True, proxies=proxies)
+            y_00.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 time.sleep(30)
                 try:
                     t_18 = requests.get(f"{today_18z_url}/{file_18z_today}", stream=True, proxies=proxies)
+                    t_18.close()
                     t_12 = requests.get(f"{today_12z_url}/{file_12z_today}", stream=True, proxies=proxies)
+                    t_12.close()
                     t_06 = requests.get(f"{today_06z_url}/{file_06z_today}", stream=True, proxies=proxies)
+                    t_06.close()
                     t_00 = requests.get(f"{today_00z_url}/{file_00z_today}", stream=True, proxies=proxies)
+                    t_00.close()
                     y_18 = requests.get(f"{yesterday_18z_url}/{file_18z_yesterday}", stream=True, proxies=proxies)
+                    y_18.close()
                     y_12 = requests.get(f"{yesterday_12z_url}/{file_12z_yesterday}", stream=True, proxies=proxies)
+                    y_12.close()
                     y_06 = requests.get(f"{yesterday_06z_url}/{file_06z_yesterday}", stream=True, proxies=proxies)
-                    y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True, proxies=proxies)   
+                    y_06.close()
+                    y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True, proxies=proxies)
+                    y_00.close()
                     break
                 except Exception as e:
-                    i = i                
+                    i = i 
+                              
         
     urls = [
         today_18z_url,
@@ -368,56 +419,89 @@ def ecmwf_ifs_high_res_url_scanner(final_forecast_hour,
     file_00z_yesterday = f"{yd.strftime('%Y%m%d')}000000-{final_forecast_hour}h-scda-fc.grib2"
     
     if proxies == None:
-        try:
+        try:    
             t_18 = requests.get(f"{today_18z_url}/{file_18z_today}", stream=True)
+            t_18.close()
             t_12 = requests.get(f"{today_12z_url}/{file_12z_today}", stream=True)
+            t_12.close()
             t_06 = requests.get(f"{today_06z_url}/{file_06z_today}", stream=True)
+            t_06.close()
             t_00 = requests.get(f"{today_00z_url}/{file_00z_today}", stream=True)
+            t_00.close()
             y_18 = requests.get(f"{yesterday_18z_url}/{file_18z_yesterday}", stream=True)
+            y_18.close()
             y_12 = requests.get(f"{yesterday_12z_url}/{file_12z_yesterday}", stream=True)
+            y_12.close()
             y_06 = requests.get(f"{yesterday_06z_url}/{file_06z_yesterday}", stream=True)
+            y_06.close()
             y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True)
+            y_00.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 time.sleep(30)
                 try:
                     t_18 = requests.get(f"{today_18z_url}/{file_18z_today}", stream=True)
+                    t_18.close()
                     t_12 = requests.get(f"{today_12z_url}/{file_12z_today}", stream=True)
+                    t_12.close()
                     t_06 = requests.get(f"{today_06z_url}/{file_06z_today}", stream=True)
+                    t_06.close()
                     t_00 = requests.get(f"{today_00z_url}/{file_00z_today}", stream=True)
+                    t_00.close()
                     y_18 = requests.get(f"{yesterday_18z_url}/{file_18z_yesterday}", stream=True)
+                    y_18.close()
                     y_12 = requests.get(f"{yesterday_12z_url}/{file_12z_yesterday}", stream=True)
+                    y_12.close()
                     y_06 = requests.get(f"{yesterday_06z_url}/{file_06z_yesterday}", stream=True)
+                    y_06.close()
                     y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True)
+                    y_00.close()
                     break
                 except Exception as e:
-                    i = i                    
-        
+                    i = i     
+                    
+                       
     else:
-        try:
+        try:    
             t_18 = requests.get(f"{today_18z_url}/{file_18z_today}", stream=True, proxies=proxies)
+            t_18.close()
             t_12 = requests.get(f"{today_12z_url}/{file_12z_today}", stream=True, proxies=proxies)
+            t_12.close()
             t_06 = requests.get(f"{today_06z_url}/{file_06z_today}", stream=True, proxies=proxies)
+            t_06.close()
             t_00 = requests.get(f"{today_00z_url}/{file_00z_today}", stream=True, proxies=proxies)
+            t_00.close()
             y_18 = requests.get(f"{yesterday_18z_url}/{file_18z_yesterday}", stream=True, proxies=proxies)
+            y_18.close()
             y_12 = requests.get(f"{yesterday_12z_url}/{file_12z_yesterday}", stream=True, proxies=proxies)
+            y_12.close()
             y_06 = requests.get(f"{yesterday_06z_url}/{file_06z_yesterday}", stream=True, proxies=proxies)
+            y_06.close()
             y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True, proxies=proxies)
+            y_00.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 time.sleep(30)
                 try:
                     t_18 = requests.get(f"{today_18z_url}/{file_18z_today}", stream=True, proxies=proxies)
+                    t_18.close()
                     t_12 = requests.get(f"{today_12z_url}/{file_12z_today}", stream=True, proxies=proxies)
+                    t_12.close()
                     t_06 = requests.get(f"{today_06z_url}/{file_06z_today}", stream=True, proxies=proxies)
+                    t_06.close()
                     t_00 = requests.get(f"{today_00z_url}/{file_00z_today}", stream=True, proxies=proxies)
+                    t_00.close()
                     y_18 = requests.get(f"{yesterday_18z_url}/{file_18z_yesterday}", stream=True, proxies=proxies)
+                    y_18.close()
                     y_12 = requests.get(f"{yesterday_12z_url}/{file_12z_yesterday}", stream=True, proxies=proxies)
+                    y_12.close()
                     y_06 = requests.get(f"{yesterday_06z_url}/{file_06z_yesterday}", stream=True, proxies=proxies)
-                    y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True, proxies=proxies) 
+                    y_06.close()
+                    y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True, proxies=proxies)
+                    y_00.close()
                     break
                 except Exception as e:
-                    i = i                   
+                    i = i           
         
     urls = [
         today_18z_url,
@@ -526,56 +610,89 @@ def ecmwf_ifs_wave_url_scanner(final_forecast_hour,
     file_00z_yesterday = f"{yd.strftime('%Y%m%d')}000000-{final_forecast_hour}h-scwv-fc.grib2"
     
     if proxies == None:
-        try:
+        try:    
             t_18 = requests.get(f"{today_18z_url}/{file_18z_today}", stream=True)
+            t_18.close()
             t_12 = requests.get(f"{today_12z_url}/{file_12z_today}", stream=True)
+            t_12.close()
             t_06 = requests.get(f"{today_06z_url}/{file_06z_today}", stream=True)
+            t_06.close()
             t_00 = requests.get(f"{today_00z_url}/{file_00z_today}", stream=True)
+            t_00.close()
             y_18 = requests.get(f"{yesterday_18z_url}/{file_18z_yesterday}", stream=True)
+            y_18.close()
             y_12 = requests.get(f"{yesterday_12z_url}/{file_12z_yesterday}", stream=True)
+            y_12.close()
             y_06 = requests.get(f"{yesterday_06z_url}/{file_06z_yesterday}", stream=True)
+            y_06.close()
             y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True)
+            y_00.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 time.sleep(30)
                 try:
                     t_18 = requests.get(f"{today_18z_url}/{file_18z_today}", stream=True)
+                    t_18.close()
                     t_12 = requests.get(f"{today_12z_url}/{file_12z_today}", stream=True)
+                    t_12.close()
                     t_06 = requests.get(f"{today_06z_url}/{file_06z_today}", stream=True)
+                    t_06.close()
                     t_00 = requests.get(f"{today_00z_url}/{file_00z_today}", stream=True)
+                    t_00.close()
                     y_18 = requests.get(f"{yesterday_18z_url}/{file_18z_yesterday}", stream=True)
+                    y_18.close()
                     y_12 = requests.get(f"{yesterday_12z_url}/{file_12z_yesterday}", stream=True)
+                    y_12.close()
                     y_06 = requests.get(f"{yesterday_06z_url}/{file_06z_yesterday}", stream=True)
-                    y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True)   
+                    y_06.close()
+                    y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True)
+                    y_00.close()
                     break
                 except Exception as e:
-                    i = i             
-        
+                    i = i     
+                    
+                       
     else:
-        try:
+        try:    
             t_18 = requests.get(f"{today_18z_url}/{file_18z_today}", stream=True, proxies=proxies)
+            t_18.close()
             t_12 = requests.get(f"{today_12z_url}/{file_12z_today}", stream=True, proxies=proxies)
+            t_12.close()
             t_06 = requests.get(f"{today_06z_url}/{file_06z_today}", stream=True, proxies=proxies)
+            t_06.close()
             t_00 = requests.get(f"{today_00z_url}/{file_00z_today}", stream=True, proxies=proxies)
+            t_00.close()
             y_18 = requests.get(f"{yesterday_18z_url}/{file_18z_yesterday}", stream=True, proxies=proxies)
+            y_18.close()
             y_12 = requests.get(f"{yesterday_12z_url}/{file_12z_yesterday}", stream=True, proxies=proxies)
+            y_12.close()
             y_06 = requests.get(f"{yesterday_06z_url}/{file_06z_yesterday}", stream=True, proxies=proxies)
+            y_06.close()
             y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True, proxies=proxies)
+            y_00.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 time.sleep(30)
                 try:
                     t_18 = requests.get(f"{today_18z_url}/{file_18z_today}", stream=True, proxies=proxies)
+                    t_18.close()
                     t_12 = requests.get(f"{today_12z_url}/{file_12z_today}", stream=True, proxies=proxies)
+                    t_12.close()
                     t_06 = requests.get(f"{today_06z_url}/{file_06z_today}", stream=True, proxies=proxies)
+                    t_06.close()
                     t_00 = requests.get(f"{today_00z_url}/{file_00z_today}", stream=True, proxies=proxies)
+                    t_00.close()
                     y_18 = requests.get(f"{yesterday_18z_url}/{file_18z_yesterday}", stream=True, proxies=proxies)
+                    y_18.close()
                     y_12 = requests.get(f"{yesterday_12z_url}/{file_12z_yesterday}", stream=True, proxies=proxies)
+                    y_12.close()
                     y_06 = requests.get(f"{yesterday_06z_url}/{file_06z_yesterday}", stream=True, proxies=proxies)
-                    y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True, proxies=proxies)   
+                    y_06.close()
+                    y_00 = requests.get(f"{yesterday_00z_url}/{file_00z_yesterday}", stream=True, proxies=proxies)
+                    y_00.close()
                     break
                 except Exception as e:
-                    i = i                 
+                    i = i          
         
     urls = [
         today_18z_url,

@@ -456,6 +456,9 @@ def get_raws_sig_data(gacc_region,
         clear_trash_bin_linux()
     else:
         pass
+    
+    raws.check_folders()
+    raws.get_raws_sig_info()
 
     gacc_region = gacc_region.upper()
     fuel_model = fuel_model.upper()
@@ -623,6 +626,9 @@ def get_nfdrs_forecast_data(gacc_region,
         clear_trash_bin_linux()
     else:
         pass
+    
+    raws.check_folders()
+    raws.get_raws_sig_info()
 
     gacc_region = gacc_region.upper()
     fuel_model = fuel_model.upper()

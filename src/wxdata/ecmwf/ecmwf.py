@@ -210,14 +210,14 @@ def ecmwf_ifs(final_forecast_hour=360,
                             notifications=notifications)
 
         
-        print(f"Download Complete.")    
+        print(f"ECMWF IFS Download Complete.")    
         
     else:
-        print(f"Data is up to date. Skipping download...")    
+        print(f"ECMWF IFS Data is up to date. Skipping download...")    
         
         
     if process_data == True:
-        print(f"Data Processing...")
+        print(f"ECMWF IFS Data Processing...")
         
         ds = ecmwf_post_processing.ecmwf_ifs_post_processing(path,
                                                             western_bound, 
@@ -234,7 +234,7 @@ def ecmwf_ifs(final_forecast_hour=360,
         else:
             pass
         
-        print(f"Data Processing Complete.")
+        print(f"ECMWF IFS Data Processing Complete.")
         return ds
     
     else:
@@ -401,13 +401,13 @@ def ecmwf_aifs(final_forecast_hour=360,
                             chunk_size=chunk_size,
                             notifications=notifications)
             
-        print(f"Download Complete.")
+        print(f"ECMWF AIFS Download Complete.")
     else:
-        print(f"Data is up to date. Skipping download...")    
+        print(f"ECMWF AIFS Data is up to date. Skipping download...")    
         
         
     if process_data == True:
-        print(f"Data Processing...")
+        print(f"ECMWF AIFS Data Processing...")
         
         ds = ecmwf_post_processing.ecmwf_aifs_post_processing(path,
                                                             western_bound, 
@@ -424,7 +424,7 @@ def ecmwf_aifs(final_forecast_hour=360,
         else:
             pass
         
-        print(f"Data Processing Complete.")
+        print(f"ECMWF AIFS Data Processing Complete.")
         return ds
     
     else:
@@ -585,13 +585,13 @@ def ecmwf_ifs_high_res(final_forecast_hour=144,
                         chunk_size=chunk_size,
                         notifications=notifications)
                             
-        print(f"Download Complete")
+        print(f"ECMWF High Resolution IFS Download Complete")
     else:
-        print(f"Data is up to date. Skipping download...")    
+        print(f"ECMWF High Resolution IFS Data is up to date. Skipping download...")    
         
         
     if process_data == True:
-        print(f"Data Processing...")
+        print(f"ECMWF High Resolution IFS Data Processing...")
         
         ds = ecmwf_post_processing.ecmwf_ifs_post_processing(path,
                                                             western_bound, 
@@ -608,7 +608,7 @@ def ecmwf_ifs_high_res(final_forecast_hour=144,
         else:
             pass
         
-        print(f"Data Processing Complete.")
+        print(f"ECMWF High Resolution IFS Data Processing Complete.")
         return ds
     
     else:
@@ -722,13 +722,13 @@ def ecmwf_ifs_wave(final_forecast_hour=144,
                         chunk_size=chunk_size,
                         notifications=notifications)
         
-        print(f"Download Complete.")
+        print(f"ECMWF IFS Wave Download Complete.")
     else:
-        print(f"Data is up to date. Skipping download...")    
+        print(f"ECMWF IFS Wave Data is up to date. Skipping download...")    
         
         
     if process_data == True:
-        print(f"Data Processing...")
+        print(f"ECMWF IFS Wave Data Processing...")
         
         ds = ecmwf_post_processing.ecmwf_ifs_wave_post_processing(path,
                                                             western_bound, 
@@ -738,7 +738,7 @@ def ecmwf_ifs_wave(final_forecast_hour=144,
         
         clear_idx_files_in_path(path)
         
-        print(f"Data Processing Complete.")
+        print(f"ECMWF IFS Wave Data Processing Complete.")
         return ds
     
     else:

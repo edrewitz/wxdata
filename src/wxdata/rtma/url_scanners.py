@@ -162,40 +162,60 @@ def rtma_url_scanner(model,
     if proxies == None:
         try:
             r0 = requests.get(f"{url_00}/{f_00}", stream=True)
+            r0.close()
             r1 = requests.get(f"{url_01}/{f_01}", stream=True)
+            r1.close()
             r2 = requests.get(f"{url_02}/{f_02}", stream=True)
+            r2.close()
             r3 = requests.get(f"{url_03}/{f_03}", stream=True)
+            r3.close()
             r4 = requests.get(f"{url_04}/{f_04}", stream=True)
+            r4.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 try:
                     r0 = requests.get(f"{url_00}/{f_00}", stream=True)
+                    r0.close()
                     r1 = requests.get(f"{url_01}/{f_01}", stream=True)
+                    r1.close()
                     r2 = requests.get(f"{url_02}/{f_02}", stream=True)
+                    r2.close()
                     r3 = requests.get(f"{url_03}/{f_03}", stream=True)
-                    r4 = requests.get(f"{url_04}/{f_04}", stream=True)  
+                    r3.close()
+                    r4 = requests.get(f"{url_04}/{f_04}", stream=True)
+                    r4.close()
                     break
                 except Exception as e:
-                    i = i                  
+                    i = i                
         
     else:
         try:
             r0 = requests.get(f"{url_00}/{f_00}", stream=True, proxies=proxies)
+            r0.close()
             r1 = requests.get(f"{url_01}/{f_01}", stream=True, proxies=proxies)
+            r1.close()
             r2 = requests.get(f"{url_02}/{f_02}", stream=True, proxies=proxies)
+            r2.close()
             r3 = requests.get(f"{url_03}/{f_03}", stream=True, proxies=proxies)
+            r3.close()
             r4 = requests.get(f"{url_04}/{f_04}", stream=True, proxies=proxies)
+            r4.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 try:
                     r0 = requests.get(f"{url_00}/{f_00}", stream=True, proxies=proxies)
+                    r0.close()
                     r1 = requests.get(f"{url_01}/{f_01}", stream=True, proxies=proxies)
+                    r1.close()
                     r2 = requests.get(f"{url_02}/{f_02}", stream=True, proxies=proxies)
+                    r2.close()
                     r3 = requests.get(f"{url_03}/{f_03}", stream=True, proxies=proxies)
+                    r3.close()
                     r4 = requests.get(f"{url_04}/{f_04}", stream=True, proxies=proxies)
+                    r4.close()
                     break
                 except Exception as e:
-                    i = i
+                    i = i      
         
     url_0 = (f"https://nomads.ncep.noaa.gov/cgi-bin/filter_{directory}.pl?"
              f"dir=%2F{directory}.{h_00.strftime('%Y%m%d')}&file={f_00}&all_var=on&all_lev=on&subregion=&"
@@ -442,66 +462,106 @@ def rtma_comparison_url_scanner(model,
     if proxies == None:
         try:
             r0 = requests.get(f"{url_00}/{f_00}", stream=True)
+            r0.close()
             r1 = requests.get(f"{url_01}/{f_01}", stream=True)
+            r1.close()
             r2 = requests.get(f"{url_02}/{f_02}", stream=True)
+            r2.close()
             r3 = requests.get(f"{url_03}/{f_03}", stream=True)
+            r3.close()
             r4 = requests.get(f"{url_04}/{f_04}", stream=True)
+            r4.close()
             
-            r5 = requests.get(f"{url_05}/{f_05}", stream=True)
-            r6 = requests.get(f"{url_06}/{f_06}", stream=True)
-            r7 = requests.get(f"{url_07}/{f_07}", stream=True)
-            r8 = requests.get(f"{url_08}/{f_08}", stream=True)
-            r9 = requests.get(f"{url_09}/{f_09}", stream=True)
+            r5 = requests.get(f"{url_00}/{f_00}", stream=True)
+            r5.close()
+            r6 = requests.get(f"{url_01}/{f_01}", stream=True)
+            r6.close()
+            r7 = requests.get(f"{url_02}/{f_02}", stream=True)
+            r7.close()
+            r8 = requests.get(f"{url_03}/{f_03}", stream=True)
+            r8.close()
+            r9 = requests.get(f"{url_04}/{f_04}", stream=True)
+            r9.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 try:
                     r0 = requests.get(f"{url_00}/{f_00}", stream=True)
+                    r0.close()
                     r1 = requests.get(f"{url_01}/{f_01}", stream=True)
+                    r1.close()
                     r2 = requests.get(f"{url_02}/{f_02}", stream=True)
+                    r2.close()
                     r3 = requests.get(f"{url_03}/{f_03}", stream=True)
+                    r3.close()
                     r4 = requests.get(f"{url_04}/{f_04}", stream=True)
+                    r4.close()
                     
-                    r5 = requests.get(f"{url_05}/{f_05}", stream=True)
-                    r6 = requests.get(f"{url_06}/{f_06}", stream=True)
-                    r7 = requests.get(f"{url_07}/{f_07}", stream=True)
-                    r8 = requests.get(f"{url_08}/{f_08}", stream=True)
-                    r9 = requests.get(f"{url_09}/{f_09}", stream=True) 
+                    r5 = requests.get(f"{url_00}/{f_00}", stream=True)
+                    r5.close()
+                    r6 = requests.get(f"{url_01}/{f_01}", stream=True)
+                    r6.close()
+                    r7 = requests.get(f"{url_02}/{f_02}", stream=True)
+                    r7.close()
+                    r8 = requests.get(f"{url_03}/{f_03}", stream=True)
+                    r8.close()
+                    r9 = requests.get(f"{url_04}/{f_04}", stream=True)
+                    r9.close()
                     break
                 except Exception as e:
-                    i = i               
-        
+                    i = i  
+                                     
     else:
         try:
             r0 = requests.get(f"{url_00}/{f_00}", stream=True, proxies=proxies)
+            r0.close()
             r1 = requests.get(f"{url_01}/{f_01}", stream=True, proxies=proxies)
+            r1.close()
             r2 = requests.get(f"{url_02}/{f_02}", stream=True, proxies=proxies)
+            r2.close()
             r3 = requests.get(f"{url_03}/{f_03}", stream=True, proxies=proxies)
+            r3.close()
             r4 = requests.get(f"{url_04}/{f_04}", stream=True, proxies=proxies)
+            r4.close()
             
-            r5 = requests.get(f"{url_05}/{f_05}", stream=True, proxies=proxies)
-            r6 = requests.get(f"{url_06}/{f_06}", stream=True, proxies=proxies)
-            r7 = requests.get(f"{url_07}/{f_07}", stream=True, proxies=proxies)
-            r8 = requests.get(f"{url_08}/{f_08}", stream=True, proxies=proxies)
-            r9 = requests.get(f"{url_09}/{f_09}", stream=True, proxies=proxies)
+            r5 = requests.get(f"{url_00}/{f_00}", stream=True, proxies=proxies)
+            r5.close()
+            r6 = requests.get(f"{url_01}/{f_01}", stream=True, proxies=proxies)
+            r6.close()
+            r7 = requests.get(f"{url_02}/{f_02}", stream=True, proxies=proxies)
+            r7.close()
+            r8 = requests.get(f"{url_03}/{f_03}", stream=True, proxies=proxies)
+            r8.close()
+            r9 = requests.get(f"{url_04}/{f_04}", stream=True, proxies=proxies)
+            r9.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 try:
                     r0 = requests.get(f"{url_00}/{f_00}", stream=True, proxies=proxies)
+                    r0.close()
                     r1 = requests.get(f"{url_01}/{f_01}", stream=True, proxies=proxies)
+                    r1.close()
                     r2 = requests.get(f"{url_02}/{f_02}", stream=True, proxies=proxies)
+                    r2.close()
                     r3 = requests.get(f"{url_03}/{f_03}", stream=True, proxies=proxies)
+                    r3.close()
                     r4 = requests.get(f"{url_04}/{f_04}", stream=True, proxies=proxies)
+                    r4.close()
                     
-                    r5 = requests.get(f"{url_05}/{f_05}", stream=True, proxies=proxies)
-                    r6 = requests.get(f"{url_06}/{f_06}", stream=True, proxies=proxies)
-                    r7 = requests.get(f"{url_07}/{f_07}", stream=True, proxies=proxies)
-                    r8 = requests.get(f"{url_08}/{f_08}", stream=True, proxies=proxies)
-                    r9 = requests.get(f"{url_09}/{f_09}", stream=True, proxies=proxies)
+                    r5 = requests.get(f"{url_00}/{f_00}", stream=True, proxies=proxies)
+                    r5.close()
+                    r6 = requests.get(f"{url_01}/{f_01}", stream=True, proxies=proxies)
+                    r6.close()
+                    r7 = requests.get(f"{url_02}/{f_02}", stream=True, proxies=proxies)
+                    r7.close()
+                    r8 = requests.get(f"{url_03}/{f_03}", stream=True, proxies=proxies)
+                    r8.close()
+                    r9 = requests.get(f"{url_04}/{f_04}", stream=True, proxies=proxies)
+                    r9.close()
                     break
                 except Exception as e:
-                    i = i
+                    i = i  
                     
-        
+                    
     url_0 = (f"https://nomads.ncep.noaa.gov/cgi-bin/filter_{directory}.pl?"
              f"dir=%2F{directory}.{h_00.strftime('%Y%m%d')}&file={f_00}&all_var=on&all_lev=on&subregion=&"
              f"toplat={northern_bound}&leftlon={western_bound}&rightlon={eastern_bound}&bottomlat={southern_bound}")    

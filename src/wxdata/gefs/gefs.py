@@ -301,7 +301,7 @@ def gefs_0p50(cat='mean',
                                         run)       
     
     if download == True:
-        print(f"Downloading GEFS0P50...")
+        print(f"Downloading GEFS0P50 {cat.upper()}...")
         
         try:
             for path in paths:
@@ -336,12 +336,12 @@ def gefs_0p50(cat='mean',
                 start = start + increment
                 stop = stop + increment     
                         
-        print(f"Download Complete.")        
+        print(f"GEFS0P50 {cat.upper()} Download Complete.")        
     else:
-        print(f"User has the current dataset.\nSkipping download.")
+        print(f"GEFS0P50 {cat.upper()} Data is up to date. Skipping download...") 
         
     if process_data == True:
-        print(f"Data Processing...")
+        print(f"GEFS0P50 {cat.upper()} Data Processing...")
         clear_empty_files(paths)
         
         if custom_directory == None:
@@ -367,7 +367,7 @@ def gefs_0p50(cat='mean',
         else:
             pass
             
-        print(f"Data Processing Complete.")
+        print(f"GEFS0P50 {cat.upper()} Data Processing Complete.")
         return ds
     else:
         pass
@@ -778,7 +778,7 @@ def gefs_0p50_secondary_parameters(cat='mean',
                                         run)       
     
     if download == True:
-        print(f"Downloading GEFS0P50 Secondary Parameters...")
+        print(f"Downloading GEFS0P50 {cat.upper()} Secondary Parameters...")
 
         try:
             for path in paths:
@@ -811,12 +811,12 @@ def gefs_0p50_secondary_parameters(cat='mean',
                                 
                 start = start + increment
                 stop = stop + increment            
-        print(f"Download Complete.")        
+        print(f"GEFS0P50 {cat.upper()} Secondary Parameters Download Complete.")        
     else:
-        print(f"User has the current dataset.\nSkipping download.")
+        print(f"GEFS0P50 {cat.upper()} Secondary Parameters Data is up to date. Skipping download...") 
     
     if process_data == True:
-        print(f"Data Processing...")
+        print(f"GEFS0P50 {cat.upper()} Secondary Parameters Data Processing...")
         
         if custom_directory == None:
         
@@ -839,7 +839,7 @@ def gefs_0p50_secondary_parameters(cat='mean',
                                            cat=cat)
                 
         
-        print(f"Data Processing Complete.")
+        print(f"GEFS0P50 {cat.upper()} Secondary Parameters Data Processing Complete.")
         return ds
     else:
         pass
@@ -1102,7 +1102,7 @@ def gefs_0p25(cat='mean',
                                         run)       
     
     if download == True:
-        print(f"Downloading GEFS0P25...")
+        print(f"Downloading GEFS0P25 {cat.upper()}...")
 
         try:
             for path in paths:
@@ -1135,12 +1135,12 @@ def gefs_0p25(cat='mean',
                                 
                 start = start + increment
                 stop = stop + increment            
-        print(f"Download Complete.")        
+        print(f"GEFS0P25 {cat.upper()} Download Complete.")        
     else:
-        print(f"User has the current dataset.\nSkipping download.")
+        print(f"GEFS0P25 {cat.upper()} Data is up to date. Skipping download...") 
         
     if process_data == True:
-        print(f"Data Processing...")
+        print(f"GEFS0P25 {cat.upper()} Data Processing...")
         
         clear_empty_files(paths)
         
@@ -1165,7 +1165,7 @@ def gefs_0p25(cat='mean',
                                            cat=cat)
             
         
-        print(f"Data Processing Complete.")
+        print(f"GEFS0P25 {cat.upper()} Data Processing Complete.")
         return ds
     else:
         pass

@@ -254,54 +254,85 @@ def gefs_0p50_url_scanner(cat,
     if proxies == None:
         try:
             t_18 = requests.get(f"{today_18z_scan}{f_18z}", stream=True)
+            t_18.close()
             t_12 = requests.get(f"{today_12z_scan}{f_12z}", stream=True)
+            t_12.close()
             t_06 = requests.get(f"{today_06z_scan}{f_06z}", stream=True)
+            t_06.close()
             t_00 = requests.get(f"{today_00z_scan}{f_00z}", stream=True)
+            t_00.close()
             y_18 = requests.get(f"{yesterday_18z_scan}{f_18z}", stream=True)
+            y_18.close()
             y_12 = requests.get(f"{yesterday_12z_scan}{f_12z}", stream=True)
+            y_12.close()
             y_06 = requests.get(f"{yesterday_06z_scan}{f_06z}", stream=True)
+            y_06.close()
             y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True)
+            y_00.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 try:
                     t_18 = requests.get(f"{today_18z_scan}{f_18z}", stream=True)
+                    t_18.close()
                     t_12 = requests.get(f"{today_12z_scan}{f_12z}", stream=True)
+                    t_12.close()
                     t_06 = requests.get(f"{today_06z_scan}{f_06z}", stream=True)
+                    t_06.close()
                     t_00 = requests.get(f"{today_00z_scan}{f_00z}", stream=True)
+                    t_00.close()
                     y_18 = requests.get(f"{yesterday_18z_scan}{f_18z}", stream=True)
+                    y_18.close()
                     y_12 = requests.get(f"{yesterday_12z_scan}{f_12z}", stream=True)
+                    y_12.close()
                     y_06 = requests.get(f"{yesterday_06z_scan}{f_06z}", stream=True)
-                    y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True)   
+                    y_06.close()
+                    y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True)
+                    y_00.close()   
                     break
                 except Exception as e:
                     i = i     
-    
     
     # This is if the user has a VPN/Proxy Server connection enabled
     else:
         try:
             t_18 = requests.get(f"{today_18z_scan}{f_18z}", stream=True, proxies=proxies)
+            t_18.close()
             t_12 = requests.get(f"{today_12z_scan}{f_12z}", stream=True, proxies=proxies)
+            t_12.close()
             t_06 = requests.get(f"{today_06z_scan}{f_06z}", stream=True, proxies=proxies)
+            t_06.close()
             t_00 = requests.get(f"{today_00z_scan}{f_00z}", stream=True, proxies=proxies)
+            t_00.close()
             y_18 = requests.get(f"{yesterday_18z_scan}{f_18z}", stream=True, proxies=proxies)
+            y_18.close()
             y_12 = requests.get(f"{yesterday_12z_scan}{f_12z}", stream=True, proxies=proxies)
+            y_12.close()
             y_06 = requests.get(f"{yesterday_06z_scan}{f_06z}", stream=True, proxies=proxies)
+            y_06.close()
             y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True, proxies=proxies)
+            y_00.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 try:
                     t_18 = requests.get(f"{today_18z_scan}{f_18z}", stream=True, proxies=proxies)
+                    t_18.close()
                     t_12 = requests.get(f"{today_12z_scan}{f_12z}", stream=True, proxies=proxies)
+                    t_12.close()
                     t_06 = requests.get(f"{today_06z_scan}{f_06z}", stream=True, proxies=proxies)
+                    t_06.close()
                     t_00 = requests.get(f"{today_00z_scan}{f_00z}", stream=True, proxies=proxies)
+                    t_00.close()
                     y_18 = requests.get(f"{yesterday_18z_scan}{f_18z}", stream=True, proxies=proxies)
+                    y_18.close()
                     y_12 = requests.get(f"{yesterday_12z_scan}{f_12z}", stream=True, proxies=proxies)
+                    y_12.close()
                     y_06 = requests.get(f"{yesterday_06z_scan}{f_06z}", stream=True, proxies=proxies)
+                    y_06.close()
                     y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True, proxies=proxies)
+                    y_00.close()   
                     break
                 except Exception as e:
-                    i = i
+                    i = i  
         
     # Creates a list of URLs and URL responses to loop through when checking
     
@@ -1118,53 +1149,85 @@ def gefs_0p50_secondary_parameters_url_scanner(cat,
     if proxies == None:
         try:
             t_18 = requests.get(f"{today_18z_scan}{f_18z}", stream=True)
+            t_18.close()
             t_12 = requests.get(f"{today_12z_scan}{f_12z}", stream=True)
+            t_12.close()
             t_06 = requests.get(f"{today_06z_scan}{f_06z}", stream=True)
+            t_06.close()
             t_00 = requests.get(f"{today_00z_scan}{f_00z}", stream=True)
+            t_00.close()
             y_18 = requests.get(f"{yesterday_18z_scan}{f_18z}", stream=True)
+            y_18.close()
             y_12 = requests.get(f"{yesterday_12z_scan}{f_12z}", stream=True)
+            y_12.close()
             y_06 = requests.get(f"{yesterday_06z_scan}{f_06z}", stream=True)
+            y_06.close()
             y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True)
+            y_00.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 try:
                     t_18 = requests.get(f"{today_18z_scan}{f_18z}", stream=True)
+                    t_18.close()
                     t_12 = requests.get(f"{today_12z_scan}{f_12z}", stream=True)
+                    t_12.close()
                     t_06 = requests.get(f"{today_06z_scan}{f_06z}", stream=True)
+                    t_06.close()
                     t_00 = requests.get(f"{today_00z_scan}{f_00z}", stream=True)
+                    t_00.close()
                     y_18 = requests.get(f"{yesterday_18z_scan}{f_18z}", stream=True)
+                    y_18.close()
                     y_12 = requests.get(f"{yesterday_12z_scan}{f_12z}", stream=True)
+                    y_12.close()
                     y_06 = requests.get(f"{yesterday_06z_scan}{f_06z}", stream=True)
-                    y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True)  
+                    y_06.close()
+                    y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True)
+                    y_00.close()   
                     break
                 except Exception as e:
-                    i = i                  
-        
+                    i = i     
+    
     # This is if the user has a VPN/Proxy Server connection enabled
     else:
         try:
             t_18 = requests.get(f"{today_18z_scan}{f_18z}", stream=True, proxies=proxies)
+            t_18.close()
             t_12 = requests.get(f"{today_12z_scan}{f_12z}", stream=True, proxies=proxies)
+            t_12.close()
             t_06 = requests.get(f"{today_06z_scan}{f_06z}", stream=True, proxies=proxies)
+            t_06.close()
             t_00 = requests.get(f"{today_00z_scan}{f_00z}", stream=True, proxies=proxies)
+            t_00.close()
             y_18 = requests.get(f"{yesterday_18z_scan}{f_18z}", stream=True, proxies=proxies)
+            y_18.close()
             y_12 = requests.get(f"{yesterday_12z_scan}{f_12z}", stream=True, proxies=proxies)
+            y_12.close()
             y_06 = requests.get(f"{yesterday_06z_scan}{f_06z}", stream=True, proxies=proxies)
+            y_06.close()
             y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True, proxies=proxies)
+            y_00.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 try:
                     t_18 = requests.get(f"{today_18z_scan}{f_18z}", stream=True, proxies=proxies)
+                    t_18.close()
                     t_12 = requests.get(f"{today_12z_scan}{f_12z}", stream=True, proxies=proxies)
+                    t_12.close()
                     t_06 = requests.get(f"{today_06z_scan}{f_06z}", stream=True, proxies=proxies)
+                    t_06.close()
                     t_00 = requests.get(f"{today_00z_scan}{f_00z}", stream=True, proxies=proxies)
+                    t_00.close()
                     y_18 = requests.get(f"{yesterday_18z_scan}{f_18z}", stream=True, proxies=proxies)
+                    y_18.close()
                     y_12 = requests.get(f"{yesterday_12z_scan}{f_12z}", stream=True, proxies=proxies)
+                    y_12.close()
                     y_06 = requests.get(f"{yesterday_06z_scan}{f_06z}", stream=True, proxies=proxies)
-                    y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True, proxies=proxies)   
+                    y_06.close()
+                    y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True, proxies=proxies)
+                    y_00.close()   
                     break
                 except Exception as e:
-                    i = i                 
+                    i = i         
         
     # Creates a list of URLs and URL responses to loop through when checking
     
@@ -1944,53 +2007,85 @@ def gefs_0p25_url_scanner(cat,
     if proxies == None:
         try:
             t_18 = requests.get(f"{today_18z_scan}{f_18z}", stream=True)
+            t_18.close()
             t_12 = requests.get(f"{today_12z_scan}{f_12z}", stream=True)
+            t_12.close()
             t_06 = requests.get(f"{today_06z_scan}{f_06z}", stream=True)
+            t_06.close()
             t_00 = requests.get(f"{today_00z_scan}{f_00z}", stream=True)
+            t_00.close()
             y_18 = requests.get(f"{yesterday_18z_scan}{f_18z}", stream=True)
+            y_18.close()
             y_12 = requests.get(f"{yesterday_12z_scan}{f_12z}", stream=True)
+            y_12.close()
             y_06 = requests.get(f"{yesterday_06z_scan}{f_06z}", stream=True)
+            y_06.close()
             y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True)
+            y_00.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 try:
                     t_18 = requests.get(f"{today_18z_scan}{f_18z}", stream=True)
+                    t_18.close()
                     t_12 = requests.get(f"{today_12z_scan}{f_12z}", stream=True)
+                    t_12.close()
                     t_06 = requests.get(f"{today_06z_scan}{f_06z}", stream=True)
+                    t_06.close()
                     t_00 = requests.get(f"{today_00z_scan}{f_00z}", stream=True)
+                    t_00.close()
                     y_18 = requests.get(f"{yesterday_18z_scan}{f_18z}", stream=True)
+                    y_18.close()
                     y_12 = requests.get(f"{yesterday_12z_scan}{f_12z}", stream=True)
+                    y_12.close()
                     y_06 = requests.get(f"{yesterday_06z_scan}{f_06z}", stream=True)
-                    y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True)   
+                    y_06.close()
+                    y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True)
+                    y_00.close()   
                     break
                 except Exception as e:
-                    i = i                 
-        
+                    i = i     
+    
     # This is if the user has a VPN/Proxy Server connection enabled
     else:
         try:
             t_18 = requests.get(f"{today_18z_scan}{f_18z}", stream=True, proxies=proxies)
+            t_18.close()
             t_12 = requests.get(f"{today_12z_scan}{f_12z}", stream=True, proxies=proxies)
+            t_12.close()
             t_06 = requests.get(f"{today_06z_scan}{f_06z}", stream=True, proxies=proxies)
+            t_06.close()
             t_00 = requests.get(f"{today_00z_scan}{f_00z}", stream=True, proxies=proxies)
+            t_00.close()
             y_18 = requests.get(f"{yesterday_18z_scan}{f_18z}", stream=True, proxies=proxies)
+            y_18.close()
             y_12 = requests.get(f"{yesterday_12z_scan}{f_12z}", stream=True, proxies=proxies)
+            y_12.close()
             y_06 = requests.get(f"{yesterday_06z_scan}{f_06z}", stream=True, proxies=proxies)
+            y_06.close()
             y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True, proxies=proxies)
+            y_00.close()
         except Exception as e:
             for i in range(0, 5, 1):
                 try:
                     t_18 = requests.get(f"{today_18z_scan}{f_18z}", stream=True, proxies=proxies)
+                    t_18.close()
                     t_12 = requests.get(f"{today_12z_scan}{f_12z}", stream=True, proxies=proxies)
+                    t_12.close()
                     t_06 = requests.get(f"{today_06z_scan}{f_06z}", stream=True, proxies=proxies)
+                    t_06.close()
                     t_00 = requests.get(f"{today_00z_scan}{f_00z}", stream=True, proxies=proxies)
+                    t_00.close()
                     y_18 = requests.get(f"{yesterday_18z_scan}{f_18z}", stream=True, proxies=proxies)
+                    y_18.close()
                     y_12 = requests.get(f"{yesterday_12z_scan}{f_12z}", stream=True, proxies=proxies)
+                    y_12.close()
                     y_06 = requests.get(f"{yesterday_06z_scan}{f_06z}", stream=True, proxies=proxies)
-                    y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True, proxies=proxies)  
+                    y_06.close()
+                    y_00 = requests.get(f"{yesterday_00z_scan}{f_00z}", stream=True, proxies=proxies)
+                    y_00.close()   
                     break
                 except Exception as e:
-                    i = i                  
+                    i = i  
         
     # Creates a list of URLs and URL responses to loop through when checking
     
