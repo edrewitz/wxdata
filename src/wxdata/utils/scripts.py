@@ -46,7 +46,7 @@ def run_external_scripts(paths,
         fname = os.path.basename(path)
         
         try:
-            subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             if show_values == True:
                 print(result.stdout)
             print(f"{fname} ran successfully.")
