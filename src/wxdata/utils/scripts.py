@@ -52,11 +52,12 @@ def run_external_scripts(paths,
             if return_values == False:
                 subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             else:
-                result = subprocess.run(command, check=True, text=True, capture_output=True)
+                result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
                 if show_values == True:
-                    print(result)
+                    print(result.stdout)
                 else:
                     pass
+                return result.stdout
             print(f"{fname} ran successfully.")
         except subprocess.CalledProcessError as e:
             print(f"Script failed with return code {e.returncode}. Error:")
