@@ -200,7 +200,7 @@ def get_csv_data(url,
     
     if proxies==None:
         try:
-            response = requests.get(url, stream=True)
+            response = requests.get(url)
         except Exception as e:
             for i in range(0, 6, 1):
                 if i < 3:
@@ -211,7 +211,7 @@ def get_csv_data(url,
                     time.sleep(60)  
                     
                 try:
-                    response = requests.get(url, stream=True)
+                    response = requests.get(url)
                     break
                 except Exception as e:
                     i = i                    
@@ -224,7 +224,7 @@ def get_csv_data(url,
                         
     else:
         try:
-            response = requests.get(url, stream=True, proxies=proxies)
+            response = requests.get(url, proxies=proxies)
         except Exception as e:
             for i in range(0, 6, 1):
                 if i < 3:
@@ -235,7 +235,7 @@ def get_csv_data(url,
                     time.sleep(60)  
                     
                 try:
-                    response = requests.get(url, stream=True, proxies=proxies)
+                    response = requests.get(url, proxies=proxies)
                     break
                 except Exception as e:
                     i = i                    
