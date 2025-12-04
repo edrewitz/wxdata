@@ -246,12 +246,14 @@ def get_csv_data(url,
             if response:
                 response.close() # Ensure the connection is closed.
                 
-                        
-    data_stream = BytesIO(response.content)
-    
-    df = pd.read_csv(data_stream)
-    
-    df.to_csv(f"{path}/{filename}", index=False)
+    try:                    
+        data_stream = BytesIO(response.content)
+        
+        df = pd.read_csv(data_stream)
+        
+        df.to_csv(f"{path}/{filename}", index=False)
+    except Exception as e:
+        pass
     if notifications == True:
         print(f"{filename} saved to {path}")
     else:
