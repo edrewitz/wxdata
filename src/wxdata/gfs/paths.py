@@ -24,7 +24,7 @@ def build_directory(model,
     2) GFS0P25 SECONDARY PARAMETERS
     3) GFS0P50
     
-    2) cat (string) - The category of the ensemble data. 
+    2) cat (string) - The category of data. 
     
     Valid categories
     -----------------
