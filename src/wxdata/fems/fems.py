@@ -17,7 +17,9 @@ try:
 except Exception as e:
     utc_time = datetime.utcnow()
     
-    
+folder = os.getcwd()
+folder_modified = folder.replace("\\", "/")
+
 def get_psa_ids(gacc_region):
     
     """
@@ -298,7 +300,7 @@ def get_single_station_data(station_id,
                             end_date=None, 
                             fuel_model='Y', 
                             clear_recycle_bin=True,
-                            path=f'FEMS Data',
+                            path=f'{folder_modified}/FEMS Data',
                             proxies=None):
 
     """
@@ -496,7 +498,7 @@ def get_raws_sig_data(gacc_region,
                                  f"stationIds={station}&endDate={now.strftime('%Y-%m-%dT%H:%M:%S')}Z&"
                                  f"startDate={start.strftime('%Y-%m-%dT%H:%M:%S')}Z&"
                                  f"dataFormat=csv&dataset=observation&fuelModels={fuel_model}",
-                                    f"FEMS Data/Stations/{gacc_region}/{psa}",
+                                    f"{folder_modified}/FEMS Data/Stations/{gacc_region}/{psa}",
                                     fname,
                                     proxies=proxies,
                                     notifications='off',
@@ -649,7 +651,7 @@ def get_nfdrs_forecast_data(gacc_region,
         client.get_csv_data(f"https://fems.fs2c.usda.gov/api/climatology/download-nfdr-daily-summary/?"
                             f"dataset=forecast&startDate={start.strftime('%Y-%m-%d')}&endDate={end.strftime('%Y-%m-%d')}&"
                             f"dataFormat=csv&stationIds={station}&fuelModels={fuel_model}",
-                                    f"FEMS Data/Forecasts/{gacc_region}/{psa}",
+                                    f"{folder_modified}/FEMS Data/Forecasts/{gacc_region}/{psa}",
                                     fname,
                                     proxies=proxies,
                                     notifications='off',
