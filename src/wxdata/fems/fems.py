@@ -363,9 +363,9 @@ def get_single_station_data(station_id,
 
     if number_of_days == 'Custom' or number_of_days == 'custom':
 
-        df = client.get_csv_data(f"https://fems.fs2c.usda.gov/api/climatology/download-nfdr?"
+        df = client.get_csv_data(f"https://fems.fs2c.usda.gov/api/ext-climatology/download-nfdr?"
                             f"stationIds={str(station_id)}&endDate={end_date}Z&startDate={start_date}Z&"
-                            f"dataFormat=csv&dataset=all&fuelModels={fuel_model}",
+                            f"dataFormat=csv&dataset=all&fuelModels={fuel_model}&dateTimeFormat=UTC",
                             path,
                             fname,
                             proxies=proxies,
@@ -381,10 +381,10 @@ def get_single_station_data(station_id,
             
         start = now - timedelta(days=number_of_days)
 
-        df = client.get_csv_data(f"https://fems.fs2c.usda.gov/api/climatology/download-nfdr?"
+        df = client.get_csv_data(f"https://fems.fs2c.usda.gov/api/ext-climatology/download-nfdr?"
                                  f"stationIds={str(station_id)}&endDate={now.strftime(f'%Y-%m-%d')}T{now.strftime(f'%H:%M:%S')}Z&"
                                  f"startDate={start.strftime(f'%Y-%m-%d')}T{start.strftime(f'%H:%M:%S')}Z&"
-                                 f"dataFormat=csv&dataset=all&fuelModels={fuel_model}",
+                                 f"dataFormat=csv&dataset=all&fuelModels={fuel_model}&dateTimeFormat=UTC",
                                 path,
                                 fname,
                                 proxies=proxies,
@@ -494,15 +494,17 @@ def get_raws_sig_data(gacc_region,
         
         fname = f"{station}.csv"
          
-        client.get_csv_data(f"https://fems.fs2c.usda.gov/api/climatology/download-nfdr?"
+        client.get_csv_data(f"https://fems.fs2c.usda.gov/api/ext-climatology/download-nfdr?"
                                  f"stationIds={station}&endDate={now.strftime('%Y-%m-%dT%H:%M:%S')}Z&"
                                  f"startDate={start.strftime('%Y-%m-%dT%H:%M:%S')}Z&"
-                                 f"dataFormat=csv&dataset=observation&fuelModels={fuel_model}",
+                                 f"dataFormat=csv&dataset=observation&fuelModels={fuel_model}&dateTimeFormat=UTC",
                                     f"{folder_modified}/FEMS Data/Stations/{gacc_region}/{psa}",
                                     fname,
                                     proxies=proxies,
                                     notifications='on',
                                     return_pandas_df=False)    
+        
+        
         
     raws.get_psa_percentiles(gacc_region)
     raws.station_stats(gacc_region)
@@ -648,7 +650,7 @@ def get_nfdrs_forecast_data(gacc_region,
     for station, psa in zip(df_station_list['RAWSID'], df_station_list['PSA Code']):
 
         fname = f"{station}.csv"
-        client.get_csv_data(f"https://fems.fs2c.usda.gov/api/climatology/download-nfdr-daily-summary/?"
+        client.get_csv_data(f"https://fems.fs2c.usda.gov/api/ext-climatology/download-nfdr-daily-summary/?"
                             f"dataset=forecast&startDate={start.strftime('%Y-%m-%d')}&endDate={end.strftime('%Y-%m-%d')}&"
                             f"dataFormat=csv&stationIds={station}&fuelModels={fuel_model}",
                                     f"{folder_modified}/FEMS Data/Forecasts/{gacc_region}/{psa}",
