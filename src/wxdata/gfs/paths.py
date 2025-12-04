@@ -29,7 +29,7 @@ def build_directory(model,
     Valid categories
     -----------------
     
-    1) atmosphere
+    1) atmospheric
     2) ocean
     
     Returns
