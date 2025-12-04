@@ -156,6 +156,9 @@ Copy and paste either command into your terminal or anaconda prompt:
 ***Line Query***
 1. [line_query](https://github.com/edrewitz/WxData/blob/main/Documentation/line_query.md)
 
+***Running External Python Scripts In Your Workflow***
+1 [run_external_scripts](https://github.com/edrewitz/WxData/blob/main/Documentation/run_external_scripts.md)
+
 ## Importing Functions from WxData
 
             """
