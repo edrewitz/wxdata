@@ -1,10 +1,8 @@
 # Running External Python Scripts In Your Workflow With WxData
 
 ***def run_external_scripts(paths,
-                         return_values=False,
                          show_values=False):***
 
-    """
     This function automates the running of external Python scripts in the order the user lists them.
     
     Required Arguments:
@@ -25,12 +23,9 @@
             
     Optional Arguments:
     
-    1) return_values (Boolean) - Default=False. If the user wishes to return values from the external script, set return_values=True.
-    
-    2) show_values (Boolean) - Default=False. If the user wants to display the values returned set show_values=True. 
+    1) show_values (Boolean) - Default=False. If the user wants to display the values returned set show_values=True. 
             
     Returns
     -------
     
-    Runs external Python scripts.    
-    """
+    Runs external Python scripts.  
