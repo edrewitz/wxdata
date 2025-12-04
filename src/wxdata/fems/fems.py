@@ -501,7 +501,7 @@ def get_raws_sig_data(gacc_region,
                                     f"{folder_modified}/FEMS Data/Stations/{gacc_region}/{psa}",
                                     fname,
                                     proxies=proxies,
-                                    notifications='on',
+                                    notifications='off',
                                     return_pandas_df=False)    
         
         
