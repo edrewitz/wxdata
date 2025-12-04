@@ -9,7 +9,6 @@ import sys
 import os
 
 def run_external_scripts(paths,
-                         return_values=False,
                          show_values=False):
     
     """
@@ -33,9 +32,7 @@ def run_external_scripts(paths,
             
     Optional Arguments:
     
-    1) return_values (Boolean) - Default=False. If the user wishes to return values from the external script, set return_values=True.
-    
-    2) show_values (Boolean) - Default=False. If the user wants to display the values returned set show_values=True. 
+    1) show_values (Boolean) - Default=False. If the user wants to display the values returned set show_values=True. 
             
     Returns
     -------
@@ -49,15 +46,9 @@ def run_external_scripts(paths,
         fname = os.path.basename(path)
         
         try:
-            if return_values == False:
-                subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            else:
-                result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-                if show_values == True:
-                    print(result.stdout)
-                else:
-                    pass
-                return result
+            subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            if show_values == True:
+                print(result.stdout)
             print(f"{fname} ran successfully.")
         except subprocess.CalledProcessError as e:
             print(f"Script failed with return code {e.returncode}. Error:")
