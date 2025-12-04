@@ -242,18 +242,16 @@ def get_csv_data(url,
                     if i >= 5:
                         print(f"Error - File Cannot Be Downloaded.\nError Code: {e}")    
                         sys.exit(1) 
-        finally:
-            if response:
-                response.close() # Ensure the connection is closed.
+
                 
-    try:                    
-        data_stream = BytesIO(response.content)
-        
-        df = pd.read_csv(data_stream)
-        
-        df.to_csv(f"{path}/{filename}", index=False)
-    except Exception as e:
-        pass
+                   
+    data_stream = BytesIO(response.content)
+    if response:
+        response.close() # Ensure the connection is closed.
+    
+    df = pd.read_csv(data_stream)
+    
+    df.to_csv(f"{path}/{filename}", index=False)
     if notifications == True:
         print(f"{filename} saved to {path}")
     else:
