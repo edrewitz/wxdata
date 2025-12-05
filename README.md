@@ -144,7 +144,7 @@ Copy and paste either command into your terminal or anaconda prompt:
 3. [ECMWF IFS Wave](https://github.com/edrewitz/WxData/blob/main/Documentation/ECMWF%20IFS%20Wave%20Post%20Processing.md)
 
 ***Real-Time Mesoscale Analysis Post-Processing***
-1.[RTMA](https://github.com/edrewitz/WxData/blob/main/Documentation/RTMA%20Post%20Processing.md)
+1. [RTMA](https://github.com/edrewitz/WxData/blob/main/Documentation/RTMA%20Post%20Processing.md)
 
 ***Cyclic Points For Hemispheric Plots***
 1. [Cyclic Points](https://github.com/edrewitz/wxdata/blob/main/Documentation/cyclic_point.md#using-wxdata-to-add-cyclic-points-for-hemispheric-plots)
