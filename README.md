@@ -146,6 +146,9 @@ Copy and paste either command into your terminal or anaconda prompt:
 ***Real-Time Mesoscale Analysis Post-Processing***
 1. [RTMA](https://github.com/edrewitz/WxData/blob/main/Documentation/RTMA%20Post%20Processing.md)
 
+***xmACIS2 Climate Data***
+1. [xmACIS2 Client](https://github.com/edrewitz/WxData/blob/main/Documentation/xmacis2_client.md)
+
 ***Cyclic Points For Hemispheric Plots***
 1. [Cyclic Points](https://github.com/edrewitz/wxdata/blob/main/Documentation/cyclic_point.md#using-wxdata-to-add-cyclic-points-for-hemispheric-plots)
 
