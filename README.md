@@ -1,6 +1,6 @@
 # WxData
 
-<img src="https://github.com/edrewitz/wxdata/blob/main/icons/weather%20icon.jpg" width="200" alt="Alt text" /> <img src="https://github.com/edrewitz/wxdata/blob/main/icons/python%20logo.png" width="200" alt="Alt text" />
+<img src="https://github.com/edrewitz/WxData/blob/main/icons/weather%20icon.jpg?raw=true" width="200" alt="Alt text" /> <img src="https://github.com/edrewitz/WxData/blob/1be590e9a16033974a592d8cf99f3cd521f95e0b/icons/python%20logo.png?raw=true" width="200" alt="Alt text" />
 
 [![Conda Recipe](https://img.shields.io/badge/recipe-wxdata-green.svg)](https://anaconda.org/conda-forge/wxdata) [![Conda Version](https://img.shields.io/conda/vn/conda-forge/wxdata.svg)](https://anaconda.org/conda-forge/wxdata) [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/wxdata.svg)](https://anaconda.org/conda-forge/wxdata) ![PyPI](https://img.shields.io/pypi/v/wxdata?label=pypi%20wxdata) [![Anaconda-Server Badge](https://anaconda.org/conda-forge/wxdata/badges/license.svg)](https://anaconda.org/conda-forge/wxdata) [![Anaconda-Server Badge](https://anaconda.org/conda-forge/wxdata/badges/latest_release_date.svg)](https://anaconda.org/conda-forge/wxdata) 
 
