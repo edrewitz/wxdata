@@ -131,7 +131,11 @@ from wxdata.utils.tools import(
     line_query
 )
 
-# This is the wxdata HTTPS Client with full VPN/PROXY Support
+# These are the wxdata HTTPS Clients with full VPN/PROXY Support
+# Client List:
+#  - get_gridded_data()
+#  - get_csv_data()
+#  - get_xmacis_data()
 import wxdata.client.client as client
 
 # This function executes a list of Python scripts in the order the user lists them
