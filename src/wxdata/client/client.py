@@ -2,10 +2,28 @@ import requests
 import time
 import sys
 import os
+import json
+import urllib
+import numpy as np
 import pandas as pd
 
 from io import BytesIO
+from datetime import datetime, timedelta
 from wxdata.utils.recycle_bin import *
+
+# Getting yesterday's date for the default end date for the xmACIS2 client
+
+now = datetime.now()
+yesterday = now - timedelta(days=1)
+
+year = yesterday.year
+month = yesterday.month
+day = yesterday.day
+
+if day >= 10:
+    yesterday = f"{year}-{month}-{day}"
+else:
+    yesterday = f"{year}-{month}-0{day}"
 
 def get_gridded_data(url,
              path,
@@ -263,3 +281,184 @@ def get_csv_data(url,
     
     else:
         pass
+    
+    
+def get_xmacis_data(station,
+                    start_date=None,
+                    end_date=None,
+                    from_when=yesterday,
+                    time_delta=30,
+                    proxies=None,
+                    clear_recycle_bin=True,
+                    to_csv=False,
+                    path='default',
+                    filename='default',
+                    notifications='on'):
+    
+    """
+    This function is a client that downloads user-specified xmACIS2 data and returns a Pandas.DataFrame
+    The user can also save the data as a CSV file in a specified location
+    This client supports VPN/PROXY connections. 
+    
+    Required Arguments:
+    
+    1) station (String) - The 4 letter station ID (i.e. KRAL for Riverside Municipal Airport in Riverside, CA)
+    
+    Optional Arguments:
+    
+    1) start_date (String or Datetime) - Default=None. For users who want specific start and end dates for their analysis,
+        they can either be passed in as a string in the format of 'YYYY-mm-dd' or as a datetime object.
+        
+    2) end_date (String or Datetime) - Default=None. For users who want specific start and end dates for their analysis,
+        they can either be passed in as a string in the format of 'YYYY-mm-dd' or as a datetime object.
+        
+    3) from_when (String or Datetime) - Default=Yesterday. Default value is yesterday's date. 
+       Dates can either be passed in as a string in the format of 'YYYY-mm-dd' or as a datetime object.
+       
+    4) time_delta (Integer) - Default=30. If from_when is NOT None, time_delta represents how many days IN THE PAST 
+       from the time 'from_when.' (e.g. From January 31st back 30 days)
+       
+    5) proxies (dict or None) - Default=None. If the user is using proxy server(s), the user must change the following:
+
+       proxies=None ---> proxies={
+                           'http':'http://url',
+                           'https':'https://url'
+                        } 
+                        
+    6) clear_recycle_bin (Boolean) - Default=True. When set to True, the contents in your recycle/trash bin will be deleted with each run
+        of the program you are calling WxData. This setting is to help preserve memory on the machine. 
+        
+    7) to_csv (Boolean) - Default=False. When set to True, a CSV file of the data will be created and saved to the user specified or default path.
+    
+    8) path (String) - Default='default'. If set to 'default' the path will be "XMACIS2 DATA/file". Only change if you want to create your 
+       directory path.
+       
+    9) filename (String) - Default='default'. If set to 'default' the filename will be the station ID. Only change if you want a custom
+       filename. 
+       
+    10) notifications (String) - Default='on'. When set to 'on' a print statement to the user will tell the user their file saved to the path
+        they specified. 
+        
+    Returns
+    -------
+    
+    A Pandas.DataFrame of the xmACIS2 climate data the user specifies
+    """
+    if clear_recycle_bin == True:
+        clear_recycle_bin_windows()
+        clear_trash_bin_mac()
+        clear_trash_bin_linux()
+    else:
+        pass  
+    
+    station = station.upper()
+    
+    if path == 'default':
+        path = f"XMACIS2 DATA"
+        if filename == 'default':
+            full_path = f"XMACIS2 DATA/{station}.csv"
+        else:
+            full_path = f"XMACIS2 DATA/{filename}.csv"
+    else:
+        if filename == 'default':
+            full_path = f"{path}/{station}.csv"
+        else:
+            full_path = f"{path}/{filename}.csv"
+    
+    if start_date == None and end_date == None:
+        try:
+            if time_delta != None and from_when != None:
+                if type(from_when) == type('String'):
+                    iyear = int(f"{from_when[0]}{from_when[1]}{from_when[2]}{from_when[3]}")
+                    imonth = int(f"{from_when[5]}{from_when[6]}")
+                    iday = int(f"{from_when[8]}{from_when[9]}")
+                    end_date = datetime(iyear, imonth, iday)
+                else:
+                    end_date = from_when
+                    
+                start_date = end_date - timedelta(days=time_delta)  
+                    
+        except Exception as e:
+            print(f"""Error: Invalid Time Entry
+                
+                    The user must have one of the following for a valid time entry:
+                    
+                    time_delta = days (Integer) - How many days back?
+                    
+                    from_when = date (String) format (YYYY-mm-dd) 
+
+                        The result will be "How many days back from when?"
+                        
+                                        OR
+                                        
+                        time_delta=None
+                        
+                        from_when=None
+                        
+                        In this case enter the start_date and end_date as strings in the YYYY-mm-dd format
+                
+                """)   
+    else:
+        start_date = start_date
+        end_date = end_date
+    
+    if type(start_date) != type('String'):
+        syear = str(start_date.year)
+        smonth = str(start_date.month)
+        sday = str(start_date.day)
+        start_date = f"{syear}-{smonth}-{sday}"
+    else:
+        pass
+    if type(end_date) != type('String'):
+        eyear = str(end_date.year)
+        emonth = str(end_date.month)
+        eday = str(end_date.day)
+        end_date = f"{eyear}-{emonth}-{eday}"
+    else:
+        pass
+    
+
+    input_dict = {
+        'sid': station,
+        'sdate': start_date,
+        'edate': end_date,
+        'elems': ["maxt","mint","avgt",{"name":"avgt","normal":"departure"},"hdd","cdd","pcpn","snow","snwd", "gdd"],
+        'output': 'json'
+    }
+
+
+    output_cols = ['Date', 'Maximum Temperature', 'Minimum Temperature', 'Average Temperature', 'Average Temperature Departure', 'Heating Degree Days', 'Cooling Degree Days', 'Precipitation', 'Snowfall', 'Snow Depth', 'Growing Degree Days']
+        
+    if proxies == None:
+        response = requests.post('http://data.rcc-acis.org/StnData', 
+                                 json=input_dict)
+    else:
+        response = requests.post('http://data.rcc-acis.org/StnData', 
+                                 json=input_dict,
+                                 proxies=proxies)
+        
+    response.close()
+        
+    data = response.json()
+    
+    df = pd.json_normalize(data,
+                      record_path=['data'])
+    
+    df.columns = output_cols
+    
+    if to_csv == True:
+        try:
+            os.makedirs(path)
+        except Exception as e:
+            pass
+        df.to_csv(f"{full_path}", index=False)
+        if notifications == 'on':
+            print(f"{station} Data Saved: {full_path}")
+    else:
+        pass
+    
+    return df
+    
+    
+    
+        
