@@ -337,5 +337,6 @@ Copy and paste either command into your terminal or anaconda prompt:
 3) [University of Wyoming](http://www.weather.uwyo.edu/upperair/sounding.shtml)
 4) [National Oceanic and Atmospheric Administration/National Weather Service](https://tgftp.nws.noaa.gov/)
 5) [National Oceanic and Atmospheric Administration/Aviation Weather Center](https://aviationweather.gov/)
+6) [Applied Climate Information System (ACIS)](https://www.rcc-acis.org/docs_webservices.html)
 
 
