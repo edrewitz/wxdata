@@ -7,6 +7,28 @@ This file hosts the functions that clean up the xmACIS2 Pandas.DataFrame to make
 import pandas as pd
 import numpy as np
 
+def replace_trace_with_zeros(df):
+    
+    """
+    This function replaces trace amounts of precipitation with zeros.
+    A trace of precipitation gets counted as zero in climatology. 
+    
+    Required Arguments:
+    
+    1) df (Pandas.DataFrame) - The Pandas.DataFrame of xmACIS2 data.
+    
+    Optional Arguments: None
+    
+    Returns
+    -------
+    
+    A Pandas.DataFrame with T replaced by zeros.   
+    """
+    
+    df = df.replace('T', 0.00)
+    
+    return df
+
 def missing_to_nan(df):
     
     """
@@ -51,6 +73,7 @@ def clean_pandas_dataframe(df):
     A Pandas.DataFrame with string values converted to integers and floating points.    
     """
     
+    df = replace_trace_with_zeros(df)
     df = missing_to_nan(df)
     
     new_df = pd.DataFrame()
