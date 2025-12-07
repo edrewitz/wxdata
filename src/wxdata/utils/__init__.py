@@ -25,3 +25,4 @@ from wxdata.utils.tools import(
 
 from wxdata.utils.rtma_post_processing import process_rtma_data
 from wxdata.utils.scripts import run_external_scripts
+from wxdata.utils.xmacis2_cleanup import clean_pandas_dataframe

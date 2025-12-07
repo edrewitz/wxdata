@@ -9,6 +9,7 @@ import pandas as pd
 
 from io import BytesIO
 from datetime import datetime, timedelta
+from wxdata.utils.xmacis2_cleanup import clean_pandas_dataframe
 from wxdata.utils.recycle_bin import *
 
 # Getting yesterday's date for the default end date for the xmACIS2 client
@@ -445,6 +446,8 @@ def get_xmacis_data(station,
                       record_path=['data'])
     
     df.columns = output_cols
+    
+    df = clean_pandas_dataframe(df)
     
     if to_csv == True:
         try:
