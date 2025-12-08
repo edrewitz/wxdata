@@ -25,7 +25,7 @@ def replace_trace_with_zeros(df):
     A Pandas.DataFrame with T replaced by zeros.   
     """
     
-    df = df.replace('T', 0.0000001)
+    df = df.replace('T', 0.001)
     
     return df
 
