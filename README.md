@@ -82,7 +82,7 @@ Copy and paste either command into your terminal or anaconda prompt:
 2) [Downloading Observed Sounding Data](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/soundings.ipynb)
 3) [Downloading the first 72 hours of the ECMWF IFS and ECMWF AIFS](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/ecmwf.ipynb)
 4) [Downloading the GEFS members p01 and p02 for only Temperature](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/gefs.ipynb)
-5) [Downloading the Real-Time Mesoscale Analysis (RTMA)](https://github.com/edrewitz/WxData/blob/main/Documentation/RTMA%20Post%20Processing.md)
+5) [Downloading the Real-Time Mesoscale Analysis (RTMA)](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/rtma.ipynb)
 6) [Downloading the RAWS SIG Group Fuels Data and the NFDRS Forecast for the RAWS SIG Groups for the South Ops Geographic Area Coordination Center](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/fems.ipynb)
 7) [Downloading the SPC Convective Outlook for CONUS](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/spc.ipynb)
 8) [Downloading NWS Maximum Temperature Forecast for Hawaii](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/nws_hi.ipynb)
