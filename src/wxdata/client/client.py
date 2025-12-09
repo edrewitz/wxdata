@@ -449,6 +449,8 @@ def get_xmacis_data(station,
     
     df = clean_pandas_dataframe(df)
     
+    df['Date'] = pd.to_datetime(df['Date'])
+    
     if to_csv == True:
         try:
             os.makedirs(path)
