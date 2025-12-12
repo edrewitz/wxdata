@@ -204,13 +204,6 @@ def aigefs_pres_url_scanner(final_forecast_hour,
         y_00
     ]
     
-    files = [
-        file_18z,
-        file_12z,
-        file_06z,
-        file_00z,
-    ]
-    
     # Testing the status code and then returning the first link with a status code of 200
     for response, url in zip(responses, urls):
         if response.status_code == 200:
@@ -436,13 +429,6 @@ def aigefs_sfc_url_scanner(final_forecast_hour,
         y_12,
         y_06,
         y_00
-    ]
-    
-    files = [
-        file_18z,
-        file_12z,
-        file_06z,
-        file_00z,
     ]
     
     # Testing the status code and then returning the first link with a status code of 200
