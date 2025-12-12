@@ -100,6 +100,9 @@ Copy and paste either command into your terminal or anaconda prompt:
 2. [GFS0P25 SECONDARY PARAMETERS](https://github.com/edrewitz/WxData/blob/main/Documentation/GFS0P25%20Secondary%20Parameters.md)
 3. [GFS0P50](https://github.com/edrewitz/WxData/blob/main/Documentation/GEFS0P50.md)
 
+***AI Global Forecast System (AIGFS)***
+1. [AIGFS](https://github.com/edrewitz/WxData/blob/main/Documentation/aigfs.md)
+
 ***Global Ensemble Forecast System (GEFS)***
 1. [GEFS0P50](https://github.com/edrewitz/wxdata/blob/main/Documentation/GEFS0P50.md#global-ensemble-forecast-system-050-x-050-degree-gefs0p50)
 2. [GEFS0P50 SECONDARY PARAMETERS](https://github.com/edrewitz/wxdata/blob/main/Documentation/GEFS0P50%20Secondary%20Parameters.md#global-ensemble-forecast-system-050-x-050-degree-secondary-parameters-gefs0p50-secondary-parameters)
@@ -137,6 +140,9 @@ Copy and paste either command into your terminal or anaconda prompt:
 ***GFS Post-Processing***
 1. [Primary GFS Post-Processing](https://github.com/edrewitz/WxData/blob/main/Documentation/Primary%20GFS%20Post%20Processing.md)
 2. [Secondary GFS Post-Processing](https://github.com/edrewitz/WxData/blob/main/Documentation/Secondary%20GFS%20Post%20Processing.md)
+
+***AIGFS Post-Processing***
+1. [AIGFS Post-Processing](https://github.com/edrewitz/WxData/blob/main/Documentation/aigfs_post_processing.md)
 
 ***GEFS Post-Processing***
 1. [Primary GEFS Post-Processing](https://github.com/edrewitz/WxData/blob/main/Documentation/Primary%20GEFS%20Post-Processing.md)
