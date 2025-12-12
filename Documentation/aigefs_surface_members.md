@@ -17,7 +17,7 @@
             chunk_size=8192,
             notifications='off'):***
 
-    This function downloads the latest surface parameter dataset of the AIGEFS and bins the files to specific folders based on ensemble number.
+    This function downloads, pre-processes and post-processes the latest surface parameter dataset of the AIGEFS and bins the files to specific folders based on ensemble number.
     Users can also enter a list of paths for custom_directory if they do not wish to use the default directory.
     
     Required Arguments: None
