@@ -140,7 +140,7 @@ def aigefs_pres_url_scanner(final_forecast_hour,
                        
     else:
         try:    
-            t_18 = requests.get(f"{today_18z_url}/{file_18zy}", stream=True, proxies=proxies)
+            t_18 = requests.get(f"{today_18z_url}/{file_18z}", stream=True, proxies=proxies)
             t_18.close()
             t_12 = requests.get(f"{today_12z_url}/{file_12z}", stream=True, proxies=proxies)
             t_12.close()
@@ -374,7 +374,7 @@ def aigefs_sfc_url_scanner(final_forecast_hour,
                        
     else:
         try:    
-            t_18 = requests.get(f"{today_18z_url}/{file_18zy}", stream=True, proxies=proxies)
+            t_18 = requests.get(f"{today_18z_url}/{file_18z}", stream=True, proxies=proxies)
             t_18.close()
             t_12 = requests.get(f"{today_12z_url}/{file_12z}", stream=True, proxies=proxies)
             t_12.close()
