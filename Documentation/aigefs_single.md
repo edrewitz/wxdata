@@ -16,7 +16,7 @@
                     cat='mean',
                     type_of_level='pressure'):***
 
-    This function downloads the latest AIGEFS Ensemble Mean or Ensemble Spread for either the Pressure or Surface Parameters. 
+    This function downloads, pre-processes and post-processes the latest AIGEFS Ensemble Mean or Ensemble Spread for either the Pressure or Surface Parameters. 
     Users can also enter a list of paths for custom_directory if they do not wish to use the default directory.
     
     Required Arguments: None
