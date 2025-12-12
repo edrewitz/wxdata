@@ -6,7 +6,7 @@
              northern_bound=90, 
              southern_bound=-90, 
              proxies=None, 
-             members=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+             members=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
                       11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
                       21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
              process_data=True,
@@ -43,7 +43,7 @@
                            'https':'https://url'
                         }
     
-    7) members (List) - Default=All 30 ensemble members. The individual ensemble members. There are 30 members in this ensemble.  
+    7) members (List) - Default=All 30 ensemble members + control. The individual ensemble members. There are 30 members in this ensemble.  
     
     8) process_data (Boolean) - Default=True. When set to True, WxData will preprocess the model data. If the user wishes to process the 
        data via their own external method, set process_data=False which means the data will be downloaded but not processed. 
@@ -76,3 +76,13 @@
     -------
     
     An xarray data array of the AIGEFS Pressure Parameter data specified to the coordinate boundaries and variable list the user specifies. 
+    
+    Pressure-Level Plain Language Variable Keys
+    -------------------------------------------
+    
+    'geopotential_height'
+    'specific_humidity'
+    'air_temperature'
+    'u_wind_component'
+    'v_wind_component'
+    'vertical_velocity'
