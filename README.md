@@ -88,6 +88,8 @@ Copy and paste either command into your terminal or anaconda prompt:
 8) [Downloading NWS Maximum Temperature Forecast for Hawaii](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/nws_hi.ipynb)
 9) [Downloading the GFS0P25 then performing pixel and line queries on the data](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/GFS.ipynb)
 10) [Downloading various datasets from the Applied Climate Information System (ACIS)](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/xmacis2.ipynb)
+11) [Downloading AIGFS Data](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/aigfs.ipynb)
+12) [Downloading AIGEFS Data](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/aigefs.ipynb)
 
 *Advanced Users*
 1) [Using the `client` module to download the latest HadCRUT5 Analysis netCDF file and open this dataset in xarray](https://github.com/edrewitz/WxData-JupyterLab-Examples/blob/main/hadcrut5.ipynb)
