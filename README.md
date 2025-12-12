@@ -108,6 +108,7 @@ Copy and paste either command into your terminal or anaconda prompt:
 ***AI Global Ensemble Forecast System (AIGEFS)***
 1. [AIGEFS Members (Pressure Parameters](https://github.com/edrewitz/WxData/blob/main/Documentation/aigefs_pressure_members.md)
 2. [AIGEFS Members (Surface Parameters](https://github.com/edrewitz/WxData/blob/main/Documentation/aigefs_surface_members.md)
+3. [AIGEFS Ensemble Mean & Ensemble Spread](https://github.com/edrewitz/WxData/blob/main/Documentation/aigefs_single.md)
 
 ***ECMWF Open Data***
 1. [ECMWF IFS](https://github.com/edrewitz/WxData/blob/main/Documentation/ECMWF_IFS.md)
@@ -143,6 +144,7 @@ Copy and paste either command into your terminal or anaconda prompt:
 
 ***AIGEFS Post-Processing***
 1. [AIGEFS Members Post-Processing](https://github.com/edrewitz/WxData/blob/main/Documentation/aigefs_members_post_processing.md)
+2. [AIGEFS Single Post-Processing](https://github.com/edrewitz/WxData/blob/main/Documentation/aigefs_single_post_processing.md)
 
 ***ECMWF Post-Processing***
 1. [ECMWF IFS and ECMWF High Resolution IFS](https://github.com/edrewitz/WxData/blob/main/Documentation/ECMWF%20IFS%20Post%20Processing.md)
