@@ -151,7 +151,7 @@ from wxdata.utils.tools import(
 """
 This section hosts the various data clients that retrieve various types of data.
 
-These clients can be easily configured to work on VPM/PROXY connections.
+These clients can be easily configured to work on VPN/PROXY connections.
 """
 
 # These are the wxdata HTTPS Clients with full VPN/PROXY Support
