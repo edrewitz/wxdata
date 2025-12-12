@@ -1,4 +1,4 @@
-## AIGEFS Pressure Members
+## AIGEFS Members (Pressure Parameters)
 
 ***def aigefs_pressure_members(final_forecast_hour=384, 
              western_bound=-180, 
