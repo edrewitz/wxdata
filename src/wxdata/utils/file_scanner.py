@@ -104,6 +104,7 @@ def local_file_scanner(path,
             filename = filename
         else:
             filename = f"{filename}.grib2"
+            
         if os.path.exists(f"{path}/{filename}"):
             modification_timestamp = os.path.getmtime(f"{path}/{filename}")
             readable_time = time.ctime(modification_timestamp)

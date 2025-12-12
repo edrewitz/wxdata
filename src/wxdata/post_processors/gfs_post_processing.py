@@ -12,7 +12,6 @@ import logging
 import warnings
 warnings.filterwarnings('ignore')
 
-from wxdata.calc.thermodynamics import relative_humidity
 from wxdata.utils.file_funcs import(
     clear_idx_files_in_path,
     sorted_paths

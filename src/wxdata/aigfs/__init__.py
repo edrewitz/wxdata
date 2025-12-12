@@ -1,0 +1,1 @@
+from wxdata.aigfs.aigfs import aigfs

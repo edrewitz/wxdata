@@ -46,6 +46,8 @@ from wxdata.gfs.gfs import(
     gfs_0p50
 )
 
+# AI Global Forecast System (AIGFS)
+from wxdata.aigfs.aigfs import aigfs
 
 # Global Ensemble Forecast System (GEFS)
 from wxdata.gefs.gefs import(
@@ -57,7 +59,8 @@ from wxdata.gefs.gefs import(
 # AI Global Ensemble Forecast System (AIGEFS)
 from wxdata.aigefs.aigefs import(
     aigefs_pressure_members,
-    aigefs_surface_members
+    aigefs_surface_members,
+    aigefs_single
 )
 
 # European Centre for Medium-Range Weather Forecasts (ECMWF)
@@ -105,6 +108,9 @@ These are the functions and modules that:
 
 # Global Forecast System (GFS)
 import wxdata.post_processors.gfs_post_processing as gfs_post_processing
+
+# AI Global Forecast System (AIGFS)
+import wxdata.post_processors.aigfs_post_processing as aigfs_post_processing
 
 # Global Ensemble Forecast System (GEFS)
 import wxdata.post_processors.gefs_post_processing as gefs_post_processing

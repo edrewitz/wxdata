@@ -42,7 +42,7 @@ def file_paths_for_xarray(paths):
     
     Required Arguments:
     
-    1) path (String) - The file path. 
+    1) paths (String) - The file path. 
     
     Optional Arguments: None
     
@@ -52,6 +52,12 @@ def file_paths_for_xarray(paths):
     A list of complete file paths for xarray.open_mfdataset(paths)   
     """
     new_paths = []
+    
+    if type(paths) != type(new_paths):
+        paths = [paths]
+    else:
+        pass
+    
     if len(paths) > 1:
         for path in paths:
             files = []

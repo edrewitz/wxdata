@@ -46,3 +46,45 @@ def build_aigefs_directory(param_type,
         
     return paths
             
+
+def build_aigefs_single_directory(param_type,
+                                  cat):
+    
+    """
+    This function builds the default directory for the AIGEFS.
+    
+    Required Arguments:
+    
+    1) param_type (String) - The type of parameters
+    
+    Parameter Types
+    ---------------
+    
+    1) pressure
+    2) surface
+    
+    2) cat (String) - The category of the data.
+    
+        Catagories
+        ----------
+        
+        1) mean
+        2) spread
+    
+    Returns
+    -------
+    
+    The AIGEFS Directory and the paths associated with the AIGEFS Directory.   
+    """
+    
+    param_type = param_type.upper()
+    cat = cat.upper()
+    
+    try:
+        os.makedirs(f"{folder_modified}/AIGEFS SINGLE/{param_type}/{cat}")
+    except Exception as e:
+        pass
+    
+    path = f"{folder_modified}/AIGEFS SINGLE/{param_type}/{cat}"
+        
+    return path
