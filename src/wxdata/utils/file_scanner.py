@@ -100,15 +100,19 @@ def local_file_scanner(path,
     download = False
     
     if source == 'nomads':
-        if os.path.exists(f"{path}/{filename}.grib2"):
-            modification_timestamp = os.path.getmtime(f"{path}/{filename}.grib2")
+        if model == 'aigefs' or model == 'aigfs':
+            filename = filename
+        else:
+            filename = f"{filename}.grib2"
+        if os.path.exists(f"{path}/{filename}"):
+            modification_timestamp = os.path.getmtime(f"{path}/{filename}")
             readable_time = time.ctime(modification_timestamp)
             update_day = int(f"{readable_time[8]}{readable_time[9]}")
             update_hour = int(f"{readable_time[11]}{readable_time[12]}") 
             if update_day != local.day:
                 download = True
             else:
-                latest = os.path.basename(f"{path}/{filename}.grib2")
+                latest = os.path.basename(f"{path}/{filename}")
                 mrun = extract_runtime(filename)
                 if run == mrun:
                     pass

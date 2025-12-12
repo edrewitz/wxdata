@@ -6,10 +6,8 @@ GRIB variable keys will be post-processed into Plain Language variable keys.
 (C) Eric J. Drewitz 2025
 """
 import xarray as xr
-import glob
 import sys
 import logging
-import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
 

@@ -7,7 +7,7 @@ This file hosts the functions the user interacts with to download GFS data.
 import wxdata.client.client as client
 import os
 import warnings
-import wxdata.utils.gfs_post_processing as gfs_post_processing
+import wxdata.post_processors.gfs_post_processing as gfs_post_processing
 warnings.filterwarnings('ignore')
 
 from wxdata.gfs.paths import build_directory

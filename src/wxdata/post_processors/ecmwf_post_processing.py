@@ -8,7 +8,6 @@ GRIB variable keys will be post-processed into Plain Language variable keys.
 import xarray as xr
 import sys
 import logging
-import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
 

@@ -6,7 +6,7 @@ This file hosts the functions the user has to download ECMWF model data.
 
 import warnings
 import wxdata.client.client as client
-import wxdata.utils.ecmwf_post_processing as ecmwf_post_processing
+import wxdata.post_processors.ecmwf_post_processing as ecmwf_post_processing
 warnings.filterwarnings('ignore')
 
 from wxdata.ecmwf.url_scanners import(

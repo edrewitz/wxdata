@@ -49,10 +49,15 @@ from wxdata.gfs.gfs import(
 
 # Global Ensemble Forecast System (GEFS)
 from wxdata.gefs.gefs import(
-    
     gefs_0p50,
     gefs_0p50_secondary_parameters,
     gefs_0p25
+)
+
+# AI Global Ensemble Forecast System (AIGEFS)
+from wxdata.aigefs.aigefs import(
+    aigefs_pressure_members,
+    aigefs_surface_members
 )
 
 # European Centre for Medium-Range Weather Forecasts (ECMWF)
@@ -88,6 +93,31 @@ from wxdata.soundings.wyoming_soundings import get_observed_sounding_data
 # METAR Observational Data (From NOAA)
 from wxdata.metars.metar_obs import download_metar_data
 
+"""
+This section hosts all the functions and modules that involve post-processing the data.
+These are the functions and modules that:
+
+1) Re-map the GRIB2 Variable Keys into Plain Language Keys
+2) Build the xarray.array of the various datasets. 
+
+"""
+
+
+# Global Forecast System (GFS)
+import wxdata.post_processors.gfs_post_processing as gfs_post_processing
+
+# Global Ensemble Forecast System (GEFS)
+import wxdata.post_processors.gefs_post_processing as gefs_post_processing
+
+# AI Global Ensemble Forecast System (AIGEFS)
+import wxdata.post_processors.aigefs_post_processing as aigefs_post_processing
+
+# European Centre for Medium-Range Weather Forecasts (ECMWF)
+import wxdata.post_processors.ecmwf_post_processing as ecmwf_post_processing
+
+# Real-Time Mesoscale Analysis (RTMA)
+from wxdata.post_processors.rtma_post_processing import process_rtma_data
+
 
 """
 This section hosts the utility functions accessable to the user. 
@@ -102,19 +132,6 @@ Utility functions are geared towards the following types of users:
 2) Users who want to make hemispheric graphics or any graphics where cyclic points
    resolve missing data along the prime meridian or international dateline. 
 """
-# Global Forecast System (GFS)
-import wxdata.utils.gfs_post_processing as gfs_post_processing
-
-# Global Ensemble Forecast System (GEFS)
-import wxdata.utils.gefs_post_processing as gefs_post_processing
-
-# European Centre for Medium-Range Weather Forecasts (ECMWF)
-import wxdata.utils.ecmwf_post_processing as ecmwf_post_processing
-
-# Real-Time Mesoscale Analysis (RTMA)
-from wxdata.utils.rtma_post_processing import process_rtma_data
-
-
 # WxData function using cartopy to make cyclic points
 # This is for users who wish to make graphics that cross the -180/180 degree longitude line
 # This is commonly used for Hemispheric graphics
@@ -130,6 +147,12 @@ from wxdata.utils.tools import(
     pixel_query,
     line_query
 )
+
+"""
+This section hosts the various data clients that retrieve various types of data.
+
+These clients can be easily configured to work on VPM/PROXY connections.
+"""
 
 # These are the wxdata HTTPS Clients with full VPN/PROXY Support
 # Client List:

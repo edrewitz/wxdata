@@ -7,7 +7,6 @@ This file hosts the function that preprocesses RTMA Data.
 import xarray as xr
 import numpy as np
 import metpy.calc as mpcalc
-import glob
 import sys
 import logging
 import warnings

@@ -7,7 +7,7 @@ This file hosts functions that download various types of GEFS Data
 import wxdata.client.client as client
 import os
 import warnings
-import wxdata.utils.gefs_post_processing as gefs_post_processing
+import wxdata.post_processors.gefs_post_processing as gefs_post_processing
 warnings.filterwarnings('ignore')
 
 from wxdata.gefs.file_funcs import(
@@ -345,7 +345,6 @@ def gefs_0p50(cat='mean',
         clear_empty_files(paths)
         
         if custom_directory == None:
-            print(f"")
             ds = process_gefs_data('gefs0p50', 
                                         cat,
                                         members)
