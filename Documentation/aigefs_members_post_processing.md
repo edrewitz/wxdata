@@ -25,4 +25,22 @@
     Returns
     -------
     
-    An xarray.array in a plain language variable key format.   
+    An xarray.array in a plain language variable key format.     
+    
+    Pressure-Level Plain Language Variable Keys
+    -------------------------------------------
+    
+    'geopotential_height'
+    'specific_humidity'
+    'air_temperature'
+    'u_wind_component'
+    'v_wind_component'
+    'vertical_velocity'
+    
+    Surface-Level Plain Language Variable Keys
+    ------------------------------------------
+    
+    '10m_u_wind_component'
+    '10m_v_wind_component'
+    'mslp'
+    '2m_temperature'
