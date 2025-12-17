@@ -346,5 +346,7 @@ def aigefs_single_post_processing(path,
     except Exception as e:
         pass
     
-        
+    
+    ds = ds.sortby('step')
+    
     return ds

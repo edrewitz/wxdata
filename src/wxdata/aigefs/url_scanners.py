@@ -80,15 +80,15 @@ def aigefs_pres_members_url_scanner(final_forecast_hour,
     # These are the different download URLs for the various runtimes in the past 24 hours
     
     # URLs to scan for the latest file
-    today_18z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/18/mem{last_member}/model/atmos/grib2")
-    today_12z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/12/mem{last_member}/model/atmos/grib2")
-    today_06z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/06/mem{last_member}/model/atmos/grib2")
-    today_00z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/00/mem{last_member}/model/atmos/grib2")
+    today_18z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/18/mem{last_member}/model/atmos/grib2")
+    today_12z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/12/mem{last_member}/model/atmos/grib2")
+    today_06z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/06/mem{last_member}/model/atmos/grib2")
+    today_00z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/00/mem{last_member}/model/atmos/grib2")
     
-    yesterday_18z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/18/mem{last_member}/model/atmos/grib2")
-    yesterday_12z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/12/mem{last_member}/model/atmos/grib2")
-    yesterday_06z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/06/mem{last_member}/model/atmos/grib2")
-    yesterday_00z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/00/mem{last_member}/model/atmos/grib2")
+    yesterday_18z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/18/mem{last_member}/model/atmos/grib2")
+    yesterday_12z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/12/mem{last_member}/model/atmos/grib2")
+    yesterday_06z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/06/mem{last_member}/model/atmos/grib2")
+    yesterday_00z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/00/mem{last_member}/model/atmos/grib2")
     
     file_18z = f"aigefs.t18z.pres.f{final_forecast_hour}.grib2"
     file_12z = f"aigefs.t12z.pres.f{final_forecast_hour}.grib2"
@@ -228,28 +228,28 @@ def aigefs_pres_members_url_scanner(final_forecast_hour,
         else:
             m = f"0{member}"
         if url == today_18z_url:
-                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/18/mem{m}/model/atmos/grib2"
+                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/18/mem{m}/model/atmos/grib2"
                 urls.append(u)
         elif url == today_12z_url:
-                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/12/mem{m}/model/atmos/grib2"
+                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/12/mem{m}/model/atmos/grib2"
                 urls.append(u)
         elif url == today_06z_url:
-                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/06/mem{m}/model/atmos/grib2"
+                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/06/mem{m}/model/atmos/grib2"
                 urls.append(u)
         elif url == today_00z_url:
-                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/00/mem{m}/model/atmos/grib2"
+                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/00/mem{m}/model/atmos/grib2"
                 urls.append(u)
         elif url == yesterday_18z_url:
-                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/18/mem{m}/model/atmos/grib2"
+                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/18/mem{m}/model/atmos/grib2"
                 urls.append(u)
         elif url == yesterday_12z_url:
-                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/12/mem{m}/model/atmos/grib2"
+                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/12/mem{m}/model/atmos/grib2"
                 urls.append(u)
         elif url == yesterday_06z_url:
-                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/06/mem{m}/model/atmos/grib2"
+                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/06/mem{m}/model/atmos/grib2"
                 urls.append(u)
         else:
-                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/00/mem{m}/model/atmos/grib2"
+                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/00/mem{m}/model/atmos/grib2"
                 urls.append(u)
         
     return urls, file, run
@@ -307,15 +307,15 @@ def aigefs_sfc_members_url_scanner(final_forecast_hour,
     # These are the different download URLs for the various runtimes in the past 24 hours
     
     # URLs to scan for the latest file
-    today_18z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/18/mem{last_member}/model/atmos/grib2")
-    today_12z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/12/mem{last_member}/model/atmos/grib2")
-    today_06z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/06/mem{last_member}/model/atmos/grib2")
-    today_00z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/00/mem{last_member}/model/atmos/grib2")
+    today_18z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/18/mem{last_member}/model/atmos/grib2")
+    today_12z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/12/mem{last_member}/model/atmos/grib2")
+    today_06z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/06/mem{last_member}/model/atmos/grib2")
+    today_00z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/00/mem{last_member}/model/atmos/grib2")
     
-    yesterday_18z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/18/mem{last_member}/model/atmos/grib2")
-    yesterday_12z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/12/mem{last_member}/model/atmos/grib2")
-    yesterday_06z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/06/mem{last_member}/model/atmos/grib2")
-    yesterday_00z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/00/mem{last_member}/model/atmos/grib2")
+    yesterday_18z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/18/mem{last_member}/model/atmos/grib2")
+    yesterday_12z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/12/mem{last_member}/model/atmos/grib2")
+    yesterday_06z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/06/mem{last_member}/model/atmos/grib2")
+    yesterday_00z_url = (f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/00/mem{last_member}/model/atmos/grib2")
     
     file_18z = f"aigefs.t18z.sfc.f{final_forecast_hour}.grib2"
     file_12z = f"aigefs.t12z.sfc.f{final_forecast_hour}.grib2"
@@ -455,28 +455,28 @@ def aigefs_sfc_members_url_scanner(final_forecast_hour,
         else:
             m = f"0{member}"
         if url == today_18z_url:
-                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/18/mem{m}/model/atmos/grib2"
+                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/18/mem{m}/model/atmos/grib2"
                 urls.append(u)
         elif url == today_12z_url:
-                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/12/mem{m}/model/atmos/grib2"
+                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/12/mem{m}/model/atmos/grib2"
                 urls.append(u)
         elif url == today_06z_url:
-                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/06/mem{m}/model/atmos/grib2"
+                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/06/mem{m}/model/atmos/grib2"
                 urls.append(u)
         elif url == today_00z_url:
-                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/00/mem{m}/model/atmos/grib2"
+                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/00/mem{m}/model/atmos/grib2"
                 urls.append(u)
         elif url == yesterday_18z_url:
-                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/18/mem{m}/model/atmos/grib2"
+                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/18/mem{m}/model/atmos/grib2"
                 urls.append(u)
         elif url == yesterday_12z_url:
-                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/12/mem{m}/model/atmos/grib2"
+                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/12/mem{m}/model/atmos/grib2"
                 urls.append(u)
         elif url == yesterday_06z_url:
-                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/06/mem{m}/model/atmos/grib2"
+                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/06/mem{m}/model/atmos/grib2"
                 urls.append(u)
         else:
-                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/00/mem{m}/model/atmos/grib2"
+                u = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/00/mem{m}/model/atmos/grib2"
                 urls.append(u)
         
     return urls, file, run
@@ -548,15 +548,15 @@ def aigefs_single_url_scanner(final_forecast_hour,
     else:
         final_forecast_hour = f"00{final_forecast_hour}"
         
-    today_18z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/18/ensstat/products/atmos/grib2/"
-    today_12z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/12/ensstat/products/atmos/grib2/"
-    today_06z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/06/ensstat/products/atmos/grib2/"
-    today_00z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{now.strftime('%Y%m%d')}/00/ensstat/products/atmos/grib2/"
+    today_18z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/18/ensstat/products/atmos/grib2/"
+    today_12z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/12/ensstat/products/atmos/grib2/"
+    today_06z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/06/ensstat/products/atmos/grib2/"
+    today_00z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{now.strftime('%Y%m%d')}/00/ensstat/products/atmos/grib2/"
     
-    yesterday_18z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/18/ensstat/products/atmos/grib2/"
-    yesterday_12z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/12/ensstat/products/atmos/grib2/"
-    yesterday_06z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/06/ensstat/products/atmos/grib2/"
-    yesterday_00z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/para/aigefs.{yd.strftime('%Y%m%d')}/00/ensstat/products/atmos/grib2/"
+    yesterday_18z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/18/ensstat/products/atmos/grib2/"
+    yesterday_12z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/12/ensstat/products/atmos/grib2/"
+    yesterday_06z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/06/ensstat/products/atmos/grib2/"
+    yesterday_00z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigefs/prod/aigefs.{yd.strftime('%Y%m%d')}/00/ensstat/products/atmos/grib2/"
     
     file_18z = f"aigefs.t18z.{level}.{cat}.f{final_forecast_hour}.grib2"
     file_12z = f"aigefs.t12z.{level}.{cat}.f{final_forecast_hour}.grib2"

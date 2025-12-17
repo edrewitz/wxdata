@@ -84,15 +84,15 @@ def aigfs_url_scanner(final_forecast_hour,
     else:
         final_forecast_hour = f"00{final_forecast_hour}"
         
-    today_18z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigfs/para/aigfs.{now.strftime('%Y%m%d')}/18/model/atmos/grib2/"
-    today_12z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigfs/para/aigfs.{now.strftime('%Y%m%d')}/12/model/atmos/grib2/"
-    today_06z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigfs/para/aigfs.{now.strftime('%Y%m%d')}/06/model/atmos/grib2/"
-    today_00z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigfs/para/aigfs.{now.strftime('%Y%m%d')}/00/model/atmos/grib2/"
+    today_18z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigfs/prod/aigfs.{now.strftime('%Y%m%d')}/18/model/atmos/grib2/"
+    today_12z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigfs/prod/aigfs.{now.strftime('%Y%m%d')}/12/model/atmos/grib2/"
+    today_06z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigfs/prod/aigfs.{now.strftime('%Y%m%d')}/06/model/atmos/grib2/"
+    today_00z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigfs/prod/aigfs.{now.strftime('%Y%m%d')}/00/model/atmos/grib2/"
     
-    yesterday_18z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigfs/para/aigfs.{yd.strftime('%Y%m%d')}/18/model/atmos/grib2/"
-    yesterday_12z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigfs/para/aigfs.{yd.strftime('%Y%m%d')}/12/model/atmos/grib2/"
-    yesterday_06z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigfs/para/aigfs.{yd.strftime('%Y%m%d')}/06/model/atmos/grib2/"
-    yesterday_00z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigfs/para/aigfs.{yd.strftime('%Y%m%d')}/00/model/atmos/grib2/"
+    yesterday_18z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigfs/prod/aigfs.{yd.strftime('%Y%m%d')}/18/model/atmos/grib2/"
+    yesterday_12z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigfs/prod/aigfs.{yd.strftime('%Y%m%d')}/12/model/atmos/grib2/"
+    yesterday_06z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigfs/prod/aigfs.{yd.strftime('%Y%m%d')}/06/model/atmos/grib2/"
+    yesterday_00z_url = f"https://nomads.ncep.noaa.gov/pub/data/nccf/com/aigfs/prod/aigfs.{yd.strftime('%Y%m%d')}/00/model/atmos/grib2/"
 
                 
     file_18z = f"aigfs.t18z.{level}.f{final_forecast_hour}.grib2"

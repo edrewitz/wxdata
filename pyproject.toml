@@ -1,6 +1,6 @@
 [project]
 name = "wxdata"
-version = "1.2"
+version = "1.2.1"
 description = "A Python library that acts as a client to download, pre-process and post-process weather data. Friendly for users on VPN/PROXY connections."
 readme = "README.md"
 requires-python = ">=3.10"
