@@ -1562,6 +1562,8 @@ def primary_gfs_post_processing(path):
     
     clear_idx_files_in_path(path)
     
+    ds = ds.sortby('step')
+    
     return ds
 
 
@@ -2005,5 +2007,7 @@ def secondary_gfs_post_processing(path):
         pass    
     
     clear_idx_files_in_path(path)
+    
+    ds = ds.sortby('step')
     
     return ds

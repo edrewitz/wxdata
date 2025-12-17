@@ -875,6 +875,8 @@ def primary_gefs_post_processing(paths):
     
     clear_gefs_idx_files(paths)
     
+    ds = ds.sortby('step')
+    
     return ds
 
 
@@ -3093,6 +3095,8 @@ def secondary_gefs_post_processing(paths):
         pass
 
     clear_gefs_idx_files(paths)
+    
+    ds = ds.sortby('step')
 
     return ds
 

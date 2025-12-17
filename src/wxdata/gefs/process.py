@@ -908,6 +908,7 @@ def process_gefs_data(model,
     except Exception as e:
         pass
     
+    ds = ds.sortby('step')
     
     return ds
 
@@ -3150,5 +3151,7 @@ def process_gefs_secondary_parameters_data(model,
     else:
         ds = ds
 
+    ds = ds.sortby('step')
+    
     return ds
 
