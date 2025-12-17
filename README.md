@@ -39,6 +39,22 @@ Copy and paste either command into your terminal or anaconda prompt:
 
 `pip install wxdata`
 
+**How To Update To The Latest Version**
+
+Copy and paste either command into your terminal or anaconda prompt:
+
+*Update via Anaconda*
+
+***This is for users who initially installed WxData through Anaconda***
+
+`conda update wxdata`
+
+*Update via pip*
+
+***This is for users who initially installed WxData through pip***
+
+`pip install --upgrade wxdata`
+
 1) Friendly for users working on VPN/PROXY connections.
    - Users input their PROXY IP address as a dictionary and pass it into the function to avoid SSL errors
      - If the user is on a VPN/PROXY Connection the following is needed:
