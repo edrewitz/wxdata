@@ -524,6 +524,7 @@ def ecmwf_ifs_post_processing(path,
     
     clear_idx_files_in_path(path)
         
+    ds = ds.sortby('step')
     return ds
 
 
@@ -962,6 +963,7 @@ def ecmwf_aifs_post_processing(path,
     
     clear_idx_files_in_path(path)
     
+    ds = ds.sortby('step')
     return ds
 
 def ecmwf_ifs_wave_post_processing(path,
@@ -1054,4 +1056,5 @@ def ecmwf_ifs_wave_post_processing(path,
     
     clear_idx_files_in_path(path)
     
+    ds = ds.sortby('step')
     return ds

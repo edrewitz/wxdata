@@ -189,6 +189,8 @@ def aigefs_members_post_processing(paths,
         except Exception as e:
             pass
         
+        
+    ds = ds.sortby('step')
     return ds
 
 
