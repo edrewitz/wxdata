@@ -11,8 +11,11 @@ In order for your pull request to be accepted, you must comply with the followin
 5) Do not plagerize anyone else's work.
 6) You are not allowed to use packages that are not available on BOTH Anaconda and PYPI (pip) (i.e. pygrib is not allowed and users must use xarray with cfgrib for post-processing)
     - This project must be available on PYPI in addition to Anaconda to maximize access for use.
-7) The use of setup.py files is forbidden due to security vulerabilities associated with the use of setup.py. We use pyproject.toml for building our recipe. 
-8) Be willing to accept feedback and constructive criticism.
-9) Be respectful.
-10) Have fun!
+7) The use of setup.py files is forbidden due to security vulerabilities associated with the use of setup.py. We use pyproject.toml for building our recipe.
+8) If you are adding data access for a new data source or using new packages not already used in WxData, please cite the data source/package at the following:
+     - [packages](https://github.com/edrewitz/WxData?tab=readme-ov-file#citations)
+     - [data sources](https://github.com/edrewitz/WxData?tab=readme-ov-file#data-sources)
+9) Be willing to accept feedback and constructive criticism.
+10) Be respectful.
+11) Have fun!
     
